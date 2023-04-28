@@ -62,3 +62,6 @@ ignore: null
 theme: icarus
 deploy:
   type: git
+  repo: https://github.com/JasonDong97/JasonDong97.github.io.git
+  branch: gh-pages
+  message: "hexo-deploy"

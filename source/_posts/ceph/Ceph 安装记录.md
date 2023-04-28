@@ -5,7 +5,7 @@ categories: Ceph 学习
 ---
 
 ceph 安装记录
-
+<!-- more -->
 ```bash bash
 sudo su
 apt install -y python-is-python3 systemd chrony
