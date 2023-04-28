@@ -3,7 +3,7 @@ title: "Ceph 安装记录"
 tags: ceph
 ---
 
-# Ceph 安装记录
+ceph 安装记录
 
 ```bash
 sudo su

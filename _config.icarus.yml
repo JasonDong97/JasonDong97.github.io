@@ -326,6 +326,7 @@ plugins:
   #    tracking_id:
   # BuSuanZi site/page view counter
   # https://busuanzi.ibruce.info
+  # 网站访问计数
   busuanzi: true
   # CNZZ statistics
   # https://www.umeng.com/web
