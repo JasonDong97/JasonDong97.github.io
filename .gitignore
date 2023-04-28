@@ -1,4 +1,7 @@
+.history
 node_modules
 /.vscode
 /.github
 /public/
+db.json
+package-lock.json
