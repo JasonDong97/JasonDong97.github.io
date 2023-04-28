@@ -1,4 +1,5 @@
 ---
+title: "Ceph 安装记录"
 tags: ceph
 ---
 
