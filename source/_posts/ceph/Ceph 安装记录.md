@@ -1,11 +1,12 @@
 ---
 title: "Ceph 安装记录"
 tags: ceph
+categories: Ceph 学习
 ---
 
 ceph 安装记录
 
-```bash
+```bash bash
 sudo su
 apt install -y python-is-python3 systemd chrony
 

@@ -1,394 +1,129 @@
-# 配置文件的版本
-version: 4.0.0
-# 伊卡洛斯主题变体，可以是“默认”或“赛博朋克”
+version: 5.1.0
 variant: default
-# 网站徽标的路径或 URL
-logo: /img/logo.svg
-# 页面元数据配置
+logo: /img/logo.jpg
 head:
-  # 网站图标的 URL 或路径
-  favicon: /img/favicon.svg
-  # Web 应用程序清单配置
-  # https://developer.mozilla.org/en-US/docs/Web/Manifest
+  favicon: /img/logo.jpg
   manifest:
-    # Web 应用程序的名称（默认为站点标题）
     name: Jason Dong
-    # Web 应用程序的显示名称
-    # 当没有足够的空间显示全名时
     short_name: Jason
-    # Web 应用程序的起始 URL
-    start_url:
-    # 应用程序的默认主题颜色
-    theme_color:
-    # 应用程序页面在其样式表加载之前显示的占位符背景颜色
+    start_url: /archives
+    theme_color: "#3273dc"
     background_color:
-    # 网站的首选显示模式
     display: standalone
-    # 可用作不同上下文的应用程序图标的图像文件
     icons:
-      - # 图像文件的路径
-        src: ''
-        # 包含以空格分隔的图像尺寸的字符串
-        sizes: ''
-        # 关于图像媒体类型的提示
-        type:
-  # 开放图元数据
-  # https://hexo.io/docs/helpers.html#open-graph
+      - src: /img/logo.jpg
+        sizes: 144x144
+        type: image/jpg
   open_graph:
-    # 页面标题（og:title）（可选）
-    # 大多数时候你应该把它留空
     title:
-    # Page type (og:type) (optional)
-    # 大多数时候你应该把它留空
     type: blog
-    # Page URL (og:url) (optional)
-    # 大多数时候你应该把它留空
     url:
-    # Page cover (og:image) (optional)
-    # 大多数时候你应该把它留空
     image:
-    # Site name (og:site_name) (optional)
-    # You should leave this blank for most of the time
     site_name:
-    # Page author (article:author) (optional)
-    # 大多数时候你应该把它留空
     author:
-    # Page description (og:description) (optional)
-    # 大多数时候你应该把它留空
     description:
-    # Twitter card type (twitter:card)
-    #twitter_card:
-    # Twitter ID (twitter:creator)
-    #twitter_id:
-    # Twitter Site (twitter:site)
-    #twitter_site:
-    # Google+ profile link (deprecated)
-    # google_plus:
-    # Facebook admin ID
-    #fb_admins:
-    # Facebook App ID
-    #fb_app_id:
-  # Structured data of the page
-  # https://developers.google.com/search/docs/guides/intro-structured-data
-  structured_data:
-    # Page title (optional)
-    # You should leave this blank for most of the time
-    title:
-    # Page description (optional)
-    # You should leave this blank for most of the time
-    description:
-    # Page URL (optional)
-    # You should leave this blank for most of the time
-    url:
-    # Page author (article:author) (optional)
-    # You should leave this blank for most of the time
-    author:
-    # Page publisher (optional)
-    # You should leave this blank for most of the time
-    publisher:
-    # Page publisher logo (optional)
-    # You should leave this blank for most of the time
-    publisher_logo:
-    # Page images (optional)
-    # You should leave this blank for most of the time
-    image:
-  # Additional HTML meta tags in an array
-  meta:
-    # Meta tag specified in <attribute>=<value> style
-    # E.g., name=theme-color;content=#123456 => <meta name="theme-color" content="#123456">
-    - ''
-  # URL or path to the website's RSS atom.xml
-  rss:
-# Page top navigation bar configurations
+    twitter_card:
+    twitter_id:
+    twitter_site:
+    google_plus:
+    fb_admins:
+    fb_app_id:
 navbar:
-  # Navigation menu items
   menu:
     首页: /
     文章: /archives
     分类: /categories
     标签: /tags
-  # Links to be shown on the right of the navigation bar
   links:
-    # Download on GitHub:
-    #   icon: fab fa-github
-    #   url: 'https://github.com/JasonDong97'
-# Page footer configurations
-footer:
-  # Links to be shown on the right of the footer section
-  links:
-    Creative Commons:
-      icon: fab fa-creative-commons
-      url: 'https://creativecommons.org/'
-    Attribution 4.0 International:
-      icon: fab fa-creative-commons-by
-      url: 'https://creativecommons.org/licenses/by/4.0/'
-    Download on GitHub:
+    GitHub:
       icon: fab fa-github
-      url: 'https://github.com/Luciendon'
-# Article related configurations
+      url: https://github.com/JasonDong97
 article:
-  # Code highlight settings
+  toc: true
   highlight:
-    # Code highlight themes
-    # https://github.com/highlightjs/highlight.js/tree/master/src/styles
-    theme: atom-one-dark
-    # Show copy code button
+    enable: true
+    auto_detect: true
+    theme: monokai-sublime
     clipboard: true
-    # Default folding status of the code blocks. Can be "", "folded", "unfolded"
-    fold: folded
-  # Whether to show estimated article reading time
-  readtime: true
-  # Article licensing block
+    fold: unfolded
+  readmore: true
+  update_time: true
   licenses:
     Creative Commons:
       icon: fab fa-creative-commons
-      url: 'https://creativecommons.org/'
+      url: https://creativecommons.org/
     Attribution:
       icon: fab fa-creative-commons-by
-      url: 'https://creativecommons.org/licenses/by/4.0/'
+      url: https://creativecommons.org/licenses/by/4.0/
     Noncommercial:
       icon: fab fa-creative-commons-nc
-      url: 'https://creativecommons.org/licenses/by-nc/4.0/'
-# 搜索插件配置
-# https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Search/
-
-# 站内搜索
+      url: https://creativecommons.org/licenses/by-nc/4.0/
+sidebar:
+  left:
+    sticky: true
+  right:
+    sticky: true
+footer:
+  links:
+    Creative Commons:
+      icon: fab fa-creative-commons
+      url: https://creativecommons.org/
+    Attribution 4.0 International:
+      icon: fab fa-creative-commons-by
+      url: https://creativecommons.org/licenses/by/4.0/
+    Download on GitHub:
+      icon: fab fa-github
+      url: https://github.com/JasonDong97
 search:
   type: insight
-  # 评论插件配置
-  # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Comment/
 comment:
   type: changyan
   app_id: cywEhcB4R
   conf: prod_ca49fe0fb8dfbaf8406465c598ed933d
-  
-  #Disqus shortname
-  #shortname: ''
-  
-  # Donate plugin configurations
-  # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Donation/
-  # 捐赠
-  # donates:
-  #  # "Afdian.net" donate button configurations
-  #  - type: afdian
-  #    # URL to the "Afdian.net" personal page
-  #    url: ''
-  #  # Alipay donate button configurations
-  #  - type: alipay
-  #    # Alipay qrcode image URL
-  #    qrcode: ''
-  #  # "Buy me a coffee" donate button configurations
-  #  - type: buymeacoffee
-  #    # URL to the "Buy me a coffee" page
-  #    url: ''
-  #  # Patreon donate button configurations
-  #  - type: patreon
-  #    # URL to the Patreon page
-  #    url: ''
-  #  # Paypal donate button configurations
-  #  - type: paypal
-  #    # Paypal business ID or email address
-  #    business: ''
-  #    # Currency code
-  #    currency_code: USD
-  #  # Wechat donate button configurations
-  #  - type: wechat
-  #    # Wechat qrcode image URL
-  #    qrcode: ''
-
-
-  # Share plugin configurations
-  # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Share/
-  # share:
-  #  type: sharethis
-  # ShareThis共享插件脚本的URL
-  # install_url: ''
-# Sidebar configurations.
-# Please be noted that a sidebar is only visible when it has at least one widget
-sidebar:
-  # Left sidebar configurations
-  left:
-    # Whether the sidebar sticks to the top when page scrolls
-    sticky: true
-  # Right sidebar configurations
-  right:
-    # Whether the sidebar sticks to the top when page scrolls
-    sticky: true
-# Sidebar widget configurations
-# http://ppoffice.github.io/hexo-theme-icarus/categories/Widgets/
 widgets:
-  # Profile widget configurations
-  - # 小部件应该放在哪里，左边栏还是右边栏
-    position: left
+  - position: left
     type: profile
-    # 作者姓名
     author: Jason Dong
-    # 作者的标题
     author_title: 静心净心 戒骄戒躁
-    # 作者的当前位置
-    location: China
-    # 头像图像的URL或路径
-    avatar: /img/head.jpg
-    # 是否显示圆角的头像
+    location: 中国·安徽·合肥
+    avatar: /img/deer.svg
     avatar_rounded: true
-    # Gravatar的电子邮件地址
-    # gravatar: 534458392@qq.com
-    # URL or path for the follow button
-    follow_link: 'https://github.com/JasonDong97'
-    # Links to be shown on the bottom of the profile widget
+    gravatar:
+    follow_link: https://github.com/JasonDong97
     social_links:
-      # Github:
-      #   icon: fab fa-github
-      #   url: 'https://github.com/JasonDong97'
-      # CSDN:
-      #   icon: fab fa-csdn
-      #   url: https://blog.csdn.net/djx5344
-      #      Facebook:
-      #        icon: fab fa-facebook
-      #        url: 'https://facebook.com'
-      #      Twitter:
-      #        icon: fab fa-twitter
-      #        url: 'https://twitter.com'
-      #      Dribbble:
-      #        icon: fab fa-dribbble
-      #        url: 'https://dribbble.com'
-      #      RSS:
-      #        icon: fas fa-rss
-      #        url: /
-  # 最近发布的小部件配置
-  - # Where should the widget be placed, left sidebar or right sidebar
-    position: right
-    type: recent_posts
-  # 目录小部件配置
-  - # Where should the widget be placed, left sidebar or right sidebar
-    position: left
+      Github:
+        icon: fab fa-github
+        url: https://github.com/JasonDong97
+      CSDN: https://blog.csdn.net/djx5344
+  - position: left
     type: toc
-    # 是否显示每个标题的索引
     index: true
-    # 是否在看不到子标题时将其折叠
     collapsed: true
-    # 最多可显示的标题级别(1-6)
     depth: 5
-  # 推荐链接小部件配置
-  - # 小部件应该放在哪里，左边栏还是右边栏
-    position: right
+  - position: right
+    type: recent_posts
+  - position: right
     type: links
-    # Names and URLs of the sites
     links:
-      Github: 'https://github.com'
+      Github: https://github.com
       Hexo: https://hexo.io
       icarus: https://ppoffice.github.io/hexo-theme-icarus/
+      icarus主题配置: https://ppoffice.github.io/hexo-theme-icarus/Configuration/icarus%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/
       畅言云评: https://changyan.kuaizhan.com/
-  # 类别小部件的配置
-  - # Where should the widget be placed, left sidebar or right sidebar
-    position: left
+  - position: left
     type: categories
-  # 档案小部件的配置
-  - # Where should the widget be placed, left sidebar or right sidebar
-    position: left
+  - position: right
     type: archives
-  # 标签小部件的配置
-  - # Where should the widget be placed, left sidebar or right sidebar
-    position: left
+  - position: left
     type: tags
-  # 谷歌FeedBurner邮件订阅小部件配置
-#  - # Where should the widget be placed, left sidebar or right sidebar
-#    position: left
-#    type: subscribe_email
-#    # Hint text under the email input
-#    description:
-#    # Feedburner ID
-#    feedburner_id: ''
-#    # Google AdSense 单元配置
-#    #- # 小部件应该放在哪里，左侧边栏还是右侧边栏
-#    #position: left
-#    #type: adsense
-#    # AdSense 客户 ID
-#    #client_id: ''
-#    # ADSENSE_AD_UNIT_ID
-#    #slot_id: ''
-# Plugin configurations
-# https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/
 plugins:
-  # 启用页面启动动画
   animejs: true
-  # 显示“back to top”按钮
   back_to_top: true
-  # 百度Analytics插件设置
-  # https://tongji.baidu.com
-  #  baidu_analytics:
-  #    # Baidu Analytics tracking ID
-  #    tracking_id:
-  # Bing Webmaster Tools plugin settings
-  # https://www.bing.com/toolbox/webmaster/
-  #  bing_webmaster:
-  #    # Bing网站管理员工具跟踪ID在<meta>标签
-  #    tracking_id:
-  # BuSuanZi site/page view counter
-  # https://busuanzi.ibruce.info
-  # 网站访问计数
-  busuanzi: true
-  # CNZZ statistics
-  # https://www.umeng.com/web
-  #  cnzz:
-  #    # CNZZ tracker id
-  #    id:
-  #    # CNZZ website id
-  #    web_id:
-  # 提醒用户使用cookie
-  # https://www.osano.com/cookieconsent/
-  #  cookie_consent:
-  #    # The compliance type. Can be "info", "opt-in", or "opt-out"
-  #    type: info
-  #    # Theme of the popup. Can be "block", "edgeless", or "classic"
-  #    theme: edgeless
-  #    # Whether the popup should stay static regardless of the page scrolls
-  #    static: false
-  #    # Where on the screen the consent popup should display
-  #    position: bottom-left
-  #    # URL to your site's cookie policy
-  #    policyLink: 'https://www.cookiesandyou.com/'
-  # Enable the lightGallery and Justified Gallery plugins
+  baidu_analytics:
+    tracking_id:
+  busuanzi: false
   gallery: true
-  # Google Analytics plugin settings
-  # https://analytics.google.com
-  #  google_analytics:
-  #    # Google Analytics tracking ID
-  #    tracking_id:
-  # Hotjar用户反馈插件
-  # https://www.hotjar.com/
-  #  hotjar:
-  #    # Hotjar site id
-  #    site_id:
-  # Enable the KaTeX math typesetting support
-  # https://katex.org/
-  katex: false
-  # 启用MathJax数学排版支持
-  # https://www.mathjax.org/
+  katex: true
   mathjax: true
-  # Enable the Outdated Browser plugin
-  # http://outdatedbrowser.com/
   outdated_browser: false
-  # 在页面加载时在页面顶部显示一个进度条
-  progressbar: true
-  # Statcounter statistics
-  # https://statcounter.com/
-  #  statcounter:
-  #    # Statcounter project id
-  #    project:
-  #    # Statcounter project security code
-  #    security:
-  # Twitter conversion tracking plugin settings
-  # https://business.twitter.com/en/help/campaign-measurement-and-analytics/conversion-tracking-for-websites.html
-#  twitter_conversion_tracking:
-#    # Twitter Pixel ID
-#    pixel_id:
-# CDN provider settings
-# https://ppoffice.github.io/hexo-theme-icarus/Configuration/Theme/speed-up-your-site-with-custom-cdn/
-providers:
-  # 名称或URL模板的JavaScript和或样式表CDN提供商
-  cdn: jsdelivr
-  # webfont CDN提供程序的名称或URL模板
-  fontcdn: google
-  # 字体CDN提供程序的图标名称或URL
-  iconcdn: fontawesome
+  progressbar: false
