@@ -12,10 +12,10 @@ head:
   # https://developer.mozilla.org/en-US/docs/Web/Manifest
   manifest:
     # Web 应用程序的名称（默认为站点标题）
-    name: Mr.D
+    name: Jason Dong
     # Web 应用程序的显示名称
     # 当没有足够的空间显示全名时
-    short_name:
+    short_name: Jason
     # Web 应用程序的起始 URL
     start_url:
     # 应用程序的默认主题颜色
@@ -109,9 +109,9 @@ navbar:
     标签: /tags
   # Links to be shown on the right of the navigation bar
   links:
-    Download on GitHub:
-      icon: fab fa-github
-      url: 'https://github.com/Luciendon'
+    # Download on GitHub:
+    #   icon: fab fa-github
+    #   url: 'https://github.com/JasonDong97'
 # Page footer configurations
 footer:
   # Links to be shown on the right of the footer section
@@ -131,11 +131,11 @@ article:
   highlight:
     # Code highlight themes
     # https://github.com/highlightjs/highlight.js/tree/master/src/styles
-    theme: atom-one-light
+    theme: atom-one-dark
     # Show copy code button
     clipboard: true
     # Default folding status of the code blocks. Can be "", "folded", "unfolded"
-    fold: unfolded
+    fold: folded
   # Whether to show estimated article reading time
   readtime: true
   # Article licensing block
@@ -157,15 +157,18 @@ search:
   type: insight
   # 评论插件配置
   # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Comment/
-  #comment:
-  #type: disqus
-  # Disqus shortname
+comment:
+  type: changyan
+  app_id: cywEhcB4R
+  conf: prod_ca49fe0fb8dfbaf8406465c598ed933d
+  
+  #Disqus shortname
   #shortname: ''
+  
   # Donate plugin configurations
   # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Donation/
-
-  #捐赠
-  #donates:
+  # 捐赠
+  # donates:
   #  # "Afdian.net" donate button configurations
   #  - type: afdian
   #    # URL to the "Afdian.net" personal page
@@ -196,10 +199,10 @@ search:
 
   # Share plugin configurations
   # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Share/
-  #share:
-  #type: sharethis
+  # share:
+  #  type: sharethis
   # ShareThis共享插件脚本的URL
-  #install_url: ''
+  # install_url: ''
 # Sidebar configurations.
 # Please be noted that a sidebar is only visible when it has at least one widget
 sidebar:
@@ -219,7 +222,7 @@ widgets:
     position: left
     type: profile
     # 作者姓名
-    author: Mr.D
+    author: Jason Dong
     # 作者的标题
     author_title: 静心净心 戒骄戒躁
     # 作者的当前位置
@@ -229,26 +232,29 @@ widgets:
     # 是否显示圆角的头像
     avatar_rounded: true
     # Gravatar的电子邮件地址
-    #gravatar: 534458392@qq.com
+    # gravatar: 534458392@qq.com
     # URL or path for the follow button
-    follow_link: 'https://github.com/LucienDon'
+    follow_link: 'https://github.com/JasonDong97'
     # Links to be shown on the bottom of the profile widget
     social_links:
-      Github:
-        icon: fab fa-github
-        url: 'https://github.com/LucienDon'
-  #      Facebook:
-  #        icon: fab fa-facebook
-  #        url: 'https://facebook.com'
-  #      Twitter:
-  #        icon: fab fa-twitter
-  #        url: 'https://twitter.com'
-  #      Dribbble:
-  #        icon: fab fa-dribbble
-  #        url: 'https://dribbble.com'
-  #      RSS:
-  #        icon: fas fa-rss
-  #        url: /
+      # Github:
+      #   icon: fab fa-github
+      #   url: 'https://github.com/JasonDong97'
+      # CSDN:
+      #   icon: fab fa-csdn
+      #   url: https://blog.csdn.net/djx5344
+      #      Facebook:
+      #        icon: fab fa-facebook
+      #        url: 'https://facebook.com'
+      #      Twitter:
+      #        icon: fab fa-twitter
+      #        url: 'https://twitter.com'
+      #      Dribbble:
+      #        icon: fab fa-dribbble
+      #        url: 'https://dribbble.com'
+      #      RSS:
+      #        icon: fas fa-rss
+      #        url: /
   # 最近发布的小部件配置
   - # Where should the widget be placed, left sidebar or right sidebar
     position: right
@@ -270,6 +276,9 @@ widgets:
     # Names and URLs of the sites
     links:
       Github: 'https://github.com'
+      Hexo: https://hexo.io
+      icarus: https://ppoffice.github.io/hexo-theme-icarus/
+      畅言云评: https://changyan.kuaizhan.com/
   # 类别小部件的配置
   - # Where should the widget be placed, left sidebar or right sidebar
     position: left

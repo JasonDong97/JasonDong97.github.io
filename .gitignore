@@ -1,7 +1,7 @@
 .history
 node_modules
-/.vscode
-/.github
+.vscode
+.github
 public/
 db.json
 package-lock.json

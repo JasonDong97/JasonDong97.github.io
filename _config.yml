@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Mr.D
-subtitle: 'Java 开发工程师'
+title: Jason Dong
+subtitle: '后端工程师'
 description: ''
-keywords:
-author: Lucien Don
+keywords: Java, Python
+author: Jason Dong
 language: zh-CN
-timezone:
+timezone: GMT+8
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
