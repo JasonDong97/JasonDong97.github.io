@@ -42,10 +42,10 @@ article:
   toc: true
   highlight:
     enable: true
-    auto_detect: true
-    theme: monokai-sublime
+    theme: atom-one-dark
     clipboard: true
     fold: unfolded
+  readtime: true
   readmore: true
   update_time: true
   licenses:
@@ -86,7 +86,7 @@ widgets:
     author: Jason Dong
     author_title: 静心净心 戒骄戒躁
     location: 中国·安徽·合肥
-    avatar: /img/deer.svg
+    avatar: /img/head.jpg
     avatar_rounded: true
     gravatar:
     follow_link: https://github.com/JasonDong97

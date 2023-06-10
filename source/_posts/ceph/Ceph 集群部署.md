@@ -3,6 +3,7 @@ title: "Ceph集群部署"
 tags: ceph
 categories: Ceph 学习
 toc: true
+cover:
 ---
 
 # 一、Ceph 简介

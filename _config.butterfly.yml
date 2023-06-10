@@ -1,0 +1,268 @@
+# 导航栏设置
+nav:
+  logo:
+  display_title: true
+  fixed: true # fixed navigation bar
+
+# 菜单导航
+menu:
+  首页: / || fas fa-home
+  文章: /archives/ || fas fa-archive
+  标签: /tags/ || fas fa-tags
+  分类: /categories/ || fas fa-folder-open
+  友情链接: /link/ || fas fa-link
+
+# 代码高亮主题 （darker、pale night、light、ocean、mac、mac light）
+highlight_theme: mac
+# 代码复制
+highlight_copy: true
+# 代码折叠
+highlight_shrink: false
+# 代码自动换行
+code_word_wrap: false
+# 代码高度限制
+highlight_height_limit: 200
+
+## 自定义代码样式
+# inject:
+#   head:
+#     - <link rel="stylesheet" href="/self/Kimbiedark.css">
+
+# 社交图标设置
+social:
+  fab fa-github: https://github.com/JasonDong97 || Github || "#hdhfbb"
+  fas fa-envelope: mailto:534458392@qq.com || Email || "#000000"
+
+# 头像
+avatar:
+  img: /img/avatar.jpg
+  effect: false # 头像会一直转圈
+
+# 顶部图
+disable_top_img: false # 是否禁用顶部图
+index_img: # 首页顶部图
+default_top_img: /img/background.jpg # 默认顶部图
+archive_img: # 归档页顶部图
+tag_img: # 标签页顶部图
+tag_per_img: # 标签详情页顶部图
+category_img: # 分类页顶部图
+category_per_img: # 分类详情页顶部图
+
+# 文章封面
+cover:
+  # 是否显示文章封面
+  index_enable: true
+  aside_enable: true
+  archives_enable: true
+  # 封面显示的位置
+  # 三个值可配置 left , right , both
+  position: left
+  # 当没有设置cover时, 默认的封面显示
+  default_cover:
+    - https://file.crazywong.com/gh/jerryc127/CDN@latest/cover/default_bg.png
+
+# 页面 meta 显示
+post_meta:
+  page:
+    date_type: both # created or updated or both 主页文章日期是创建日或者更新日或都显示
+    date_format: date # date/relative 显示日期还是相对日期
+    categories: true # true or false 主页是否显示分类
+    tags: true # true or false 主页是否显示标签
+    label: true # true or false 显示描述性文字
+  post:
+    date_type: both # created or updated or both 文章页日期是创建日或者更新日或都显示
+    date_format: relative # date/relative 显示日期还是相对日期
+    categories: true # true or false 文章页是否显示分类
+    tags: true # true or false 文章页是否显示标签
+    label: true # true or false 显示描述性文字
+
+# 图片锚点
+photofigcaption: true
+
+# copy settings
+# copyright: Add the copyright information after copied content (复制的内容后面加上版权信息)
+copy:
+  enable: true
+  copyright:
+    enable: true
+    limit_count: 50
+# 文章目录配置
+toc:
+  post: true # 文章页是否显示 TOC
+  page: true # 普通页面是否显示 TOC
+  number: true # 是否显示章节数
+  expand: false # 是否展开 TOC
+  style_simple: false # 简洁模式（侧边栏只显示 TOC, 只对文章页有效 ）
+  scroll_percent: true # 是否显示滚动进度百分比
+
+# 推荐文章
+related_post:
+  enable: true
+  limit: 6 # 显示推荐文章数目
+  date_type: created # or created or updated 文章日期显示创建日或者更新日
+
+# 侧边排版
+aside:
+  enable: true
+  hide: false
+  button: true
+  mobile: true # display on mobile
+  position: right # left or right
+  display:
+    archive: true
+    tag: true
+    category: true
+  card_author:
+    enable: true
+    description: 静心净心 戒骄戒躁
+    button:
+      enable: false
+      icon: fab fa-github
+      text: 关注我
+      link: https://github.com/JasonDong97
+  # 公告
+  card_announcement:
+    enable: false
+    content: 静心净心 戒骄戒躁
+
+  # 最近文章
+  card_recent_post:
+    enable: true
+    limit: 5
+    sort: date
+  # 分类
+  card_categories:
+    enable: true
+    limit: 8
+    expand: none
+  # 标签
+  card_tags:
+    enable: true
+    limit: 40
+    color: true
+    orderby: name # 排序规则： random/name/length
+    order: 1 # Sort of order. 1, asc for ascending; -1, desc for descending
+  # 归档
+  card_archives:
+    enable: true
+    type: monthly # yearly or monthly
+    format: MMMM YYYY # eg: YYYY年MM月
+    order: -1 # Sort of order. 1, asc for ascending; -1, desc for descending
+    limit: 8 # if set 0 will show all
+  # 网站信息
+  card_webinfo:
+    enable: false
+    post_count: true
+    last_push_date: true
+
+# 404 页面配置
+error_404:
+  enable: true
+  subtitle: "页面没有找到"
+  background: /img/background.jpg
+
+# 页脚
+footer:
+  owner:
+    enable: false
+    since: 2018
+  custom_text: 欢迎来到我的博客~
+
+# 本地搜索
+local_search:
+  enable: true
+  # 是否开启预加载
+  preload: true
+  # 搜索匹配文章的数量
+  top_n_per_article: 1
+  # 将 html 字符串解码为可读字符串
+  unescape: true
+  CDN:
+
+# footer是否显示图片背景(与top_img一致)
+footer_bg: true
+
+# 鼠标点击效果
+ClickShowText:
+  enable: true
+  text:
+    - 自由
+    - 平等
+    - 公正
+    - 法制
+    - 爱国
+    - 敬业
+    - 诚信
+    - 友善
+  fontSize: 15px
+  random: false # 文字随机显示
+  mobile: false
+
+# Font settings for the site title and site subtitle
+# 左上角网站名字 主页居中网站名字
+blog_title_font:
+  font_link: https://fonts.googleapis.com/css?family=Titillium+Web&display=swap
+  font-family: Titillium Web, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft JhengHei', 'Microsoft YaHei', sans-serif
+
+# 主页subtitle
+subtitle:
+  enable: true
+  # Typewriter Effect (打字效果)
+  effect: true
+  startDelay: 300 # time before typing starts in milliseconds
+  typeSpeed: 150 # type speed in milliseconds
+  backSpeed: 50 # backspacing speed in milliseconds
+  # loop (循环打字)
+  loop: true
+  # source 调用第三方服务
+  # source: false 关闭调用
+  # source: 1  调用一言网的一句话（简体） https://hitokoto.cn/
+  # source: 2  调用一句网（简体） http://yijuzhan.com/
+  # source: 3  调用今日诗词（简体） https://www.jinrishici.com/
+  # subtitle 会先显示 source , 再显示 sub 的内容
+  source: false
+  # 如果关闭打字效果，subtitle 只会显示 sub 的第一行文字
+  sub:
+    - 静心净心 戒骄戒躁 ~
+
+# 背景特效
+canvas_nest:
+  enable: true
+  color: '0,0,255' #color of lines, default: '0,0,0'; RGB values: (R,G,B).(note: use ',' to separate.)
+  opacity: 0.7 # the opacity of line (0~1), default: 0.5.
+  zIndex: -1 # z-index property of the background, default: -1.
+  count: 99 # the number of lines, default: 99.
+  mobile: false # false 手机端不显示 true 手机端显示
+
+# 美化页面显示
+beautify:
+  enable: true
+  field: site # site/post
+  title-prefix-icon: '\f0c1'
+  title-prefix-icon-color: "#F47466"
+
+# 加载动画 Loading Animation
+preloader:
+  enable: false
+  # source
+  # 1. fullpage-loading
+  # 2. pace (progress bar)
+  source: 1
+  # pace theme (see https://codebyzach.github.io/pace/)
+  pace_css_url:
+
+# 图片大图查看模式
+medium_zoom: true
+
+# Pjax [Beta]
+# It may contain bugs and unstable, give feedback when you find the bugs.
+# https://github.com/MoOx/pjax
+pjax: 
+  enable: true
+  exclude:
+    - /music/
+    - /no-pjax/
+
+# https://instant.page/
+# prefetch (预加载)
+instantpage: true

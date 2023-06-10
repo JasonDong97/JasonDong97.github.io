@@ -2,6 +2,7 @@
 title: "Ceph 安装记录"
 tags: ceph
 categories: Ceph 学习
+cover:
 ---
 
 ceph 安装记录
