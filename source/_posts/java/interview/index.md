@@ -687,7 +687,7 @@ System.out.println("for spend;"+(System.currentTimeMills()-start));
 
 构造一个拥有100万数据的ArrayList和等价的LinkedList，使用以上代码进行测试，测试结果：
 
-![图片](https://raw.githubusercontent.com/JasonDong97/blog_pics/master/posts/11.png)
+![图片](https://jason-dong-blog-1259058668.cos.ap-nanjing.myqcloud.com/img/11.png)
 
 可以看到，**最简便的ForEach循环并没有很好的性能表现，综合性能不如普通的迭代器，而是用for循环通过随机访问遍历列表时，ArrayList表项很好，但是LinkedList的表现却无法让人接受，甚至没有办法等待程序的结束。这是因为对LinkedList进行随机访问时，总会进行一次列表的遍历操作。性能非常差，应避免使用。**
 
