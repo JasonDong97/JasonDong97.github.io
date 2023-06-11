@@ -271,13 +271,13 @@ beautify:
 
 # 加载动画 Loading Animation
 preloader:
-  enable: false
+  enable: true
   # source
   # 1. fullpage-loading
   # 2. pace (progress bar)
-  source: 1
+  source: 2
   # pace theme (see https://codebyzach.github.io/pace/)
-  pace_css_url:
+  pace_css_url: /css/pace/flash.css
 
 # 图片大图查看模式
 medium_zoom: true
