@@ -35,14 +35,14 @@ social:
 
 # 头像
 avatar:
-  img: http://rw2uwha41.hd-bkt.clouddn.com/pic/avatar.jpg
+  img: /img/avatar.jpg
   effect: false # 头像会一直转圈
 
 # 顶部图
 disable_top_img: false # 是否禁用顶部图
 index_img: # 首页顶部图
 # 默认顶部图
-default_top_img: http://rw2uwha41.hd-bkt.clouddn.com/pic/wallhaven-4592v3.jpg
+default_top_img: /img/background2.jpg
 archive_img: # 归档页顶部图
 tag_img: # 标签页顶部图
 tag_per_img: # 标签详情页顶部图
@@ -60,16 +60,16 @@ cover:
   position: left
   # 当没有设置cover时, 默认的封面显示
   default_cover:
-    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric1.jpg
-    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric2.png
-    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric3.png
-    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric4.jpg
-    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric5.png
-    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric6.png
-    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric7.jpg
-    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric8.png
-    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric9.png
-    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric10.png
+    - /img/default_cover/geomeric1.png
+    - /img/default_cover/geomeric2.png
+    - /img/default_cover/geomeric3.png
+    - /img/default_cover/geomeric4.jpg
+    - /img/default_cover/geomeric5.png
+    - /img/default_cover/geomeric6.png
+    - /img/default_cover/geomeric7.jpg
+    - /img/default_cover/geomeric8.png
+    - /img/default_cover/geomeric9.png
+    - /img/default_cover/geomeric10.png
 
 # 页面 meta 显示`
 post_meta:
