@@ -60,7 +60,7 @@ cover:
   position: both
   # 当没有设置cover时, 默认的封面显示
   default_cover:
-    - /img/default_cover/geomeric1.png
+    - /img/default_cover/geomeric1.jpg
     - /img/default_cover/geomeric2.png
     - /img/default_cover/geomeric3.png
     - /img/default_cover/geomeric4.jpg
@@ -271,7 +271,7 @@ beautify:
 
 # 加载动画 Loading Animation
 preloader:
-  enable: true
+  enable: false
   # source
   # 1. fullpage-loading
   # 2. pace (progress bar)
