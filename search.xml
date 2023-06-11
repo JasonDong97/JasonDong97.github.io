@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Ceph 安装记录</title>
-    <url>/2023/06/10/ceph/Ceph%20%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/</url>
+    <url>/2023/06/11/ceph/Ceph%20%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<p>ceph 安装记录</p>
 <span id="more"></span>
 <pre class="line-numbers language-bash" data-language="bash"><div class="caption"><span>bash</span></div><code class="language-bash"><span class="token function">sudo</span> <span class="token function">su</span>
@@ -82,7 +82,7 @@ ceph orch <span class="token operator">&lt;</span>start<span class="token operat
   </entry>
   <entry>
     <title>Ceph集群部署</title>
-    <url>/2023/06/10/ceph/Ceph%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</url>
+    <url>/2023/06/11/ceph/Ceph%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</url>
     <content><![CDATA[<h1 id="一、Ceph-简介"><a href="#一、Ceph-简介" class="headerlink" title="一、Ceph 简介"></a>一、Ceph 简介</h1><blockquote>
 <p>一个 Ceph 存储集群需要至少一个 Ceph 监视器、Ceph 管理器和 Ceph OSD(对象存储守护进程)。在运行 Ceph 文件系统客户端时，也需要 Ceph 元数据服务器。</p>
 </blockquote>
@@ -2041,6 +2041,144 @@ ceph <span class="token parameter variable">-s</span><span aria-hidden="true" cl
 <blockquote>
 <p>《Java 序列化的高级认识》<br><a href="https://www.ibm.com/developerworks/cn/java/j-lo-serial/">https://www.ibm.com/developerworks/cn/java/j-lo-serial/</a></p>
 </blockquote>
+<h3 id="什么情况用ArrayList-or-LinkedList呢"><a href="#什么情况用ArrayList-or-LinkedList呢" class="headerlink" title="什么情况用ArrayList or LinkedList呢?"></a>什么情况用ArrayList or LinkedList呢?</h3><p>列表（list）是元素的有序集合，也称为序列。它提供了基于元素位置的操作，有助于快速访问、添加和删除列表中特定索引位置的元素。List 接口实现了 <code>Collection </code>和 <code>Iterable </code>作为父接口。它允许存储重复值和空值，支持通过索引访问元素。</p>
+<h4 id="ArrayList-和-LinkedList-的不同之处"><a href="#ArrayList-和-LinkedList-的不同之处" class="headerlink" title="ArrayList 和 LinkedList 的不同之处"></a>ArrayList 和 LinkedList 的不同之处</h4><h5 id="增加元素到列表尾端"><a href="#增加元素到列表尾端" class="headerlink" title="增加元素到列表尾端"></a>增加元素到列表尾端</h5><p>在 <code>ArrayList</code> 中增加元素到队列尾端的代码如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+   <span class="token function">ensureCapacity</span><span class="token punctuation">(</span>size<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//确保内部数组有足够的空间</span>
+   elementData<span class="token punctuation">[</span>size<span class="token operator">++</span><span class="token punctuation">]</span><span class="token operator">=</span>e<span class="token punctuation">;</span><span class="token comment">//将元素加入到数组的末尾，完成添加</span>
+   <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>      
+<span class="token punctuation">&#125;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>ArrayList</code>中 <code>add()</code> 方法的性能决定于<code>ensureCapacity()</code>方法。<code>ensureCapacity()</code>的实现如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> vod <span class="token function">ensureCapacity</span><span class="token punctuation">(</span><span class="token keyword">int</span> minCapacity<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  modCount<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token keyword">int</span> oldCapacity<span class="token operator">=</span>elementData<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>minCapacity<span class="token operator">></span>oldCapacity<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>    <span class="token comment">//如果数组容量不足，进行扩容</span>
+      <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> oldData<span class="token operator">=</span>elementData<span class="token punctuation">;</span>
+      <span class="token keyword">int</span> newCapacity<span class="token operator">=</span><span class="token punctuation">(</span>oldCapacity<span class="token operator">*</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>  <span class="token comment">//扩容到原始容量的1.5倍</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>newCapacitty<span class="token operator">&lt;</span>minCapacity<span class="token punctuation">)</span>   <span class="token comment">//如果新容量小于最小需要的容量，则使用最小</span>
+                                                    <span class="token comment">//需要的容量大小</span>
+         newCapacity<span class="token operator">=</span>minCapacity <span class="token punctuation">;</span>  <span class="token comment">//进行扩容的数组复制</span>
+         elementData<span class="token operator">=</span><span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">copyof</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span>newCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到，只要<code>ArrayList</code>的当前容量足够大，<code>a  dd()</code>操作的效率非常高的。只有当<code>ArrayList</code>对容量的需求超出当前数组大小时，才需要进行扩容。扩容的过程中，会进行大量的数组复制操作。而数组复制时，最终将调用<code>System.arraycopy()</code>方法，因此<code>add()</code>操作的效率还是相当高的。</p>
+<p><code>LinkedList</code> 的<code>add()</code>操作实现如下，它也将任意元素增加到队列的尾端：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+   <span class="token function">addBefore</span><span class="token punctuation">(</span>e<span class="token punctuation">,</span>header<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//将元素增加到header的前面</span>
+   <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>其中<code>addBefore()</code>的方法实现如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token class-name">Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">></span></span> <span class="token function">addBefore</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">,</span><span class="token class-name">Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">></span></span> entry<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+     <span class="token class-name">Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">></span></span> newEntry <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>e<span class="token punctuation">,</span>entry<span class="token punctuation">,</span>entry<span class="token punctuation">.</span>previous<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     newEntry<span class="token punctuation">.</span>provious<span class="token punctuation">.</span>next<span class="token operator">=</span>newEntry<span class="token punctuation">;</span>
+     newEntry<span class="token punctuation">.</span>next<span class="token punctuation">.</span>previous<span class="token operator">=</span>newEntry<span class="token punctuation">;</span>
+     size<span class="token operator">++</span><span class="token punctuation">;</span>
+     modCount<span class="token operator">++</span><span class="token punctuation">;</span>
+     <span class="token keyword">return</span> newEntry<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可见，<strong>LinkeList由于使用了链表的结构，因此不需要维护容量的大小。从这点上说，它比ArrayList有一定的性能优势，然而，每次的元素增加都需要新建一个Entry对象，并进行更多的赋值操作。在频繁的系统调用中，对性能会产生一定的影响。</strong></p>
+<h5 id="增加元素到列表任意位置"><a href="#增加元素到列表任意位置" class="headerlink" title="增加元素到列表任意位置"></a>增加元素到列表任意位置</h5><p>除了提供元素到List的尾端，List接口还提供了在任意位置插入元素的方法：<code>void add(int index,E element);</code></p>
+<p><strong>由于实现的不同，ArrayList和LinkedList在这个方法上存在一定的性能差异，由于ArrayList是基于数组实现的，而数组是一块连续的内存空间，如果在数组的任意位置插入元素，必然导致在该位置后的所有元素需要重新排列，因此，其效率相对会比较低。</strong></p>
+<p>以下代码是ArrayList中的实现：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">,</span><span class="token class-name">E</span> element<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+   <span class="token keyword">if</span><span class="token punctuation">(</span>index<span class="token operator">></span>size<span class="token operator">||</span>index<span class="token operator">&lt;</span><span class="token number">0</span><span class="token punctuation">)</span>
+      <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IndexOutOfBoundsException</span><span class="token punctuation">(</span>
+        <span class="token string">"Index:"</span><span class="token operator">+</span>index<span class="token operator">+</span><span class="token string">",size: "</span><span class="token operator">+</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token function">ensureCapacity</span><span class="token punctuation">(</span>size<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">arraycopy</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span>index<span class="token punctuation">,</span>elementData<span class="token punctuation">,</span>index<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>size<span class="token operator">-</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         elementData<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> element<span class="token punctuation">;</span>
+         size<span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到每次插入操作，都会进行一次数组复制。而这个操作在增加元素到List尾端的时候是不存在的，大量的数组重组操作会导致系统性能低下。并且插入元素在List中的位置越是靠前，数组重组的开销也越大。</p>
+<p>而LinkedList此时显示了优势：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">,</span><span class="token class-name">E</span> element<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+   <span class="token function">addBefore</span><span class="token punctuation">(</span>element<span class="token punctuation">,</span><span class="token punctuation">(</span>index<span class="token operator">==</span>size<span class="token operator">?</span>header<span class="token operator">:</span><span class="token function">entry</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>可见，<strong>对LinkedList来说，在List的尾端插入数据与在任意位置插入数据是一样的，不会因为插入的位置靠前而导致插入的方法性能降低。</strong></p>
+<h5 id="删除任意位置元素"><a href="#删除任意位置元素" class="headerlink" title="删除任意位置元素"></a>删除任意位置元素</h5><p>对于元素的删除，List接口提供了在任意位置删除元素的方法：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">E</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>对ArrayList来说，remove()方法和add()方法是雷同的。在任意位置移除元素后，都要进行数组的重组。ArrayList的实现如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">E</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+   <span class="token class-name">RangeCheck</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   modCount<span class="token operator">++</span><span class="token punctuation">;</span>
+   <span class="token class-name">E</span> oldValue<span class="token operator">=</span><span class="token punctuation">(</span><span class="token class-name">E</span><span class="token punctuation">)</span> elementData<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">int</span> numMoved<span class="token operator">=</span>size<span class="token operator">-</span>index<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>numMoved<span class="token operator">></span><span class="token number">0</span><span class="token punctuation">)</span>
+     <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">arraycopy</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span>index<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>elementData<span class="token punctuation">,</span>index<span class="token punctuation">,</span>numMoved<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     elementData<span class="token punctuation">[</span><span class="token operator">--</span>size<span class="token punctuation">]</span><span class="token operator">=</span><span class="token keyword">null</span><span class="token punctuation">;</span>
+     <span class="token keyword">return</span> oldValue<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到，<strong>在ArrayList的每一次有效的元素删除操作后，都要进行数组的重组。并且删除的位置越靠前，数组重组时的开销越大。</strong></p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">E</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token function">entry</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">private</span> <span class="token class-name">Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">></span></span> <span class="token function">entry</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>index<span class="token operator">&lt;</span><span class="token number">0</span> <span class="token operator">||</span> index<span class="token operator">>=</span>size<span class="token punctuation">)</span>
+      <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IndexOutBoundsException</span><span class="token punctuation">(</span><span class="token string">"Index:"</span><span class="token operator">+</span>index<span class="token operator">+</span><span class="token string">",size:"</span><span class="token operator">+</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token class-name">Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">></span></span> e<span class="token operator">=</span> header<span class="token punctuation">;</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>index<span class="token operator">&lt;</span><span class="token punctuation">(</span>size<span class="token operator">>></span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token comment">//要删除的元素位于前半段</span>
+         <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>index<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
+             e<span class="token operator">=</span>e<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+     <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+         <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span>size<span class="token punctuation">;</span>i<span class="token operator">></span>index<span class="token punctuation">;</span>i<span class="token operator">--</span><span class="token punctuation">)</span>
+             e<span class="token operator">=</span>e<span class="token punctuation">.</span>previous<span class="token punctuation">;</span>
+     <span class="token punctuation">&#125;</span>
+         <span class="token keyword">return</span> e<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在LinkedList的实现中，首先要通过循环找到要删除的元素。如果要删除的位置处于List的前半段，则从前往后找；若其位置处于后半段，则从后往前找。因此无论要删除较为靠前或者靠后的元素都是非常高效的；但要移除List中间的元素却几乎要遍历完半个List，在List拥有大量元素的情况下，效率很低。</p>
+<h5 id="容量参数"><a href="#容量参数" class="headerlink" title="容量参数"></a>容量参数</h5><p>容量参数是ArrayList和Vector等基于数组的List的特有性能参数。它表示初始化的数组大小。当ArrayList所存储的元素数量超过其已有大小时。它便会进行扩容，数组的扩容会导致整个数组进行一次内存复制。因此合理的数组大小有助于减少数组扩容的次数，从而提高系统性能。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span>  <span class="token class-name">ArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">this</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">public</span> <span class="token class-name">ArrayList</span> <span class="token punctuation">(</span><span class="token keyword">int</span> initialCapacity<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+   <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">if</span><span class="token punctuation">(</span>initialCapacity<span class="token operator">&lt;</span><span class="token number">0</span><span class="token punctuation">)</span>
+       <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"Illegal Capacity:"</span><span class="token operator">+</span>initialCapacity<span class="token punctuation">)</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>elementData<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span>initialCapacity<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>ArrayList提供了一个可以制定初始数组大小的构造函数：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">ArrayList</span><span class="token punctuation">(</span><span class="token keyword">int</span> initialCapacity<span class="token punctuation">)</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>现以构造一个拥有100万元素的List为例，当使用默认初始化大小时，其消耗的相对时间为125ms左右，当直接制定数组大小为100万时，构造相同的ArrayList仅相对耗时16ms。</p>
+<h5 id="遍历列表"><a href="#遍历列表" class="headerlink" title="遍历列表"></a>遍历列表</h5><p>遍历列表操作是最常用的列表操作之一，在JDK1.5之后，至少有3中常用的列表遍历方式：</p>
+<blockquote>
+<ul>
+<li>forEach操作</li>
+<li>迭代器</li>
+<li>for循环。</li>
+</ul>
+</blockquote>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> tmp<span class="token punctuation">;</span>
+<span class="token keyword">long</span> start<span class="token operator">=</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMills</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">//ForEach </span>
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token class-name">String</span> s<span class="token operator">:</span>list<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    tmp<span class="token operator">=</span>s<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"foreach spend:"</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMills</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span>start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+start <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMills</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token class-name">Iterator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> it<span class="token operator">=</span>list<span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>it<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>    
+   tmp<span class="token operator">=</span>it<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Iterator spend;"</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMills</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span>start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+start<span class="token operator">=</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMills</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> size<span class="token operator">=</span><span class="token punctuation">;</span>list<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>size<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>                     
+    tmp<span class="token operator">=</span>list<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"for spend;"</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMills</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span>start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>构造一个拥有100万数据的ArrayList和等价的LinkedList，使用以上代码进行测试，测试结果：</p>
+<p><img src="http://rw2uwha41.hd-bkt.clouddn.com/pic/11.png" alt="图片"></p>
+<p>可以看到，<strong>最简便的ForEach循环并没有很好的性能表现，综合性能不如普通的迭代器，而是用for循环通过随机访问遍历列表时，ArrayList表项很好，但是LinkedList的表现却无法让人接受，甚至没有办法等待程序的结束。这是因为对LinkedList进行随机访问时，总会进行一次列表的遍历操作。性能非常差，应避免使用。</strong></p>
 <h2 id="Java-进阶"><a href="#Java-进阶" class="headerlink" title="Java 进阶"></a>Java 进阶</h2><h3 id="你能说说-Spring-框架中-Bean-的生命周期吗？"><a href="#你能说说-Spring-框架中-Bean-的生命周期吗？" class="headerlink" title="你能说说 Spring 框架中 Bean 的生命周期吗？"></a>你能说说 Spring 框架中 Bean 的生命周期吗？</h3><ol>
 <li><p>实例化一个 <code>Bean</code> , 也就是我们常说的 <code>new</code>；</p>
 </li>
@@ -2352,7 +2490,7 @@ typedef struct <span class="token function">redisObject</span> <span class="toke
 <p>logc 是 8 个 bit，用来存储访问频次，因为 8 个 bit 能表示的最大整数值为 255，存储频次肯定远远不够，所以这 8 个 bit 存储的是频次的对数值，并且这个值还会随时间衰减。如果它的值比较小，那么就很容易被回收。为了确保新创建的对象不被回收，新对象的这 8 个 bit 会初始化为一个大于零的值，默认是 LFU_INIT_VAL&#x3D;5。</p>
 <p>ldt 是 16 个位，用来存储上一次 logc 的更新时间，因为只有 16 位，所以精度不可能很高。它取的是分钟时间戳对 2^16 进行取模，大约每隔 45 天就会折返。</p>
 <p>同 LRU 模式一样，我们也可以使用这个逻辑计算出对象的空闲时间，只不过精度是分钟级别的。图中的 server.unixtime 是当前 redis 记录的系统时间戳，和 server.lruclock 一样，它也是每毫秒更新一次。</p>
-]]></content>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
       <categories>
         <category>Java</category>
       </categories>
@@ -2362,7 +2500,7 @@ typedef struct <span class="token function">redisObject</span> <span class="toke
   </entry>
   <entry>
     <title>HashMap 与 TreeMap</title>
-    <url>/2023/06/10/java/note/HashMap%20%E4%B8%8E%20TreeMap/</url>
+    <url>/2023/06/11/java/note/HashMap%20%E4%B8%8E%20TreeMap/</url>
     <content><![CDATA[<h2 id="HashMap-和-TreeMap-的实现"><a href="#HashMap-和-TreeMap-的实现" class="headerlink" title="HashMap 和 TreeMap 的实现"></a>HashMap 和 TreeMap 的实现</h2><p><strong>HashMap</strong>：基于<strong>哈希表</strong>实现。使用 <code>HashMap</code> 要求添加的键类明确定义了 <code>hashCode()</code>和 <code>equals()</code> <em>[可以重写 hashCode()和 equals()]</em> ，为了优化 <code>HashMap</code> 空间的使用，您可以调优<strong>初始容量</strong>和<strong>负载因子</strong>。</p>
 <ul>
 <li><code>HashMap()</code>: 构建一个空的哈希映像</li>
