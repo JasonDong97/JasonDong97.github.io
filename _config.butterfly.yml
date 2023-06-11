@@ -57,7 +57,7 @@ cover:
   archives_enable: true
   # 封面显示的位置
   # 三个值可配置 left , right , both
-  position: left
+  position: both
   # 当没有设置cover时, 默认的封面显示
   default_cover:
     - /img/default_cover/geomeric1.png

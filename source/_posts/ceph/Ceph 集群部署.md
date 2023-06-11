@@ -4,6 +4,7 @@ tags: ceph
 categories: Ceph 学习
 toc: true
 cover:
+date: 2021-10-01 16:00:00
 ---
 
 # 一、Ceph 简介

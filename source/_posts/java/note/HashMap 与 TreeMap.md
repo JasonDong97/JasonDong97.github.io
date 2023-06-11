@@ -2,7 +2,7 @@
 # 【必需】文章标题
 title: HashMap 与 TreeMap
 # 【必需】文章创建日期
-date:
+date: 2020-01-01
 # 【可选】文章更新日期
 updated:
 # 【可选】文章标签

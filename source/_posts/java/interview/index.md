@@ -687,7 +687,7 @@ System.out.println("for spend;"+(System.currentTimeMills()-start));
 
 构造一个拥有100万数据的ArrayList和等价的LinkedList，使用以上代码进行测试，测试结果：
 
-![图片](http://rw2uwha41.hd-bkt.clouddn.com/pic/11.png)
+![图片](https://raw.githubusercontent.com/JasonDong97/blog_pics/master/posts/11.png)
 
 可以看到，**最简便的ForEach循环并没有很好的性能表现，综合性能不如普通的迭代器，而是用for循环通过随机访问遍历列表时，ArrayList表项很好，但是LinkedList的表现却无法让人接受，甚至没有办法等待程序的结束。这是因为对LinkedList进行随机访问时，总会进行一次列表的遍历操作。性能非常差，应避免使用。**
 
@@ -1171,7 +1171,7 @@ ldt 是 16 个位，用来存储上一次 logc 的更新时间，因为只有 16
 
 同 LRU 模式一样，我们也可以使用这个逻辑计算出对象的空闲时间，只不过精度是分钟级别的。图中的 server.unixtime 是当前 redis 记录的系统时间戳，和 server.lruclock 一样，它也是每毫秒更新一次。
 
-## 
+
 
 
 
