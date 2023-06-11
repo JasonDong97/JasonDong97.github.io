@@ -35,13 +35,14 @@ social:
 
 # 头像
 avatar:
-  img: /img/avatar.jpg
+  img: http://rw2uwha41.hd-bkt.clouddn.com/pic/avatar.jpg
   effect: false # 头像会一直转圈
 
 # 顶部图
 disable_top_img: false # 是否禁用顶部图
 index_img: # 首页顶部图
-default_top_img: /img/background.jpg # 默认顶部图
+# 默认顶部图
+default_top_img: http://rw2uwha41.hd-bkt.clouddn.com/pic/wallhaven-4592v3.jpg
 archive_img: # 归档页顶部图
 tag_img: # 标签页顶部图
 tag_per_img: # 标签详情页顶部图
@@ -59,9 +60,18 @@ cover:
   position: left
   # 当没有设置cover时, 默认的封面显示
   default_cover:
-    - https://file.crazywong.com/gh/jerryc127/CDN@latest/cover/default_bg.png
+    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric1.jpg
+    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric2.png
+    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric3.png
+    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric4.jpg
+    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric5.png
+    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric6.png
+    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric7.jpg
+    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric8.png
+    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric9.png
+    - http://rw2uwha41.hd-bkt.clouddn.com/pic/default_cover/geomeric10.png
 
-# 页面 meta 显示
+# 页面 meta 显示`
 post_meta:
   page:
     date_type: both # created or updated or both 主页文章日期是创建日或者更新日或都显示
@@ -159,7 +169,7 @@ aside:
 error_404:
   enable: true
   subtitle: "页面没有找到"
-  background: /img/background.jpg
+  # background: /img/background.jpg
 
 # 页脚
 footer:
@@ -182,9 +192,9 @@ local_search:
 # footer是否显示图片背景(与top_img一致)
 footer_bg: true
 
-# 鼠标点击效果
+# 鼠标点击效果 - 文字
 ClickShowText:
-  enable: true
+  enable: false
   text:
     - 自由
     - 平等
@@ -198,11 +208,35 @@ ClickShowText:
   random: false # 文字随机显示
   mobile: false
 
+# 鼠标点击效果 - 烟花
+fireworks:
+  enable: false
+  zIndex: 9999 # -1 or 9999
+  mobile: false
+
+# 点击出现爱心
+click_heart:
+  enable: true
+  mobile: false
+
+# 背景特效 - 动态彩带
+canvas_fluttering_ribbon:
+  enable: true
+  mobile: false # false 手机端不显示 true 手机端显示
+# 背景特效 - 网格
+canvas_nest:
+  enable: true
+  color: "0,0,255" #color of lines, default: '0,0,0'; RGB values: (R,G,B).(note: use ',' to separate.)
+  opacity: 0.7 # the opacity of line (0~1), default: 0.5.
+  zIndex: -1 # z-index property of the background, default: -1.
+  count: 99 # the number of lines, default: 99.
+  mobile: false # false 手机端不显示 true 手机端显示
+
 # Font settings for the site title and site subtitle
 # 左上角网站名字 主页居中网站名字
-blog_title_font:
-  font_link: https://fonts.googleapis.com/css?family=Titillium+Web&display=swap
-  font-family: Titillium Web, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft JhengHei', 'Microsoft YaHei', sans-serif
+# blog_title_font:
+#   font_link: https://fonts.googleapis.com/css?family=Titillium+Web&display=swap
+#   font-family: Titillium Web, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft JhengHei', 'Microsoft YaHei', sans-serif
 
 # 主页subtitle
 subtitle:
@@ -223,16 +257,10 @@ subtitle:
   source: false
   # 如果关闭打字效果，subtitle 只会显示 sub 的第一行文字
   sub:
-    - 静心净心 戒骄戒躁 ~
-
-# 背景特效
-canvas_nest:
-  enable: true
-  color: "0,0,255" #color of lines, default: '0,0,0'; RGB values: (R,G,B).(note: use ',' to separate.)
-  opacity: 0.7 # the opacity of line (0~1), default: 0.5.
-  zIndex: -1 # z-index property of the background, default: -1.
-  count: 99 # the number of lines, default: 99.
-  mobile: false # false 手机端不显示 true 手机端显示
+    - 浩瀚宇宙，我如尘埃
+    - 静心净心，戒骄戒躁
+    - 努力奋斗，不负韶华
+    - 人生苦短，我编代码
 
 # 美化页面显示
 beautify:
@@ -271,3 +299,9 @@ instantpage: true
 index_post_content:
   method: 3
   length: 500 # if you set method to 2 or 3, the length need to config
+
+
+pwa:
+  enable: true
+  favicon_32_32: /img/favicon.png
+  favicon_16_16: /img/favicon.png
