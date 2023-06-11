@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Ceph 安装记录</title>
-    <url>/2023/06/11/ceph/Ceph%20%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/</url>
+    <url>/2021/09/30/ceph/Ceph%20%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<p>ceph 安装记录</p>
 <span id="more"></span>
 <pre class="line-numbers language-bash" data-language="bash"><div class="caption"><span>bash</span></div><code class="language-bash"><span class="token function">sudo</span> <span class="token function">su</span>
@@ -82,7 +82,7 @@ ceph orch <span class="token operator">&lt;</span>start<span class="token operat
   </entry>
   <entry>
     <title>Ceph集群部署</title>
-    <url>/2023/06/11/ceph/Ceph%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</url>
+    <url>/2021/10/01/ceph/Ceph%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</url>
     <content><![CDATA[<h1 id="一、Ceph-简介"><a href="#一、Ceph-简介" class="headerlink" title="一、Ceph 简介"></a>一、Ceph 简介</h1><blockquote>
 <p>一个 Ceph 存储集群需要至少一个 Ceph 监视器、Ceph 管理器和 Ceph OSD(对象存储守护进程)。在运行 Ceph 文件系统客户端时，也需要 Ceph 元数据服务器。</p>
 </blockquote>
@@ -2177,7 +2177,7 @@ start<span class="token operator">=</span><span class="token class-name">System<
 <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"for spend;"</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMills</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span>start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>构造一个拥有100万数据的ArrayList和等价的LinkedList，使用以上代码进行测试，测试结果：</p>
-<p><img src="http://rw2uwha41.hd-bkt.clouddn.com/pic/11.png" alt="图片"></p>
+<p><img src="https://raw.githubusercontent.com/JasonDong97/blog_pics/master/posts/11.png" alt="图片"></p>
 <p>可以看到，<strong>最简便的ForEach循环并没有很好的性能表现，综合性能不如普通的迭代器，而是用for循环通过随机访问遍历列表时，ArrayList表项很好，但是LinkedList的表现却无法让人接受，甚至没有办法等待程序的结束。这是因为对LinkedList进行随机访问时，总会进行一次列表的遍历操作。性能非常差，应避免使用。</strong></p>
 <h2 id="Java-进阶"><a href="#Java-进阶" class="headerlink" title="Java 进阶"></a>Java 进阶</h2><h3 id="你能说说-Spring-框架中-Bean-的生命周期吗？"><a href="#你能说说-Spring-框架中-Bean-的生命周期吗？" class="headerlink" title="你能说说 Spring 框架中 Bean 的生命周期吗？"></a>你能说说 Spring 框架中 Bean 的生命周期吗？</h3><ol>
 <li><p>实例化一个 <code>Bean</code> , 也就是我们常说的 <code>new</code>；</p>
@@ -2490,7 +2490,7 @@ typedef struct <span class="token function">redisObject</span> <span class="toke
 <p>logc 是 8 个 bit，用来存储访问频次，因为 8 个 bit 能表示的最大整数值为 255，存储频次肯定远远不够，所以这 8 个 bit 存储的是频次的对数值，并且这个值还会随时间衰减。如果它的值比较小，那么就很容易被回收。为了确保新创建的对象不被回收，新对象的这 8 个 bit 会初始化为一个大于零的值，默认是 LFU_INIT_VAL&#x3D;5。</p>
 <p>ldt 是 16 个位，用来存储上一次 logc 的更新时间，因为只有 16 位，所以精度不可能很高。它取的是分钟时间戳对 2^16 进行取模，大约每隔 45 天就会折返。</p>
 <p>同 LRU 模式一样，我们也可以使用这个逻辑计算出对象的空闲时间，只不过精度是分钟级别的。图中的 server.unixtime 是当前 redis 记录的系统时间戳，和 server.lruclock 一样，它也是每毫秒更新一次。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
+]]></content>
       <categories>
         <category>Java</category>
       </categories>
@@ -2500,7 +2500,7 @@ typedef struct <span class="token function">redisObject</span> <span class="toke
   </entry>
   <entry>
     <title>HashMap 与 TreeMap</title>
-    <url>/2023/06/11/java/note/HashMap%20%E4%B8%8E%20TreeMap/</url>
+    <url>/2019/12/31/java/note/HashMap%20%E4%B8%8E%20TreeMap/</url>
     <content><![CDATA[<h2 id="HashMap-和-TreeMap-的实现"><a href="#HashMap-和-TreeMap-的实现" class="headerlink" title="HashMap 和 TreeMap 的实现"></a>HashMap 和 TreeMap 的实现</h2><p><strong>HashMap</strong>：基于<strong>哈希表</strong>实现。使用 <code>HashMap</code> 要求添加的键类明确定义了 <code>hashCode()</code>和 <code>equals()</code> <em>[可以重写 hashCode()和 equals()]</em> ，为了优化 <code>HashMap</code> 空间的使用，您可以调优<strong>初始容量</strong>和<strong>负载因子</strong>。</p>
 <ul>
 <li><code>HashMap()</code>: 构建一个空的哈希映像</li>
