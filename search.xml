@@ -2878,4 +2878,73 @@ typedef struct <span class="token function">redisObject</span> <span class="toke
         <tag>Java 笔记</tag>
       </tags>
   </entry>
+  <entry>
+    <title>cloud-init 无法调整分区大小：当 LANG 不是 en_US 时，growpart 不起作用</title>
+    <url>/2023/06/13/k8s/kubevirt/cloud-init%20%E6%97%A0%E6%B3%95%E8%B0%83%E6%95%B4%E5%88%86%E5%8C%BA%E5%A4%A7%E5%B0%8F%EF%BC%9A%E5%BD%93%20LANG%20%E4%B8%8D%E6%98%AF%20en_US%20%E6%97%B6%EF%BC%8Cgrowpart%20%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>起初是想验证一下 kubevirt 动态扩展磁盘功能，发现在 kubevirt 资源定义上已经配置了 <code>ExpandDisks</code> 功能门，<br>且 cephfs 的动态存储的 pvc 也已经配置了 <code>allowVolumeExpansion: true</code>，但是在 kubevirt 虚拟机中的 cloud-init 执行 <code>growpart</code> 报错，发现并没有生效。<br>kubevirt 的版本是 0.56.0<br>cr 资源定义如下：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kubevirt.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> KubeVirt
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> kubevirt
+    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kubevirt
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token punctuation">...</span>
+  <span class="token key atrule">configuration</span><span class="token punctuation">:</span>
+    <span class="token key atrule">developerConfiguration</span><span class="token punctuation">:</span>
+      <span class="token key atrule">featureGates</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> LiveMigration
+      <span class="token punctuation">-</span> DataVolumes
+      <span class="token punctuation">-</span> ExpandDisks
+      <span class="token punctuation">-</span> GPU
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+    <span class="token key atrule">permittedHostDevices</span><span class="token punctuation">:</span>
+      <span class="token key atrule">pciHostDevices</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">externalResourceProvider</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token key atrule">pciVendorSelector</span><span class="token punctuation">:</span> 10DE<span class="token punctuation">:</span>1DB4
+        <span class="token key atrule">resourceName</span><span class="token punctuation">:</span> nvidia.com/GV100GL_TESLA_V100_PCIE_16GB
+      <span class="token punctuation">-</span> <span class="token key atrule">externalResourceProvider</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token key atrule">pciVendorSelector</span><span class="token punctuation">:</span> 10DE<span class="token punctuation">:</span>20F1
+        <span class="token key atrule">resourceName</span><span class="token punctuation">:</span> nvidia.com/GA100_A100_PCIE_40GB
+      <span class="token punctuation">-</span> <span class="token key atrule">externalResourceProvider</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token key atrule">pciVendorSelector</span><span class="token punctuation">:</span> 10DE<span class="token punctuation">:</span>1EB8
+        <span class="token key atrule">resourceName</span><span class="token punctuation">:</span> nvidia.com/TU104GL_TESLA_T4
+  <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+    <span class="token punctuation">...</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>cephfs 的动态存储的 pvc 的定义如下：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> drug
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> ReadWriteMany
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+    <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+      <span class="token key atrule">storage</span><span class="token punctuation">:</span> 120Gi
+  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> csi<span class="token punctuation">-</span>cephfs<span class="token punctuation">-</span>sc<span class="token punctuation">-</span>delete<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h2><p>经过排查，发现kubevirt 虚拟机中的 cloud-init 服务有个日志报错：</p>
+<p><img src="https://jason-dong-blog-1259058668.cos.ap-nanjing.myqcloud.com/img/image-20230614205248005.png" alt="image-20230614205248005"></p>
+<p>于是 google 了一下，在 Red Hat 官网中找到了答案：</p>
+<p><img src="https://jason-dong-blog-1259058668.cos.ap-nanjing.myqcloud.com/img/image-20230614205357544.png" alt="image-20230614205357544"></p>
+<p>链接地址为：<a href="https://access.redhat.com/solutions/5775351">https://access.redhat.com/solutions/5775351</a></p>
+<p>也就是说, 当虚拟机中的 <code>/etc/default/locale</code> 中的LANG 不为 <code>en_US</code>， 则 cloud-init 无法修改磁盘分区大小。。。。</p>
+<p>发现果然 <code>/etc/default/locale</code> 的 LANG 属性值不是 <code>en_US</code>, 而是：</p>
+<p><img src="https://jason-dong-blog-1259058668.cos.ap-nanjing.myqcloud.com/img/image-20230614210156279.png" alt="image-20230614210156279"></p>
+<p>于是我把 <code>LANG</code> 属性改为 <code>en_US.UTF-8</code></p>
+<p><img src="https://jason-dong-blog-1259058668.cos.ap-nanjing.myqcloud.com/img/image-20230614210257832.png" alt="image-20230614210257832"></p>
+<p>最后重启虚拟机，看了下 <code>cloud-init</code> 服务，发现已经正常了。 kubevirt 虚拟机磁盘也可以正常扩容了</p>
+<p><img src="https://jason-dong-blog-1259058668.cos.ap-nanjing.myqcloud.com/img/image-20230614210503666.png" alt="image-20230614210503666"></p>
+]]></content>
+      <categories>
+        <category>容器/虚拟化</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+        <tag>kubevirt</tag>
+      </tags>
+  </entry>
 </search>
