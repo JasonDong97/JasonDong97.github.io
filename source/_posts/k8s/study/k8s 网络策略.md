@@ -2,9 +2,14 @@
 title: k8s 网络策略
 date: 2023-06-12
 updated:
-tags: k8s
-categories: 容器/虚拟化
-keywords: k8s, NetworkPolicy
+tags:
+  - k8s
+  - 学习
+categories:
+  - 虚拟化
+keywords:
+  - k8s
+  - NetworkPolicy
 copyright: false
 ---
 
