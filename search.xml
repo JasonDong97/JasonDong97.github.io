@@ -1237,6 +1237,35 @@ ceph <span class="token parameter variable">-s</span><span aria-hidden="true" cl
       </tags>
   </entry>
   <entry>
+    <title>用 Dockerfile 文件构建带 systemd 的ubuntu 22.04</title>
+    <url>/2023/10/19/docker/%E7%94%A8%20Dockerfile%20%E6%96%87%E4%BB%B6%E6%9E%84%E5%BB%BA%E5%B8%A6%20systemd%20%E7%9A%84ubuntu%2022.04/</url>
+    <content><![CDATA[<h1 id="用-Dockerfile-文件构建带-systemd-的ubuntu-22-04"><a href="#用-Dockerfile-文件构建带-systemd-的ubuntu-22-04" class="headerlink" title="用 Dockerfile 文件构建带 systemd 的ubuntu 22.04"></a>用 Dockerfile 文件构建带 systemd 的ubuntu 22.04</h1><h2 id="Dockerfile-文件"><a href="#Dockerfile-文件" class="headerlink" title="Dockerfile 文件"></a>Dockerfile 文件</h2><pre class="line-numbers language-Dockerfile" data-language="Dockerfile"><code class="language-Dockerfile">FROM ubuntu:22.04
+WORKDIR &#x2F;root
+# noninteractive 配置时不需要输入任何信息
+ENV DEBIAN_FRONTEND&#x3D;&quot;noninteractive&quot;
+# 配置时区
+ENV TZ&#x3D;Asia&#x2F;Shanghai
+# 配置apt源
+RUN sed -i &#39;s@&#x2F;&#x2F;.*archive.ubuntu.com@&#x2F;&#x2F;mirrors.ustc.edu.cn@g&#39; &#x2F;etc&#x2F;apt&#x2F;sources.list
+# 安装必要的软件
+RUN apt update &amp;&amp; apt install -y init locales
+# 配置语言环境
+RUN locale-gen en_US.UTF-8
+# 配置 entrypoint 为 init, 是 init 可以作为 pid 1 运行, 并且可以启动 systemd
+ENTRYPOINT [&quot;&#x2F;usr&#x2F;sbin&#x2F;init&quot;]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> build <span class="token parameter variable">-t</span> ubuntu:22.04-systemd <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">--privileged</span> <span class="token parameter variable">--name</span> ubuntu <span class="token parameter variable">-h</span> ubuntu ubuntu:22.04-systemd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Dockerfile</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>k8s 创建单节点 mysql 并持久化存储</title>
     <url>/2023/10/10/k8s/k8s%20%E5%88%9B%E5%BB%BA%E5%8D%95%E8%8A%82%E7%82%B9%20mysql%20%E5%B9%B6%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/</url>
     <content><![CDATA[<h1 id="k8s-创建单节点-mysql-并持久化存储"><a href="#k8s-创建单节点-mysql-并持久化存储" class="headerlink" title="k8s 创建单节点 mysql 并持久化存储"></a>k8s 创建单节点 mysql 并持久化存储</h1><h2 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h2><ol>
