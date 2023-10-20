@@ -42,7 +42,7 @@ avatar:
 disable_top_img: false # 是否禁用顶部图
 index_img: # 首页顶部图
 # 默认顶部图
-default_top_img: /img/background2.jpg
+default_top_img: /img/bg.jpg
 archive_img: # 归档页顶部图
 tag_img: # 标签页顶部图
 tag_per_img: # 标签详情页顶部图
@@ -257,10 +257,7 @@ subtitle:
   source: false
   # 如果关闭打字效果，subtitle 只会显示 sub 的第一行文字
   sub:
-    - 浩瀚宇宙，我如尘埃
     - 静心净心，戒骄戒躁
-    - 努力奋斗，不负韶华
-    - 人生苦短，我编代码
 
 # 美化页面显示
 beautify:
