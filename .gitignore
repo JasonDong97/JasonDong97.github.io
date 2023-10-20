@@ -3,5 +3,4 @@ node_modules
 .vscode
 .github
 public/
-db.json
 .deploy_git/
