@@ -6440,4 +6440,33 @@ longhorn-ui-79fbb99d7d-kd7mk                        <span class="token number">1
         <tag>OAuth 2.0</tag>
       </tags>
   </entry>
+  <entry>
+    <title>mysql 查看表字段注释</title>
+    <url>/2023/12/26/mysql/mysql%20%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%AD%97%E6%AE%B5%E6%B3%A8%E9%87%8A/</url>
+    <content><![CDATA[<ol>
+<li><p><strong>查看列注释</strong>：</p>
+<ul>
+<li><p>您可以通过两种方式查看 MySQL 列的注释：</p>
+<ul>
+<li><p>使用<code>SHOW FULL COLUMNS</code>查询：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SHOW</span> <span class="token keyword">FULL</span> <span class="token keyword">COLUMNS</span> <span class="token keyword">FROM</span> employee_designation<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>使用 MySQL Workbench：</p>
+<ul>
+<li>在 SCHEMAS 部分选择表，然后点击信息图标。</li>
+<li>切换到 COLUMNS 标签，即可查看列的注释。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
 </search>
