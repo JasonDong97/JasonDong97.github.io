@@ -6470,6 +6470,244 @@ longhorn-ui-79fbb99d7d-kd7mk                        <span class="token number">1
       </tags>
   </entry>
   <entry>
+    <title>技术文章梳理</title>
+    <url>/2023/12/27/java/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0%E6%A2%B3%E7%90%86/</url>
+    <content><![CDATA[<h1 id="技术文章"><a href="#技术文章" class="headerlink" title="技术文章"></a>技术文章</h1><h2 id="计算机基础"><a href="#计算机基础" class="headerlink" title="计算机基础"></a>计算机基础</h2><ul>
+<li><a href="https://www.cnblogs.com/itdragon/p/13700939.html" target="_blank">Socket 核心原理分享</a></li>
+<li><a href="https://www.cnblogs.com/jingmoxukong/p/7755643.html" target="_blank">WebSocket 详解教程</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types" target="_blank">常见 MIME 类型列表</a></li>
+</ul>
+<h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><ul>
+<li><a href="https://blog.csdn.net/xingyegt/article/details/61548601" target="_blank">Vi 常用命令</a></li>
+<li><a href="https://blog.csdn.net/u010452388/article/details/86481868" target="_blank">Linux固定IP地址</a></li>
+<li><a href="https://www.cnblogs.com/liaojie970/p/6746230.html" target="_blank">linux如何复制文件夹和移动文件夹</a></li>
+<li><a href="https://www.cnblogs.com/jiftle/p/9707518.html" target="_blank">linux find 命令查找文件和文件夹</a></li>
+<li><a href="https://www.cnblogs.com/wmhuang/p/7516273.html" target="_blank">HTTPS静态服务搭建过程详解</a></li>
+<li><a href="https://www.linuxidc.com/Linux/2017-04/143031.htm" target="_blank">Linux中查询当前用户的命令总结</a></li>
+<li><a href="http://www.178linux.com/86931?utm_source=tuicool&amp;utm_medium=referral" target="_blank">OpenSSL 及创建私有CA</a></li>
+</ul>
+<h2 id="对象存储"><a href="#对象存储" class="headerlink" title="对象存储"></a>对象存储</h2><ul>
+<li><a href="https://www.cnblogs.com/chris-cp/p/4835507.html" target="_blank">Amazon S3 API</a></li>
+<li><a href="https://www.cnblogs.com/web424/p/6840207.html" target="_blank">Amazon S3 功能介绍</a></li>
+<li><a href="https://blog.csdn.net/r_12xq/article/details/88424894" target="_blank">OOS对象存储</a></li>
+</ul>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><ul>
+<li><a href="https://www.cnblogs.com/bjlhx/p/10477099.html" target="_blank">idea-常用插件-nginx</a></li>
+<li><a href="https://www.runoob.com/w3cnote/nginx-setup-intro.html" target="_blank">Nginx 配置详解</a></li>
+<li><a href="https://www.cnblogs.com/kevingrace/p/9512287.html" target="_blank">Nginx支持WebSocket反向代理-学习小结</a></li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ul>
+<li><a href="https://www.cnblogs.com/takumicx/p/9998844.html" target="_blank">数据库事务的概念及其实现原理</a></li>
+<li><a href="https://www.cnblogs.com/dong897812629/archive/2013/03/27/2981142.html" target="_blank">视图、索引、存储过程 、触发器、游标及事务</a></li>
+</ul>
+<h3 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h3><ul>
+<li><a href="https://www.cnblogs.com/TM0831/p/10606624.html" target="_blank">最详细的Windows平台安装MongoDB教程</a></li>
+</ul>
+<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><ul>
+<li><a href="https://www.cnblogs.com/mycapple-zgs-111411/p/7680529.html" target="_blank">mysql创建存储过程</a></li>
+<li><a href="https://blog.csdn.net/wuhuagu_wuhuaguo/article/details/90522435" target="_blank">MySQL 字符串截取函数</a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/7792341.html" target="_blank">MySQL的七种join</a></li>
+<li><a href="https://www.cnblogs.com/chenqionghe/p/4675844.html" target="_blank">MySQL CAST与CONVERT 函数的用法</a></li>
+<li><a href="https://www.cnblogs.com/ggjucheng/p/3352280.html" target="_blank"> MySQL 获得当前日期时间 函数</a></li>
+<li><a href="https://www.cnblogs.com/kaiwen1/p/6869025.html" target="_blank">MySQL外键设置中的的 Cascade、NO ACTION、Restrict、SET NULL&amp;nbsp;</a></li>
+<li><a href="https://blog.csdn.net/hry2015/article/details/76359281" target="_blank">mysql语法总结</a></li>
+<li><a href="https://www.cnblogs.com/yang82/p/7794712.html" target="_blank">MySQL如何修改密码</a></li>
+<li><a href="https://blog.csdn.net/mary19920410/article/details/76545053" target="_blank">浅析MySQL中concat以及group_concat的使用</a></li>
+</ul>
+<h4 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h4><ul>
+<li><a href="https://www.cnblogs.com/boothsun/p/8970952.html#autoid-7-1-0" target="_blank">MySQL索引底层实现原理 </a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/8480909.html" target="_blank">MySQL查询性能优化&amp;nbsp;</a></li>
+<li><a href="https://www.cnblogs.com/vicenteforever/articles/1613119.html" target="_blank">InnoDB与Myisam的六大区别</a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/7872669.html" target="_blank">MySQL 主从复制 </a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/7774019.html" target="_blank">MySQL建立高性能索引策略 </a></li>
+<li><a href="https://www.cnblogs.com/hustcat/archive/2009/10/28/1591648.html" target="_blank">理解MySQL——索引与优化</a></li>
+<li><a href="https://www.cnblogs.com/zongyl/p/6021097.html" target="_blank">通过乐观锁（版本号）降低并发时的锁竞争问题</a></li>
+</ul>
+<h5 id="MySQL-优化"><a href="#MySQL-优化" class="headerlink" title="MySQL 优化"></a>MySQL 优化</h5><ul>
+<li><a href="https://www.cnblogs.com/zhanjindong/p/3439042.html" target="_blank">MySQL优化—工欲善其事，必先利其器之EXPLAIN</a></li>
+<li><a href="https://www.cnblogs.com/zhanjindong/p/3472804.html" target="_blank">MySQL优化—工欲善其事，必先利其器（2）</a></li>
+</ul>
+<h3 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h3><ul>
+<li><a href="https://www.jb51.net/article/187271.htm" target="_blank">Windows10安装Oracle19c数据库详细记录</a></li>
+</ul>
+<h4 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h4><ul>
+<li><a href="http://blog.itpub.net/29500582/viewspace-1314555/" target="_blank">Oracle查看当前登陆用户的权限或者角色</a></li>
+<li><a href="https://www.cnblogs.com/roger112/p/7685307.html" target="_blank">Oracle创建用户、角色、授权、建表&amp;nbsp;</a></li>
+<li><a href="https://www.cnblogs.com/rosesmall/p/5767605.html" target="_blank">查看Oracle数据库的用户名和密码</a></li>
+</ul>
+<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><ul>
+<li><a href="https://www.runoob.com/redis/redis-install.html" target="_blank">Redis 安装</a></li>
+<li><a href="https://blog.csdn.net/yejingtao703/article/details/78484151" target="_blank">三张图秒懂Redis集群设计原理</a></li>
+<li>在windows上搭建redis集群（Redis-Cluster）</a></li>
+<li><a href="https://www.cnblogs.com/tommy-huang/p/6240083.html" target="_blank">Windows下搭建Redis集群</a></li>
+</ul>
+<h3 id="SQL-Server"><a href="#SQL-Server" class="headerlink" title="SQL Server"></a>SQL Server</h3><ul>
+<li><a href="https://www.cnblogs.com/wuyifu/p/3447870.html" target="_blank">SQL Server中的锁 详解 nolock,rowlock,tablock,xlock,paglock</a></li>
+<li><a href="https://www.cnblogs.com/Brambling/p/6754993.html" target="_blank">SQL Server 创建索引（index）</a></li>
+<li><a href="https://www.cnblogs.com/CreateMyself/p/6512692.html" target="_blank">SQL Server-聚焦NOLOCK、UPDLOCK、HOLDLOCK、READPAST你弄懂多少？</a></li>
+<li><a href="https://www.w3school.com.cn/sql/func_datediff.asp" target="_blank">SQL Server DATEDIFF() 函数</a></li>
+<li><a href="https://www.cnblogs.com/xwdreamer/archive/2012/06/23/2559344.html" target="_blank">查看sqlserver的端口号</a></li>
+<li><a href="https://www.cnblogs.com/JohnnyBao/p/3799054.html" target="_blank">sql server 判断是否存在数据库，表，列，视图</a></li>
+<li><a href="https://www.cnblogs.com/zhangpengnike/p/6122588.html" target="_blank">SQLServer 日期函数大全</a></li>
+</ul>
+<h2 id="NodeJS"><a href="#NodeJS" class="headerlink" title="NodeJS"></a>NodeJS</h2><ul>
+<li><a href="https://blog.csdn.net/uzizi/article/details/81046646" target="_blank">windows安装nvm的两种方式</a></li>
+</ul>
+<h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><ul>
+<li><a href="https://www.cnblogs.com/jasontec/p/9698774.html" target="_blank">分布式系统理论–CAP理论、BASE理论</a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/8976409.html" target="_blank">分布式事务解决办法 </a></li>
+</ul>
+<h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><ul>
+<li>Solr和ES对比</a></li>
+<li><a href="https://juejin.cn/post/6844903955722403848#heading-0" target="_blank">9月腾讯、百度、阿里高频的29道SSM框架面试题解析</a></li>
+<li><a href="https://blog.csdn.net/shmnh/article/details/42833291" target="_blank">28个MongoDB经典面试题</a></li>
+<li><a href="https://blog.csdn.net/cliper9768/article/details/82870163" target="_blank">Dubbo面试题</a></li>
+<li><a href="https://blog.csdn.net/qq_42629110/article/details/84963815" target="_blank">SpringCloud面试题</a></li>
+<li><a href="https://blog.csdn.net/suxiexingchen/article/details/82020430" target="_blank">springBoot应用启动器基本的一共有44种</a></li>
+<li><a href="https://blog.csdn.net/qq_34337272/article/details/81072874" target="_blank">面试必备之乐观锁与悲观锁</a></li>
+<li><a href="https://juejin.cn/post/6844903809613840398" target="_blank">比较全面的中级Java面试题</a></li>
+</ul>
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><ul>
+<li><a href="https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&amp;mid=2247484920&amp;amp;idx=1&amp;amp;sn=c7167df0b36522935896565973d02cc9&amp;source=41#wechat_redirect" target="_blank">后端必备——数据通信知识(RPC、消息队列)一站式总结</a></li>
+</ul>
+<h4 id="JSR330"><a href="#JSR330" class="headerlink" title="JSR330"></a>JSR330</h4><ul>
+<li><a href="https://blog.csdn.net/u010278882/article/details/50773687" target="_blank">Java 依赖注入标准 JSR-330 简介</a></li>
+<li><a href="https://www.chkui.com/article/java/java_jsr330" target="_blank">Java JSR330</a></li>
+<li><a href="https://www.cnblogs.com/hhhshct/p/8523697.html" target="_blank">java实现HTTP请求的三种方式</a></li>
+<li><a href="https://www.cnblogs.com/super-chao/p/6118739.html" target="_blank">java中cookie存取值</a></li>
+<li><a href="https://baijiahao.baidu.com/s?id=1647621616629561468&amp;wfr=spider&amp;for=pc" target="_blank">详解java并发原子类AtomicInteger（基于jdk1.8源码分析）</a></li>
+<li><a href="https://blog.csdn.net/weixin_38111667/article/details/81630290" target="_blank">JAVA &amp;&amp; java.lang.UnsatisfiedLinkError: The specified module could not be found.找不到指定模块</a></li>
+</ul>
+<h4 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h4><ul>
+<li><a href="https://blog.csdn.net/weixin_40792878/article/details/82154402" target="_blank">Java虚拟机内存参数设置</a></li>
+</ul>
+<h4 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h4><ul>
+<li><a href="https://www.cnblogs.com/XHJT/p/3897440.html" target="_blank">线程同步的7种方式</a></li>
+</ul>
+<h3 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h3><ul>
+<li><a href="https://www.cnblogs.com/redcool/p/6426173.html" target="_blank">Spring线程池ThreadPoolTaskExecutor配置及详情</a></li>
+<li><a href="https://www.cnblogs.com/pjfmeng/p/7551340.html" target="_blank">annotation之@Autowired、@Inject、@Resource三者区别</a></li>
+<li><a href="https://blog.csdn.net/m0_37626813/article/details/78558010" target="_blank">Spring中@Component的作用</a></li>
+</ul>
+<h3 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h3><ul>
+<li><a href="https://blog.csdn.net/littleskey/article/details/52841148" target="_blank">Spring Mvc @ResponseBody String返回中文字符串乱码</a></li>
+<li><a href="https://www.cnblogs.com/WJ-163/p/6269409.html" target="_blank">SpringMVC文件上传与下载</a></li>
+<li><a href="https://blog.csdn.net/liuxiao723846/article/details/46006275" target="_blank">jackson详解</a></li>
+</ul>
+<h3 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h3><ul>
+<li><a href="https://www.cnblogs.com/itdragon/p/8686554.html" target="_blank">Spring Boot配置文件详解</a></li>
+<li><a href="https://www.cnblogs.com/yuansc/p/9076604.html" target="_blank">SpringBoot配置Cors解决跨域请求问题</a></li>
+</ul>
+<h3 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h3><ul>
+<li><a href="https://blog.csdn.net/loushuiyifan/article/details/82702522" target="_blank">Hystrix原理与实战</a></li>
+</ul>
+<h3 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h3><ul>
+<li><a href="https://www.cnblogs.com/happyflyingpig/p/7739749.html" target="_blank">mybatis一级缓存二级缓存&amp;nbsp;&amp;nbsp;</a></li>
+</ul>
+<h3 id="ShardingSpare"><a href="#ShardingSpare" class="headerlink" title="ShardingSpare"></a>ShardingSpare</h3><ul>
+<li><a href="https://shardingsphere.apache.org/document/legacy/4.x/document/cn/overview/" target="_blank">shardingsphere 官方文档</a></li>
+</ul>
+<h3 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h3><ul>
+<li><a href="https://www.cnblogs.com/jasontec/p/9651820.html" target="_blank">Zookeeper 与 Eureka 对比</a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/8976502.html" target="_blank">ZooKeeper的典型应用场景 </a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/8976829.html" target="_blank">ZK分布式锁（未完 待续）&amp;nbsp;</a></li>
+</ul>
+<h3 id="Druid"><a href="#Druid" class="headerlink" title="Druid"></a>Druid</h3><ul>
+<li><a href="https://www.cnblogs.com/niejunlei/p/5977895.html" target="_blank">Druid 介绍及配置</a></li>
+</ul>
+<h3 id="Log4j"><a href="#Log4j" class="headerlink" title="Log4j"></a>Log4j</h3><ul>
+<li><a href="http://www.blogjava.net/zJun/archive/2006/06/28/55511.html" target="_blank">配置Log4j(很详细)</a></li>
+</ul>
+<h3 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h3><ul>
+<li>&amp;nbsp;</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术栈</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>MetalLB 安装</title>
+    <url>/2023/12/27/k8s/MetaLib%20%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h2 id="MetalLB-安装"><a href="#MetalLB-安装" class="headerlink" title="MetalLB 安装"></a>MetalLB 安装</h2><h3 id="下载-release-版本"><a href="#下载-release-版本" class="headerlink" title="下载 release 版本"></a>下载 release 版本</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://github.com/metallb/metallb/archive/refs/tags/v0.12.1.tar.gz
+<span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> v0.12.1.tar.gz
+<span class="token builtin class-name">cd</span> metallb-0.12.1/manifests
+
+kubectl apply <span class="token parameter variable">-f</span> namespace.yaml
+kubectl apply <span class="token parameter variable">-f</span> metallb.yaml
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="查看-pod-状态"><a href="#查看-pod-状态" class="headerlink" title="查看 pod 状态"></a>查看 pod 状态</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl <span class="token parameter variable">-n</span> metallb-system get pods <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="查看-Deploy-状态"><a href="#查看-Deploy-状态" class="headerlink" title="查看 Deploy 状态"></a>查看 Deploy 状态</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl <span class="token parameter variable">-n</span> metallb-system get deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>目前还没有宣布任何内容，因为我们没有提供ConfigMap，也没有提供负载均衡地址的服务。接下来要生成一个 Configmap 文件，为 Metallb 设置网址范围以及协议相关的选择和配置，这里以一个简单的二层配置为例。</p>
+<p>修改ip地址池，从集群IP地址段中为MetalLB分配部分IP地址：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span> example-layer2-config.yaml 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: metallb-system
+  name: config
+data:
+  config: <span class="token operator">|</span>
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - <span class="token number">192.168</span>.72.200-192.168.72.250
+---
+kubectl apply <span class="token parameter variable">-f</span> example-layer2-config.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="创建后端应用和服务测试"><a href="#创建后端应用和服务测试" class="headerlink" title="创建后端应用和服务测试"></a>创建后端应用和服务测试</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> tutorial-2.yaml <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>查看yaml文件配置，包含了一个deployment和一个LoadBalancer类型的service，默认即可。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>latest
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> http
+          <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> http
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+    <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> LoadBalancer<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="查看service分配的EXTERNAL-IP"><a href="#查看service分配的EXTERNAL-IP" class="headerlink" title="查看service分配的EXTERNAL-IP"></a>查看service分配的EXTERNAL-IP</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl get <span class="token function">service</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+]]></content>
+      <categories>
+        <category>k8s</category>
+      </categories>
+  </entry>
+  <entry>
     <title>重塑生活的八个步骤</title>
     <url>/2023/12/17/life/%E9%87%8D%E5%A1%91%E7%94%9F%E6%B4%BB%E7%9A%84%E5%85%AB%E4%B8%AA%E6%AD%A5%E9%AA%A4/</url>
     <content><![CDATA[<h1 id="重塑生活的八个步骤"><a href="#重塑生活的八个步骤" class="headerlink" title="重塑生活的八个步骤"></a>重塑生活的八个步骤</h1><h2 id="一、洗净你的肉身"><a href="#一、洗净你的肉身" class="headerlink" title="一、洗净你的肉身"></a>一、洗净你的肉身</h2><p>洗澡，刷牙，穿上清新的衣服，时刻让自己的肉身整洁干净，这将向你的潜意识传递【你值得呵护】的信号。</p>
