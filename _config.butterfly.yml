@@ -94,7 +94,7 @@ photofigcaption: false
 copy:
   enable: true
   copyright:
-    enable: true
+    enable: false
     limit_count: 50
 # 文章目录配置
 toc:
