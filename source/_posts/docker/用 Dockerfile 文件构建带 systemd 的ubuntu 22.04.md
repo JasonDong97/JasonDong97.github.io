@@ -1,7 +1,7 @@
 ---
 title: 用 Dockerfile 文件构建带 systemd 的ubuntu 22.04
 date: 2023-10-20
-updated:
+updated: 2023-10-20
 tags: [Dockerfile]
 categories: Docker
 copyright: false

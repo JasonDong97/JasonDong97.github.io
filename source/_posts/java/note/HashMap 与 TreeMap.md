@@ -4,7 +4,7 @@ title: HashMap 与 TreeMap
 # 【必需】文章创建日期
 date: 2020-01-01
 # 【可选】文章更新日期
-updated:
+updated: 2020-01-01
 # 【可选】文章标签
 tags: Java 笔记
 # 【可选】文章分类

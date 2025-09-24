@@ -1,7 +1,7 @@
 ---
 title: 安装 longhorn 出现的坑
 date: 2023-11-03 13:00:00
-updated:
+updated: 2023-11-03 13:00:00
 tags: k8s
 categories: 容器/虚拟化
 keywords: k8s

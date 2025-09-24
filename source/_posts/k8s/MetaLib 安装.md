@@ -1,6 +1,7 @@
 ---
 title: MetalLB 安装
 date: 2023-12-28
+updated: 2023-12-28
 categories: k8s
 ---
 ## MetalLB 安装

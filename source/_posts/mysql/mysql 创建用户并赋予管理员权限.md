@@ -1,7 +1,7 @@
 ---
 title: mysql 创建用户并赋予管理员权限
 date: 2023-12-29
-updated:
+updated: 2023-12-29
 tags:
   - mysql
 categories: mysql

@@ -1,7 +1,7 @@
 ---
 title: cloud-init 无法调整分区大小：当 LANG 不是 en_US 时，growpart 不起作用
 date: 2023-06-14
-updated:
+updated: 2023-06-14
 tags:
   - k8s
   - kubevirt

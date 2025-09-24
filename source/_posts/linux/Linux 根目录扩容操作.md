@@ -3,6 +3,7 @@ title: Linux 根目录扩容操作
 tags: linux
 categories: linux
 date: 2023-12-29
+updated: 2023-12-29
 ---
 
 # Linux 根目录扩容操作
