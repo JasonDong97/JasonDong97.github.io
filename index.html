@@ -1,0 +1,344 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Jason Dong - 后端工程师</title><meta name="author" content="Jason Dong"><meta name="copyright" content="Jason Dong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="Jason Dong">
+<meta property="og:url" content="http://jasondong97.github.io/">
+<meta property="og:site_name" content="Jason Dong">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://jasondong97.github.io/img/avatar.jpg">
+<meta property="article:author" content="Jason Dong">
+<meta property="article:tag" content="Java, Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://jasondong97.github.io/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://jasondong97.github.io/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/"/><link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.png"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Jason Dong',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2025-09-24 14:09:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page fixed" id="page-header" style="background-image: url('/img/bg.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Jason Dong"><span class="site-name">Jason Dong</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Jason Dong</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/JasonDong97" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:534458392@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2025/09/24/mysql/20250924/" title="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相"><img class="post-bg" src="/img/default_cover/geomeric6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/09/24/mysql/20250924/" title="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相">MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-23T16:00:00.000Z" title="发表于 2025-09-24 00:00:00">2025-09-24</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-24T06:08:44.382Z" title="更新于 2025-09-24 14:08:44">2025-09-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/mysql/">mysql</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/mysql/">mysql</a></span></div><div class="content">MySQL ORDER BY 有索引却不用？揭秘 EXPLAIN 中的“索引失效”真相在日常的 MySQL 性能优化中，我们常常会遇到一个令人困惑的现象：明明为 ORDER BY 的字段创建了索引，但使用 EXPLAIN 查看执行计划时，却发现 key 为 NULL，Extra 中出现了 Using filesort，索引似乎“失效”了。
+这究竟是怎么回事？是索引没建好？还是 MySQL 优化器“抽风”了？今天，我们就来深入剖析这一现象背后的真正原因，并提供切实可行的解决方案。
+一、问题重现假设我们有一个用户表 users，并为 created_at 字段创建了索引：
+CREATE INDEX idx_created_at ON users(created_at)
+
+执行查询：
+EXPLAIN SELECT * FROM users ORDER BY created_at;
+
+
+你可能会惊讶地发现，执行计划中并未使用 idx_created_at 索引，而是进行了全表扫描和 filesort。
+这到底是为什么？
+二、核心原因：回表成本过高要理解这个问题，我们必须先了解 MySQL 索引 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/12/29/linux/Linux%20%E6%A0%B9%E7%9B%AE%E5%BD%95%E6%89%A9%E5%AE%B9%E6%93%8D%E4%BD%9C/" title="Linux 根目录扩容操作"><img class="post-bg" src="/img/default_cover/geomeric7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux 根目录扩容操作"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/12/29/linux/Linux%20%E6%A0%B9%E7%9B%AE%E5%BD%95%E6%89%A9%E5%AE%B9%E6%93%8D%E4%BD%9C/" title="Linux 根目录扩容操作">Linux 根目录扩容操作</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-28T16:00:00.000Z" title="发表于 2023-12-29 00:00:00">2023-12-29</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-29T06:24:51.379Z" title="更新于 2023-12-29 14:24:51">2023-12-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/linux/">linux</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/linux/">linux</a></span></div><div class="content">Linux 根目录扩容操作需求描述由于测试环境需要，虚拟机根目录需要扩容至120G。
+查看本机磁盘环境[root@localhost ~]# df -h
+文件系统                 容量  已用  可用 已用% 挂载点
+/dev/mapper/centos-root   35G  5.5G   30G   16% /
+devtmpfs                 3.9G     0  3.9G    0% /dev
+tmpfs                    3.9G     0  3.9G    0% /dev/shm
+tmpfs                    3.9G   11M  3.9G    1% /run
+tmpfs                    3.9G     0  3.9G    0% /sys/fs/cgroup
+/dev/sda1               1014M  275M  740M   28% /boot
+tmpfs                    783M   52K  783M    1% /run/ ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/12/29/mysql/mysql%20%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E8%B5%8B%E4%BA%88%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/" title="mysql 创建用户并赋予管理员权限"><img class="post-bg" src="/img/default_cover/geomeric2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql 创建用户并赋予管理员权限"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/12/29/mysql/mysql%20%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E8%B5%8B%E4%BA%88%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/" title="mysql 创建用户并赋予管理员权限">mysql 创建用户并赋予管理员权限</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-28T16:00:00.000Z" title="发表于 2023-12-29 00:00:00">2023-12-29</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-24T06:00:08.740Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/mysql/">mysql</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/mysql/">mysql</a></span></div><div class="content">mysql 创建用户并赋予管理员权限-- 创建新用户，将new_username替换为你想要创建的新用户名，将password替换为用户的密码。
+CREATE USER 'new_username'@'localhost' IDENTIFIED BY 'password';
+
+-- 授予new_username用户在所有数据库和所有表上的所有权限，并且WITH GRANT OPTION选项允许该用户授予其他用户权限
+GRANT ALL PRIVILEGES ON *.* TO 'new_username'@'localhost' WITH GRANT OPTION;
+
+-- 刷新权限以使更改生效
+FLUSH PRIVILEGES;</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/12/28/java/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0%E6%A2%B3%E7%90%86/" title="技术文章梳理"><img class="post-bg" src="/img/default_cover/geomeric9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="技术文章梳理"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/12/28/java/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0%E6%A2%B3%E7%90%86/" title="技术文章梳理">技术文章梳理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-27T16:00:00.000Z" title="发表于 2023-12-28 00:00:00">2023-12-28</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-24T06:00:08.734Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%8A%80%E6%9C%AF%E6%A0%88/">技术栈</a></span></div><div class="content">技术文章计算机基础
+Socket 核心原理分享
+WebSocket 详解教程
+常见 MIME 类型列表
+
+linux
+Vi 常用命令
+Linux固定IP地址
+linux如何复制文件夹和移动文件夹
+linux find 命令查找文件和文件夹
+HTTPS静态服务搭建过程详解
+Linux中查询当前用户的命令总结
+OpenSSL 及创建私有CA
+
+对象存储
+Amazon S3 API
+Amazon S3 功能介绍
+OOS对象存储
+
+Nginx
+idea-常用插件-nginx
+Nginx 配置详解
+Nginx支持WebSocket反向代理-学习小结
+
+数据库
+数据库事务的概念及其实现原理
+视图、索引、存储过程 、触发器、游标及事务
+
+MongoDB
+最详细的Windows平台安装MongoDB教程
+
+MySQL基础
+mysql创建存储过程
+MySQL 字符串截取函数
+MySQL的七种join
+MySQL CAST与CONVERT 函数的用法
+ MySQL 获得当前日期时间 函数
+MySQL外键设置中的的 Cascade、NO ACTION、Restrict、SET NULL&amp;nbsp;
+ ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/12/28/k8s/MetaLib%20%E5%AE%89%E8%A3%85/" title="MetalLB 安装"><img class="post-bg" src="/img/default_cover/geomeric8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MetalLB 安装"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/12/28/k8s/MetaLib%20%E5%AE%89%E8%A3%85/" title="MetalLB 安装">MetalLB 安装</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-27T16:00:00.000Z" title="发表于 2023-12-28 00:00:00">2023-12-28</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-24T06:00:08.735Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/k8s/">k8s</a></span></div><div class="content">MetalLB 安装下载 release 版本wget https://github.com/metallb/metallb/archive/refs/tags/v0.12.1.tar.gz
+tar -zxvf v0.12.1.tar.gz
+cd metallb-0.12.1/manifests
+
+kubectl apply -f namespace.yaml
+kubectl apply -f metallb.yaml
+
+
+查看 pod 状态kubectl -n metallb-system get pods 
+
+查看 Deploy 状态kubectl -n metallb-system get deploy
+
+目前还没有宣布任何内容，因为我们没有提供ConfigMap，也没有提供负载均衡地址的服务。接下来要生成一个 Configmap 文件，为 Metallb 设置网址范围以及协议相关的选择和配置，这里以一个简单的二层配置为例。
+修改ip地址池，从集群IP地址段中为MetalLB分配部分IP地址：
+vim example-layer2-config.yaml 
+---
+apiVers ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/12/28/work/2.ERA%E5%9C%A8%E7%BA%BF%E9%83%A8%E7%BD%B2/" title="ERA 在线部署"><img class="post-bg" src="/img/default_cover/geomeric5.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ERA 在线部署"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/12/28/work/2.ERA%E5%9C%A8%E7%BA%BF%E9%83%A8%E7%BD%B2/" title="ERA 在线部署">ERA 在线部署</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-27T16:00:00.000Z" title="发表于 2023-12-28 00:00:00">2023-12-28</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-29T06:37:59.262Z" title="更新于 2023-12-29 14:37:59">2023-12-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a></span></div><div class="content">系统初始化1.安装Debian11初始化文档初始化#必装
+apt install -y conntrack ipset socat ebtables ipvsadm
+apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+一、k8s集群部署1.安装kubekeyexport KKZONE=cn
+wget https://github.com/kubesphere/kubekey/releases/download/v3.0.13/kubekey-v3.0.13-linux-amd64.tar.gz
+tar -xf kubekey-v3.0.13-linux-amd64.tar.gz
+mv kk /usr/local/bin/
+
+#查看支持k8s版本
+kk version --show-supported-k8s
+
+2.编辑配置文件
+参考：https://github.com/kubesphere/kubekey/blob/master/README_zh-CN.md
+
+修改对应IP账号密码co ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/12/27/mysql/mysql%20%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%AD%97%E6%AE%B5%E6%B3%A8%E9%87%8A/" title="mysql 查看表字段注释"><img class="post-bg" src="/img/default_cover/geomeric7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql 查看表字段注释"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/12/27/mysql/mysql%20%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%AD%97%E6%AE%B5%E6%B3%A8%E9%87%8A/" title="mysql 查看表字段注释">mysql 查看表字段注释</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-26T16:00:00.000Z" title="发表于 2023-12-27 00:00:00">2023-12-27</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-24T06:00:08.741Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/mysql/">mysql</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/mysql/">mysql</a></span></div><div class="content">
+查看列注释：
+
+您可以通过两种方式查看 MySQL 列的注释：
+
+使用SHOW FULL COLUMNS查询：
+SHOW FULL COLUMNS FROM employee_designation;
+使用 MySQL Workbench：
+
+在 SCHEMAS 部分选择表，然后点击信息图标。
+切换到 COLUMNS 标签，即可查看列的注释。
+
+
+
+
+
+
+
+</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/12/18/life/%E9%87%8D%E5%A1%91%E7%94%9F%E6%B4%BB%E7%9A%84%E5%85%AB%E4%B8%AA%E6%AD%A5%E9%AA%A4/" title="重塑生活的八个步骤"><img class="post-bg" src="/img/default_cover/geomeric4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="重塑生活的八个步骤"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/12/18/life/%E9%87%8D%E5%A1%91%E7%94%9F%E6%B4%BB%E7%9A%84%E5%85%AB%E4%B8%AA%E6%AD%A5%E9%AA%A4/" title="重塑生活的八个步骤">重塑生活的八个步骤</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-17T16:00:00.000Z" title="发表于 2023-12-18 00:00:00">2023-12-18</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-24T06:00:08.739Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></span></div><div class="content">重塑生活的八个步骤一、洗净你的肉身洗澡，刷牙，穿上清新的衣服，时刻让自己的肉身整洁干净，这将向你的潜意识传递【你值得呵护】的信号。
+二、整顿你的领地打扫你的寝室，彻底清理你的房子，扔掉那些让你心烦意乱的废物。因为你的空间怎么样，你就是怎么样的人。如果你的空间乱七八糟，那你也是乱七八糟人。
+三、走出家门在我们信步行走、阳光洒脸、眼珠左右转动之时，大脑的运转状态最佳。走出去，因为我们生来就是为了与他人建立关系和与社群建立联系的。如果我们永远不离开家，我们将会悄然错失真实的生活。
+四、流汗让血液流动起来，去出点汗，因为消耗能量也会产生能量。
+五、监控你的小金库巨头每天都在做偷鸡摸狗的事，通过自动订阅掏空辛苦挣来的钱。请立刻打开你的订阅管理，取消所有默认的支付行为，你的小金库很重要！
+六、移除束缚，脱身引诱关闭通知，取关不必要的社交账号，戒断所有抽烟喝酒的成瘾行为。
+七、制定策略别再漫无目的地生活，天上不会掉馅饼。立即制定策略，付诸行动。
+八、臣服臣服于你必须做的事情，你已经思考过了，关闭你的大脑，卸下过度思考的负担。学会让你的理性思考静音。
+</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/11/03/k8s/%E5%AE%89%E8%A3%85%20longhorn%20%E5%87%BA%E7%8E%B0%E7%9A%84%E5%9D%91/" title="安装 longhorn 出现的坑"><img class="post-bg" src="/img/default_cover/geomeric2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="安装 longhorn 出现的坑"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/11/03/k8s/%E5%AE%89%E8%A3%85%20longhorn%20%E5%87%BA%E7%8E%B0%E7%9A%84%E5%9D%91/" title="安装 longhorn 出现的坑">安装 longhorn 出现的坑</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-11-03T05:00:00.000Z" title="发表于 2023-11-03 13:00:00">2023-11-03</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-24T06:00:08.738Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AE%B9%E5%99%A8-%E8%99%9A%E6%8B%9F%E5%8C%96/">容器/虚拟化</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/k8s/">k8s</a></span></div><div class="content">安装 longhorn 出现的坑安装 longhornkubectl apply -f https://raw.githubusercontent.com/longhorn/longhorn/v1.5.1/deploy/longhorn.yaml
+观察安装情况
+kubectl get pods \
+--namespace longhorn-system \
+--watch
+出现的坑longhorn-manager 一直处于 CrashLoopBackOff 状态，查看日志
+kubectl logs longhorn-manager-6f8c6f4f5f-8q9q8 -n longhorn-system
+发现是因为缺少 iscsiadm&#x2F;open-iscsi
+root@dev:~/k8s/kubevirt# kubectl logs -f longhorn-manager-4xgcq -n longhorn-system 
+time="2023-11-03T05:41:17Z" level=fatal msg="Error starting manager: Failed en ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/11/02/oauth2/OAuth2%20%E7%9A%84%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" title="OAuth 2.0 的一个简单解释"><img class="post-bg" src="/img/default_cover/geomeric3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OAuth 2.0 的一个简单解释"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/11/02/oauth2/OAuth2%20%E7%9A%84%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" title="OAuth 2.0 的一个简单解释">OAuth 2.0 的一个简单解释</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-11-01T16:00:00.000Z" title="发表于 2023-11-02 00:00:00">2023-11-02</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-24T06:00:08.741Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%87%E5%87%86%E5%8C%96%E6%96%87%E6%A1%A3/">标准化文档</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/OAuth-2-0/">OAuth 2.0</a></span></div><div class="content">OAuth 2.0 的一个简单解释作者： 阮一峰
+日期： 2019年4月 4日
+OAuth 2.0 是目前最流行的授权机制，用来授权第三方应用，获取用户数据。
+这个标准比较抽象，使用了很多术语，初学者不容易理解。其实说起来并不复杂，下面我就通过一个简单的类比，帮助大家轻松理解，OAuth 2.0 到底是什么。
+一、快递员问题我住在一个大型的居民小区。
+
+小区有门禁系统。
+
+进入的时候需要输入密码。
+
+我经常网购和外卖，每天都有快递员来送货。我必须找到一个办法，让快递员通过门禁系统，进入小区。
+
+如果我把自己的密码，告诉快递员，他就拥有了与我同样的权限，这样好像不太合适。万一我想取消他进入小区的权力，也很麻烦，我自己的密码也得跟着改了，还得通知其他的快递员。
+有没有一种办法，让快递员能够自由进入小区，又不必知道小区居民的密码，而且他的唯一权限就是送货，其他需要密码的场合，他都没有权限？
+二、授权机制的设计于是，我设计了一套授权机制。
+第一步，门禁系统的密码输入器下面，增加一个按钮，叫做”获取授权”。快递员需要首先按这个按钮，去申请授权。
+第二步，他按下按钮以后，屋主（也就是我）的手机就会 ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="page-number" href="/page/3/#content-inner">3</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Jason Dong</div><div class="author-info__description">静心净心 戒骄戒躁</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JasonDong97" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:534458392@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/09/24/mysql/20250924/" title="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相"><img src="/img/default_cover/geomeric6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相"/></a><div class="content"><a class="title" href="/2025/09/24/mysql/20250924/" title="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相">MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相</a><time datetime="2025-09-24T06:08:44.382Z" title="更新于 2025-09-24 14:08:44">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/26/openid/OpenID/" title="OpenID Connect Core 1.0"><img src="/img/default_cover/geomeric10.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenID Connect Core 1.0"/></a><div class="content"><a class="title" href="/2023/10/26/openid/OpenID/" title="OpenID Connect Core 1.0">OpenID Connect Core 1.0</a><time datetime="2025-09-24T06:00:08.748Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/02/oauth2/OAuth2%20%E7%9A%84%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" title="OAuth 2.0 的一个简单解释"><img src="/img/default_cover/geomeric3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OAuth 2.0 的一个简单解释"/></a><div class="content"><a class="title" href="/2023/11/02/oauth2/OAuth2%20%E7%9A%84%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" title="OAuth 2.0 的一个简单解释">OAuth 2.0 的一个简单解释</a><time datetime="2025-09-24T06:00:08.741Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/27/mysql/mysql%20%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%AD%97%E6%AE%B5%E6%B3%A8%E9%87%8A/" title="mysql 查看表字段注释"><img src="/img/default_cover/geomeric7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql 查看表字段注释"/></a><div class="content"><a class="title" href="/2023/12/27/mysql/mysql%20%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%AD%97%E6%AE%B5%E6%B3%A8%E9%87%8A/" title="mysql 查看表字段注释">mysql 查看表字段注释</a><time datetime="2025-09-24T06:00:08.741Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/29/mysql/mysql%20%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E8%B5%8B%E4%BA%88%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/" title="mysql 创建用户并赋予管理员权限"><img src="/img/default_cover/geomeric2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql 创建用户并赋予管理员权限"/></a><div class="content"><a class="title" href="/2023/12/29/mysql/mysql%20%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E8%B5%8B%E4%BA%88%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/" title="mysql 创建用户并赋予管理员权限">mysql 创建用户并赋予管理员权限</a><time datetime="2025-09-24T06:00:08.740Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Ceph-%E5%AD%A6%E4%B9%A0/"><span class="card-category-list-name">Ceph 学习</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Docker/"><span class="card-category-list-name">Docker</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/k8s/"><span class="card-category-list-name">k8s</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/linux/"><span class="card-category-list-name">linux</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/mysql/"><span class="card-category-list-name">mysql</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AE%B9%E5%99%A8-%E8%99%9A%E6%8B%9F%E5%8C%96/"><span class="card-category-list-name">容器/虚拟化</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%B7%A5%E4%BD%9C/"><span class="card-category-list-name">工作</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Dockerfile/" style="font-size: 1.15em; color: rgb(160, 105, 126)">Dockerfile</a><a href="/tags/k8s/" style="font-size: 1.45em; color: rgb(57, 148, 182)">k8s</a><a href="/tags/ceph/" style="font-size: 1.25em; color: rgb(67, 106, 177)">ceph</a><a href="/tags/vi/" style="font-size: 1.15em; color: rgb(24, 180, 150)">vi</a><a href="/tags/java-%E9%81%87%E5%9D%91%E8%AE%B0%E5%BD%95%EF%BC%8Cmysql/" style="font-size: 1.15em; color: rgb(198, 164, 113)">java, 遇坑记录，mysql</a><a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 1.15em; color: rgb(53, 5, 138)">学习</a><a href="/tags/Java-%E7%AC%94%E8%AE%B0/" style="font-size: 1.15em; color: rgb(200, 133, 141)">Java 笔记</a><a href="/tags/kubevirt/" style="font-size: 1.15em; color: rgb(88, 110, 126)">kubevirt</a><a href="/tags/Java-%E9%9D%A2%E8%AF%95/" style="font-size: 1.15em; color: rgb(134, 148, 184)">Java 面试</a><a href="/tags/openid/" style="font-size: 1.15em; color: rgb(9, 101, 92)">openid</a><a href="/tags/OAuth-2-0/" style="font-size: 1.15em; color: rgb(117, 160, 166)">OAuth 2.0</a><a href="/tags/mysql/" style="font-size: 1.35em; color: rgb(36, 23, 30)">mysql</a><a href="/tags/linux/" style="font-size: 1.15em; color: rgb(25, 16, 137)">linux</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/09/"><span class="card-archive-list-date">九月 2025</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><span class="card-archive-list-count">7</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/11/"><span class="card-archive-list-date">十一月 2023</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">十月 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/06/"><span class="card-archive-list-date">六月 2023</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/10/"><span class="card-archive-list-date">十月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/09/"><span class="card-archive-list-date">九月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/07/"><span class="card-archive-list-date">七月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/01/"><span class="card-archive-list-date">一月 2020</span><span class="card-archive-list-count">2</span></a></li></ul></div></div></div></main><footer id="footer" style="background-image: url('/img/bg.jpg')"><div id="footer-wrap"><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到我的博客~</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: (str) => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: (subtitleType) => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  }
+}
+</script><script>function subtitleType () {
+  if (true) {
+    typedJSFn.init(["静心净心，戒骄戒躁"])
+  } else {
+    document.getElementById("subtitle").textContent = "静心净心，戒骄戒躁"
+  }
+}
+typedJSFn.run(subtitleType)</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

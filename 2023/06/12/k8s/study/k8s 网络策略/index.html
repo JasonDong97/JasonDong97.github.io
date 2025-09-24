@@ -1,0 +1,425 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>k8s 网络策略 | Jason Dong</title><meta name="author" content="Jason Dong"><meta name="copyright" content="Jason Dong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="如果你希望在 IP 地址或端口层面（OSI 第 3 层或第 4 层）控制网络流量， 则你可以考虑为集群中特定应用使用 Kubernetes 网络策略（NetworkPolicy）。 NetworkPolicy 是一种以应用为中心的结构，允许你设置如何允许 Pod 与网络上的各类网络“实体” （我们这里使用实体以避免过度使用诸如“端点”和“服务”这类常用术语， 这些术语在 Kubernetes 中有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s 网络策略">
+<meta property="og:url" content="http://jasondong97.github.io/2023/06/12/k8s/study/k8s%20%E7%BD%91%E7%BB%9C%E7%AD%96%E7%95%A5/">
+<meta property="og:site_name" content="Jason Dong">
+<meta property="og:description" content="如果你希望在 IP 地址或端口层面（OSI 第 3 层或第 4 层）控制网络流量， 则你可以考虑为集群中特定应用使用 Kubernetes 网络策略（NetworkPolicy）。 NetworkPolicy 是一种以应用为中心的结构，允许你设置如何允许 Pod 与网络上的各类网络“实体” （我们这里使用实体以避免过度使用诸如“端点”和“服务”这类常用术语， 这些术语在 Kubernetes 中有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://jasondong97.github.io/img/default_cover/geomeric4.jpg">
+<meta property="article:published_time" content="2023-06-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-09-24T06:00:08.737Z">
+<meta property="article:author" content="Jason Dong">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://jasondong97.github.io/img/default_cover/geomeric4.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://jasondong97.github.io/2023/06/12/k8s/study/k8s%20%E7%BD%91%E7%BB%9C%E7%AD%96%E7%95%A5/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/"/><link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.png"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'k8s 网络策略',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-24 14:00:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('/img/default_cover/geomeric4.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Jason Dong"><span class="site-name">Jason Dong</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">k8s 网络策略</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-06-11T16:00:00.000Z" title="发表于 2023-06-12 00:00:00">2023-06-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-24T06:00:08.737Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="k8s 网络策略"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>如果你希望在 IP 地址或端口层面（OSI 第 3 层或第 4 层）控制网络流量， 则你可以考虑为集群中特定应用使用 Kubernetes 网络策略（NetworkPolicy）。 NetworkPolicy 是一种以应用为中心的结构，允许你设置如何允许 <a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/">Pod</a> 与网络上的各类网络“实体” （我们这里使用实体以避免过度使用诸如“端点”和“服务”这类常用术语， 这些术语在 Kubernetes 中有特定含义）通信。 NetworkPolicy 适用于一端或两端与 Pod 的连接，与其他连接无关。</p>
+<p>Pod 可以通信的 Pod 是通过如下三个标识符的组合来辩识的：</p>
+<ol>
+<li>其他被允许的 Pods（例外：Pod 无法阻塞对自身的访问）</li>
+<li>被允许的名字空间</li>
+<li>IP 组块（例外：与 Pod 运行所在的节点的通信总是被允许的， 无论 Pod 或节点的 IP 地址）</li>
+</ol>
+<p>在定义基于 Pod 或名字空间的 NetworkPolicy 时， 你会使用<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels/">选择算符</a>来设定哪些流量可以进入或离开与该算符匹配的 Pod。 另外，当创建基于 IP 的 NetworkPolicy 时，我们基于 IP 组块（CIDR 范围）来定义策略。</p>
+<h2 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h2><p>网络策略通过<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/">网络插件</a>来实现。 要使用网络策略，你必须使用支持 NetworkPolicy 的网络解决方案。 创建一个 NetworkPolicy 资源对象而没有控制器来使它生效的话，是没有任何作用的。</p>
+<h2 id="Pod-隔离的两种类型"><a href="#Pod-隔离的两种类型" class="headerlink" title="Pod 隔离的两种类型"></a>Pod 隔离的两种类型</h2><p>Pod 有两种隔离: 出口的隔离和入口的隔离。它们涉及到可以建立哪些连接。 这里的“隔离”不是绝对的，而是意味着“有一些限制”。 另外的，“非隔离方向”意味着在所述方向上没有限制。这两种隔离（或不隔离）是独立声明的， 并且都与从一个 Pod 到另一个 Pod 的连接有关。</p>
+<p>默认情况下，一个 Pod 的出口是非隔离的，即所有外向连接都是被允许的。如果有任何的 NetworkPolicy 选择该 Pod 并在其 <code>policyTypes</code> 中包含 “Egress”，则该 Pod 是出口隔离的， 我们称这样的策略适用于该 Pod 的出口。当一个 Pod 的出口被隔离时， 唯一允许的来自 Pod 的连接是适用于出口的 Pod 的某个 NetworkPolicy 的 <code>egress</code> 列表所允许的连接。 这些 <code>egress</code> 列表的效果是相加的。</p>
+<p>默认情况下，一个 Pod 对入口是非隔离的，即所有入站连接都是被允许的。如果有任何的 NetworkPolicy 选择该 Pod 并在其 <code>policyTypes</code> 中包含 “Ingress”，则该 Pod 被隔离入口， 我们称这种策略适用于该 Pod 的入口。当一个 Pod 的入口被隔离时，唯一允许进入该 Pod 的连接是来自该 Pod 节点的连接和适用于入口的 Pod 的某个 NetworkPolicy 的 <code>ingress</code> 列表所允许的连接。这些 <code>ingress</code> 列表的效果是相加的。</p>
+<p>网络策略是相加的，所以不会产生冲突。如果策略适用于 Pod 某一特定方向的流量， Pod 在对应方向所允许的连接是适用的网络策略所允许的集合。 因此，评估的顺序不影响策略的结果。</p>
+<p>要允许从源 Pod 到目的 Pod 的连接，源 Pod 的出口策略和目的 Pod 的入口策略都需要允许连接。 如果任何一方不允许连接，建立连接将会失败。</p>
+<h2 id="NetworkPolicy-资源"><a href="#NetworkPolicy-资源" class="headerlink" title="NetworkPolicy 资源"></a>NetworkPolicy 资源</h2><p>参阅 <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#networkpolicy-v1-networking-k8s-io">NetworkPolicy</a> 来了解资源的完整定义。</p>
+<p>下面是一个 NetworkPolicy 的示例:</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/kubernetes/website/main/content/zh-cn/examples/service/networking/networkpolicy.yaml"><code>service/networking/networkpolicy.yaml</code></a></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> NetworkPolicy
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>network<span class="token punctuation">-</span>policy
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">podSelector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">role</span><span class="token punctuation">:</span> db
+  <span class="token key atrule">policyTypes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> Ingress
+    <span class="token punctuation">-</span> Egress
+  <span class="token key atrule">ingress</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">from</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">ipBlock</span><span class="token punctuation">:</span>
+            <span class="token key atrule">cidr</span><span class="token punctuation">:</span> 172.17.0.0/16
+            <span class="token key atrule">except</span><span class="token punctuation">:</span>
+              <span class="token punctuation">-</span> 172.17.1.0/24
+        <span class="token punctuation">-</span> <span class="token key atrule">namespaceSelector</span><span class="token punctuation">:</span>
+            <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+              <span class="token key atrule">project</span><span class="token punctuation">:</span> myproject
+        <span class="token punctuation">-</span> <span class="token key atrule">podSelector</span><span class="token punctuation">:</span>
+            <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+              <span class="token key atrule">role</span><span class="token punctuation">:</span> frontend
+      <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+          <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">6379</span>
+  <span class="token key atrule">egress</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">to</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">ipBlock</span><span class="token punctuation">:</span>
+            <span class="token key atrule">cidr</span><span class="token punctuation">:</span> 10.0.0.0/24
+      <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+          <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">5978</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>说明：</strong></p>
+<p>除非选择支持网络策略的网络解决方案，否则将上述示例发送到API服务器没有任何效果。</p>
+<p><strong>必需字段</strong>：与所有其他的 Kubernetes 配置一样，NetworkPolicy 需要 <code>apiVersion</code>、 <code>kind</code> 和 <code>metadata</code> 字段。关于配置文件操作的一般信息， 请参考<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/">配置 Pod 以使用 ConfigMap</a> 和<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/object-management">对象管理</a>。</p>
+<p><strong>spec</strong>：NetworkPolicy <a target="_blank" rel="noopener" href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status">规约</a> 中包含了在一个名字空间中定义特定网络策略所需的所有信息。</p>
+<p><strong>podSelector</strong>：每个 NetworkPolicy 都包括一个 <code>podSelector</code>， 它对该策略所适用的一组 Pod 进行选择。示例中的策略选择带有 “role&#x3D;db” 标签的 Pod。 空的 <code>podSelector</code> 选择名字空间下的所有 Pod。</p>
+<p><strong>policyTypes</strong>：每个 NetworkPolicy 都包含一个 <code>policyTypes</code> 列表，其中包含 <code>Ingress</code> 或 <code>Egress</code> 或两者兼具。<code>policyTypes</code> 字段表示给定的策略是应用于进入所选 Pod 的入站流量还是来自所选 Pod 的出站流量，或两者兼有。 如果 NetworkPolicy 未指定 <code>policyTypes</code> 则默认情况下始终设置 <code>Ingress</code>； 如果 NetworkPolicy 有任何出口规则的话则设置 <code>Egress</code>。</p>
+<p><strong>ingress</strong>：每个 NetworkPolicy 可包含一个 <code>ingress</code> 规则的白名单列表。 每个规则都允许同时匹配 <code>from</code> 和 <code>ports</code> 部分的流量。示例策略中包含一条简单的规则： 它匹配某个特定端口，来自三个来源中的一个，第一个通过 <code>ipBlock</code> 指定，第二个通过 <code>namespaceSelector</code> 指定，第三个通过 <code>podSelector</code> 指定。</p>
+<p><strong>egress</strong>：每个 NetworkPolicy 可包含一个 <code>egress</code> 规则的白名单列表。 每个规则都允许匹配 <code>to</code> 和 <code>port</code> 部分的流量。该示例策略包含一条规则， 该规则将指定端口上的流量匹配到 <code>10.0.0.0/24</code> 中的任何目的地。</p>
+<p>所以，该网络策略示例:</p>
+<ol>
+<li>隔离 <code>default</code> 名字空间下 <code>role=db</code> 的 Pod （如果它们不是已经被隔离的话）。</li>
+<li>（Ingress 规则）允许以下 Pod 连接到 <code>default</code> 名字空间下的带有 <code>role=db</code> 标签的所有 Pod 的 6379 TCP 端口：<ul>
+<li><code>default</code> 名字空间下带有 <code>role=frontend</code> 标签的所有 Pod</li>
+<li>带有 <code>project=myproject</code> 标签的所有名字空间中的 Pod</li>
+<li>IP 地址范围为 172.17.0.0–172.17.0.255 和 172.17.2.0–172.17.255.255 （即，除了 172.17.1.0&#x2F;24 之外的所有 172.17.0.0&#x2F;16）</li>
+</ul>
+</li>
+<li>（Egress 规则）允许 <code>default</code> 名字空间中任何带有标签 <code>role=db</code> 的 Pod 到 CIDR 10.0.0.0&#x2F;24 下 5978 TCP 端口的连接。</li>
+</ol>
+<p>参阅<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/declare-network-policy/">声明网络策略</a>演练了解更多示例。</p>
+<h2 id="选择器-to-和-from-的行为"><a href="#选择器-to-和-from-的行为" class="headerlink" title="选择器 to 和 from 的行为"></a>选择器 <code>to</code> 和 <code>from</code> 的行为</h2><p>可以在 <code>ingress</code> 的 <code>from</code> 部分或 <code>egress</code> 的 <code>to</code> 部分中指定四种选择器：</p>
+<p><strong>podSelector</strong>：此选择器将在与 NetworkPolicy 相同的名字空间中选择特定的 Pod，应将其允许作为入站流量来源或出站流量目的地。</p>
+<p><strong>namespaceSelector</strong>：此选择器将选择特定的名字空间，应将所有 Pod 用作其入站流量来源或出站流量目的地。</p>
+<p><strong>namespaceSelector 和 podSelector</strong>：一个指定 <code>namespaceSelector</code> 和 <code>podSelector</code> 的 <code>to</code>&#x2F;<code>from</code> 条目选择特定名字空间中的特定 Pod。 注意使用正确的 YAML 语法；下面的策略：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">...</span>
+<span class="token key atrule">ingress</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">from</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">namespaceSelector</span><span class="token punctuation">:</span>
+      <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">user</span><span class="token punctuation">:</span> alice
+    <span class="token key atrule">podSelector</span><span class="token punctuation">:</span>
+      <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">role</span><span class="token punctuation">:</span> client
+<span class="token punctuation">...</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此策略在 <code>from</code> 数组中仅包含一个元素，只允许来自标有 <code>role=client</code> 的 Pod 且该 Pod 所在的名字空间中标有 <code>user=alice</code> 的连接。但是<strong>这项</strong>策略：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">...</span>
+<span class="token key atrule">ingress</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">from</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">namespaceSelector</span><span class="token punctuation">:</span>
+      <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">user</span><span class="token punctuation">:</span> alice
+  <span class="token punctuation">-</span> <span class="token key atrule">podSelector</span><span class="token punctuation">:</span>
+      <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">role</span><span class="token punctuation">:</span> client
+<span class="token punctuation">...</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>它在 <code>from</code> 数组中包含两个元素，允许来自本地名字空间中标有 <code>role=client</code> 的 Pod 的连接，<strong>或</strong>来自任何名字空间中标有 <code>user=alice</code> 的任何 Pod 的连接。</p>
+<p>如有疑问，请使用 <code>kubectl describe</code> 查看 Kubernetes 如何解释该策略。</p>
+<p><strong>ipBlock</strong>：此选择器将选择特定的 IP CIDR 范围以用作入站流量来源或出站流量目的地。 这些应该是集群外部 IP，因为 Pod IP 存在时间短暂的且随机产生。</p>
+<p>集群的入站和出站机制通常需要重写数据包的源 IP 或目标 IP。 在发生这种情况时，不确定在 NetworkPolicy 处理之前还是之后发生， 并且对于网络插件、云提供商、<code>Service</code> 实现等的不同组合，其行为可能会有所不同。</p>
+<p>对入站流量而言，这意味着在某些情况下，你可以根据实际的原始源 IP 过滤传入的数据包， 而在其他情况下，NetworkPolicy 所作用的 <code>源IP</code> 则可能是 <code>LoadBalancer</code> 或 Pod 的节点等。</p>
+<p>对于出站流量而言，这意味着从 Pod 到被重写为集群外部 IP 的 <code>Service</code> IP 的连接可能会或可能不会受到基于 <code>ipBlock</code> 的策略的约束。</p>
+<h2 id="默认策略"><a href="#默认策略" class="headerlink" title="默认策略"></a>默认策略</h2><p>默认情况下，如果名字空间中不存在任何策略，则所有进出该名字空间中 Pod 的流量都被允许。 以下示例使你可以更改该名字空间中的默认行为。</p>
+<h3 id="默认拒绝所有入站流量"><a href="#默认拒绝所有入站流量" class="headerlink" title="默认拒绝所有入站流量"></a>默认拒绝所有入站流量</h3><p>你可以通过创建选择所有 Pod 但不允许任何进入这些 Pod 的入站流量的 NetworkPolicy 来为名字空间创建 “default” 隔离策略。</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/kubernetes/website/main/content/zh-cn/examples/service/networking/network-policy-default-deny-ingress.yaml"><code>service/networking/network-policy-default-deny-ingress.yaml</code></a> </p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> NetworkPolicy
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> default<span class="token punctuation">-</span>deny<span class="token punctuation">-</span>ingress
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">podSelector</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+  <span class="token key atrule">policyTypes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> Ingress<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这确保即使没有被任何其他 NetworkPolicy 选择的 Pod 仍将被隔离以进行入口。 此策略不影响任何 Pod 的出口隔离。</p>
+<h3 id="允许所有入站流量"><a href="#允许所有入站流量" class="headerlink" title="允许所有入站流量"></a>允许所有入站流量</h3><p>如果你想允许一个名字空间中所有 Pod 的所有入站连接，你可以创建一个明确允许的策略。</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/kubernetes/website/main/content/zh-cn/examples/service/networking/network-policy-allow-all-ingress.yaml"><code>service/networking/network-policy-allow-all-ingress.yaml</code></a> </p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> NetworkPolicy
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> allow<span class="token punctuation">-</span>all<span class="token punctuation">-</span>ingress
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">podSelector</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+  <span class="token key atrule">ingress</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+  <span class="token key atrule">policyTypes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> Ingress<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>有了这个策略，任何额外的策略都不会导致到这些 Pod 的任何入站连接被拒绝。 此策略对任何 Pod 的出口隔离没有影响。</p>
+<h3 id="默认拒绝所有出站流量"><a href="#默认拒绝所有出站流量" class="headerlink" title="默认拒绝所有出站流量"></a>默认拒绝所有出站流量</h3><p>你可以通过创建选择所有容器但不允许来自这些容器的任何出站流量的 NetworkPolicy 来为名字空间创建 “default” 隔离策略。</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/kubernetes/website/main/content/zh-cn/examples/service/networking/network-policy-default-deny-egress.yaml"><code>service/networking/network-policy-default-deny-egress.yaml</code></a> </p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> NetworkPolicy
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> default<span class="token punctuation">-</span>deny<span class="token punctuation">-</span>egress
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">podSelector</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+  <span class="token key atrule">policyTypes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> Egress<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此策略可以确保即使没有被其他任何 NetworkPolicy 选择的 Pod 也不会被允许流出流量。 此策略不会更改任何 Pod 的入站流量隔离行为。</p>
+<h3 id="允许所有出站流量"><a href="#允许所有出站流量" class="headerlink" title="允许所有出站流量"></a>允许所有出站流量</h3><p>如果要允许来自名字空间中所有 Pod 的所有连接， 则可以创建一个明确允许来自该名字空间中 Pod 的所有出站连接的策略。</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/kubernetes/website/main/content/zh-cn/examples/service/networking/network-policy-allow-all-egress.yaml"><code>service/networking/network-policy-allow-all-egress.yaml</code></a> </p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> NetworkPolicy
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> allow<span class="token punctuation">-</span>all<span class="token punctuation">-</span>egress
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">podSelector</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+  <span class="token key atrule">egress</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+  <span class="token key atrule">policyTypes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> Egress<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>有了这个策略，任何额外的策略都不会导致来自这些 Pod 的任何出站连接被拒绝。 此策略对进入任何 Pod 的隔离没有影响。</p>
+<h3 id="默认拒绝所有入站和所有出站流量"><a href="#默认拒绝所有入站和所有出站流量" class="headerlink" title="默认拒绝所有入站和所有出站流量"></a>默认拒绝所有入站和所有出站流量</h3><p>你可以为名字空间创建“默认”策略，以通过在该名字空间中创建以下 NetworkPolicy 来阻止所有入站和出站流量。</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/kubernetes/website/main/content/zh-cn/examples/service/networking/network-policy-default-deny-all.yaml"><code>service/networking/network-policy-default-deny-all.yaml</code></a></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> NetworkPolicy
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> default<span class="token punctuation">-</span>deny<span class="token punctuation">-</span>all
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">podSelector</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+  <span class="token key atrule">policyTypes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> Ingress
+  <span class="token punctuation">-</span> Egress<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此策略可以确保即使没有被其他任何 NetworkPolicy 选择的 Pod 也不会被允许入站或出站流量。</p>
+<h2 id="SCTP-支持"><a href="#SCTP-支持" class="headerlink" title="SCTP 支持"></a>SCTP 支持</h2><p><strong>特性状态：</strong> <code>Kubernetes v1.20 [stable]</code></p>
+<p>作为一个稳定特性，SCTP 支持默认是被启用的。 要在集群层面禁用 SCTP，你（或你的集群管理员）需要为 API 服务器指定 <code>--feature-gates=SCTPSupport=false,...</code> 来禁用 <code>SCTPSupport</code> <a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/reference/command-line-tools-reference/feature-gates/">特性门控</a>。 启用该特性门控后，用户可以将 NetworkPolicy 的 <code>protocol</code> 字段设置为 <code>SCTP</code>。</p>
+<p><strong>说明：</strong></p>
+<p>你必须使用支持 SCTP 协议 NetworkPolicy 的 <a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/">CNI</a> 插件。</p>
+<h2 id="针对某个端口范围"><a href="#针对某个端口范围" class="headerlink" title="针对某个端口范围"></a>针对某个端口范围</h2><p><strong>特性状态：</strong> <code>Kubernetes v1.25 [stable]</code></p>
+<p>在编写 NetworkPolicy 时，你可以针对一个端口范围而不是某个固定端口。</p>
+<p>这一目的可以通过使用 <code>endPort</code> 字段来实现，如下例所示：</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/kubernetes/website/main/content/zh-cn/examples/service/networking/networkpolicy-multiport-egress.yaml"><code>service/networking/networkpolicy-multiport-egress.yaml</code></a> </p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> NetworkPolicy
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> multi<span class="token punctuation">-</span>port<span class="token punctuation">-</span>egress
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">podSelector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">role</span><span class="token punctuation">:</span> db
+  <span class="token key atrule">policyTypes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> Egress
+  <span class="token key atrule">egress</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">to</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">ipBlock</span><span class="token punctuation">:</span>
+            <span class="token key atrule">cidr</span><span class="token punctuation">:</span> 10.0.0.0/24
+      <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+          <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">32000</span>
+          <span class="token key atrule">endPort</span><span class="token punctuation">:</span> <span class="token number">32768</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面的规则允许名字空间 <code>default</code> 中所有带有标签 <code>role=db</code> 的 Pod 使用 TCP 协议与 <code>10.0.0.0/24</code> 范围内的 IP 通信，只要目标端口介于 32000 和 32768 之间就可以。</p>
+<p>使用此字段时存在以下限制：</p>
+<ul>
+<li><code>endPort</code> 字段必须等于或者大于 <code>port</code> 字段的值。</li>
+<li>只有在定义了 <code>port</code> 时才能定义 <code>endPort</code>。</li>
+<li>两个字段的设置值都只能是数字。</li>
+</ul>
+<p><strong>说明：</strong></p>
+<p>你的集群所使用的 <a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/">CNI</a> 插件必须支持在 NetworkPolicy 规约中使用 <code>endPort</code> 字段。 如果你的<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/">网络插件</a>不支持 <code>endPort</code> 字段，而你指定了一个包含 <code>endPort</code> 字段的 NetworkPolicy， 策略只对单个 <code>port</code> 字段生效。</p>
+<h2 id="按标签选择多个命名空间"><a href="#按标签选择多个命名空间" class="headerlink" title="按标签选择多个命名空间"></a>按标签选择多个命名空间</h2><p>在这种情况下，你的 <code>Egress</code> NetworkPolicy 使用名字空间的标签名称来将多个名字空间作为其目标。 为此，你需要为目标名字空间设置标签。例如：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl label namespace frontend <span class="token assign-left variable">namespace</span><span class="token operator">=</span>frontend
+kubectl label namespace backend <span class="token assign-left variable">namespace</span><span class="token operator">=</span>backend<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>在 NetworkPolicy 文档中的 namespaceSelector 下添加标签。例如：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> NetworkPolicy
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> egress<span class="token punctuation">-</span>namespaces
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">podSelector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> myapp
+  <span class="token key atrule">policyTypes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> Egress
+  <span class="token key atrule">egress</span><span class="token punctuation">:</span>
+   <span class="token punctuation">-</span> <span class="token key atrule">to</span><span class="token punctuation">:</span>
+     <span class="token punctuation">-</span> <span class="token key atrule">namespaceSelector</span><span class="token punctuation">:</span>
+       <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+       <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> namespace
+         <span class="token key atrule">operator</span><span class="token punctuation">:</span> In
+         <span class="token key atrule">values</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"frontend"</span><span class="token punctuation">,</span> <span class="token string">"backend"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>说明：</strong></p>
+<p>你不可以在 NetworkPolicy 中直接指定命名空间的名称。 你必须使用带有 <code>matchLabels</code> 或 <code>matchExpressions</code> 的 <code>namespaceSelector</code> 来根据标签选择命名空间。</p>
+<h2 id="基于名字指向某名字空间"><a href="#基于名字指向某名字空间" class="headerlink" title="基于名字指向某名字空间"></a>基于名字指向某名字空间</h2><p><strong>特性状态：</strong> <code>Kubernetes 1.22 [stable]</code></p>
+<p>只要 <code>NamespaceDefaultLabelName</code> <a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/reference/command-line-tools-reference/feature-gates/">特性门控</a>被启用， Kubernetes 控制面会在所有名字空间上设置一个不可变更的标签 <code>kubernetes.io/metadata.name</code>。该标签的值是名字空间的名称。</p>
+<p>如果 NetworkPolicy 无法在某些对象字段中指向某名字空间， 你可以使用标准的标签方式来指向特定名字空间。</p>
+<h2 id="通过网络策略（至少目前还）无法完成的工作"><a href="#通过网络策略（至少目前还）无法完成的工作" class="headerlink" title="通过网络策略（至少目前还）无法完成的工作"></a>通过网络策略（至少目前还）无法完成的工作</h2><p>到 Kubernetes 1.27 为止，NetworkPolicy API 还不支持以下功能， 不过你可能可以使用操作系统组件（如 SELinux、OpenVSwitch、IPTables 等等） 或者第七层技术（Ingress 控制器、服务网格实现）或准入控制器来实现一些替代方案。 如果你对 Kubernetes 中的网络安全性还不太了解，了解使用 NetworkPolicy API 还无法实现下面的用户场景是很值得的。</p>
+<ul>
+<li><p>强制集群内部流量经过某公用网关（这种场景最好通过服务网格或其他代理来实现）；</p>
+</li>
+<li><p>与 TLS 相关的场景（考虑使用服务网格或者 Ingress 控制器）；</p>
+</li>
+<li><p>特定于节点的策略（你可以使用 CIDR 来表达这一需求不过你无法使用节点在 Kubernetes 中的其他标识信息来辩识目标节点）；</p>
+</li>
+<li><p>基于名字来选择服务（不过，你可以使用 <a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels/">标签</a> 来选择目标 Pod 或名字空间，这也通常是一种可靠的替代方案）；</p>
+</li>
+<li><p>创建或管理由第三方来实际完成的“策略请求”；</p>
+</li>
+<li><p>实现适用于所有名字空间或 Pods 的默认策略（某些第三方 Kubernetes 发行版本或项目可以做到这点）；</p>
+</li>
+<li><p>高级的策略查询或者可达性相关工具；</p>
+</li>
+<li><p>生成网络安全事件日志的能力（例如，被阻塞或接收的连接请求）；</p>
+</li>
+<li><p>显式地拒绝策略的能力（目前，NetworkPolicy 的模型默认采用拒绝操作， 其唯一的能力是添加允许策略）；</p>
+</li>
+<li><p>禁止本地回路或指向宿主的网络流量（Pod 目前无法阻塞 localhost 访问， 它们也无法禁止来自所在节点的访问请求）。</p>
+</li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/k8s/">k8s</a><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0/">学习</a></div><div class="post_share"><div class="social-share" data-image="/img/default_cover/geomeric4.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/06/12/java/debug/MySQL%208.0%20Public%20Key%20Retrieval%20is%20not%20allowed%20%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="MySQL 8.0 Public Key Retrieval is not allowed 错误的解决方法"><img class="cover" src="/img/default_cover/geomeric8.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MySQL 8.0 Public Key Retrieval is not allowed 错误的解决方法</div></div></a></div><div class="next-post pull-right"><a href="/2021/10/01/ceph/Ceph%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/" title="Ceph集群部署"><img class="cover" src="/img/default_cover/geomeric9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Ceph集群部署</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/10/10/k8s/k8s%20%E5%88%9B%E5%BB%BA%E5%8D%95%E8%8A%82%E7%82%B9%20mysql%20%E5%B9%B6%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/" title="k8s 创建单节点 mysql 并持久化存储"><img class="cover" src="/img/default_cover/geomeric6.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-10</div><div class="title">k8s 创建单节点 mysql 并持久化存储</div></div></a></div><div><a href="/2023/06/12/k8s/k8s%E5%88%9B%E5%BB%BAubuntu22.04%E5%B9%B6%E6%9A%B4%E9%9C%B222%E7%AB%AF%E5%8F%A3/" title="k8s 创建 ubuntu22.04 并暴露22端口"><img class="cover" src="/img/default_cover/geomeric3.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-12</div><div class="title">k8s 创建 ubuntu22.04 并暴露22端口</div></div></a></div><div><a href="/2023/06/14/k8s/kubevirt/cloud-init%20%E6%97%A0%E6%B3%95%E8%B0%83%E6%95%B4%E5%88%86%E5%8C%BA%E5%A4%A7%E5%B0%8F%EF%BC%9A%E5%BD%93%20LANG%20%E4%B8%8D%E6%98%AF%20en_US%20%E6%97%B6%EF%BC%8Cgrowpart%20%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8/" title="cloud-init 无法调整分区大小：当 LANG 不是 en_US 时，growpart 不起作用"><img class="cover" src="/img/default_cover/geomeric8.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-14</div><div class="title">cloud-init 无法调整分区大小：当 LANG 不是 en_US 时，growpart 不起作用</div></div></a></div><div><a href="/2023/11/03/k8s/%E5%AE%89%E8%A3%85%20longhorn%20%E5%87%BA%E7%8E%B0%E7%9A%84%E5%9D%91/" title="安装 longhorn 出现的坑"><img class="cover" src="/img/default_cover/geomeric2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-03</div><div class="title">安装 longhorn 出现的坑</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Jason Dong</div><div class="author-info__description">静心净心 戒骄戒躁</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JasonDong97" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:534458392@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">前置条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pod-%E9%9A%94%E7%A6%BB%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">Pod 隔离的两种类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NetworkPolicy-%E8%B5%84%E6%BA%90"><span class="toc-number">3.</span> <span class="toc-text">NetworkPolicy 资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8-to-%E5%92%8C-from-%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="toc-number">4.</span> <span class="toc-text">选择器 to 和 from 的行为</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E7%AD%96%E7%95%A5"><span class="toc-number">5.</span> <span class="toc-text">默认策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E6%8B%92%E7%BB%9D%E6%89%80%E6%9C%89%E5%85%A5%E7%AB%99%E6%B5%81%E9%87%8F"><span class="toc-number">5.1.</span> <span class="toc-text">默认拒绝所有入站流量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%81%E8%AE%B8%E6%89%80%E6%9C%89%E5%85%A5%E7%AB%99%E6%B5%81%E9%87%8F"><span class="toc-number">5.2.</span> <span class="toc-text">允许所有入站流量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E6%8B%92%E7%BB%9D%E6%89%80%E6%9C%89%E5%87%BA%E7%AB%99%E6%B5%81%E9%87%8F"><span class="toc-number">5.3.</span> <span class="toc-text">默认拒绝所有出站流量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%81%E8%AE%B8%E6%89%80%E6%9C%89%E5%87%BA%E7%AB%99%E6%B5%81%E9%87%8F"><span class="toc-number">5.4.</span> <span class="toc-text">允许所有出站流量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E6%8B%92%E7%BB%9D%E6%89%80%E6%9C%89%E5%85%A5%E7%AB%99%E5%92%8C%E6%89%80%E6%9C%89%E5%87%BA%E7%AB%99%E6%B5%81%E9%87%8F"><span class="toc-number">5.5.</span> <span class="toc-text">默认拒绝所有入站和所有出站流量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SCTP-%E6%94%AF%E6%8C%81"><span class="toc-number">6.</span> <span class="toc-text">SCTP 支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%92%88%E5%AF%B9%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E8%8C%83%E5%9B%B4"><span class="toc-number">7.</span> <span class="toc-text">针对某个端口范围</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%89%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%A4%9A%E4%B8%AA%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-number">8.</span> <span class="toc-text">按标签选择多个命名空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%90%8D%E5%AD%97%E6%8C%87%E5%90%91%E6%9F%90%E5%90%8D%E5%AD%97%E7%A9%BA%E9%97%B4"><span class="toc-number">9.</span> <span class="toc-text">基于名字指向某名字空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E7%BD%91%E7%BB%9C%E7%AD%96%E7%95%A5%EF%BC%88%E8%87%B3%E5%B0%91%E7%9B%AE%E5%89%8D%E8%BF%98%EF%BC%89%E6%97%A0%E6%B3%95%E5%AE%8C%E6%88%90%E7%9A%84%E5%B7%A5%E4%BD%9C"><span class="toc-number">10.</span> <span class="toc-text">通过网络策略（至少目前还）无法完成的工作</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/09/24/mysql/20250924/" title="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相"><img src="/img/default_cover/geomeric6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相"/></a><div class="content"><a class="title" href="/2025/09/24/mysql/20250924/" title="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相">MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相</a><time datetime="2025-09-24T06:08:44.382Z" title="更新于 2025-09-24 14:08:44">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/26/openid/OpenID/" title="OpenID Connect Core 1.0"><img src="/img/default_cover/geomeric10.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenID Connect Core 1.0"/></a><div class="content"><a class="title" href="/2023/10/26/openid/OpenID/" title="OpenID Connect Core 1.0">OpenID Connect Core 1.0</a><time datetime="2025-09-24T06:00:08.748Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/02/oauth2/OAuth2%20%E7%9A%84%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" title="OAuth 2.0 的一个简单解释"><img src="/img/default_cover/geomeric3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OAuth 2.0 的一个简单解释"/></a><div class="content"><a class="title" href="/2023/11/02/oauth2/OAuth2%20%E7%9A%84%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" title="OAuth 2.0 的一个简单解释">OAuth 2.0 的一个简单解释</a><time datetime="2025-09-24T06:00:08.741Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/27/mysql/mysql%20%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%AD%97%E6%AE%B5%E6%B3%A8%E9%87%8A/" title="mysql 查看表字段注释"><img src="/img/default_cover/geomeric7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql 查看表字段注释"/></a><div class="content"><a class="title" href="/2023/12/27/mysql/mysql%20%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%AD%97%E6%AE%B5%E6%B3%A8%E9%87%8A/" title="mysql 查看表字段注释">mysql 查看表字段注释</a><time datetime="2025-09-24T06:00:08.741Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/29/mysql/mysql%20%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E8%B5%8B%E4%BA%88%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/" title="mysql 创建用户并赋予管理员权限"><img src="/img/default_cover/geomeric2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql 创建用户并赋予管理员权限"/></a><div class="content"><a class="title" href="/2023/12/29/mysql/mysql%20%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E8%B5%8B%E4%BA%88%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/" title="mysql 创建用户并赋予管理员权限">mysql 创建用户并赋予管理员权限</a><time datetime="2025-09-24T06:00:08.740Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/default_cover/geomeric4.jpg')"><div id="footer-wrap"><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到我的博客~</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

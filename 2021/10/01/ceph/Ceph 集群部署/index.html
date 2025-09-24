@@ -1,0 +1,1310 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Ceph集群部署 | Jason Dong</title><meta name="author" content="Jason Dong"><meta name="copyright" content="Jason Dong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、Ceph 简介 一个 Ceph 存储集群需要至少一个 Ceph 监视器、Ceph 管理器和 Ceph OSD(对象存储守护进程)。在运行 Ceph 文件系统客户端时，也需要 Ceph 元数据服务器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ceph集群部署">
+<meta property="og:url" content="http://jasondong97.github.io/2021/10/01/ceph/Ceph%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/">
+<meta property="og:site_name" content="Jason Dong">
+<meta property="og:description" content="一、Ceph 简介 一个 Ceph 存储集群需要至少一个 Ceph 监视器、Ceph 管理器和 Ceph OSD(对象存储守护进程)。在运行 Ceph 文件系统客户端时，也需要 Ceph 元数据服务器。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://jasondong97.github.io/img/default_cover/geomeric9.png">
+<meta property="article:published_time" content="2021-10-01T08:00:00.000Z">
+<meta property="article:modified_time" content="2025-09-24T06:00:08.730Z">
+<meta property="article:author" content="Jason Dong">
+<meta property="article:tag" content="ceph">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://jasondong97.github.io/img/default_cover/geomeric9.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://jasondong97.github.io/2021/10/01/ceph/Ceph%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/"/><link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.png"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ceph集群部署',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-24 14:00:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('/img/default_cover/geomeric9.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Jason Dong"><span class="site-name">Jason Dong</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Ceph集群部署</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-10-01T08:00:00.000Z" title="发表于 2021-10-01 16:00:00">2021-10-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-24T06:00:08.730Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Ceph-%E5%AD%A6%E4%B9%A0/">Ceph 学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Ceph集群部署"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一、Ceph-简介"><a href="#一、Ceph-简介" class="headerlink" title="一、Ceph 简介"></a>一、Ceph 简介</h1><blockquote>
+<p>一个 Ceph 存储集群需要至少一个 Ceph 监视器、Ceph 管理器和 Ceph OSD(对象存储守护进程)。在运行 Ceph 文件系统客户端时，也需要 Ceph 元数据服务器。</p>
+</blockquote>
+<span id="more"></span>
+
+<ul>
+<li><p><strong>Monitors</strong>:</p>
+<ul>
+<li>Ceph 监视器(<code>ceph-mon</code>)维护着展示集群状态的各种图表，包括监视器图、管理器图、OSD 图、MDS 图和 CRUSH 图。这些图是 Ceph 守护进程相互协调所必需的关键集群状态。</li>
+<li>监视器还负责管理守护进程和客户端之间的身份验证。为了实现冗余和高可用性，通常需要至少三个监视器。</li>
+</ul>
+</li>
+<li><p><strong>Managers</strong>: <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/latest/glossary/#term-Ceph-Manager">Ceph Manager</a>守护程序(<code>ceph-mgr</code>)</p>
+<ul>
+<li>负责跟踪运行时指标和 Ceph 群集的当前状态，包括存储利用率、当前性能指标和系统负载。</li>
+<li>Ceph Manager 守护程序还托管基于 python 的模块来管理和公开 Ceph 群集信息，包括基于 Web 的<a target="_blank" rel="noopener" href="https://docs.ceph.com/en/latest/mgr/dashboard/#mgr-dashboard">Ceph 仪表板和</a> <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/latest/mgr/restful">REST API</a>。高可用性通常需要至少两个管理器。</li>
+</ul>
+</li>
+<li><p><strong>OSDs</strong>: <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/latest/glossary/#term-Ceph-OSD">Ceph OSD</a> (object storage daemon, <code>ceph-osd</code>)存储数据，处理数据复制，恢复，重新平衡，并提供一些监视信息到 Ceph 监视器和管理器,通过检查其他 Ceph OSD 守护进程检测信号.冗余和高可用性通常需要至少 3 个 Ceph OSD。</p>
+</li>
+<li><p><strong>MDSs</strong>: <a target="_blank" rel="noopener" href="https://docs.ceph.com/en/latest/glossary/#term-Ceph-Metadata-Server">Ceph 元数据服务器</a>（MDS, <code>ceph-mds</code>）代表<a target="_blank" rel="noopener" href="https://docs.ceph.com/en/latest/glossary/#term-Ceph-File-System">Ceph 文件系统</a>存储元数据（即 Ceph 块设备和 Ceph 对象存储不使用 MDS）。Ceph 元数据服务器允许 POSIX 文件系统用户执行基本命令 (如<code>ls</code>, <code>find</code>, <code>etc</code>等)，而不会给 Ceph 存储群集带来巨大负担。</p>
+</li>
+</ul>
+<blockquote>
+<p>Ceph 将数据存储为逻辑存储池中的对象。使用<a target="_blank" rel="noopener" href="https://docs.ceph.com/en/latest/glossary/#term-CRUSH">CRUSH 算法</a>，Ceph 计算哪个放置组应包含对象，并进一步计算哪个 Ceph OSD 守护程序应存储该放置组。CRUSH 算法使 Ceph 存储群集能够动态扩展、重新平衡和恢复。</p>
+</blockquote>
+<p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/TWXPPk7hE1D4AGsHg7CIMg">https://mp.weixin.qq.com/s/TWXPPk7hE1D4AGsHg7CIMg</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/cc3ece850433">https://www.jianshu.com/p/cc3ece850433</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/QXRdyYKSKIa1aLNI8dOGcQ">https://mp.weixin.qq.com/s/QXRdyYKSKIa1aLNI8dOGcQ</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaoquqi/article/details/43055031">https://blog.csdn.net/xiaoquqi/article/details/43055031</a></li>
+</ul>
+<h1 id="二、Cephadm-部署集群"><a href="#二、Cephadm-部署集群" class="headerlink" title="二、Cephadm 部署集群"></a>二、Cephadm 部署集群</h1><p>简单，简述，详细参考：<a target="_blank" rel="noopener" href="https://docs.ceph.com/en/latest/cephadm/#cephadm">https://docs.ceph.com/en/latest/cephadm/#cephadm</a></p>
+<h2 id="1-环境规划"><a href="#1-环境规划" class="headerlink" title="1.环境规划"></a>1.环境规划</h2><table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>内网 IP</th>
+<th>操作系统</th>
+<th>角色</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ceph1</td>
+<td>192.168.200.128</td>
+<td>Debian11</td>
+<td>cephadm,mon,mgr,osd</td>
+<td>2C,2G,20G 系统盘，20G 数据盘</td>
+</tr>
+<tr>
+<td>ceph2</td>
+<td>192.168.200.131</td>
+<td>Debian11</td>
+<td>cephadm,mon</td>
+<td>2C,2G,20G 系统盘，20G 数据盘</td>
+</tr>
+<tr>
+<td>ceph3</td>
+<td>192.168.200.132</td>
+<td>Debian11</td>
+<td>cephadm,mon</td>
+<td>2C,2G,20G 系统盘，20G 数据盘</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>典型的 Ceph 集群有三个或五个监视器守护程序，分布在不同的主机上。如果群集中有五个或更多节点，我们建议部署五个监视器。</p>
+</blockquote>
+<p>当 Ceph 知道 mon 应该使用什么 IP 子网时，它可以随着群集的增长（或收缩）自动部署和缩放 mon。默认情况下，Ceph 假定其他 mon 使用与第一个 mon 的 IP 相同的子网。</p>
+<p>在单个子网的情况下，如果向集群中添加主机，默认最多只会添加 5 个 mon 如果有特定的 IP 子网给 mon 使用，可以使用 CIDR 格式配置该子网。</p>
+<h2 id="2-前置-所有节点"><a href="#2-前置-所有节点" class="headerlink" title="2.前置(所有节点)"></a>2.前置(所有节点)</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.ceph.com/en/pacific/cephadm/install/">https://docs.ceph.com/en/pacific/cephadm/install/</a></p>
+</blockquote>
+<p>各节点配置 hosts</p>
+<pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">10.200.10.31 ceph-pro-1-10-200-10-31
+10.200.10.32 ceph-pro-2-10-200-10-32
+10.200.10.33 ceph-pro-3-10-200-10-33
+10.200.10.34 ceph-pro-4-10-200-10-34
+10.200.10.35 ceph-pro-5-10-200-10-35<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-安装-CEPHADM-所有节点"><a href="#3-安装-CEPHADM-所有节点" class="headerlink" title="3.安装 CEPHADM(所有节点)"></a>3.安装 CEPHADM(所有节点)</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#下载cephadm</span>
+<span class="token function">curl</span> --remote-name <span class="token parameter variable">--location</span> https://hub.shutcm.cf/ceph/ceph/raw/pacific/src/cephadm/cephadm
+<span class="token function">chmod</span> +x cephadm
+<span class="token comment">#设置源</span>
+./cephadm add-repo <span class="token parameter variable">--release</span> pacific
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'s#https://download.ceph.com#https://mirrors.aliyun.com/ceph#g'</span> /etc/apt/sources.list.d/ceph.list
+<span class="token function">apt-get</span> update
+<span class="token comment">#安装cephadm命令</span>
+./cephadm <span class="token function">install</span>
+<span class="token comment">#确认在PATH中</span>
+<span class="token function">which</span> cephadm
+<span class="token function">rm</span> <span class="token parameter variable">-fr</span> cephadm
+<span class="token comment">#安装ceph命令</span>
+cephadm <span class="token function">install</span> ceph-common<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-引导新群集-第一台"><a href="#4-引导新群集-第一台" class="headerlink" title="4.引导新群集(第一台)"></a>4.引导新群集(第一台)</h2><blockquote>
+<p>创建新的 Ceph 集群的第一步是在 Ceph 集群的第一台主机上运行 cephadm bootstrap 命令，运行此命令的操作将创建 Ceph 集群的第一个“监视程序守护程序”。</p>
+</blockquote>
+<p>而该监视程序守护程序需要一个 IP 地址，必须将 Ceph 集群的第一个主机的 IP 地址传递给 ceph bootstrap 命令。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cephadm bootstrap --mon-ip <span class="token number">10.200</span>.10.31
+<span class="token comment">#设置addr</span>
+<span class="token comment">#ceph orch host set-addr ceph1 192.168.200.128</span>
+<span class="token comment">#检查</span>
+ceph orch <span class="token function">host</span> <span class="token function">ls</span>
+ceph <span class="token parameter variable">-s</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此命令将会：</p>
+<pre class="line-numbers language-none"><code class="language-none">1) 在本地主机上为新集群创建监视和管理器守护程序
+2) 为Ceph集群生成一个新的SSH密钥，并将其添加到root用户的&#x2F;root&#x2F;.ssh&#x2F;authorized_keys文件中
+3) 将最小配置文件写入&#x2F;etc&#x2F;ceph&#x2F;ceph.conf
+4) 将client.admin管理特权密钥写入&#x2F;etc&#x2F;ceph&#x2F;ceph.client.admin.keyring
+5) 将公钥写入&#x2F;etc&#x2F;ceph&#x2F;ceph.pub<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-向群集添加主机"><a href="#5-向群集添加主机" class="headerlink" title="5.向群集添加主机"></a>5.向群集添加主机</h2><blockquote>
+<p>在解析主机名等方面，cephadm 的要求非常低, 通过以下命令可以明确 IP 与主机名之间的解析：ceph orch host add</p>
+</blockquote>
+<p><strong>注意</strong>：添加主机时会自动创建 mon 服务，先按照 禁用监视器自动部署( 5.4 (1) ) 或 调整默认值监视器数量 (5.2 节)，再添加主机。</p>
+<p>在新主机 root 用户的 authorized_keys 文件中安装集群的公共 SSH 密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#ssh-copy-id -f -i /etc/ceph/ceph.pub root@*&lt;new-host>*</span>
+ssh-copy-id <span class="token parameter variable">-f</span> <span class="token parameter variable">-i</span> /etc/ceph/ceph.pub root@ceph-pro-1-10-200-10-31
+ssh-copy-id <span class="token parameter variable">-f</span> <span class="token parameter variable">-i</span> /etc/ceph/ceph.pub root@ceph-pro-2-10-200-10-32
+ssh-copy-id <span class="token parameter variable">-f</span> <span class="token parameter variable">-i</span> /etc/ceph/ceph.pub root@ceph-pro-3-10-200-10-33
+ssh-copy-id <span class="token parameter variable">-f</span> <span class="token parameter variable">-i</span> /etc/ceph/ceph.pub root@ceph-pro-4-10-200-10-34
+ssh-copy-id <span class="token parameter variable">-f</span> <span class="token parameter variable">-i</span> /etc/ceph/ceph.pub root@ceph-pro-5-10-200-10-35<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>添加方式两种：</p>
+<ul>
+<li>命令方式添加</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#ceph orch host add *&lt;newhost>* [*&lt;ip>*] [*&lt;label1> ...*]</span>
+ceph orch <span class="token function">host</span> <span class="token function">add</span> ceph-pro-2-10-200-10-32 <span class="token number">10.200</span>.10.32 <span class="token parameter variable">--labels</span> _admin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>yaml 方式添加</li>
+</ul>
+<p><code>host.yml</code></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">service_type</span><span class="token punctuation">:</span> host
+<span class="token key atrule">addr</span><span class="token punctuation">:</span> 192.168.200.131
+<span class="token key atrule">hostname</span><span class="token punctuation">:</span> ceph2
+<span class="token key atrule">labels</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> mon
+<span class="token punctuation">---</span>
+<span class="token key atrule">service_type</span><span class="token punctuation">:</span> host
+<span class="token key atrule">addr</span><span class="token punctuation">:</span> 192.168.200.132
+<span class="token key atrule">hostname</span><span class="token punctuation">:</span> ceph3
+<span class="token key atrule">labels</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> mon<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-检查状态"><a href="#3-检查状态" class="headerlink" title="3.检查状态"></a>3.检查状态</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph orch <span class="token function">host</span> <span class="token function">ls</span>
+ceph <span class="token parameter variable">-s</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="6-部署-OSD"><a href="#6-部署-OSD" class="headerlink" title="6.部署 OSD"></a>6.部署 OSD</h2><p><strong><a target="_blank" rel="noopener" href="https://docs.ceph.com/en/pacific/cephadm/services/osd/#">https://docs.ceph.com/en/pacific/cephadm/services/osd/#</a></strong></p>
+<blockquote>
+<p>当有新的 osd 加入集群或者移除了 osd，就会把状态上报给 Monitor，Monitor 知道了 osd map 发生了变化就会触发 rebalancing，确保 pg 能够平滑的移动到各个 osd 上，以 pg 为整体进行数据重平衡，重平衡的过程中可能会影响性能，一次性加入的 osd 越多，数据 rebalancing 就越频繁。</p>
+</blockquote>
+<blockquote>
+<p>当在做 rebalance 的时候，每个 osd 都会按照 osd_max_backfills 指定数量的线程来同步，如果该数值比较大，同步会比较快，但是会影响部分性能；为了避免 rebalance 带来的性能影响，可以对 rebalance 进行关闭；添加完 osd 后再打开。</p>
+</blockquote>
+<h3 id="1-rebalance-关闭"><a href="#1-rebalance-关闭" class="headerlink" title="1).rebalance 关闭"></a>1).rebalance 关闭</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 设置标志位</span>
+ceph osd <span class="token builtin class-name">set</span> norebalance
+
+<span class="token comment"># 关闭数据填充</span>
+ceph osd <span class="token builtin class-name">set</span> nobackfill
+
+<span class="token comment"># 查看集群状态</span>
+ceph <span class="token parameter variable">-s</span>
+  cluster:
+    id:     87cdd3b2-987b-11eb-989e-000c29b12ae1
+    health: HEALTH_WARN
+            nobackfill,norebalance flag<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token builtin class-name">set</span>  <span class="token comment"># 有此信息</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-rebalance-开启"><a href="#2-rebalance-开启" class="headerlink" title="2).rebalance 开启"></a>2).rebalance 开启</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#开启数据填充</span>
+ceph osd <span class="token builtin class-name">unset</span> nobackfill
+<span class="token comment">#开启rebalance</span>
+ceph osd <span class="token builtin class-name">unset</span> norebalance
+<span class="token comment"># 查看集群状态</span>
+ceph <span class="token parameter variable">-s</span>
+  cluster:
+    id:     87cdd3b2-987b-11eb-989e-000c29b12ae1
+    health: HEALTH_OK<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-列出节点可用设备"><a href="#3-列出节点可用设备" class="headerlink" title="3).列出节点可用设备"></a>3).列出节点可用设备</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#ceph orch device ls [--wide]</span>
+ceph orch device <span class="token function">ls</span> <span class="token parameter variable">--wide</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>如果满足以下所有条件，则认为存储设备可用</p>
+<pre class="line-numbers language-none"><code class="language-none">1) 设备必须没有分区
+2) 设备不得具有任何LVM状态
+3) 设备不得挂载
+4) 设备不得包含文件系统
+5) 设备不得包含Ceph BlueStore OSD
+6) 设备必须大于5 GB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-创建-osd"><a href="#4-创建-osd" class="headerlink" title="4).创建 osd"></a>4).创建 osd</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#需要至少 3 个 Ceph OSD 以实现冗余和高可用性</span>
+ceph orch daemon <span class="token function">add</span> osd ceph-pro-1-10-200-10-31:/dev/sdb
+ceph orch daemon <span class="token function">add</span> osd ceph-pro-2-10-200-10-32:/dev/sdb
+ceph orch daemon <span class="token function">add</span> osd ceph-pro-3-10-200-10-33:/dev/sdb<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="7-集群高可用"><a href="#7-集群高可用" class="headerlink" title="7.集群高可用"></a>7.集群高可用</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#需要至少三个监视器才能实现冗余和高可用性</span>
+ceph orch apply mon <span class="token number">3</span>
+<span class="token comment"># 部署mon到指定节点</span>
+ceph orch <span class="token function">host</span> label <span class="token function">add</span> *<span class="token operator">&lt;</span>host<span class="token operator">></span>* mon
+<span class="token comment">#至少需要两个管理器才能实现高可用性</span>
+ceph orch apply mgr <span class="token number">3</span>
+<span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="8-CephFS-部署"><a href="#8-CephFS-部署" class="headerlink" title="8.CephFS 部署"></a>8.CephFS 部署</h2><h2 id="9-部署-RGW"><a href="#9-部署-RGW" class="headerlink" title="9.部署 RGW"></a>9.部署 RGW</h2><p><a target="_blank" rel="noopener" href="https://docs.ceph.com/en/pacific/cephadm/services/rgw/">https://docs.ceph.com/en/pacific/cephadm/services/rgw/</a></p>
+<h1 id="三、运维"><a href="#三、运维" class="headerlink" title="三、运维"></a>三、运维</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/royaljames/p/9807532.html">https://www.cnblogs.com/royaljames/p/9807532.html</a></p>
+<h2 id="1-向群集添加主机"><a href="#1-向群集添加主机" class="headerlink" title="1.向群集添加主机"></a>1.向群集添加主机</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#1.在新主机的根用户文件中安装群集的公共 SSH 密钥</span>
+ssh-copy-id <span class="token parameter variable">-f</span> <span class="token parameter variable">-i</span> /etc/ceph/ceph.pub root@host2
+<span class="token comment">#2.告诉 Ceph 新节点是群集的一部分：</span>
+ceph orch <span class="token function">host</span> <span class="token function">add</span> host2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-部署其他监视器-monitor"><a href="#2-部署其他监视器-monitor" class="headerlink" title="2.部署其他监视器(monitor)"></a>2.部署其他监视器(monitor)</h2><blockquote>
+<p>典型的 Ceph 群集具有分布在不同主机的三个或五个监视器守护程序。如果群集中有五个或更多节点，我们建议部署五个监视器。</p>
+</blockquote>
+<p>当 Ceph 知道监视器应该使用什么 IP 子网时，它可以随着群集的增长（或收缩）自动部署和缩放监视器。默认情况下，Ceph 假定其他监视器应使用与第一个监视器的 IP 相同的子网。</p>
+<p>如果您的 Ceph 监视器（或整个群集）住在单个子网中，则在向群集添加新主机时，默认情况下，cephadm 会自动添加多达 5 个监视器。无需进一步步骤。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#如果有特定的 IP 子网应该由监视器使用，您可以用CIDR格式（例如 ） 配置该子网，Cephadm 仅在配置的子网中配置了 IP 的主机上部署新的监视器守护程序。</span>
+ceph config <span class="token builtin class-name">set</span> mon public_network <span class="token number">10.1</span>.2.0/24
+<span class="token comment">#如果要调整 5 个监视器的默认值：</span>
+ceph orch apply mon *<span class="token operator">&lt;</span>number-of-monitors<span class="token operator">></span>*
+<span class="token comment">#若要在一组特定的主机上部署监视器，请确保在此列表中包括第一个（引导）主机。</span>
+ceph orch apply mon *<span class="token operator">&lt;</span>host1,host2,host3,<span class="token punctuation">..</span>.<span class="token operator">></span>*
+<span class="token comment">#您可以通过使用主机标签来控制监视器运行的主机。要将标签设置为相应的主机，请：mon</span>
+ceph orch <span class="token function">host</span> label <span class="token function">add</span> *<span class="token operator">&lt;</span>hostname<span class="token operator">></span>* mon
+<span class="token comment">#要查看当前主机和标签：</span>
+ceph orch <span class="token function">host</span> <span class="token function">ls</span>
+<span class="token comment">#例如：</span>
+<span class="token comment"># ceph orch host label add host1 mon</span>
+<span class="token comment"># ceph orch host label add host2 mon</span>
+<span class="token comment"># ceph orch host label add host3 mon</span>
+<span class="token comment"># ceph orch host ls</span>
+HOST   ADDR   LABELS  STATUS
+host1         mon
+host2         mon
+host3         mon
+host4
+host5
+<span class="token comment">#告诉 cephadm 根据标签部署监视器：</span>
+ceph orch apply mon label:mon
+<span class="token comment">#您可以显式指定每个监视器的 IP 地址或 CIDR 网络，并控制其放置位置。要禁用自动监视器部署：</span>
+ceph orch apply mon <span class="token parameter variable">--unmanaged</span>
+<span class="token comment">#要部署每个附加监视器：</span>
+ceph orch daemon <span class="token function">add</span> mon *<span class="token operator">&lt;</span>host1:ip-or-network<span class="token operator"><span class="token file-descriptor important">1</span>></span> <span class="token punctuation">[</span><span class="token operator">&lt;</span>host1:ip-or-network-<span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token punctuation">..</span>.<span class="token punctuation">]</span>*
+<span class="token comment">#例如，要在使用 IP 地址上部署第二个监视器，在网络上部署第三个监视器</span>
+<span class="token comment"># ceph orch apply mon --unmanaged</span>
+<span class="token comment"># ceph orch daemon add mon newhost1:10.1.2.123</span>
+<span class="token comment"># ceph orch daemon add mon newhost2:10.1.2.0/24</span>
+
+<span class="token comment">#若要确保监视器应用于这三台主机中的每一个主机，请运行以下命令：</span>
+ceph orch apply mon <span class="token string">"host1,host2,host3"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="使用-YAML-规范"><a href="#使用-YAML-规范" class="headerlink" title="使用 YAML 规范"></a>使用 YAML 规范</h1><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph orch apply <span class="token parameter variable">-i</span> file.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">service_type</span><span class="token punctuation">:</span> mon
+<span class="token key atrule">placement</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> host1
+    <span class="token punctuation">-</span> host2
+    <span class="token punctuation">-</span> host3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-部署-OSD"><a href="#3-部署-OSD" class="headerlink" title="3.部署 OSD"></a>3.部署 OSD</h2><h3 id="1-所有群集主机上的存储设备清单可以显示"><a href="#1-所有群集主机上的存储设备清单可以显示" class="headerlink" title="1.所有群集主机上的存储设备清单可以显示"></a>1.所有群集主机上的存储设备清单可以显示</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph orch device <span class="token function">ls</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>设备必须没有分区。</li>
+<li>设备不得具有任何 LVM 状态。</li>
+<li>不得安装设备。</li>
+<li>设备不能包含文件系统。</li>
+<li>设备不得包含 Ceph BlueStore OSD。</li>
+<li>设备必须大于 5 GB。</li>
+</ul>
+<h3 id="2-创建新-OSD-的方法"><a href="#2-创建新-OSD-的方法" class="headerlink" title="2.创建新 OSD 的方法"></a>2.创建新 OSD 的方法</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1.告诉 Ceph 使用任何可用和未使用的存储设备：</span>
+ceph orch apply osd --all-available-devices
+<span class="token comment"># 2.从特定主机上的特定设备创建 OSD：ceph orch daemon add osd *&lt;host>*:*&lt;device-path>*</span>
+ceph orch daemon <span class="token function">add</span> osd host1:/dev/sdb
+<span class="token comment"># 3.使用OSD 服务规范描述设备，根据设备属性、此类设备类型（SSD 或 HDD）、设备型号名称、大小或设备存在的主机使用：</span>
+ceph orch apply osd <span class="token parameter variable">-i</span> spec.yml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-部署-MDS"><a href="#4-部署-MDS" class="headerlink" title="4.部署 MDS"></a>4.部署 MDS</h2><p>使用 CephFS 文件系统需要一个或多个 MDS 守护程序。如果使用较新的接口创建新文件系统，则会自动创建这些接口。有关详细信息，请参阅 FS 卷和子卷。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph orch apply mds *<span class="token operator">&lt;</span>fs-name<span class="token operator">></span>* <span class="token parameter variable">--placement</span><span class="token operator">=</span><span class="token string">"*&lt;num-daemons>* [*&lt;host1>* ...]"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="5-部署-RGW"><a href="#5-部署-RGW" class="headerlink" title="5.部署 RGW"></a>5.部署 RGW</h2><h2 id="6-管理-Monitor-map"><a href="#6-管理-Monitor-map" class="headerlink" title="6.管理 Monitor map"></a>6.管理 Monitor map</h2><h3 id="1-多-Monitor-同步机制"><a href="#1-多-Monitor-同步机制" class="headerlink" title="1).多 Monitor 同步机制"></a>1).多 Monitor 同步机制</h3><blockquote>
+<p>在生产环境建议最少三节点 monitor，以确保 cluster map 的高可用性和冗余性,monitor 节点不应该过多甚至操作 9 节点的行为,会导致数据读写时间下降，影响系统集群的性能。</p>
+</blockquote>
+<ul>
+<li>monitor 使用 paxos 算法作为集群状态上达成一致的机制。paxos 是一种分布式一致性算法。每当 monitor 修改 map 时，它会通过 paxos 发送更新到其他 monitor。Ceph 只有在大多数 monitor 就更新达成一致时提交 map 的新版本。</li>
+<li>cluster map 的更新操作需要 Paxos 确认，但是读操作不经由 Paxos，而是直接访问本地的 kv 存储。</li>
+</ul>
+<h3 id="2-Monitor-选举机制"><a href="#2-Monitor-选举机制" class="headerlink" title="2).Monitor 选举机制"></a>2).Monitor 选举机制</h3><ul>
+<li>多个 monitor 之间需要建立仲裁并选择出一个 leader，其他节点则作为工作节点（peon）。</li>
+<li>在选举完成并确定 leader 之后，leader 将从所有其他 monitor 请求最新的 map epoc，以确保 leader 具有集群的最新视图。</li>
+<li>要维护 monitor 集群的正常工作，必须有超过半数的节点正常。</li>
+</ul>
+<h3 id="3-Monitor-租约"><a href="#3-Monitor-租约" class="headerlink" title="3).Monitor 租约"></a>3).Monitor 租约</h3><ul>
+<li>在 Monitor 建立仲裁后，leader 开始分发短期的租约到所有的 monitors。让它们能够分发 cluster map 到 OSD 和 client。</li>
+<li>Monitor 租约默认每 3s 续期一次。</li>
+<li>当 peon monitor 没有确认它收到租约时，leader 假定该 monitor 异常，它会召集新的选举以建立仲裁。</li>
+<li>如果 peon monitor 的租约到期后没有收到 leader 的续期，它会假定 leader 异常，并会召集新的选举。</li>
+<li>所以如果生产环境中存在多个 monitor 时候某个节点的超时会猝发节点的重新选举导致 client 无法第一时间拿到最新的 crushmap 图像也就无法去对应的 osd 上的 pv 写入数据了。</li>
+</ul>
+<h3 id="4-常用的-monitor-管理"><a href="#4-常用的-monitor-管理" class="headerlink" title="4).常用的 monitor 管理"></a>4).常用的 monitor 管理</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#打印monitor map信息</span>
+ceph mon dump
+
+<span class="token comment">#将monitor map导出为一个二进制文件</span>
+ceph mon getmap <span class="token parameter variable">-o</span> ./monmap
+
+<span class="token comment">#打印导出的二进制文件的内容</span>
+monmaptool <span class="token parameter variable">--print</span> ./monmap
+
+<span class="token comment">#修改二进制文件，从monmap删除某个monitor</span>
+monmaptool ./monmap <span class="token parameter variable">--rm</span> <span class="token operator">&lt;</span>id<span class="token operator">></span>
+
+<span class="token comment">#修改二进制文件，往monmap中添加一个monitor</span>
+monmaptool ./monmap <span class="token parameter variable">--add</span> <span class="token operator">&lt;</span>id<span class="token operator">></span> <span class="token operator">&lt;</span>ip:port<span class="token operator">></span>
+
+<span class="token comment">#导入一个二进制文件，在导入之前，需要先停止monitor</span>
+ceph-mon <span class="token parameter variable">-i</span> <span class="token operator">&lt;</span>id<span class="token operator">></span> --inject-monmap ./monmap<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="7-管理-OSD-Map"><a href="#7-管理-OSD-Map" class="headerlink" title="7.管理 OSD Map"></a>7.管理 OSD Map</h2><ul>
+<li>每当 OSD 加入或离开集群时，Ceph 都会更新 OSD map。</li>
+<li>OSD 不使用 leader 来管理 OSD map，它们会在自身之间传播同步 map。OSD 会利用 OSD map epoch 标记它们交换的每一条信息，当 OSD 检测到自己已落后时，它会使用其对等 OSD 执行 map 更新。</li>
+<li>在大型集群中 OSD map 更新会非常频繁，节点会执行递增 map 更新。</li>
+<li>Ceph 也会利用 epoch 来标记 OSD 和 client 之间的消息。当 client 连接到 OSD 时 OSD 会检查 epoch。如果发现 epoch 不匹配，则 OSD 会以正确的 epoch 响应，以便客户端可以更新其 OSD map。</li>
+<li>OSD 定期向 monitor 报告自己的状态，OSD 之间会交换心跳，以便检测对等点的故障，并报告给 monitor。</li>
+<li>leader monitor 发现 OSD 故障时，它会更新 map，递增 epoch，并使用 Paxos 更新协议来通知其他 monitor，同时撤销租约，并发布新的租约，以使 monitor 以分发最新的 OSD map。</li>
+</ul>
+<h3 id="1-OSD-状态解读"><a href="#1-OSD-状态解读" class="headerlink" title="1).OSD 状态解读"></a>1).OSD 状态解读</h3><ul>
+<li>1.正常状态的 OSD 为 up 且 in</li>
+<li>2.当 OSD 故障时，守护进程 offline，在 5 分钟内，集群仍会将其标记为 up 和 in，这是为了防止网络抖动</li>
+<li>3.如果 5 分钟内仍未恢复，则会标记为 down 和 out。此时该 OSD 上的 PG 开始迁移。这个 5 分钟的时间间隔可以通过 mon_osd_down_out_interval 配置项修改</li>
+<li>4.当故障的 OSD 重新上线以后，会触发新的数据再平衡</li>
+<li>5.当集群有 noout 标志位时，则 osd 下线不会导致数据恢复</li>
+<li>6.OSD 每隔 6s 会互相验证状态。并每隔 120s 向 mon 报告一次状态。</li>
+</ul>
+<h3 id="2-OSD-map-命令"><a href="#2-OSD-map-命令" class="headerlink" title="2).OSD map 命令"></a>2).OSD map 命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph osd dump
+ceph osd getmap <span class="token parameter variable">-o</span> binfile
+osdmaptool <span class="token parameter variable">--print</span> binfile
+osdmaptool --export-crush crushbinfile binfile
+osdmaptool --import-crush crushbinfile binfile
+osdmaptool --test-map-pg pgid binfile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-OSD-的状态"><a href="#3-OSD-的状态" class="headerlink" title="3.)OSD 的状态"></a>3.)OSD 的状态</h3><ul>
+<li><p>OSD 运行状态</p>
+<ul>
+<li>up</li>
+<li>down</li>
+<li>out</li>
+<li>in</li>
+</ul>
+</li>
+<li><p>OSD 容量状态</p>
+<ul>
+<li>nearfull</li>
+<li>full</li>
+</ul>
+</li>
+</ul>
+<p>常用指令</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#显示OSD状态</span>
+ceph osd <span class="token function">stat</span>
+
+<span class="token comment">#报告osd使用量</span>
+ceph osd <span class="token function">df</span>
+
+<span class="token comment">#查找指定osd位置</span>
+ceph osd <span class="token function">find</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-OSD-容量"><a href="#4-OSD-容量" class="headerlink" title="4.)OSD 容量"></a>4.)OSD 容量</h3><ul>
+<li>当集群容量达到 mon_osd_nearfull_ratio 的值时，集群会进入 HEALTH_WARN 状态。这是为了在达到 full_ratio 之前，提醒添加 OSD。默认设置为 0.85，即 85%</li>
+<li>当集群容量达到 mon_osd_full_ratio 的值时，集群将停止写入，但允许读取。集群会进入到 HEALTH_ERR 状态。默认为 0.95，即 95%。这是为了防止当一个或多个 OSD 故障时仍留有余地能重平衡数据</li>
+</ul>
+<p>设置方法：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph osd set-full-ratio <span class="token number">0.95</span>
+ceph osd set-nearfull-ratio <span class="token number">0.85</span>
+ceph osd dump<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-OSD-状态参数"><a href="#5-OSD-状态参数" class="headerlink" title="5).OSD 状态参数"></a>5).OSD 状态参数</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># osd之间传递心跳的间隔时间</span>
+osd_heartbeat_interval
+
+<span class="token comment"># 一个osd多久没心跳，就会被集群认为它down了</span>
+osd_heartbeat_grace
+
+<span class="token comment"># 确定一个osd状态为down的最少报告来源osd数</span>
+mon_osd_min_down_reporters
+
+<span class="token comment"># 一个OSD必须重复报告一个osd状态为down的次数</span>
+mon_osd_min_down_reports
+
+<span class="token comment"># 当osd停止响应多长时间，将其标记为down和out</span>
+mon_osd_down_out_interval
+
+<span class="token comment"># monitor宣布失败osd为down前的等待时间</span>
+mon_osd_report_timeout
+
+<span class="token comment"># 一个新的osd加入集群时，等待多长时间，开始向monitor报告</span>
+osd_mon_report_interval_min
+
+<span class="token comment"># monitor允许osd报告的最大间隔，超时就认为它down了</span>
+osd_mon_report_interval_max
+
+<span class="token comment"># osd向monitor报告心跳的时间</span>
+osd_mon_heartbeat_interval<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="8-管理-PG"><a href="#8-管理-PG" class="headerlink" title="8.管理 PG"></a>8.管理 PG</h2><h3 id="1-管理文件到-PG-映射"><a href="#1-管理文件到-PG-映射" class="headerlink" title="1).管理文件到 PG 映射"></a>1).管理文件到 PG 映射</h3><p>test 对象所在 pg id 为 10.35，存储在三个 osd 上，分别为 osd.2、osd.1 和 osd.8，其中 osd.2 为 primary osd</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rados <span class="token parameter variable">-p</span> <span class="token builtin class-name">test</span> put <span class="token builtin class-name">test</span> /etc/ceph/ceph.conf
+ceph osd map <span class="token builtin class-name">test</span> <span class="token builtin class-name">test</span>
+    osdmap e201 pool <span class="token string">'test'</span> <span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> object <span class="token string">'test'</span> -<span class="token operator">></span> pg <span class="token number">10</span>.40e8aab5 <span class="token punctuation">(</span><span class="token number">10.35</span><span class="token punctuation">)</span> -<span class="token operator">></span> up <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2,1</span>,8<span class="token punctuation">]</span>, p2<span class="token punctuation">)</span> acting <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2,1</span>,8<span class="token punctuation">]</span>, p2<span class="token punctuation">)</span>
+
+<span class="token comment">#处于up状态的osd会一直留在PG的up set和acting set中，一旦主osd down，它首先会从up set中移除</span>
+<span class="token comment">#然后从acting set中移除，之后从OSD将被升级为主。Ceph会将故障OSD上的PG恢复到一个新OSD上</span>
+<span class="token comment">#然后再将这个新OSD加入到up和acting set中来维持集群的高可用性</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-管理-struck-状态的-PG"><a href="#2-管理-struck-状态的-PG" class="headerlink" title="2).管理 struck 状态的 PG"></a>2).管理 struck 状态的 PG</h3><ul>
+<li><p>如果 PG 长时间（mon_pg_stuck_threshold，默认为 300s）出现如下状态时，MON 会将该 PG 标记为 stuck：</p>
+<ul>
+<li>inactive：pg 有 peering 问题</li>
+<li>unclean：pg 在故障恢复时遇到问题</li>
+<li>stale：pg 没有任何 OSD 报告，可能其所有的 OSD 都是 down 和 out</li>
+<li>undersized：pg 没有充足的 osd 来存储它应具有的副本数</li>
+</ul>
+</li>
+<li><p>默认情况下，Ceph 会自动执行恢复，但如果未能自动恢复，则集群状态会一直处于 HEALTH_WARN 或者 HEALTH_ERR</p>
+</li>
+<li><p>如果特定 PG 的所有 osd 都是 down 和 out 状态，则 PG 会被标记为 stale。要解决这一情况，其中一个 OSD 必须要重生，且具有可用的 PG 副本，否则 PG 不可用</p>
+</li>
+<li><p>Ceph 可以声明 osd 或 PG 已丢失，这也就意味着数据丢失。需要说明的是，osd 的运行离不开 journal，如果 journal 丢失，则 osd 停止</p>
+</li>
+</ul>
+<h3 id="3-struck-状态操作"><a href="#3-struck-状态操作" class="headerlink" title="3).struck 状态操作"></a>3).struck 状态操作</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检查处于stuck状态的pg</span>
+ceph pg dump_stuck
+<span class="token comment"># 检查导致pg一致阻塞在peering状态的osd</span>
+ceph osd blocked-by
+<span class="token comment"># 检查某个pg的状态</span>
+ceph pg dump all<span class="token operator">|</span><span class="token function">grep</span> pgid
+<span class="token comment"># 声明pg丢失</span>
+ceph pg pgid mark_unfound_lost revert<span class="token operator">|</span>delete
+<span class="token comment"># 声明osd丢失（需要osd状态为down且out）</span>
+ceph osd lost osdid --yes-i-really-mean-it<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-手动控制-PG-的-Primary-OSD"><a href="#4-手动控制-PG-的-Primary-OSD" class="headerlink" title="4).手动控制 PG 的 Primary OSD"></a>4).手动控制 PG 的 Primary OSD</h3><p>可以通过手动修改 osd 的权重以提升 特定 OSD 被选为 PG Primary OSD 的概率，避免将速度慢的磁盘用作 primary osd。</p>
+<p>需要先在配置文件中配置如下参数：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mon_osd_allow_primary_affinity <span class="token operator">=</span> <span class="token boolean">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="5-调整权重示例"><a href="#5-调整权重示例" class="headerlink" title="5).调整权重示例"></a>5).调整权重示例</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>. 查看现在有多少PG的主OSD是osd.0
+ceph pg dump <span class="token operator">|</span><span class="token function">grep</span> active+clean <span class="token operator">|</span><span class="token function">egrep</span> <span class="token string">"\[0,"</span> <span class="token operator">|</span><span class="token function">wc</span> <span class="token parameter variable">-l</span>
+
+<span class="token number">2</span>. 修改osd.0的权重
+ceph osd primary-affinity osd.0 <span class="token number">0</span>  <span class="token comment"># 权重范围从0.0到1.0</span>
+
+<span class="token number">3</span>. 再次查看现在有多少PG的主OSD是osd.0
+ceph pg dump <span class="token operator">|</span><span class="token function">grep</span> active+clean <span class="token operator">|</span><span class="token function">egrep</span> <span class="token string">"\[0,"</span> <span class="token operator">|</span><span class="token function">wc</span> <span class="token parameter variable">-l</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="9-Pool-存储池-管理"><a href="#9-Pool-存储池-管理" class="headerlink" title="9.Pool(存储池)管理"></a>9.Pool(存储池)管理</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42440345/article/details/81118964">https://blog.csdn.net/weixin_42440345&#x2F;article&#x2F;details&#x2F;81118964</a></p>
+<h3 id="PG-和-PGP-的区别"><a href="#PG-和-PGP-的区别" class="headerlink" title="PG 和 PGP 的区别"></a>PG 和 PGP 的区别</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zphj1987/p/13575377.html">https://www.cnblogs.com/zphj1987/p/13575377.html</a></p>
+<p>PG 是指定存储池存储对象的目录有多少个，PGP 是存储池 PG 的 OSD 分布组合个数</p>
+<p>PG 的增加会引起 PG 内的数据进行分裂，分裂到相同的 OSD 上新生成的 PG 当中</p>
+<p>PGP 的增加会引起部分 PG 的分布进行变化，但是不会引起 PG 内对象的变动</p>
+<h3 id="4-限制-pool-配置更改"><a href="#4-限制-pool-配置更改" class="headerlink" title="4.)限制 pool 配置更改"></a>4.)限制 pool 配置更改</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#禁止池被删除</span>
+osd_pool_default_flag_nodelete
+
+<span class="token comment">#禁止池的pg_num和pgp_num被修改</span>
+osd_pool_default_flag_nopgchange
+
+<span class="token comment">#禁止修改池的size和min_size</span>
+osd_pool_default_flag_nosizechange<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-查看-pool"><a href="#1-查看-pool" class="headerlink" title="1.查看 pool"></a>1.查看 pool</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#查看所有pool</span>
+ceph osd lspools
+<span class="token comment">#获取集群内所有POOL的概况信息,集群内POOL的个数、对应的POOL id、POOL名称、副本数、最小副本数，ruleset及POOL snap等信息</span>
+ceph osd pool <span class="token function">ls</span> detail
+<span class="token comment">#查看POOL的统计信息</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-创建-pool"><a href="#2-创建-pool" class="headerlink" title="2.创建 pool"></a>2.创建 pool</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#创建一个副本类型的POOL</span>
+ceph osd pool create <span class="token punctuation">&#123;</span>pool-name<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span>pg-num<span class="token punctuation">&#125;</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>pgp-num<span class="token punctuation">&#125;</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>pgp-num<span class="token punctuation">&#125;</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>replicated<span class="token punctuation">]</span> <span class="token punctuation">[</span>ruleset<span class="token punctuation">]</span>
+<span class="token comment">#举例：</span>
+ceph osd pool create rbd  <span class="token number">32</span> <span class="token number">32</span>
+<span class="token comment">#创建一个纠删码类型的POOL</span>
+ceph osd pool create <span class="token punctuation">&#123;</span>pool-name<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span>pg-num<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span>pgp-num<span class="token punctuation">&#125;</span> erasure <span class="token punctuation">[</span>erasure-code-profile<span class="token punctuation">]</span> <span class="token punctuation">[</span>ruleset<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在<code>&#123;&#125;</code>内的参数为必选项,<code>[]</code>内的参数均设有默认值,如果没有更改设计,可以不添加。</p>
+<p>参数的含义如下:</p>
+<ul>
+<li><strong>pool-name</strong>: POOL 的名字；必须添加。</li>
+<li><strong>pg-num</strong>: POOL 拥有的 PG 总数；必须添加。</li>
+<li><strong>pgp-num</strong>: POOL 拥有的 PGP 总数；非必须添加。默认与 pg-num 相同。</li>
+<li><strong>replicated|erasure</strong>: POOL 类型；非必须添加。如不指定为 erasure,则默认为 replicated 类型。</li>
+<li><strong>ruleset</strong>: POOL 所用的 CRUSH 规则 ID。非必须添加。默认为 0,若需指定其他 ruleset,需确保 ruleset 必须存在。</li>
+<li><strong>erasure-code-profile</strong>: 仅用于纠删码类型的 POOL。指定纠删码配置框架,此配置必须已由 osd erasure-code-profile set 定义</li>
+</ul>
+<p>这里强制选择 pg_num 和 pgp_num，因为 ceph 集群不能自动计算 pg 数量。下面有一些官方建议的 pg 使用数量：</p>
+<ul>
+<li>小于 5 个 osd 设置 pg_num 为 128</li>
+<li>5 到 10 个 osd 设置 pg_num 为 512</li>
+<li>10 到 50 个 osd 设置 pg_num 为 1024</li>
+<li>如果超过 50 个 osd 你需要自己明白权衡点，并且能自行计算 pg_num 的数量</li>
+</ul>
+<p>pg_num 通用计算方法:</p>
+<p>(OSDs * 100)</p>
+<p>Total PGs &#x3D;  ————</p>
+<p>pool size</p>
+<h3 id="3-修改-pool"><a href="#3-修改-pool" class="headerlink" title="3.修改 pool"></a>3.修改 pool</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph osd pool <span class="token builtin class-name">set</span> <span class="token punctuation">&#123;</span>pool-name<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span>key<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span>value<span class="token punctuation">&#125;</span>
+size：设置存储池中的对象副本数，详情参见设置对象副本数。仅适用于副本存储池。
+min_size：设置 I/O 需要的最小副本数，详情参见设置对象副本数。仅适用于副本存储池。
+pg_num：计算数据分布时的有效 PG 数。只能大于当前 PG 数。
+pgp_num：计算数据分布时使用的有效 PGP 数量。小于等于存储池的 PG 数。
+hashpspool：给指定存储池设置/取消 HASHPSPOOL 标志。
+target_max_bytes：达到 max_bytes 阀值时会触发 Ceph 冲洗或驱逐对象。
+target_max_objects：达到 max_objects 阀值时会触发 Ceph 冲洗或驱逐对象。
+scrub_min_interval：在负载低时，洗刷存储池的最小间隔秒数。如果是 <span class="token number">0</span> ，就按照配置文件里的 osd_scrub_min_interval 。
+scrub_max_interval：不管集群负载如何，都要洗刷存储池的最大间隔秒数。如果是 <span class="token number">0</span> ，就按照配置文件里的 osd_scrub_max_interval 。
+deep_scrub_interval：“深度”洗刷存储池的间隔秒数。如果是 <span class="token number">0</span> ，就按照配置文件里的 osd_deep_scrub_interval 。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-删除存储池"><a href="#4-删除存储池" class="headerlink" title="4.删除存储池"></a>4.删除存储池</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph osd pool delete <span class="token punctuation">&#123;</span>pool-name<span class="token punctuation">&#125;</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>pool-name<span class="token punctuation">&#125;</span> --yes-i-really-really-mean-it<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="5-重命名存储池"><a href="#5-重命名存储池" class="headerlink" title="5.重命名存储池"></a>5.重命名存储池</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph osd pool <span class="token function">rename</span> <span class="token punctuation">&#123;</span>current-pool-name<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span>new-pool-name<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="6-查看存储池统计信息"><a href="#6-查看存储池统计信息" class="headerlink" title="6.查看存储池统计信息"></a>6.查看存储池统计信息</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rados <span class="token function">df</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="7-给存储池做快照"><a href="#7-给存储池做快照" class="headerlink" title="7.给存储池做快照"></a>7.给存储池做快照</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph osd pool mksnap <span class="token punctuation">&#123;</span>pool-name<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span>snap-name<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="8-删除存储池的快照"><a href="#8-删除存储池的快照" class="headerlink" title="8.删除存储池的快照"></a>8.删除存储池的快照</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph osd pool rmsnap <span class="token punctuation">&#123;</span>pool-name<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span>snap-name<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="9-获取存储池选项值"><a href="#9-获取存储池选项值" class="headerlink" title="9.获取存储池选项值"></a>9.获取存储池选项值</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph osd pool get <span class="token punctuation">&#123;</span>pool-name<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span>key<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="10-获取对象副本数"><a href="#10-获取对象副本数" class="headerlink" title="10.获取对象副本数"></a>10.获取对象副本数</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph osd dump <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'replicated size'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="11-设置存储池配额"><a href="#11-设置存储池配额" class="headerlink" title="11.设置存储池配额"></a>11.设置存储池配额</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">命令格式：
+<span class="token comment"># ceph osd pool set-quota &#123;pool-name&#125; [max_objects &#123;obj-count&#125;] [max_bytes &#123;bytes&#125;]</span>
+命令举例：
+<span class="token comment"># ceph osd pool set-quota rbd max_objects 10000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-自定义-Crush-Map"><a href="#10-自定义-Crush-Map" class="headerlink" title="10.自定义 Crush Map"></a>10.自定义 Crush Map</h2><blockquote>
+<p>crush map 决定了客户端数据最终写入的 osd 的位置，在某些情况下存在 hdd 和 ssd 两种盘想让某些数据写入到指定的 osd 中这个时候就是需要去人为的手动编译 crush-map，编辑要修改的部分，再导入集群中达到我们特定的目的</p>
+</blockquote>
+<h3 id="1-Crush-的放置策略"><a href="#1-Crush-的放置策略" class="headerlink" title="1).Crush 的放置策略"></a>1).Crush 的放置策略</h3><ul>
+<li>Ceph 使用 CRUSH 算法（Controlled Replication Under Scalable Hashing 可扩展哈希下的受控复制）来计算哪些 OSD 存放哪些对象</li>
+<li>对象分配到 PG 中，CRUSH 决定这些 PG 使用哪些 OSD 来存储对象。理想情况下，CRUSH 会将数据均匀的分布到存储中</li>
+<li>当添加新 OSD 或者现有的 OSD 出现故障时，Ceph 使用 CRUSH 在活跃的 OSD 上重平衡数据 CRUSH map 是 CRUSH 算法的中央配置机制，可通过调整 CRUSHmap 来优化数据存放位置默认情况下，CRUSH 将一个对象的多个副本放置到不同主机上的 0SD 中。可以配置 CRUSH map 和 CRUSH rules，使一个对象的多个副本放置到不同房间或者不同机柜的主机上的 0SD 中。</li>
+<li>也可以将 SSD 磁盘分配给需要高速存储的池</li>
+</ul>
+<h3 id="2-编译与翻译和更新"><a href="#2-编译与翻译和更新" class="headerlink" title="2).编译与翻译和更新"></a>2).编译与翻译和更新</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#导出CRUSH map</span>
+ceph osd getcrushmap <span class="token parameter variable">-o</span> ./crushmap.bin
+<span class="token comment">#解译CRUSH map</span>
+crushtool <span class="token parameter variable">-d</span> ./crushmap.bin ./crushmap.txt
+<span class="token comment">#修改后的CRUSH map重新编译</span>
+crushtool <span class="token parameter variable">-c</span> ./crushmap.txt-o ./crushmap-new.bin
+<span class="token comment">#更新CRUSH map</span>
+ceph osd setcrushmap-i./crushmap-new.bin
+<span class="token comment">#查询crush map的内容（返回json）</span>
+ceph osd crush dump<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>例子</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root default <span class="token punctuation">&#123;</span>
+    id-1           <span class="token comment"># do not change unnecessarily</span>
+    id-2 class hdd <span class="token comment">#do not change unnecessarily</span>
+    <span class="token comment">#weiqht 0.166</span>
+    alg straw2
+    <span class="token builtin class-name">hash</span> <span class="token number">0</span><span class="token comment">#rjenkins1</span>
+    item rackl weight <span class="token number">0.055</span>
+    item rack2 weiqht <span class="token number">0.055</span>
+    item rack3 weight <span class="token number">0.055</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">#rules</span>
+rule replicated rule<span class="token punctuation">&#123;</span>
+    <span class="token function">id</span> <span class="token number">0</span>
+    <span class="token builtin class-name">type</span> replicated
+    min size <span class="token number">1</span>
+    max size <span class="token number">10</span>
+    step take default  <span class="token comment">#只要是应用这个rule的都把数据写入到defaults下</span>
+    step chooseleaf firstn <span class="token number">0</span> <span class="token builtin class-name">type</span> <span class="token function">host</span>  <span class="token comment">#定义故障的故障域为物理集机器级别（rack为机柜级别）</span>
+    step emit <span class="token comment">#结尾符号</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="11-admin-sockets-管理守护进程"><a href="#11-admin-sockets-管理守护进程" class="headerlink" title="11.admin sockets 管理守护进程"></a>11.admin sockets 管理守护进程</h2><ul>
+<li>通过 admin sockets，管理员可以直接与守护进程交互。如查看和修改守护进程的配置参数。</li>
+<li>守护进程的 socket 文件一般是&#x2F;var&#x2F;run&#x2F;ceph&#x2F;cluster-cluster−type.$id.asok</li>
+<li>基于 admin sockets 的操作：</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph daemon <span class="token variable">$type</span><span class="token builtin class-name">.</span><span class="token variable">$id</span> <span class="token builtin class-name">command</span>
+<span class="token comment">#或者</span>
+ceph --admin-daemon /var/run/ceph/<span class="token variable">$cluster</span>-<span class="token variable">$type</span><span class="token builtin class-name">.</span><span class="token variable">$id</span>.asok <span class="token builtin class-name">command</span>
+<span class="token comment">#常用command如下：</span>
+<span class="token builtin class-name">help</span>
+config get parameter
+config <span class="token builtin class-name">set</span> parameter
+config show
+perf dump<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="12-用户管理"><a href="#12-用户管理" class="headerlink" title="12.用户管理"></a>12.用户管理</h2><blockquote>
+<p>Ceph 把数据以对象的形式存于各存储池中。Ceph 用户必须具有访问存储池的权限才能够读写数据。另外，Ceph 用户必须具有执行权限才能够使用 Ceph 的管理命令。</p>
+</blockquote>
+<h3 id="1、查看用户信息"><a href="#1、查看用户信息" class="headerlink" title="1、查看用户信息"></a>1、查看用户信息</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">查看所有用户信息
+<span class="token comment"># ceph auth list</span>
+获取所有用户的key与权限相关信息
+<span class="token comment"># ceph auth get client.admin</span>
+如果只需要某个用户的key信息，可以使用pring-key子命令
+<span class="token comment"># ceph auth print-key client.admin</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2、添加用户"><a href="#2、添加用户" class="headerlink" title="2、添加用户"></a>2、添加用户</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># ceph auth add client.john mon 'allow r' osd 'allow rw pool=liverpool'</span>
+<span class="token comment"># ceph auth get-or-create client.paul mon 'allow r' osd 'allow rw pool=liverpool'</span>
+<span class="token comment"># ceph auth get-or-create client.george mon 'allow r' osd 'allow rw pool=liverpool' -o george.keyring</span>
+<span class="token comment"># ceph auth get-or-create-key client.ringo mon 'allow r' osd 'allow rw pool=liverpool' -o ringo.key</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3、修改用户权限"><a href="#3、修改用户权限" class="headerlink" title="3、修改用户权限"></a>3、修改用户权限</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># ceph auth caps client.john mon 'allow r' osd 'allow rw pool=liverpool'</span>
+<span class="token comment"># ceph auth caps client.paul mon 'allow rw' osd 'allow rwx pool=liverpool'</span>
+<span class="token comment"># ceph auth caps client.brian-manager mon 'allow *' osd 'allow *'</span>
+<span class="token comment"># ceph auth caps client.ringo mon ' ' osd ' '</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4、删除用户"><a href="#4、删除用户" class="headerlink" title="4、删除用户"></a>4、删除用户</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># ceph auth del &#123;TYPE&#125;.&#123;ID&#125;</span>
+其中， <span class="token punctuation">&#123;</span>TYPE<span class="token punctuation">&#125;</span> 是 client，osd，mon 或 mds 的其中一种。<span class="token punctuation">&#123;</span>ID<span class="token punctuation">&#125;</span> 是用户的名字或守护进程的 ID 。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="13-增加和删除-Monitor"><a href="#13-增加和删除-Monitor" class="headerlink" title="13.增加和删除 Monitor"></a>13.增加和删除 Monitor</h2><blockquote>
+<p>一个集群可以只有一个 monitor，推荐生产环境至少部署 3 个。 Ceph 使用 Paxos 算法的一个变种对各种 map 、以及其它对集群来说至关重要的信息达成共识。建议（但不是强制）部署奇数个 monitor 。Ceph 需要 mon 中的大多数在运行并能够互相通信，比如单个 mon，或 2 个中的 2 个，3 个中的 2 个，4 个中的 3 个等。初始部署时，建议部署 3 个 monitor。后续如果要增加，请一次增加 2 个.</p>
+</blockquote>
+<h3 id="1、新增一个-monitor"><a href="#1、新增一个-monitor" class="headerlink" title="1、新增一个 monitor"></a>1、新增一个 monitor</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># ceph-deploy mon create $hostname</span>
+注意：执行ceph-deploy之前要进入之前安装时候配置的目录。/my-cluster<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="2、删除-Monitor"><a href="#2、删除-Monitor" class="headerlink" title="2、删除 Monitor"></a>2、删除 Monitor</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># ceph-deploy mon destroy $hostname</span>
+注意： 确保你删除某个 Mon 后，其余 Mon 仍能达成一致。如果不可能，删除它之前可能需要先增加一个。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h1 id="四、集群监控管理"><a href="#四、集群监控管理" class="headerlink" title="四、集群监控管理"></a>四、集群监控管理</h1><h2 id="1-集群整体运行状态"><a href="#1-集群整体运行状态" class="headerlink" title="1.集群整体运行状态"></a>1.集群整体运行状态</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@cephnode01 ~<span class="token punctuation">]</span><span class="token comment"># ceph -s</span>
+cluster:
+    id:     8230a918-a0de-4784-9ab8-cd2a2b8671d0
+    health: HEALTH_WARN
+            application not enabled on <span class="token number">1</span> pool<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+
+  services:
+    mon: <span class="token number">3</span> daemons, quorum cephnode01,cephnode02,cephnode03 <span class="token punctuation">(</span>age 27h<span class="token punctuation">)</span>
+    mgr: cephnode01<span class="token punctuation">(</span>active, since 53m<span class="token punctuation">)</span>, standbys: cephnode03, cephnode02
+    osd: <span class="token number">4</span> osds: <span class="token number">4</span> up <span class="token punctuation">(</span>since 27h<span class="token punctuation">)</span>, <span class="token number">4</span> <span class="token keyword">in</span> <span class="token punctuation">(</span>since 19h<span class="token punctuation">)</span>
+    rgw: <span class="token number">1</span> daemon active <span class="token punctuation">(</span>cephnode01<span class="token punctuation">)</span>
+
+  data:
+    pools:   <span class="token number">6</span> pools, <span class="token number">96</span> pgs
+    objects: <span class="token number">235</span> objects, <span class="token number">3.6</span> KiB
+    usage:   <span class="token number">4.0</span> GiB used, <span class="token number">56</span> GiB / <span class="token number">60</span> GiB avail
+    pgs:     <span class="token number">96</span> active+clean
+
+    id：集群ID
+    health：集群运行状态，这里有一个警告，说明是有问题，意思是pg数大于pgp数，通常此数值相等。
+    mon：Monitors运行状态。
+    osd：OSDs运行状态。
+    mgr：Managers运行状态。
+    mds：Metadatas运行状态。
+    pools：存储池与PGs的数量。
+    objects：存储对象的数量。
+    usage：存储的理论用量。
+    pgs：PGs的运行状态
+
+~<span class="token punctuation">]</span>$ ceph <span class="token parameter variable">-w</span>
+~<span class="token punctuation">]</span>$ ceph health detail<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-PG-状态"><a href="#2-PG-状态" class="headerlink" title="2.PG 状态"></a>2.PG 状态</h2><blockquote>
+<p>查看 pg 状态查看通常使用下面两个命令即可，dump 可以查看更详细信息</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">~<span class="token punctuation">]</span>$ ceph pg dump
+~<span class="token punctuation">]</span>$ ceph pg <span class="token function">stat</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="3-Pool-状态"><a href="#3-Pool-状态" class="headerlink" title="3.Pool 状态"></a>3.Pool 状态</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">~<span class="token punctuation">]</span>$ ceph osd pool stats
+~<span class="token punctuation">]</span>$ ceph osd pool stats<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="4-OSD-状态"><a href="#4-OSD-状态" class="headerlink" title="4.OSD 状态"></a>4.OSD 状态</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">~<span class="token punctuation">]</span>$ ceph osd <span class="token function">stat</span>
+~<span class="token punctuation">]</span>$ ceph osd dump
+~<span class="token punctuation">]</span>$ ceph osd tree
+~<span class="token punctuation">]</span>$ ceph osd <span class="token function">df</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-Monitor-状态和查看仲裁状态"><a href="#5-Monitor-状态和查看仲裁状态" class="headerlink" title="5.Monitor 状态和查看仲裁状态"></a>5.Monitor 状态和查看仲裁状态</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">~<span class="token punctuation">]</span>$ ceph mon <span class="token function">stat</span>
+~<span class="token punctuation">]</span>$ ceph mon dump
+~<span class="token punctuation">]</span>$ ceph quorum_status<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-集群空间用量"><a href="#6-集群空间用量" class="headerlink" title="6.集群空间用量"></a>6.集群空间用量</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">~<span class="token punctuation">]</span>$ ceph <span class="token function">df</span>
+~<span class="token punctuation">]</span>$ ceph <span class="token function">df</span> detail<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h1 id="五、集群配置管理-临时和全局，服务平滑重启"><a href="#五、集群配置管理-临时和全局，服务平滑重启" class="headerlink" title="五、集群配置管理(临时和全局，服务平滑重启)"></a>五、集群配置管理(临时和全局，服务平滑重启)</h1><blockquote>
+<p>有时候需要更改服务的配置，但不想重启服务，或者是临时修改。这时候就可以使用 tell 和 daemon 子命令来完成此需求。</p>
+</blockquote>
+<h2 id="1-查看运行配置"><a href="#1-查看运行配置" class="headerlink" title="1.查看运行配置"></a>1.查看运行配置</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">命令格式：
+<span class="token comment"># ceph daemon &#123;daemon-type&#125;.&#123;id&#125; config show</span>
+
+命令举例：
+<span class="token comment"># ceph daemon osd.0 config show</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-tell-子命令格式"><a href="#2-tell-子命令格式" class="headerlink" title="2.tell 子命令格式"></a>2.tell 子命令格式</h2><blockquote>
+<p>使用 tell 的方式适合对整个集群进行设置，使用 * 号进行匹配，就可以对整个集群的角色进行设置。而出现节点异常无法设置时候，只会在命令行当中进行报错，不太便于查找。</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">命令格式：
+<span class="token comment"># ceph tell &#123;daemon-type&#125;.&#123;daemon id or *&#125; injectargs --&#123;name&#125;=&#123;value&#125; [--&#123;name&#125;=&#123;value&#125;]</span>
+命令举例：
+<span class="token comment"># ceph tell osd.0 injectargs --debug-osd 20 --debug-ms 1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>daemon-type：为要操作的对象类型如 osd、mon、mds 等。</li>
+<li>daemon id：该对象的名称，osd 通常为 0、1 等，mon 为 ceph -s 显示的名称，这里可以输入*表示全部。</li>
+<li>injectargs：表示参数注入，后面必须跟一个参数，也可以跟多个</li>
+</ul>
+<h2 id="3-daemon-子命令"><a href="#3-daemon-子命令" class="headerlink" title="3.daemon 子命令"></a>3.daemon 子命令</h2><ul>
+<li>使用 daemon 进行设置的方式就是一个个的去设置，这样可以比较好的反馈，此方法是需要在设置的角色所在的主机上进行设置。</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">命令格式：
+<span class="token comment"># ceph daemon &#123;daemon-type&#125;.&#123;id&#125; config set &#123;name&#125;=&#123;value&#125;</span>
+命令举例：
+<span class="token comment"># ceph daemon mon.ceph-monitor-1 config set mon_allow_pool_delete false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-集群操作"><a href="#4-集群操作" class="headerlink" title="4.集群操作"></a>4.集群操作</h2><ul>
+<li>命令包含 start、restart、status</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#1.启动所有守护进程</span>
+systemctl start ceph.target
+
+<span class="token comment">#2.按类型启动守护进程</span>
+systemctl start ceph-mgr.target
+systemctl start ceph-osd@id
+systemctl start ceph-mon.target
+systemctl start ceph-mds.target
+systemctl start ceph-radosgw.target<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-添加和删除-OSD"><a href="#5-添加和删除-OSD" class="headerlink" title="5.添加和删除 OSD"></a>5.添加和删除 OSD</h2><h3 id="1-添加-OSD"><a href="#1-添加-OSD" class="headerlink" title="1).添加 OSD"></a>1).添加 OSD</h3><ul>
+<li><p>纵向扩容(会导致数据的重分布)</p>
+</li>
+<li><p>生产环境下最好的做法就是不要一次性添加大量的 osd，最好逐步添加等待数据同步后再进行添加操作</p>
+<ul>
+<li>当影响生产数据时候临时可以停止同步：ceph osd set [nobackfill|norebalance],unset 取消对应的参数</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#1.格式化磁盘</span>
+ceph-volume lvm zap /dev/sd<span class="token operator">&lt;</span>id<span class="token operator">></span>
+
+<span class="token comment">#2.进入到ceph-deploy执行目录/my-cluster，添加OSD</span>
+ceph-deploy osd create <span class="token parameter variable">--data</span> /dev/sd<span class="token operator">&lt;</span>id<span class="token operator">></span> <span class="token variable">$hostname</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-删除-OSD"><a href="#2-删除-OSD" class="headerlink" title="2).删除 OSD"></a>2).删除 OSD</h3><ul>
+<li><p>如果机器有盘坏了可以使用 dmdsg 查看坏盘</p>
+</li>
+<li><p>存在一种情况就是某 osd 的写入延迟大盘有坏道很大可能会拖垮 ceph 集群：</p>
+<ul>
+<li>ceph osd tree: 查看当前集群的 osd 状态</li>
+<li>ceph osd perf: 查看当前的 OSD 的延迟</li>
+</ul>
+</li>
+<li><p>当某一快 osd 踢出集群时候立即做数据重分布(默认 10 分钟)</p>
+</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>、调整osd的crush weight为 <span class="token number">0</span>
+ceph osd crush reweight osd.<span class="token operator">&lt;</span>ID<span class="token operator">></span> <span class="token number">0.0</span>
+
+<span class="token number">2</span>、将osd进程stop
+systemctl stop ceph-osd@<span class="token operator">&lt;</span>ID<span class="token operator">></span>
+
+<span class="token number">3</span>、将osd设置out<span class="token punctuation">(</span>将会出发数据重分布<span class="token punctuation">)</span>
+ceph osd out <span class="token operator">&lt;</span>ID<span class="token operator">></span>
+
+<span class="token number">4</span>、从crushmap中踢出osd
+<span class="token comment"># 查看运行视图的osd状态</span>
+ceph osd crush dump<span class="token operator">|</span><span class="token function">less</span>
+ceph osd crush <span class="token function">rm</span> <span class="token operator">&lt;</span>osd<span class="token operator">></span>.id
+
+<span class="token number">5</span>、从tree树中删除osd
+ceph osd <span class="token function">rm</span> <span class="token operator">&lt;</span>osd<span class="token operator">></span>.id
+
+<span class="token number">6</span>、<span class="token punctuation">(</span>选用<span class="token punctuation">)</span>立即执行删除OSD中数据
+ceph osd purge osd.<span class="token operator">&lt;</span>ID<span class="token operator">></span> --yes-i-really-mean-it
+
+<span class="token number">7</span>、卸载磁盘
+<span class="token function">umount</span> /var/lib/ceph/osd/ceph-？
+
+<span class="token number">8</span>.从认证中删除磁盘对应的key
+<span class="token comment"># 查看认证的列表</span>
+ceph auth list
+ceph auth <span class="token function">rm</span> <span class="token operator">&lt;</span>osd<span class="token operator">></span>.id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-扩容-PG"><a href="#6-扩容-PG" class="headerlink" title="6.扩容 PG"></a>6.扩容 PG</h2><ul>
+<li>扩容大小取跟它接近的 2 的 N 次方</li>
+<li>在更改 pool 的 PG 数量时，需同时更改 PGP 的数量。PGP 是为了管理 placement 而存在的专门的 PG，它和 PG 的数量应该保持一致。如果你增加 pool 的 pg_num，就需要同时增加 pgp_num，保持它们大小一致，这样集群才能正常 rebalancing。</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ceph osd pool <span class="token builtin class-name">set</span> <span class="token punctuation">&#123;</span>pool-name<span class="token punctuation">&#125;</span> pg_num <span class="token number">128</span>
+ceph osd pool <span class="token builtin class-name">set</span> <span class="token punctuation">&#123;</span>pool-name<span class="token punctuation">&#125;</span> pgp_num <span class="token number">128</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h1 id="六、调优"><a href="#六、调优" class="headerlink" title="六、调优"></a>六、调优</h1><h2 id="1-系统层面调优"><a href="#1-系统层面调优" class="headerlink" title="1.系统层面调优"></a>1.系统层面调优</h2><ul>
+<li><p>选择正确的 CPU 和内存。OSD、MON 和 MDS 节点具有不同的 CPU 和内存需求</p>
+<ul>
+<li>mon 的需求和 osd 的总个数有关需要的是计算力</li>
+<li>mds 对 CPU 和内存要求很高，会将大量的元数据缓存到自己的内存中，存储元数据的尽量的使用 ssd</li>
+<li>osd 最低要求 1H2G 的配置例如：24 块硬盘最少是 24H36G,磁盘方面必须高 I&#x2F;O 有多好上多好</li>
+</ul>
+</li>
+<li><p>尽可能关闭 NUMA</p>
+</li>
+<li><p>规划好存储节点的数据以及各节点的磁盘要求（不考虑钱忽略）</p>
+</li>
+<li><p>磁盘的选择尽可能在成本、吞吐量和延迟之间找到良好的平衡</p>
+</li>
+<li><p>journal 日志应该使用 SSD</p>
+</li>
+<li><p>如果交换机支持（MTU 9000），则启用巨型帧(减少数据的分片)，前提是 ceph 在一个单独的网络环境中切有独立交换机。</p>
+</li>
+<li><p>启用 ntp。Ceph 对时间敏感,集群网络至少 10GB 带宽</p>
+</li>
+</ul>
+<h3 id="1-系统调优工具"><a href="#1-系统调优工具" class="headerlink" title="1).系统调优工具"></a>1).系统调优工具</h3><ul>
+<li>使用 tuned-admin 工具，它可帮助系统管理员针对不同的工作负载进行系统调优</li>
+<li>tuned-admin 使用的 profile 默认存放在&#x2F;usr&#x2F;lib&#x2F;tuned&#x2F;目录中，可以参考其模板来自定义 profile</li>
+<li>对于 ceph 而言，network-latency 可以改进全局系统延迟，network-throughput 可以改进全局系统吞吐量,如果两个都开启可以使用 Custom 自定义模式</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 列出现有可用的profile</span>
+tuned-adm list
+
+<span class="token comment"># 查看当前生效的profile</span>
+tuned-adm active
+
+<span class="token comment"># 使用指定的profile</span>
+tuned-admin profile profile-name
+
+<span class="token comment"># 禁用所有的profile</span>
+tuned-admin off<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-I-x2F-O-调度算法"><a href="#2-I-x2F-O-调度算法" class="headerlink" title="2).I&#x2F;O 调度算法"></a>2).I&#x2F;O 调度算法</h3><ul>
+<li>noop：电梯算法，实现了一个简单的 FIFO 队列。基于 SSD 的磁盘，推荐使用这种调度方式</li>
+<li>Deadline：截止时间调度算法，尽力为请求提供有保障的延迟。对于 Ceph，基于 sata 或者 sas 的驱动器，应该首选这种调度方式</li>
+<li>cfq：完全公平队列，适合有许多进程同时读取和写入大小不等的请求的磁盘，也是默认的通用调度算法</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#查看当前系统支持的调度算法：</span>
+    <span class="token function">dmesg</span><span class="token operator">|</span><span class="token function">grep</span> <span class="token parameter variable">-I</span> scheduler
+
+<span class="token comment">#查看指定磁盘使用的调度算法：</span>
+    <span class="token function">cat</span> /sys/block/磁盘设备号/queue/scheduler
+
+<span class="token comment">#修改调度算法</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">"deadline"</span> <span class="token operator">></span> /sys/block/vdb/queue/scheduler
+    <span class="token function">vim</span> /etc/default/grub
+        <span class="token assign-left variable">GRUB_CMDLINE_LINUX</span><span class="token operator">=</span><span class="token string">"elevator=deadline numa=off"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-网络-IO-子系统调优"><a href="#3-网络-IO-子系统调优" class="headerlink" title="3).网络 IO 子系统调优"></a>3).网络 IO 子系统调优</h3><ul>
+<li>用于集群的网络建议尽可能使用 10Gb 网络</li>
+</ul>
+<p>以下参数用于缓冲区内存管理</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#设置OS接收缓冲区的内存大小，第一个值告知内核一个TCP socket的最小缓冲区空间，第二值为默认缓冲区空间，第三个值是最大缓冲区空间</span>
+net.ipv4.tcp_wmem
+
+<span class="token comment">#设置Os发送缓冲区的内存大小</span>
+net.ipv4.tcp_rmem
+
+<span class="token comment">#定义TCP stack如何反应内存使用情况</span>
+net.ipv4.tcp_mem<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>交换机启用大型帧</li>
+</ul>
+<blockquote>
+<p>默认情况下，以太网最大传输数据包大小为 1500 字节。为提高吞吐量并减少处理开销，一种策略是将以太网网络配置为允许设备发送和接收更大的巨型帧。</p>
+</blockquote>
+<ul>
+<li>在使用巨型帧的要谨慎，因为需要硬件支持，且全部以太网口配置为相同的巨型帧 MTU 大小。</li>
+</ul>
+<h3 id="4-虚拟内存调优"><a href="#4-虚拟内存调优" class="headerlink" title="4).虚拟内存调优"></a>4).虚拟内存调优</h3><p>设置较低的比率会导致高频但用时短的写操作，这适合 Ceph 等 I&#x2F;O 密集型应用。设置较高的比率会导致低频但用时长的写操作，这会产生较小的系统开销，但可能会造成应用响应时间变长</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#脏内存占总系统总内存的百分比，达到此比率时内核会开始在后台写出数据</span>
+vm.dirty_background_ratio
+
+<span class="token comment">#脏内存占总系统总内存的百分比，达到此比率时写入进程停滞，而系统会将内存页清空到后端存储</span>
+vm.dirty_ratio
+
+<span class="token comment">#控制交换分区的使用,生产中建议完全关闭，会拖慢系统运行速度</span>
+vm.swappiness
+
+<span class="token comment">#系统尽力保持可用状态的RAM大小。在一个RAM大于48G的系统上，建议设置为4G</span>
+vm.min_free_kbytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-Ceph-本身调优"><a href="#2-Ceph-本身调优" class="headerlink" title="2.Ceph 本身调优"></a>2.Ceph 本身调优</h2><h3 id="1-最佳实践"><a href="#1-最佳实践" class="headerlink" title="1).最佳实践"></a>1).最佳实践</h3><ul>
+<li>MON 的性能对集群总体性能至关重要，应用部署于专用节点，为确保正确仲裁，数量应为奇数个</li>
+<li>在 OSD 节点上，操作系统、OSD 数据、OSD 日志应当位于独立的磁盘上，以确保满意的吞吐量</li>
+<li>在集群安装后，需要监控集群、排除故障并维护，尽管 Ceph 具有自愈功能。如果发生性能问题，首先在磁盘、网络和硬件层面上调查。然后逐步转向 RADOS 块设备和 Ceph 对象网关</li>
+</ul>
+<h3 id="2-影响-I-x2F-O-的-6-大操作"><a href="#2-影响-I-x2F-O-的-6-大操作" class="headerlink" title="2).影响 I&#x2F;O 的 6 大操作"></a>2).影响 I&#x2F;O 的 6 大操作</h3><ul>
+<li>业务数据写入</li>
+<li>数据恢复</li>
+<li>数据回填</li>
+<li>数据重平衡</li>
+<li>数据一致性校验</li>
+<li>快照清理</li>
+</ul>
+<h3 id="3-OSD-生产建议"><a href="#3-OSD-生产建议" class="headerlink" title="3).OSD 生产建议"></a>3).OSD 生产建议</h3><ul>
+<li>更快的日志性能可以改进响应时间，建议将单独的低延迟 SSD 或者 NVMe 设备用于 OSD 日志。</li>
+<li>多个日志可以共享同一 SSD，以降低存储基础架构的成本。但是不能将过多 OSD 日志放在同一设备上。</li>
+<li>建议每个 SATA OSD 设备不超过 6 个 OSD 日志，每个 NVMe 设备不超过 12 个 OSD 日志。</li>
+<li>需要说明的是，当用于托管日志的 SSD 或者 NVMe 设备故障时，使用它托管其日志的所有 OSD 也都变得不可用</li>
+</ul>
+<h3 id="4-硬件建议"><a href="#4-硬件建议" class="headerlink" title="4).硬件建议"></a>4).硬件建议</h3><ul>
+<li>将一个 raid1 磁盘用于 ceph 操作系统</li>
+<li>每个 OSD 一块硬盘，尽量将 SSD 或者 NVMe 用于日志</li>
+<li>使用多个 10Gb 网卡，每个网络一个双链路绑定（建议生产环境 2 个网卡 4 个光模块，2 个万兆口做为数据的交换，2 个万兆口做业务流量）</li>
+<li>每个 OSD 预留 1 个 CPU,每个逻辑核心 1GHz，分配 16GB 内存，外加每个 OSD 2G 内存</li>
+</ul>
+<h3 id="5-RBD-生产建议"><a href="#5-RBD-生产建议" class="headerlink" title="5).RBD 生产建议"></a>5).RBD 生产建议</h3><ul>
+<li>块设备上的工作负载通常是 I&#x2F;O 密集型负载，例如在 OpenStack 中虚拟机上运行数据库。</li>
+<li>对于 RBD,OSD 日志应当位于 SSD 或者 NVMe 设备上</li>
+<li>对后端存储，可以使用不同的存储设备以提供不同级别的服务</li>
+</ul>
+<h3 id="6-对象网关生产建议"><a href="#6-对象网关生产建议" class="headerlink" title="6).对象网关生产建议"></a>6).对象网关生产建议</h3><ul>
+<li>Ceph 对象网关工作负载通常是吞吐密集型负载。但是其 bucket 索引池为 I&#x2F;O 密集型工作负载模式。应当将这个池存储在 SSD 设备上</li>
+<li>Ceph 对象网关为每个存储桶维护一个索引。Ceph 将这一索引存储在 RADOS 对象中。当存储桶存储数量巨大的对象时（超过 100000 个），索引性能会降低，因为只有一个 RADOS 对象参与所有索引操作。</li>
+<li>Ceph 可以在多个 RADOS 对象或分片中保存大型索引。可以在 ceph.conf 中设置 rgw_override_bucket_index_max_shards 配置参数来启用该功能。此参数的建议值是存储桶中预计对象数量除以 10000</li>
+<li>当索引变大，Ceph 通常需要重新划分存储桶。rgw_dynamic_resharding 配置控制该功能，默认为 true</li>
+</ul>
+<h3 id="7-CephFS-生产建议"><a href="#7-CephFS-生产建议" class="headerlink" title="7).CephFS 生产建议"></a>7).CephFS 生产建议</h3><ul>
+<li>存放目录结构和其他索引的元数据池可能会成为 CephFS 的瓶颈。因此，应该将 SSD 设备用于这个池</li>
+<li>每个 MDS 维护一个内存中缓存 ，用于索引节点等不同类型的项目。Ceph 使用 mds_cache_memory_limit 配置参数限制这一缓存的大小。其默认值为 1GB，可以在需要时调整，得不得超过系统总内存数</li>
+</ul>
+<h3 id="8-Monitor-生产建议"><a href="#8-Monitor-生产建议" class="headerlink" title="8).Monitor 生产建议"></a>8).Monitor 生产建议</h3><ul>
+<li>最好为每个 MON 一个独立的服务器&#x2F;虚拟机</li>
+<li>小型和中型集群，使用 10000RPM 的磁盘，大型集群使用 SSD</li>
+<li>CPU 使用方面：使用一个多核 CPU，最少 16G 内存，最好不要和 osd 存放在同一个服务器上</li>
+</ul>
+<h3 id="9-将-OSD-日志迁移到-SSD"><a href="#9-将-OSD-日志迁移到-SSD" class="headerlink" title="9).将 OSD 日志迁移到 SSD"></a>9).将 OSD 日志迁移到 SSD</h3><p>强烈建议生产中千万不要这么干，一定在集群初始化的时候就定制好</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#集群中设置标志位停止指定的osd使用</span>
+ceph osd <span class="token builtin class-name">set</span> noout
+
+<span class="token comment">#停止osd的进程</span>
+systemctl stop ceph-osd@3
+
+<span class="token comment">#将所有的日志做刷盘处理，刷盘到osd中</span>
+ceph-osd <span class="token parameter variable">-i</span> <span class="token number">3</span> --flush-journal
+
+<span class="token comment">#删除该osd现有的日志</span>
+<span class="token function">rm</span> <span class="token parameter variable">-f</span> /var/lib/ceph/osd/ceph-3/journal
+
+<span class="token comment">#/dev/sdc1为SSD盘创建一个软连接</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> /dev/sdc1 /var/lib/ceph/osd/ceph-3/journal
+
+<span class="token comment">#刷出日志</span>
+ceph-osd <span class="token parameter variable">-i</span> <span class="token number">3</span> <span class="token parameter variable">--mkjournal</span>
+
+<span class="token comment">#启动osd</span>
+systemctl start ceph-osd@3
+
+<span class="token comment">#移除标志位</span>
+ceph osd <span class="token builtin class-name">unset</span> noout<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-存储池中-PG-的计算方法"><a href="#10-存储池中-PG-的计算方法" class="headerlink" title="10).存储池中 PG 的计算方法"></a>10).存储池中 PG 的计算方法</h3><ul>
+<li><p>通常，计算一个池中应该有多少个归置组的计算方法 &#x3D; 100 * OSDs(个数) &#x2F; size(副本数)</p>
+</li>
+<li><p>一种比较通用的取值规则：</p>
+<ul>
+<li>少于 5 个 OSD 时可把 pg_num 设置为 128</li>
+<li>OSD 数量在 5 到 10 个时，可把 pg_num 设置为 512</li>
+<li>OSD 数量在 10 到 50 个时，可把 pg_num 设置为 4096</li>
+<li>OSD 数量大于 50 时，建议自行计算</li>
+</ul>
+</li>
+<li><p>自行计算 pg_num 聚会时的工具</p>
+<ul>
+<li>pgcalc：<a target="_blank" rel="noopener" href="https://ceph.com/pgcalc/">https://ceph.com/pgcalc/</a></li>
+<li>cephpgc：<a target="_blank" rel="noopener" href="https://access.redhat.com/labs/cephpgc/">https://access.redhat.com/labs/cephpgc/</a></li>
+</ul>
+</li>
+<li><p>注意：在实际的生产环境中我们很难去预估需要多少个 pool，每个 pool 所占用的数据大小的百分百。所以正常情况下需要在特定的情况选择动态扩缩容 pg 的大小</p>
+</li>
+</ul>
+<h3 id="11-PG-与-PGP"><a href="#11-PG-与-PGP" class="headerlink" title="11).PG 与 PGP"></a>11).PG 与 PGP</h3><blockquote>
+<p>通常而言，PG 与 PGP 是相同的当我们为一个池增加 PG 时，PG 会开始分裂，这个时候，OSD 上的数据开始移动到新的 PG，但总体而言，此时，数据还是在一个 OSD 的不同 PG 中迁移而我们一旦同时增加了 PGP，则 PG 开始在多个 OSD 上重平衡，这时会出现跨 OSD 的数据迁移</p>
+</blockquote>
+<ul>
+<li>ceph osd pool create poolName PgNum PgpNum</li>
+<li>当变动 pg 数量只是针对当前的特定池中的 osd 发生变动影响范围只是一个池的 pg 平衡</li>
+<li>正常情况下一个 osd 最多承载 100 个 pg</li>
+<li>当 pgp 发生大变动的时候会导致原本这个池中的 pg 变动导致池中 osd，过载或者有很大剩余性能，ceph 集群会将过大的性能均衡到各个性能使用小的 osd 上，这个时候就会发生数据的大规模迁移，大量的 i&#x2F;O 写入会占有网络带宽会严重影响使用中的 pg 性能导致阻塞发生。</li>
+<li>建议的做法是将 pg_num 直接设置为希望作为最终值的 PG 数量，而 PGP 的数量应当慢慢增加，以确保集群不会因为一段时间内的大量数据重平衡而导致的性能下降</li>
+</ul>
+<h3 id="12-Ceph-生产网络建议"><a href="#12-Ceph-生产网络建议" class="headerlink" title="12).Ceph 生产网络建议"></a>12).Ceph 生产网络建议</h3><ul>
+<li>尽可能使用 10Gb 网络带宽以上的万兆带宽(内网)</li>
+<li>尽可能使用不同的 cluster 网络和 public 网络</li>
+<li>做好必要的网络设备监控防止网络过载</li>
+</ul>
+<h3 id="13-OSD-和数据一致性校验"><a href="#13-OSD-和数据一致性校验" class="headerlink" title="13).OSD 和数据一致性校验"></a>13).OSD 和数据一致性校验</h3><blockquote>
+<p>清理会影响 ceph 集群性能，但建议不要禁用此功能，因为它能提供完数据的完整性</p>
+</blockquote>
+<ul>
+<li>清理：检查对象的存在性、校验和以及大小</li>
+<li>深度清理：检查对象的存在性和大小，重新计算并验证对象的校验和。(最好不开严重影响性能)</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#清理调优参数</span>
+osd_scrub_begin_hour <span class="token operator">=</span>                    <span class="token comment">#取值范围0-24</span>
+osd_scrub_end_hour <span class="token operator">=</span> end_hbegin_hour our  <span class="token comment">#取值范围0-24</span>
+osd_scrub_load_threshold                  <span class="token comment">#当系统负载低于多少的时候可以清理，默认为0.5</span>
+osd_scrub_min_interval                    <span class="token comment">#多久清理一次，默认是一天一次（前提是系统负载低于上一个参数的设定）</span>
+osd_scrub_interval_randomize_ratio        <span class="token comment">#在清理的时候，随机延迟的值，默认是0.5</span>
+osd_scrub_max_interval                    <span class="token comment">#清理的最大间隔时间，默认是一周（如果一周内没清理过，这次就必须清理，不管负载是多少）</span>
+osd_scrub_priority                        <span class="token comment">#清理的优先级，默认是5</span>
+osd_deep_scrub_interal                    <span class="token comment">#深度清理的时间间隔，默认是一周</span>
+osd_scrub_sleep                           <span class="token comment">#当有磁盘读取时，则暂停清理，增加此值可减缓清理的速度以降低对客户端的影响，默认为0,范围0-1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#显示最近发生的清理和深度清理</span>
+ceph pg dump all  <span class="token comment"># 查看LAST_SCRUB和LAST_DEEP_SCRUB</span>
+<span class="token comment">#-将清理调度到特定的pg</span>
+ceph pg scrub pg-id
+<span class="token comment">#将深度清理调度到特定的pg</span>
+ceph pg deep-scrub pg-id
+<span class="token comment">#为设定的池设定清理参数</span>
+ceph osd pool <span class="token builtin class-name">set</span> <span class="token operator">&lt;</span>pool-name<span class="token operator">></span> <span class="token operator">&lt;</span>parameter<span class="token operator">></span> <span class="token operator">&lt;</span>value<span class="token operator">></span>
+    noscrub <span class="token comment"># 不清理，默认为false</span>
+    nodeep-scrub <span class="token comment"># 不深度清理，默认为false</span>
+    scrub_min_interval <span class="token comment"># 如果设置为0，则应用全局配置osd_scrub_min_interval</span>
+    scrub_max_interval <span class="token comment"># 如果设置为0，则应用全局配置osd_scrub_max_interval</span>
+    deep_scrub_interval <span class="token comment"># 如果设置为0，则应用全局配置osd_scrub_interval</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="14-快照的生产建议"><a href="#14-快照的生产建议" class="headerlink" title="14).快照的生产建议"></a>14).快照的生产建议</h3><ul>
+<li>快照在池级别和 RBD 级别上提供。当快照被移除时，ceph 会以异步操作的形式删除快照数据，称为快照修剪进程</li>
+<li>为减轻快照修剪进程会影响集群总体性能。可以通过配置<code>osd_snap_trim_sleep</code>来在有客户端读写操作的时候暂停修剪，参数的值范围是<code>0</code>到<code>1</code></li>
+<li>快照修剪的优先级通过使用<code>osd_snap_trim_priority</code>参数控制，默认为<code>5</code></li>
+</ul>
+<h3 id="15-保护数据和-osd"><a href="#15-保护数据和-osd" class="headerlink" title="15).保护数据和 osd"></a>15).保护数据和 osd</h3><ul>
+<li><p>需要控制回填和恢复操作，以限制这些操作的影响</p>
+</li>
+<li><p>回填发生于新的 osd 加入集群时，或者 osd 死机并且 ceph 将其 pg 分配到其他 osd 时。在这种场景中，ceph 必须要在可用的 osd 之间复制对象副本</p>
+</li>
+<li><p>恢复发生于新的 osd 已有数据时，如出现短暂停机。在这种情形下，ceph 会简单的重放 pg 日志</p>
+<ul>
+<li>管理回填和恢复操作的配置项</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#用于限制每个osd上用于回填的并发操作数，默认为1</span>
+osd_max_backfills
+
+<span class="token comment">#用于限制每个osd上用于恢复的并发操作数，默认为3</span>
+osd_recovery_max_active
+
+<span class="token comment">#恢复操作的优先级，默认为3</span>
+osd_recovery_op_priority<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="16-OSD-数据存储后端"><a href="#16-OSD-数据存储后端" class="headerlink" title="16).OSD 数据存储后端"></a>16).OSD 数据存储后端</h3><blockquote>
+<p>BlueStore 管理一个，两个或（在某些情况下）三个存储设备。在最简单的情况下，BlueStore 使用单个（主）存储设备。存储设备通常作为一个整体使用，BlueStore 直接占用完整设备。该主设备通常由数据目录中的块符号链接标识。数据目录挂载成一个 tmpfs，它将填充（在启动时或 ceph-volume 激活它时）所有常用的 OSD 文件，其中包含有关 OSD 的信息，例如：其标识符，它所属的集群，以及它的私钥。还可以使用两个额外的设备部署 BlueStore</p>
+</blockquote>
+<ul>
+<li>WAL 设备（在数据目录中标识为 block.wal）可用于 BlueStore 的内部日志或预写日志。只有设备比主设备快（例如，当它在 SSD 上并且主设备是 HDD 时），使用 WAL 设备是有用的。</li>
+<li>数据库设备（在数据目录中标识为 block.db）可用于存储 BlueStore 的内部元数据。 BlueStore（或者更确切地说，嵌入式 RocksDB）将在数据库设备上放置尽可能多的元数据以提高性能。如果数据库设备填满，元数据将写到主设备。同样，数据库设备要比主设备更快，则提供数据库设备是有帮助的。</li>
+<li>如果只有少量快速存储可用（例如，小于 1GB），我们建议将其用作 WAL 设备。如果还有更多，配置数据库设备会更有意义。 BlueStore 日志将始终放在可用的最快设备上，因此使用数据库设备将提供与 WAL 设备相同的优势，同时还允许在其中存储其他元数据。</li>
+<li>正常 L 版本推荐使用 filestore，M 版本可以考虑使用 bluestore</li>
+<li>推荐优化文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/luxiaodai/p/10006036.html#_lab2_1_9">https://www.cnblogs.com/luxiaodai/p/10006036.html#_lab2_1_9</a></li>
+</ul>
+<h3 id="17-关于性能测试"><a href="#17-关于性能测试" class="headerlink" title="17).关于性能测试"></a>17).关于性能测试</h3><ul>
+<li>推荐使用 fio 参考阿里云文档：<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/95501.html?spm=a2c4g.11174283.6.659.38b44da2KZr2Sn">https://help.aliyun.com/document_detail&#x2F;95501.html?spm&#x3D;a2c4g.11174283.6.659.38b44da2KZr2Sn</a></li>
+<li>dd</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token number">3</span> <span class="token operator">></span> /proc/sys/vm/drop_caches
+<span class="token function">dd</span> <span class="token assign-left variable">if</span><span class="token operator">=</span>/dev/zero <span class="token assign-left variable">of</span><span class="token operator">=</span>/var/lib/ceph/osd/ceph-0/test.img <span class="token assign-left variable">bs</span><span class="token operator">=</span>4M <span class="token assign-left variable">count</span><span class="token operator">=</span><span class="token number">1024</span> <span class="token assign-left variable">oflag</span><span class="token operator">=</span>direct
+<span class="token function">dd</span> <span class="token assign-left variable">if</span><span class="token operator">=</span>/var/lib/ceph/osd/ceph-0/test.img <span class="token assign-left variable">of</span><span class="token operator">=</span>/dev/null <span class="token assign-left variable">bs</span><span class="token operator">=</span>4M <span class="token assign-left variable">count</span><span class="token operator">=</span><span class="token number">1024</span> <span class="token assign-left variable">oflag</span><span class="token operator">=</span>direct<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>rados bench 性能测试</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rados bench <span class="token parameter variable">-p</span> <span class="token operator">&lt;</span>pool_name<span class="token operator">></span> <span class="token operator">&lt;</span>seconds<span class="token operator">></span> <span class="token operator">&lt;</span>write<span class="token operator">|</span><span class="token function">seq</span><span class="token operator">|</span>rand<span class="token operator">></span> <span class="token parameter variable">-b</span> <span class="token operator">&lt;</span>block size<span class="token operator">></span> <span class="token parameter variable">-t</span> --no-cleanup
+    pool_name 测试所针对的池
+    seconds 测试所持续的时间，以秒为单位
+    <span class="token operator">&lt;</span>write<span class="token operator">|</span><span class="token function">seq</span><span class="token operator">|</span>rand<span class="token operator">></span> 操作模式，分别是写、顺序读、随机读
+    <span class="token parameter variable">-b</span> <span class="token operator">&lt;</span>block_size<span class="token operator">></span> 块大小，默认是4M
+    <span class="token parameter variable">-t</span> 读/写的并行数，默认为16
+    --no-cleanup 表示测试完成后不删除测试用的数据。在做读测试之前，需要使用该参数来运行一遍写测试来产生测试数据，在全部测试完成以后，可以行rados <span class="token parameter variable">-p</span> <span class="token operator">&lt;</span>pool_name<span class="token operator">></span> cleanup来清理所有测试数据
+
+<span class="token comment">#示例：</span>
+rados bench <span class="token parameter variable">-p</span> rbd <span class="token number">10</span> <span class="token function">write</span> --no-cleanup
+rados bench <span class="token parameter variable">-p</span> rbd <span class="token number">10</span> <span class="token function">seq</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>rbd bench 性能测试</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rbd bench <span class="token parameter variable">-p</span> <span class="token operator">&lt;</span>pool_name<span class="token operator">></span> <span class="token operator">&lt;</span>image_name<span class="token operator">></span> --io-type <span class="token operator">&lt;</span>write<span class="token operator">|</span>read<span class="token operator">></span> --io-size <span class="token operator">&lt;</span>size<span class="token operator">></span> --io-threads <span class="token operator">&lt;</span>num<span class="token operator">></span> --io-total <span class="token operator">&lt;</span>size<span class="token operator">></span> --io-pattern <span class="token operator">&lt;</span>seq<span class="token operator">|</span>rand<span class="token operator">></span>
+    --io-type 测试类型，读/写
+    --io-size 字节数，默认4096
+    --io-threads 线程数，默认16
+    --io-total  读/写的总大小，默认1GB
+    --io-pattern  读/写的方式，顺序还是随机
+
+<span class="token comment">#示例：</span>
+https://edenmal.moe/post/2017/Ceph-rbd-bench-Commands/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-设置集群的标志"><a href="#3-设置集群的标志" class="headerlink" title="3.设置集群的标志"></a>3.设置集群的标志</h2><p><strong>flag 操作</strong></p>
+<ul>
+<li><p>只能对整个集群操作，不能针对单个 osd</p>
+<ul>
+<li>ceph osd set</li>
+<li>ceph osd unset</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#示例：</span>
+ceph osd <span class="token builtin class-name">set</span> nodown
+ceph osd <span class="token builtin class-name">unset</span> nodown
+ceph <span class="token parameter variable">-s</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">标志名称</th>
+<th align="left">含义用法详解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">noup</td>
+<td align="left">OSD 启动时，会将自己在 MON 上标识为 UP 状态，设置该标志位，则 OSD 不会被自动标识为 up 状态</td>
+</tr>
+<tr>
+<td align="left">nodown</td>
+<td align="left">OSD 停止时，MON 会将 OSD 标识为 down 状态，设置该标志位，则 MON 不会将停止的 OSD 标识为 down 状态，设置 noup 和 nodown 可以防止网络抖动</td>
+</tr>
+<tr>
+<td align="left">noout</td>
+<td align="left">设置该标志位，则 mon 不会从 crush 映射中删除任何 OSD。对 OSD 作维护时，可设置该标志位，以防止 CRUSH 在 OSD 停止时自动重平衡数据。OSD 重新启动时，需要清除该 flag</td>
+</tr>
+<tr>
+<td align="left">noin</td>
+<td align="left">设置该标志位，可以防止数据被自动分配到 OSD 上</td>
+</tr>
+<tr>
+<td align="left">norecover</td>
+<td align="left">设置该 flag，禁止任何集群恢复操作。在执行维护和停机时，可设置该 flag</td>
+</tr>
+<tr>
+<td align="left">nobackfill</td>
+<td align="left">禁止数据回填</td>
+</tr>
+<tr>
+<td align="left">noscrub</td>
+<td align="left">禁止清理操作。清理 PG 会在短期内影响 OSD 的操作。在低带宽集群中，清理期间如果 OSD 的速度过慢，则会被标记为 down。可以该标记来防止这种情况发生</td>
+</tr>
+<tr>
+<td align="left">nodeep-scrub</td>
+<td align="left">禁止深度清理</td>
+</tr>
+<tr>
+<td align="left">norebalance</td>
+<td align="left">禁止重平衡数据。在执行集群维护或者停机时，可以使用该 flag</td>
+</tr>
+<tr>
+<td align="left">pause</td>
+<td align="left">设置该标志位，则集群停止读写，但不影响 osd 自检</td>
+</tr>
+<tr>
+<td align="left">full</td>
+<td align="left">标记集群已满，将拒绝任何数据写入，但可读</td>
+</tr>
+</tbody></table>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a target="_blank" rel="noopener" href="https://poph163.com/category/%e5%88%86%e5%b8%83%e5%bc%8f%e5%ad%98%e5%82%a8/">https://poph163.com/category/分布式存储/</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://jasondong97.github.io">Jason Dong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://jasondong97.github.io/2021/10/01/ceph/Ceph%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/">http://jasondong97.github.io/2021/10/01/ceph/Ceph%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://jasondong97.github.io" target="_blank">Jason Dong</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ceph/">ceph</a></div><div class="post_share"><div class="social-share" data-image="/img/default_cover/geomeric9.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/06/12/k8s/study/k8s%20%E7%BD%91%E7%BB%9C%E7%AD%96%E7%95%A5/" title="k8s 网络策略"><img class="cover" src="/img/default_cover/geomeric4.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">k8s 网络策略</div></div></a></div><div class="next-post pull-right"><a href="/2021/09/30/ceph/Ceph%20%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/" title="Ceph 安装记录"><img class="cover" src="/img/default_cover/geomeric6.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Ceph 安装记录</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/09/30/ceph/Ceph%20%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/" title="Ceph 安装记录"><img class="cover" src="/img/default_cover/geomeric6.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-30</div><div class="title">Ceph 安装记录</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Jason Dong</div><div class="author-info__description">静心净心 戒骄戒躁</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JasonDong97" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:534458392@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81Ceph-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">一、Ceph 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Cephadm-%E9%83%A8%E7%BD%B2%E9%9B%86%E7%BE%A4"><span class="toc-number">2.</span> <span class="toc-text">二、Cephadm 部署集群</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%8E%AF%E5%A2%83%E8%A7%84%E5%88%92"><span class="toc-number">2.1.</span> <span class="toc-text">1.环境规划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%89%8D%E7%BD%AE-%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9"><span class="toc-number">2.2.</span> <span class="toc-text">2.前置(所有节点)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85-CEPHADM-%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9"><span class="toc-number">2.3.</span> <span class="toc-text">3.安装 CEPHADM(所有节点)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BC%95%E5%AF%BC%E6%96%B0%E7%BE%A4%E9%9B%86-%E7%AC%AC%E4%B8%80%E5%8F%B0"><span class="toc-number">2.4.</span> <span class="toc-text">4.引导新群集(第一台)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%90%91%E7%BE%A4%E9%9B%86%E6%B7%BB%E5%8A%A0%E4%B8%BB%E6%9C%BA"><span class="toc-number">2.5.</span> <span class="toc-text">5.向群集添加主机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%A3%80%E6%9F%A5%E7%8A%B6%E6%80%81"><span class="toc-number">2.6.</span> <span class="toc-text">3.检查状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E9%83%A8%E7%BD%B2-OSD"><span class="toc-number">2.7.</span> <span class="toc-text">6.部署 OSD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-rebalance-%E5%85%B3%E9%97%AD"><span class="toc-number">2.7.1.</span> <span class="toc-text">1).rebalance 关闭</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-rebalance-%E5%BC%80%E5%90%AF"><span class="toc-number">2.7.2.</span> <span class="toc-text">2).rebalance 开启</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%97%E5%87%BA%E8%8A%82%E7%82%B9%E5%8F%AF%E7%94%A8%E8%AE%BE%E5%A4%87"><span class="toc-number">2.7.3.</span> <span class="toc-text">3).列出节点可用设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%88%9B%E5%BB%BA-osd"><span class="toc-number">2.7.4.</span> <span class="toc-text">4).创建 osd</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E9%9B%86%E7%BE%A4%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="toc-number">2.8.</span> <span class="toc-text">7.集群高可用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-CephFS-%E9%83%A8%E7%BD%B2"><span class="toc-number">2.9.</span> <span class="toc-text">8.CephFS 部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E9%83%A8%E7%BD%B2-RGW"><span class="toc-number">2.10.</span> <span class="toc-text">9.部署 RGW</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%BF%90%E7%BB%B4"><span class="toc-number">3.</span> <span class="toc-text">三、运维</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%90%91%E7%BE%A4%E9%9B%86%E6%B7%BB%E5%8A%A0%E4%B8%BB%E6%9C%BA"><span class="toc-number">3.1.</span> <span class="toc-text">1.向群集添加主机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%83%A8%E7%BD%B2%E5%85%B6%E4%BB%96%E7%9B%91%E8%A7%86%E5%99%A8-monitor"><span class="toc-number">3.2.</span> <span class="toc-text">2.部署其他监视器(monitor)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-YAML-%E8%A7%84%E8%8C%83"><span class="toc-number">4.</span> <span class="toc-text">使用 YAML 规范</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%83%A8%E7%BD%B2-OSD"><span class="toc-number">4.1.</span> <span class="toc-text">3.部署 OSD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%89%80%E6%9C%89%E7%BE%A4%E9%9B%86%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%9A%84%E5%AD%98%E5%82%A8%E8%AE%BE%E5%A4%87%E6%B8%85%E5%8D%95%E5%8F%AF%E4%BB%A5%E6%98%BE%E7%A4%BA"><span class="toc-number">4.1.1.</span> <span class="toc-text">1.所有群集主机上的存储设备清单可以显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E6%96%B0-OSD-%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">4.1.2.</span> <span class="toc-text">2.创建新 OSD 的方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%83%A8%E7%BD%B2-MDS"><span class="toc-number">4.2.</span> <span class="toc-text">4.部署 MDS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E9%83%A8%E7%BD%B2-RGW"><span class="toc-number">4.3.</span> <span class="toc-text">5.部署 RGW</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E7%AE%A1%E7%90%86-Monitor-map"><span class="toc-number">4.4.</span> <span class="toc-text">6.管理 Monitor map</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%A4%9A-Monitor-%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="toc-number">4.4.1.</span> <span class="toc-text">1).多 Monitor 同步机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Monitor-%E9%80%89%E4%B8%BE%E6%9C%BA%E5%88%B6"><span class="toc-number">4.4.2.</span> <span class="toc-text">2).Monitor 选举机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Monitor-%E7%A7%9F%E7%BA%A6"><span class="toc-number">4.4.3.</span> <span class="toc-text">3).Monitor 租约</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B8%B8%E7%94%A8%E7%9A%84-monitor-%E7%AE%A1%E7%90%86"><span class="toc-number">4.4.4.</span> <span class="toc-text">4).常用的 monitor 管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E7%AE%A1%E7%90%86-OSD-Map"><span class="toc-number">4.5.</span> <span class="toc-text">7.管理 OSD Map</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-OSD-%E7%8A%B6%E6%80%81%E8%A7%A3%E8%AF%BB"><span class="toc-number">4.5.1.</span> <span class="toc-text">1).OSD 状态解读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-OSD-map-%E5%91%BD%E4%BB%A4"><span class="toc-number">4.5.2.</span> <span class="toc-text">2).OSD map 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-OSD-%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-number">4.5.3.</span> <span class="toc-text">3.)OSD 的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-OSD-%E5%AE%B9%E9%87%8F"><span class="toc-number">4.5.4.</span> <span class="toc-text">4.)OSD 容量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-OSD-%E7%8A%B6%E6%80%81%E5%8F%82%E6%95%B0"><span class="toc-number">4.5.5.</span> <span class="toc-text">5).OSD 状态参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E7%AE%A1%E7%90%86-PG"><span class="toc-number">4.6.</span> <span class="toc-text">8.管理 PG</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E5%88%B0-PG-%E6%98%A0%E5%B0%84"><span class="toc-number">4.6.1.</span> <span class="toc-text">1).管理文件到 PG 映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%AE%A1%E7%90%86-struck-%E7%8A%B6%E6%80%81%E7%9A%84-PG"><span class="toc-number">4.6.2.</span> <span class="toc-text">2).管理 struck 状态的 PG</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-struck-%E7%8A%B6%E6%80%81%E6%93%8D%E4%BD%9C"><span class="toc-number">4.6.3.</span> <span class="toc-text">3).struck 状态操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%89%8B%E5%8A%A8%E6%8E%A7%E5%88%B6-PG-%E7%9A%84-Primary-OSD"><span class="toc-number">4.6.4.</span> <span class="toc-text">4).手动控制 PG 的 Primary OSD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B0%83%E6%95%B4%E6%9D%83%E9%87%8D%E7%A4%BA%E4%BE%8B"><span class="toc-number">4.6.5.</span> <span class="toc-text">5).调整权重示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Pool-%E5%AD%98%E5%82%A8%E6%B1%A0-%E7%AE%A1%E7%90%86"><span class="toc-number">4.7.</span> <span class="toc-text">9.Pool(存储池)管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PG-%E5%92%8C-PGP-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">4.7.1.</span> <span class="toc-text">PG 和 PGP 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%99%90%E5%88%B6-pool-%E9%85%8D%E7%BD%AE%E6%9B%B4%E6%94%B9"><span class="toc-number">4.7.2.</span> <span class="toc-text">4.)限制 pool 配置更改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B-pool"><span class="toc-number">4.7.3.</span> <span class="toc-text">1.查看 pool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA-pool"><span class="toc-number">4.7.4.</span> <span class="toc-text">2.创建 pool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BF%AE%E6%94%B9-pool"><span class="toc-number">4.7.5.</span> <span class="toc-text">3.修改 pool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%88%A0%E9%99%A4%E5%AD%98%E5%82%A8%E6%B1%A0"><span class="toc-number">4.7.6.</span> <span class="toc-text">4.删除存储池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E9%87%8D%E5%91%BD%E5%90%8D%E5%AD%98%E5%82%A8%E6%B1%A0"><span class="toc-number">4.7.7.</span> <span class="toc-text">5.重命名存储池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9F%A5%E7%9C%8B%E5%AD%98%E5%82%A8%E6%B1%A0%E7%BB%9F%E8%AE%A1%E4%BF%A1%E6%81%AF"><span class="toc-number">4.7.8.</span> <span class="toc-text">6.查看存储池统计信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E7%BB%99%E5%AD%98%E5%82%A8%E6%B1%A0%E5%81%9A%E5%BF%AB%E7%85%A7"><span class="toc-number">4.7.9.</span> <span class="toc-text">7.给存储池做快照</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%88%A0%E9%99%A4%E5%AD%98%E5%82%A8%E6%B1%A0%E7%9A%84%E5%BF%AB%E7%85%A7"><span class="toc-number">4.7.10.</span> <span class="toc-text">8.删除存储池的快照</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E8%8E%B7%E5%8F%96%E5%AD%98%E5%82%A8%E6%B1%A0%E9%80%89%E9%A1%B9%E5%80%BC"><span class="toc-number">4.7.11.</span> <span class="toc-text">9.获取存储池选项值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E8%8E%B7%E5%8F%96%E5%AF%B9%E8%B1%A1%E5%89%AF%E6%9C%AC%E6%95%B0"><span class="toc-number">4.7.12.</span> <span class="toc-text">10.获取对象副本数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E8%AE%BE%E7%BD%AE%E5%AD%98%E5%82%A8%E6%B1%A0%E9%85%8D%E9%A2%9D"><span class="toc-number">4.7.13.</span> <span class="toc-text">11.设置存储池配额</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E8%87%AA%E5%AE%9A%E4%B9%89-Crush-Map"><span class="toc-number">4.8.</span> <span class="toc-text">10.自定义 Crush Map</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Crush-%E7%9A%84%E6%94%BE%E7%BD%AE%E7%AD%96%E7%95%A5"><span class="toc-number">4.8.1.</span> <span class="toc-text">1).Crush 的放置策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BC%96%E8%AF%91%E4%B8%8E%E7%BF%BB%E8%AF%91%E5%92%8C%E6%9B%B4%E6%96%B0"><span class="toc-number">4.8.2.</span> <span class="toc-text">2).编译与翻译和更新</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-admin-sockets-%E7%AE%A1%E7%90%86%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="toc-number">4.9.</span> <span class="toc-text">11.admin sockets 管理守护进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="toc-number">4.10.</span> <span class="toc-text">12.用户管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="toc-number">4.10.1.</span> <span class="toc-text">1、查看用户信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7"><span class="toc-number">4.10.2.</span> <span class="toc-text">2、添加用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90"><span class="toc-number">4.10.3.</span> <span class="toc-text">3、修改用户权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7"><span class="toc-number">4.10.4.</span> <span class="toc-text">4、删除用户</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E5%A2%9E%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4-Monitor"><span class="toc-number">4.11.</span> <span class="toc-text">13.增加和删除 Monitor</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E6%96%B0%E5%A2%9E%E4%B8%80%E4%B8%AA-monitor"><span class="toc-number">4.11.1.</span> <span class="toc-text">1、新增一个 monitor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%88%A0%E9%99%A4-Monitor"><span class="toc-number">4.11.2.</span> <span class="toc-text">2、删除 Monitor</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%9B%86%E7%BE%A4%E7%9B%91%E6%8E%A7%E7%AE%A1%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">四、集群监控管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E9%9B%86%E7%BE%A4%E6%95%B4%E4%BD%93%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81"><span class="toc-number">5.1.</span> <span class="toc-text">1.集群整体运行状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-PG-%E7%8A%B6%E6%80%81"><span class="toc-number">5.2.</span> <span class="toc-text">2.PG 状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Pool-%E7%8A%B6%E6%80%81"><span class="toc-number">5.3.</span> <span class="toc-text">3.Pool 状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-OSD-%E7%8A%B6%E6%80%81"><span class="toc-number">5.4.</span> <span class="toc-text">4.OSD 状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Monitor-%E7%8A%B6%E6%80%81%E5%92%8C%E6%9F%A5%E7%9C%8B%E4%BB%B2%E8%A3%81%E7%8A%B6%E6%80%81"><span class="toc-number">5.5.</span> <span class="toc-text">5.Monitor 状态和查看仲裁状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E9%9B%86%E7%BE%A4%E7%A9%BA%E9%97%B4%E7%94%A8%E9%87%8F"><span class="toc-number">5.6.</span> <span class="toc-text">6.集群空间用量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86-%E4%B8%B4%E6%97%B6%E5%92%8C%E5%85%A8%E5%B1%80%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF"><span class="toc-number">6.</span> <span class="toc-text">五、集群配置管理(临时和全局，服务平滑重启)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E8%BF%90%E8%A1%8C%E9%85%8D%E7%BD%AE"><span class="toc-number">6.1.</span> <span class="toc-text">1.查看运行配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-tell-%E5%AD%90%E5%91%BD%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="toc-number">6.2.</span> <span class="toc-text">2.tell 子命令格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-daemon-%E5%AD%90%E5%91%BD%E4%BB%A4"><span class="toc-number">6.3.</span> <span class="toc-text">3.daemon 子命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%9B%86%E7%BE%A4%E6%93%8D%E4%BD%9C"><span class="toc-number">6.4.</span> <span class="toc-text">4.集群操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4-OSD"><span class="toc-number">6.5.</span> <span class="toc-text">5.添加和删除 OSD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B7%BB%E5%8A%A0-OSD"><span class="toc-number">6.5.1.</span> <span class="toc-text">1).添加 OSD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%A0%E9%99%A4-OSD"><span class="toc-number">6.5.2.</span> <span class="toc-text">2).删除 OSD</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%89%A9%E5%AE%B9-PG"><span class="toc-number">6.6.</span> <span class="toc-text">6.扩容 PG</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E8%B0%83%E4%BC%98"><span class="toc-number">7.</span> <span class="toc-text">六、调优</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%B3%BB%E7%BB%9F%E5%B1%82%E9%9D%A2%E8%B0%83%E4%BC%98"><span class="toc-number">7.1.</span> <span class="toc-text">1.系统层面调优</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7"><span class="toc-number">7.1.1.</span> <span class="toc-text">1).系统调优工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-I-x2F-O-%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">7.1.2.</span> <span class="toc-text">2).I&#x2F;O 调度算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BD%91%E7%BB%9C-IO-%E5%AD%90%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98"><span class="toc-number">7.1.3.</span> <span class="toc-text">3).网络 IO 子系统调优</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E8%B0%83%E4%BC%98"><span class="toc-number">7.1.4.</span> <span class="toc-text">4).虚拟内存调优</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Ceph-%E6%9C%AC%E8%BA%AB%E8%B0%83%E4%BC%98"><span class="toc-number">7.2.</span> <span class="toc-text">2.Ceph 本身调优</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">7.2.1.</span> <span class="toc-text">1).最佳实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%BD%B1%E5%93%8D-I-x2F-O-%E7%9A%84-6-%E5%A4%A7%E6%93%8D%E4%BD%9C"><span class="toc-number">7.2.2.</span> <span class="toc-text">2).影响 I&#x2F;O 的 6 大操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-OSD-%E7%94%9F%E4%BA%A7%E5%BB%BA%E8%AE%AE"><span class="toc-number">7.2.3.</span> <span class="toc-text">3).OSD 生产建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%A1%AC%E4%BB%B6%E5%BB%BA%E8%AE%AE"><span class="toc-number">7.2.4.</span> <span class="toc-text">4).硬件建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-RBD-%E7%94%9F%E4%BA%A7%E5%BB%BA%E8%AE%AE"><span class="toc-number">7.2.5.</span> <span class="toc-text">5).RBD 生产建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%AF%B9%E8%B1%A1%E7%BD%91%E5%85%B3%E7%94%9F%E4%BA%A7%E5%BB%BA%E8%AE%AE"><span class="toc-number">7.2.6.</span> <span class="toc-text">6).对象网关生产建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-CephFS-%E7%94%9F%E4%BA%A7%E5%BB%BA%E8%AE%AE"><span class="toc-number">7.2.7.</span> <span class="toc-text">7).CephFS 生产建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-Monitor-%E7%94%9F%E4%BA%A7%E5%BB%BA%E8%AE%AE"><span class="toc-number">7.2.8.</span> <span class="toc-text">8).Monitor 生产建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%B0%86-OSD-%E6%97%A5%E5%BF%97%E8%BF%81%E7%A7%BB%E5%88%B0-SSD"><span class="toc-number">7.2.9.</span> <span class="toc-text">9).将 OSD 日志迁移到 SSD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E5%AD%98%E5%82%A8%E6%B1%A0%E4%B8%AD-PG-%E7%9A%84%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95"><span class="toc-number">7.2.10.</span> <span class="toc-text">10).存储池中 PG 的计算方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-PG-%E4%B8%8E-PGP"><span class="toc-number">7.2.11.</span> <span class="toc-text">11).PG 与 PGP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-Ceph-%E7%94%9F%E4%BA%A7%E7%BD%91%E7%BB%9C%E5%BB%BA%E8%AE%AE"><span class="toc-number">7.2.12.</span> <span class="toc-text">12).Ceph 生产网络建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-OSD-%E5%92%8C%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E6%A0%A1%E9%AA%8C"><span class="toc-number">7.2.13.</span> <span class="toc-text">13).OSD 和数据一致性校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-%E5%BF%AB%E7%85%A7%E7%9A%84%E7%94%9F%E4%BA%A7%E5%BB%BA%E8%AE%AE"><span class="toc-number">7.2.14.</span> <span class="toc-text">14).快照的生产建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-%E4%BF%9D%E6%8A%A4%E6%95%B0%E6%8D%AE%E5%92%8C-osd"><span class="toc-number">7.2.15.</span> <span class="toc-text">15).保护数据和 osd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-OSD-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E5%90%8E%E7%AB%AF"><span class="toc-number">7.2.16.</span> <span class="toc-text">16).OSD 数据存储后端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-%E5%85%B3%E4%BA%8E%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="toc-number">7.2.17.</span> <span class="toc-text">17).关于性能测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%AE%BE%E7%BD%AE%E9%9B%86%E7%BE%A4%E7%9A%84%E6%A0%87%E5%BF%97"><span class="toc-number">7.3.</span> <span class="toc-text">3.设置集群的标志</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">8.</span> <span class="toc-text">参考文档</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/09/24/mysql/20250924/" title="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相"><img src="/img/default_cover/geomeric6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相"/></a><div class="content"><a class="title" href="/2025/09/24/mysql/20250924/" title="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相">MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相</a><time datetime="2025-09-24T06:08:44.382Z" title="更新于 2025-09-24 14:08:44">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/26/openid/OpenID/" title="OpenID Connect Core 1.0"><img src="/img/default_cover/geomeric10.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenID Connect Core 1.0"/></a><div class="content"><a class="title" href="/2023/10/26/openid/OpenID/" title="OpenID Connect Core 1.0">OpenID Connect Core 1.0</a><time datetime="2025-09-24T06:00:08.748Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/02/oauth2/OAuth2%20%E7%9A%84%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" title="OAuth 2.0 的一个简单解释"><img src="/img/default_cover/geomeric3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OAuth 2.0 的一个简单解释"/></a><div class="content"><a class="title" href="/2023/11/02/oauth2/OAuth2%20%E7%9A%84%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" title="OAuth 2.0 的一个简单解释">OAuth 2.0 的一个简单解释</a><time datetime="2025-09-24T06:00:08.741Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/27/mysql/mysql%20%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%AD%97%E6%AE%B5%E6%B3%A8%E9%87%8A/" title="mysql 查看表字段注释"><img src="/img/default_cover/geomeric7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql 查看表字段注释"/></a><div class="content"><a class="title" href="/2023/12/27/mysql/mysql%20%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%AD%97%E6%AE%B5%E6%B3%A8%E9%87%8A/" title="mysql 查看表字段注释">mysql 查看表字段注释</a><time datetime="2025-09-24T06:00:08.741Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/29/mysql/mysql%20%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E8%B5%8B%E4%BA%88%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/" title="mysql 创建用户并赋予管理员权限"><img src="/img/default_cover/geomeric2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql 创建用户并赋予管理员权限"/></a><div class="content"><a class="title" href="/2023/12/29/mysql/mysql%20%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E8%B5%8B%E4%BA%88%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/" title="mysql 创建用户并赋予管理员权限">mysql 创建用户并赋予管理员权限</a><time datetime="2025-09-24T06:00:08.740Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/default_cover/geomeric9.png')"><div id="footer-wrap"><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到我的博客~</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

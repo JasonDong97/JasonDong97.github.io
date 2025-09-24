@@ -1,0 +1,314 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>技术文章梳理 | Jason Dong</title><meta name="author" content="Jason Dong"><meta name="copyright" content="Jason Dong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="技术文章计算机基础 Socket 核心原理分享 WebSocket 详解教程 常见 MIME 类型列表  linux Vi 常用命令 Linux固定IP地址 linux如何复制文件夹和移动文件夹 linux find 命令查找文件和文件夹 HTTPS静态服务搭建过程详解 Linux中查询当前用户的命令总结 OpenSSL 及创建私有CA  对象存储 Amazon S3 API Amazon S3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术文章梳理">
+<meta property="og:url" content="http://jasondong97.github.io/2023/12/28/java/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0%E6%A2%B3%E7%90%86/">
+<meta property="og:site_name" content="Jason Dong">
+<meta property="og:description" content="技术文章计算机基础 Socket 核心原理分享 WebSocket 详解教程 常见 MIME 类型列表  linux Vi 常用命令 Linux固定IP地址 linux如何复制文件夹和移动文件夹 linux find 命令查找文件和文件夹 HTTPS静态服务搭建过程详解 Linux中查询当前用户的命令总结 OpenSSL 及创建私有CA  对象存储 Amazon S3 API Amazon S3">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://jasondong97.github.io/img/default_cover/geomeric9.png">
+<meta property="article:published_time" content="2023-12-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-09-24T06:00:08.734Z">
+<meta property="article:author" content="Jason Dong">
+<meta property="article:tag" content="Java, Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://jasondong97.github.io/img/default_cover/geomeric9.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://jasondong97.github.io/2023/12/28/java/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0%E6%A2%B3%E7%90%86/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/"/><link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.png"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '技术文章梳理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-24 14:00:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('/img/default_cover/geomeric9.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Jason Dong"><span class="site-name">Jason Dong</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">技术文章梳理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-27T16:00:00.000Z" title="发表于 2023-12-28 00:00:00">2023-12-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-24T06:00:08.734Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF%E6%A0%88/">技术栈</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="技术文章梳理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="技术文章"><a href="#技术文章" class="headerlink" title="技术文章"></a>技术文章</h1><h2 id="计算机基础"><a href="#计算机基础" class="headerlink" title="计算机基础"></a>计算机基础</h2><ul>
+<li><a href="https://www.cnblogs.com/itdragon/p/13700939.html" target="_blank">Socket 核心原理分享</a></li>
+<li><a href="https://www.cnblogs.com/jingmoxukong/p/7755643.html" target="_blank">WebSocket 详解教程</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types" target="_blank">常见 MIME 类型列表</a></li>
+</ul>
+<h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><ul>
+<li><a href="https://blog.csdn.net/xingyegt/article/details/61548601" target="_blank">Vi 常用命令</a></li>
+<li><a href="https://blog.csdn.net/u010452388/article/details/86481868" target="_blank">Linux固定IP地址</a></li>
+<li><a href="https://www.cnblogs.com/liaojie970/p/6746230.html" target="_blank">linux如何复制文件夹和移动文件夹</a></li>
+<li><a href="https://www.cnblogs.com/jiftle/p/9707518.html" target="_blank">linux find 命令查找文件和文件夹</a></li>
+<li><a href="https://www.cnblogs.com/wmhuang/p/7516273.html" target="_blank">HTTPS静态服务搭建过程详解</a></li>
+<li><a href="https://www.linuxidc.com/Linux/2017-04/143031.htm" target="_blank">Linux中查询当前用户的命令总结</a></li>
+<li><a href="http://www.178linux.com/86931?utm_source=tuicool&amp;utm_medium=referral" target="_blank">OpenSSL 及创建私有CA</a></li>
+</ul>
+<h2 id="对象存储"><a href="#对象存储" class="headerlink" title="对象存储"></a>对象存储</h2><ul>
+<li><a href="https://www.cnblogs.com/chris-cp/p/4835507.html" target="_blank">Amazon S3 API</a></li>
+<li><a href="https://www.cnblogs.com/web424/p/6840207.html" target="_blank">Amazon S3 功能介绍</a></li>
+<li><a href="https://blog.csdn.net/r_12xq/article/details/88424894" target="_blank">OOS对象存储</a></li>
+</ul>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><ul>
+<li><a href="https://www.cnblogs.com/bjlhx/p/10477099.html" target="_blank">idea-常用插件-nginx</a></li>
+<li><a href="https://www.runoob.com/w3cnote/nginx-setup-intro.html" target="_blank">Nginx 配置详解</a></li>
+<li><a href="https://www.cnblogs.com/kevingrace/p/9512287.html" target="_blank">Nginx支持WebSocket反向代理-学习小结</a></li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ul>
+<li><a href="https://www.cnblogs.com/takumicx/p/9998844.html" target="_blank">数据库事务的概念及其实现原理</a></li>
+<li><a href="https://www.cnblogs.com/dong897812629/archive/2013/03/27/2981142.html" target="_blank">视图、索引、存储过程 、触发器、游标及事务</a></li>
+</ul>
+<h3 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h3><ul>
+<li><a href="https://www.cnblogs.com/TM0831/p/10606624.html" target="_blank">最详细的Windows平台安装MongoDB教程</a></li>
+</ul>
+<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><ul>
+<li><a href="https://www.cnblogs.com/mycapple-zgs-111411/p/7680529.html" target="_blank">mysql创建存储过程</a></li>
+<li><a href="https://blog.csdn.net/wuhuagu_wuhuaguo/article/details/90522435" target="_blank">MySQL 字符串截取函数</a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/7792341.html" target="_blank">MySQL的七种join</a></li>
+<li><a href="https://www.cnblogs.com/chenqionghe/p/4675844.html" target="_blank">MySQL CAST与CONVERT 函数的用法</a></li>
+<li><a href="https://www.cnblogs.com/ggjucheng/p/3352280.html" target="_blank"> MySQL 获得当前日期时间 函数</a></li>
+<li><a href="https://www.cnblogs.com/kaiwen1/p/6869025.html" target="_blank">MySQL外键设置中的的 Cascade、NO ACTION、Restrict、SET NULL&amp;nbsp;</a></li>
+<li><a href="https://blog.csdn.net/hry2015/article/details/76359281" target="_blank">mysql语法总结</a></li>
+<li><a href="https://www.cnblogs.com/yang82/p/7794712.html" target="_blank">MySQL如何修改密码</a></li>
+<li><a href="https://blog.csdn.net/mary19920410/article/details/76545053" target="_blank">浅析MySQL中concat以及group_concat的使用</a></li>
+</ul>
+<h4 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h4><ul>
+<li><a href="https://www.cnblogs.com/boothsun/p/8970952.html#autoid-7-1-0" target="_blank">MySQL索引底层实现原理 </a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/8480909.html" target="_blank">MySQL查询性能优化&amp;nbsp;</a></li>
+<li><a href="https://www.cnblogs.com/vicenteforever/articles/1613119.html" target="_blank">InnoDB与Myisam的六大区别</a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/7872669.html" target="_blank">MySQL 主从复制 </a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/7774019.html" target="_blank">MySQL建立高性能索引策略 </a></li>
+<li><a href="https://www.cnblogs.com/hustcat/archive/2009/10/28/1591648.html" target="_blank">理解MySQL——索引与优化</a></li>
+<li><a href="https://www.cnblogs.com/zongyl/p/6021097.html" target="_blank">通过乐观锁（版本号）降低并发时的锁竞争问题</a></li>
+</ul>
+<h5 id="MySQL-优化"><a href="#MySQL-优化" class="headerlink" title="MySQL 优化"></a>MySQL 优化</h5><ul>
+<li><a href="https://www.cnblogs.com/zhanjindong/p/3439042.html" target="_blank">MySQL优化—工欲善其事，必先利其器之EXPLAIN</a></li>
+<li><a href="https://www.cnblogs.com/zhanjindong/p/3472804.html" target="_blank">MySQL优化—工欲善其事，必先利其器（2）</a></li>
+</ul>
+<h3 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h3><ul>
+<li><a href="https://www.jb51.net/article/187271.htm" target="_blank">Windows10安装Oracle19c数据库详细记录</a></li>
+</ul>
+<h4 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h4><ul>
+<li><a href="http://blog.itpub.net/29500582/viewspace-1314555/" target="_blank">Oracle查看当前登陆用户的权限或者角色</a></li>
+<li><a href="https://www.cnblogs.com/roger112/p/7685307.html" target="_blank">Oracle创建用户、角色、授权、建表&amp;nbsp;</a></li>
+<li><a href="https://www.cnblogs.com/rosesmall/p/5767605.html" target="_blank">查看Oracle数据库的用户名和密码</a></li>
+</ul>
+<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><ul>
+<li><a href="https://www.runoob.com/redis/redis-install.html" target="_blank">Redis 安装</a></li>
+<li><a href="https://blog.csdn.net/yejingtao703/article/details/78484151" target="_blank">三张图秒懂Redis集群设计原理</a></li>
+<li>在windows上搭建redis集群（Redis-Cluster）</a></li>
+<li><a href="https://www.cnblogs.com/tommy-huang/p/6240083.html" target="_blank">Windows下搭建Redis集群</a></li>
+</ul>
+<h3 id="SQL-Server"><a href="#SQL-Server" class="headerlink" title="SQL Server"></a>SQL Server</h3><ul>
+<li><a href="https://www.cnblogs.com/wuyifu/p/3447870.html" target="_blank">SQL Server中的锁 详解 nolock,rowlock,tablock,xlock,paglock</a></li>
+<li><a href="https://www.cnblogs.com/Brambling/p/6754993.html" target="_blank">SQL Server 创建索引（index）</a></li>
+<li><a href="https://www.cnblogs.com/CreateMyself/p/6512692.html" target="_blank">SQL Server-聚焦NOLOCK、UPDLOCK、HOLDLOCK、READPAST你弄懂多少？</a></li>
+<li><a href="https://www.w3school.com.cn/sql/func_datediff.asp" target="_blank">SQL Server DATEDIFF() 函数</a></li>
+<li><a href="https://www.cnblogs.com/xwdreamer/archive/2012/06/23/2559344.html" target="_blank">查看sqlserver的端口号</a></li>
+<li><a href="https://www.cnblogs.com/JohnnyBao/p/3799054.html" target="_blank">sql server 判断是否存在数据库，表，列，视图</a></li>
+<li><a href="https://www.cnblogs.com/zhangpengnike/p/6122588.html" target="_blank">SQLServer 日期函数大全</a></li>
+</ul>
+<h2 id="NodeJS"><a href="#NodeJS" class="headerlink" title="NodeJS"></a>NodeJS</h2><ul>
+<li><a href="https://blog.csdn.net/uzizi/article/details/81046646" target="_blank">windows安装nvm的两种方式</a></li>
+</ul>
+<h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><ul>
+<li><a href="https://www.cnblogs.com/jasontec/p/9698774.html" target="_blank">分布式系统理论–CAP理论、BASE理论</a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/8976409.html" target="_blank">分布式事务解决办法 </a></li>
+</ul>
+<h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><ul>
+<li>Solr和ES对比</a></li>
+<li><a href="https://juejin.cn/post/6844903955722403848#heading-0" target="_blank">9月腾讯、百度、阿里高频的29道SSM框架面试题解析</a></li>
+<li><a href="https://blog.csdn.net/shmnh/article/details/42833291" target="_blank">28个MongoDB经典面试题</a></li>
+<li><a href="https://blog.csdn.net/cliper9768/article/details/82870163" target="_blank">Dubbo面试题</a></li>
+<li><a href="https://blog.csdn.net/qq_42629110/article/details/84963815" target="_blank">SpringCloud面试题</a></li>
+<li><a href="https://blog.csdn.net/suxiexingchen/article/details/82020430" target="_blank">springBoot应用启动器基本的一共有44种</a></li>
+<li><a href="https://blog.csdn.net/qq_34337272/article/details/81072874" target="_blank">面试必备之乐观锁与悲观锁</a></li>
+<li><a href="https://juejin.cn/post/6844903809613840398" target="_blank">比较全面的中级Java面试题</a></li>
+</ul>
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><ul>
+<li><a href="https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&amp;mid=2247484920&amp;amp;idx=1&amp;amp;sn=c7167df0b36522935896565973d02cc9&amp;source=41#wechat_redirect" target="_blank">后端必备——数据通信知识(RPC、消息队列)一站式总结</a></li>
+</ul>
+<h4 id="JSR330"><a href="#JSR330" class="headerlink" title="JSR330"></a>JSR330</h4><ul>
+<li><a href="https://blog.csdn.net/u010278882/article/details/50773687" target="_blank">Java 依赖注入标准 JSR-330 简介</a></li>
+<li><a href="https://www.chkui.com/article/java/java_jsr330" target="_blank">Java JSR330</a></li>
+<li><a href="https://www.cnblogs.com/hhhshct/p/8523697.html" target="_blank">java实现HTTP请求的三种方式</a></li>
+<li><a href="https://www.cnblogs.com/super-chao/p/6118739.html" target="_blank">java中cookie存取值</a></li>
+<li><a href="https://baijiahao.baidu.com/s?id=1647621616629561468&amp;wfr=spider&amp;for=pc" target="_blank">详解java并发原子类AtomicInteger（基于jdk1.8源码分析）</a></li>
+<li><a href="https://blog.csdn.net/weixin_38111667/article/details/81630290" target="_blank">JAVA &amp;&amp; java.lang.UnsatisfiedLinkError: The specified module could not be found.找不到指定模块</a></li>
+</ul>
+<h4 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h4><ul>
+<li><a href="https://blog.csdn.net/weixin_40792878/article/details/82154402" target="_blank">Java虚拟机内存参数设置</a></li>
+</ul>
+<h4 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h4><ul>
+<li><a href="https://www.cnblogs.com/XHJT/p/3897440.html" target="_blank">线程同步的7种方式</a></li>
+</ul>
+<h3 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h3><ul>
+<li><a href="https://www.cnblogs.com/redcool/p/6426173.html" target="_blank">Spring线程池ThreadPoolTaskExecutor配置及详情</a></li>
+<li><a href="https://www.cnblogs.com/pjfmeng/p/7551340.html" target="_blank">annotation之@Autowired、@Inject、@Resource三者区别</a></li>
+<li><a href="https://blog.csdn.net/m0_37626813/article/details/78558010" target="_blank">Spring中@Component的作用</a></li>
+</ul>
+<h3 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h3><ul>
+<li><a href="https://blog.csdn.net/littleskey/article/details/52841148" target="_blank">Spring Mvc @ResponseBody String返回中文字符串乱码</a></li>
+<li><a href="https://www.cnblogs.com/WJ-163/p/6269409.html" target="_blank">SpringMVC文件上传与下载</a></li>
+<li><a href="https://blog.csdn.net/liuxiao723846/article/details/46006275" target="_blank">jackson详解</a></li>
+</ul>
+<h3 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h3><ul>
+<li><a href="https://www.cnblogs.com/itdragon/p/8686554.html" target="_blank">Spring Boot配置文件详解</a></li>
+<li><a href="https://www.cnblogs.com/yuansc/p/9076604.html" target="_blank">SpringBoot配置Cors解决跨域请求问题</a></li>
+</ul>
+<h3 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h3><ul>
+<li><a href="https://blog.csdn.net/loushuiyifan/article/details/82702522" target="_blank">Hystrix原理与实战</a></li>
+</ul>
+<h3 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h3><ul>
+<li><a href="https://www.cnblogs.com/happyflyingpig/p/7739749.html" target="_blank">mybatis一级缓存二级缓存&amp;nbsp;&amp;nbsp;</a></li>
+</ul>
+<h3 id="ShardingSpare"><a href="#ShardingSpare" class="headerlink" title="ShardingSpare"></a>ShardingSpare</h3><ul>
+<li><a href="https://shardingsphere.apache.org/document/legacy/4.x/document/cn/overview/" target="_blank">shardingsphere 官方文档</a></li>
+</ul>
+<h3 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h3><ul>
+<li><a href="https://www.cnblogs.com/jasontec/p/9651820.html" target="_blank">Zookeeper 与 Eureka 对比</a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/8976502.html" target="_blank">ZooKeeper的典型应用场景 </a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/8976829.html" target="_blank">ZK分布式锁（未完 待续）&amp;nbsp;</a></li>
+</ul>
+<h3 id="Druid"><a href="#Druid" class="headerlink" title="Druid"></a>Druid</h3><ul>
+<li><a href="https://www.cnblogs.com/niejunlei/p/5977895.html" target="_blank">Druid 介绍及配置</a></li>
+</ul>
+<h3 id="Log4j"><a href="#Log4j" class="headerlink" title="Log4j"></a>Log4j</h3><ul>
+<li><a href="http://www.blogjava.net/zJun/archive/2006/06/28/55511.html" target="_blank">配置Log4j(很详细)</a></li>
+</ul>
+<h3 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h3><ul>
+<li>&amp;nbsp;</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://jasondong97.github.io">Jason Dong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://jasondong97.github.io/2023/12/28/java/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0%E6%A2%B3%E7%90%86/">http://jasondong97.github.io/2023/12/28/java/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0%E6%A2%B3%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://jasondong97.github.io" target="_blank">Jason Dong</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/default_cover/geomeric9.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/12/29/mysql/mysql%20%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E8%B5%8B%E4%BA%88%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/" title="mysql 创建用户并赋予管理员权限"><img class="cover" src="/img/default_cover/geomeric2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">mysql 创建用户并赋予管理员权限</div></div></a></div><div class="next-post pull-right"><a href="/2023/12/28/k8s/MetaLib%20%E5%AE%89%E8%A3%85/" title="MetalLB 安装"><img class="cover" src="/img/default_cover/geomeric8.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MetalLB 安装</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Jason Dong</div><div class="author-info__description">静心净心 戒骄戒躁</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JasonDong97" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:534458392@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0"><span class="toc-number">1.</span> <span class="toc-text">技术文章</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80"><span class="toc-number">1.1.</span> <span class="toc-text">计算机基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#linux"><span class="toc-number">1.2.</span> <span class="toc-text">linux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8"><span class="toc-number">1.3.</span> <span class="toc-text">对象存储</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx"><span class="toc-number">1.4.</span> <span class="toc-text">Nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.5.</span> <span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MongoDB"><span class="toc-number">1.5.1.</span> <span class="toc-text">MongoDB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL"><span class="toc-number">1.5.2.</span> <span class="toc-text">MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6"><span class="toc-number">1.5.2.2.</span> <span class="toc-text">进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#MySQL-%E4%BC%98%E5%8C%96"><span class="toc-number">1.5.2.2.1.</span> <span class="toc-text">MySQL 优化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Oracle"><span class="toc-number">1.5.3.</span> <span class="toc-text">Oracle</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%88%E6%9D%83"><span class="toc-number">1.5.3.1.</span> <span class="toc-text">授权</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis"><span class="toc-number">1.5.4.</span> <span class="toc-text">Redis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-Server"><span class="toc-number">1.5.5.</span> <span class="toc-text">SQL Server</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NodeJS"><span class="toc-number">1.6.</span> <span class="toc-text">NodeJS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F"><span class="toc-number">1.7.</span> <span class="toc-text">分布式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="toc-number">1.8.</span> <span class="toc-text">面试题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java"><span class="toc-number">1.9.</span> <span class="toc-text">Java</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.9.1.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JSR330"><span class="toc-number">1.9.1.1.</span> <span class="toc-text">JSR330</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JVM"><span class="toc-number">1.9.1.2.</span> <span class="toc-text">JVM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.9.1.3.</span> <span class="toc-text">多线程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring"><span class="toc-number">1.9.2.</span> <span class="toc-text">Spring</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringMVC"><span class="toc-number">1.9.3.</span> <span class="toc-text">SpringMVC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Boot"><span class="toc-number">1.9.4.</span> <span class="toc-text">Spring Boot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Cloud"><span class="toc-number">1.9.5.</span> <span class="toc-text">Spring Cloud</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MyBatis"><span class="toc-number">1.9.6.</span> <span class="toc-text">MyBatis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ShardingSpare"><span class="toc-number">1.9.7.</span> <span class="toc-text">ShardingSpare</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zookeeper"><span class="toc-number">1.9.8.</span> <span class="toc-text">Zookeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Druid"><span class="toc-number">1.9.9.</span> <span class="toc-text">Druid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Log4j"><span class="toc-number">1.9.10.</span> <span class="toc-text">Log4j</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90"><span class="toc-number">1.9.11.</span> <span class="toc-text">日志分析</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/09/24/mysql/20250924/" title="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相"><img src="/img/default_cover/geomeric6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相"/></a><div class="content"><a class="title" href="/2025/09/24/mysql/20250924/" title="MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相">MySQL ORDER BY 有索引却不用？揭秘 `EXPLAIN` 中的“索引失效”真相</a><time datetime="2025-09-24T06:08:44.382Z" title="更新于 2025-09-24 14:08:44">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/26/openid/OpenID/" title="OpenID Connect Core 1.0"><img src="/img/default_cover/geomeric10.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenID Connect Core 1.0"/></a><div class="content"><a class="title" href="/2023/10/26/openid/OpenID/" title="OpenID Connect Core 1.0">OpenID Connect Core 1.0</a><time datetime="2025-09-24T06:00:08.748Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/02/oauth2/OAuth2%20%E7%9A%84%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" title="OAuth 2.0 的一个简单解释"><img src="/img/default_cover/geomeric3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OAuth 2.0 的一个简单解释"/></a><div class="content"><a class="title" href="/2023/11/02/oauth2/OAuth2%20%E7%9A%84%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" title="OAuth 2.0 的一个简单解释">OAuth 2.0 的一个简单解释</a><time datetime="2025-09-24T06:00:08.741Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/27/mysql/mysql%20%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%AD%97%E6%AE%B5%E6%B3%A8%E9%87%8A/" title="mysql 查看表字段注释"><img src="/img/default_cover/geomeric7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql 查看表字段注释"/></a><div class="content"><a class="title" href="/2023/12/27/mysql/mysql%20%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%AD%97%E6%AE%B5%E6%B3%A8%E9%87%8A/" title="mysql 查看表字段注释">mysql 查看表字段注释</a><time datetime="2025-09-24T06:00:08.741Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/29/mysql/mysql%20%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E8%B5%8B%E4%BA%88%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/" title="mysql 创建用户并赋予管理员权限"><img src="/img/default_cover/geomeric2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql 创建用户并赋予管理员权限"/></a><div class="content"><a class="title" href="/2023/12/29/mysql/mysql%20%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E8%B5%8B%E4%BA%88%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/" title="mysql 创建用户并赋予管理员权限">mysql 创建用户并赋予管理员权限</a><time datetime="2025-09-24T06:00:08.740Z" title="更新于 2025-09-24 14:00:08">2025-09-24</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/default_cover/geomeric9.png')"><div id="footer-wrap"><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到我的博客~</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
