@@ -1,7 +1,7 @@
 ---
 title: k8s 创建单节点 mysql 并持久化存储
 date: 2023-10-10 13:00:00
-updated:
+updated: 2023-10-10 13:00:00
 tags: k8s
 categories: 容器/虚拟化
 keywords: k8s

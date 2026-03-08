@@ -1,7 +1,7 @@
 ---
 title: mysql 查看表字段注释
 date: 2023-12-27
-updated:
+updated: 2023-12-27
 tags:
   - mysql
 categories: mysql

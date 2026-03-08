@@ -1,7 +1,7 @@
 ---
 title: MySQL 8.0 Public Key Retrieval is not allowed 错误的解决方法
 date: 2023-06-12
-updated:
+updated: 2023-06-12
 tags: java, 遇坑记录，mysql
 categories: 遇坑记录
 keywords: Public Key Retrieval is not allowed

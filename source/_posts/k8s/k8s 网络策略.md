@@ -1,7 +1,7 @@
 ---
 title: k8s 网络策略
 date: 2023-06-12
-updated:
+updated: 2023-06-12
 tags:
   - k8s
   - 学习
