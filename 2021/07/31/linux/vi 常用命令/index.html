@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    
+    
+    
+    
+    <meta name="keywords" content="Jason Dong, 后端工程师, Java, Python, Hexo">
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    
+    <link rel="alternate" href="/atom.xml" title="Jason Dong" type="application/atom+xml" />
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicons/favicon.ico">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+<link rel="stylesheet" type="text/css" href="/css/page.css">
+<link rel="stylesheet" type="text/css" href="/css/post.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/clipboard.min.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
+    
+    
+    <script defer type="text/javascript" src="/js/search.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var searchPath = "search.xml";
+      if (searchPath.length === 0) {
+        searchPath = "search.xml";
+      }
+      var path = "/" + searchPath;
+      searchFunc(path, "search-input", "search-result");
+    });
+    </script>
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var cb = null;
+      var els = $(".post figure.highlight");
+      if (els.length) {
+        // Enabled Hexo highlight line number.
+        $(els).each(function (i, e) {
+          // $(e).before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling.firstChild.firstChild.firstChild.lastChild.firstChild.firstChild;
+          }
+        });
+      } else {
+        // Disabled Hexo highlight line number.
+        els = $(".post pre code");
+        $(els).each(function (i, e) {
+          // Add button before pre, not code.
+          // $(e).parent().before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling;
+          }
+        });
+      }
+      cb.on("success", function (e) {
+        e.clearSelection();
+        var trigger = e.trigger;
+        // Change button text as a user tip.
+        trigger.innerHTML = "<i class=\"far fa-check-square\"></i>";
+        $(trigger).addClass("copied");
+        // Change button text back;
+        setTimeout(function () {
+          trigger.innerHTML = "<i class=\"far fa-copy\"></i>";
+          $(trigger).removeClass("copied");
+        }, 1500);
+      });
+    });
+    </script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>vi 常用命令 | Jason Dong - 后端工程师</title>
+  <meta name="generator" content="Hexo 5.4.2"></head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN"  data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header" style="background: #33363b;">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">Jason Dong</a></h1>
+        <h2 class="subtitle">后端工程师</h2>
+      </div>
+      
+      <div class="logo">
+        <img src="/images/logo.png" alt="logo">
+      </div>
+      
+    </div>
+    <nav id="nav" class="nav">
+      <a id="nav-toggle" class="nav-toggle" aria-hidden="true"><i class="fas fa-bars" aria-label="Toggle Navbar"></i></a>
+      <ul id="menu" role="menubar" aria-hidden="false">
+        
+        <li role="menuitem"><a href="/"><i class="fas fa-home"></i><span class="menu-text">首页</span></a></li>
+        
+        <li role="menuitem"><a href="/archives/"><i class="fas fa-archive"></i><span class="menu-text">归档</span></a></li>
+        
+        <li role="menuitem"><a href="/categories/"><i class="fas fa-th-list"></i><span class="menu-text">分类</span></a></li>
+        
+        <li role="menuitem"><a href="/tags/"><i class="fas fa-tags"></i><span class="menu-text">标签</span></a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
+<div id="post" class="page">
+  
+  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://jasondong97.github.io/2021/07/31/linux/vi%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+       <meta itemprop="name" content="Jason Dong">
+       <meta itemprop="description" content="">
+       <meta itemprop="image" content="/img/avatar.jpg">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+       <meta itemprop="name" content="Jason Dong">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">vi 常用命令</h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2021-07-31T19:21:00+08:00">2021-07-31 19:21:00</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-main" itemprop="articleBody">
+      <h2 id="Vi-常用命令"><a href="#Vi-常用命令" class="headerlink" title="Vi 常用命令"></a>Vi 常用命令</h2><h3 id="进入-vi-的命令"><a href="#进入-vi-的命令" class="headerlink" title="进入 vi 的命令"></a>进入 vi 的命令</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">vi filename</td>
+<td>打开或新建文件，并将光标置于第一行首</td>
+</tr>
+<tr>
+<td align="center">vi +n filename</td>
+<td>打开文件，并将光标置于第 n 行首</td>
+</tr>
+<tr>
+<td align="center">vi + filename</td>
+<td>打开文件，并将光标置于最后一行首</td>
+</tr>
+<tr>
+<td align="center">vi +&#x2F;pattern filename</td>
+<td>打开文件，并将光标置于第一个与 pattern 匹配的串处</td>
+</tr>
+<tr>
+<td align="center">vi -r filename</td>
+<td>在上次正用 vi 编辑时发生系统崩溃，恢复 filename</td>
+</tr>
+<tr>
+<td align="center">vi filename….filename</td>
+<td>打开多个文件，依次进行编辑</td>
+</tr>
+</tbody></table>
+<span id="more"></span>
+
+<h3 id="移动光标类命令"><a href="#移动光标类命令" class="headerlink" title="移动光标类命令"></a>移动光标类命令</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">h</td>
+<td>光标左移一个字符</td>
+</tr>
+<tr>
+<td align="center">l</td>
+<td>光标右移一个字符</td>
+</tr>
+<tr>
+<td align="center">space</td>
+<td>光标右移一个字符</td>
+</tr>
+<tr>
+<td align="center">Backspace</td>
+<td>光标左移一个字符</td>
+</tr>
+<tr>
+<td align="center">k 或 Ctrl+p</td>
+<td>光标上移一行</td>
+</tr>
+<tr>
+<td align="center">j 或 Ctrl+n</td>
+<td>光标下移一行</td>
+</tr>
+<tr>
+<td align="center">Enter</td>
+<td>光标下移一行</td>
+</tr>
+<tr>
+<td align="center">w 或 W</td>
+<td>光标右移一个字至字首</td>
+</tr>
+<tr>
+<td align="center">b 或 B</td>
+<td>光标左移一个字至字首</td>
+</tr>
+<tr>
+<td align="center">e 或 E</td>
+<td>光标右移一个字至字尾</td>
+</tr>
+<tr>
+<td align="center">(</td>
+<td>光标移至句首</td>
+</tr>
+<tr>
+<td align="center">)</td>
+<td>光标移至句尾</td>
+</tr>
+<tr>
+<td align="center">{</td>
+<td>光标移至段落开头</td>
+</tr>
+<tr>
+<td align="center">}</td>
+<td>光标移至段落结尾</td>
+</tr>
+<tr>
+<td align="center">nG</td>
+<td>光标移至第 n 行首</td>
+</tr>
+<tr>
+<td align="center">G</td>
+<td>到最后一行</td>
+</tr>
+<tr>
+<td align="center">n+</td>
+<td>光标下移 n 行</td>
+</tr>
+<tr>
+<td align="center">n-</td>
+<td>光标上移 n 行</td>
+</tr>
+<tr>
+<td align="center">n$</td>
+<td>光标移至第 n 行尾</td>
+</tr>
+<tr>
+<td align="center">H</td>
+<td>光标移至屏幕顶行</td>
+</tr>
+<tr>
+<td align="center">M</td>
+<td>光标移至屏幕中间行</td>
+</tr>
+<tr>
+<td align="center">L</td>
+<td>光标移至屏幕最后行</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td>（注意是数字零）光标移至当前行首</td>
+</tr>
+<tr>
+<td align="center">$</td>
+<td>光标移至当前行尾</td>
+</tr>
+</tbody></table>
+<h3 id="屏幕翻滚类命令"><a href="#屏幕翻滚类命令" class="headerlink" title="屏幕翻滚类命令"></a>屏幕翻滚类命令</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Ctrl+u</td>
+<td>向文件首翻半屏</td>
+</tr>
+<tr>
+<td align="center">Ctrl ＋ b</td>
+<td>向文件首翻一屏</td>
+</tr>
+<tr>
+<td align="center">Ctrl+d</td>
+<td>向文件尾翻半屏</td>
+</tr>
+<tr>
+<td align="center">Ctrl+f</td>
+<td>向文件尾翻一屏</td>
+</tr>
+<tr>
+<td align="center">nz</td>
+<td>将第 n 行滚至屏幕顶部，不指定 n 时将当前行滚至屏幕顶部</td>
+</tr>
+</tbody></table>
+<h3 id="插入文本类命令"><a href="#插入文本类命令" class="headerlink" title="插入文本类命令"></a>插入文本类命令</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">i</td>
+<td>在光标前</td>
+</tr>
+<tr>
+<td align="center">I</td>
+<td>在当前行首</td>
+</tr>
+<tr>
+<td align="center">a</td>
+<td>光标后</td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td>在当前行尾</td>
+</tr>
+<tr>
+<td align="center">o</td>
+<td>在当前行之下新开一行</td>
+</tr>
+<tr>
+<td align="center">O</td>
+<td>在当前行之上新开一行</td>
+</tr>
+<tr>
+<td align="center">r</td>
+<td>替换当前字符</td>
+</tr>
+<tr>
+<td align="center">R</td>
+<td>替换当前字符及其后的字符，直至按 ESC 键</td>
+</tr>
+<tr>
+<td align="center">s</td>
+<td>从当前光标位置处开始，以输入的文本替代指定数目的字符</td>
+</tr>
+<tr>
+<td align="center">S</td>
+<td>删除指定数目的行，并以所输入文本代替之</td>
+</tr>
+<tr>
+<td align="center">ncw 或 nCW</td>
+<td>修改指定数目的字</td>
+</tr>
+<tr>
+<td align="center">nCC</td>
+<td>修改指定数目的行</td>
+</tr>
+</tbody></table>
+<h3 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ndw 或 ndW</td>
+<td>删除光标处开始及其后的 n-1 个字</td>
+</tr>
+<tr>
+<td align="center">do</td>
+<td>删至行首</td>
+</tr>
+<tr>
+<td align="center">d$</td>
+<td>删至行尾</td>
+</tr>
+<tr>
+<td align="center">ndd</td>
+<td>删除当前行及其后 n-1 行</td>
+</tr>
+<tr>
+<td align="center">x 或 X</td>
+<td>删除一个字符，x 删除光标后的，而 X 删除光标前的</td>
+</tr>
+<tr>
+<td align="center">Ctrl+u</td>
+<td>删除输入方式下所输入的文本</td>
+</tr>
+</tbody></table>
+<h3 id="搜索及替换命令"><a href="#搜索及替换命令" class="headerlink" title="搜索及替换命令"></a>搜索及替换命令</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&#x2F;pattern</td>
+<td>从光标开始处向文件尾搜索 pattern</td>
+</tr>
+<tr>
+<td align="center">?pattern</td>
+<td>从光标开始处向文件首搜索 pattern</td>
+</tr>
+<tr>
+<td align="center">n</td>
+<td>在同一方向重复上一次搜索命令</td>
+</tr>
+<tr>
+<td align="center">N</td>
+<td>在反方向上重复上一次搜索命令</td>
+</tr>
+<tr>
+<td align="center">：s&#x2F;p1&#x2F;p2&#x2F;g</td>
+<td>将当前行中所有 p1 均用 p2 替代</td>
+</tr>
+<tr>
+<td align="center">：n1,n2s&#x2F;p1&#x2F;p2&#x2F;g</td>
+<td>将第 n1 至 n2 行中所有 p1 均用 p2 替代</td>
+</tr>
+<tr>
+<td align="center">：g&#x2F;p1&#x2F;s&#x2F;&#x2F;p2&#x2F;g</td>
+<td>将文件中所有 p1 均用 p2 替换</td>
+</tr>
+</tbody></table>
+<h3 id="选项设置"><a href="#选项设置" class="headerlink" title="选项设置"></a>选项设置</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">all</td>
+<td>列出所有选项设置情况</td>
+</tr>
+<tr>
+<td align="center">term</td>
+<td>设置终端类型</td>
+</tr>
+<tr>
+<td align="center">ignorance</td>
+<td>在搜索中忽略大小写</td>
+</tr>
+<tr>
+<td align="center">list</td>
+<td>显示制表位(Ctrl+I)和行尾标志（$)</td>
+</tr>
+<tr>
+<td align="center">number</td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td align="center">report</td>
+<td>显示由面向行的命令修改过的数目</td>
+</tr>
+<tr>
+<td align="center">terse</td>
+<td>显示简短的警告信息</td>
+</tr>
+<tr>
+<td align="center">warn</td>
+<td>在转到别的文件时若没保存当前文件则显示 NO write 信息</td>
+</tr>
+<tr>
+<td align="center">nomagic</td>
+<td>允许在搜索模式中，使用前面不带“\”的特殊字符</td>
+</tr>
+<tr>
+<td align="center">nowrapscan</td>
+<td>禁止 vi 在搜索到达文件两端时，又从另一端开始</td>
+</tr>
+<tr>
+<td align="center">mesg</td>
+<td>允许 vi 显示其他用户用 write 写到自己终端上的信息</td>
+</tr>
+</tbody></table>
+<h3 id="最后行方式命令"><a href="#最后行方式命令" class="headerlink" title="最后行方式命令"></a>最后行方式命令</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">：n1,n2 co n3</td>
+<td>将 n1 行到 n2 行之间的内容拷贝到第 n3 行下</td>
+</tr>
+<tr>
+<td align="center">：n1,n2 m n3</td>
+<td>将 n1 行到 n2 行之间的内容移至到第 n3 行下</td>
+</tr>
+<tr>
+<td align="center">：n1,n2 d</td>
+<td>将 n1 行到 n2 行之间的内容删除</td>
+</tr>
+<tr>
+<td align="center">：w</td>
+<td>保存当前文件</td>
+</tr>
+<tr>
+<td align="center">：e filename</td>
+<td>打开文件 filename 进行编辑</td>
+</tr>
+<tr>
+<td align="center">：x</td>
+<td>保存当前文件并退出</td>
+</tr>
+<tr>
+<td align="center">：q</td>
+<td>退出 vi</td>
+</tr>
+<tr>
+<td align="center">：q!</td>
+<td>不保存文件并退出 vi</td>
+</tr>
+<tr>
+<td align="center">：!command</td>
+<td>执行 shell 命令 command</td>
+</tr>
+<tr>
+<td align="center">：n1,n2 w!command</td>
+<td>将文件中 n1 行至 n2 行的内容作为 command 的输入并执行之，若不指定 n1，n2，则表示将整个文件内容作为 command 的输入</td>
+</tr>
+<tr>
+<td align="center">：r!command</td>
+<td>将命令 command 的输出结果放到当前行</td>
+</tr>
+</tbody></table>
+<h3 id="寄存器操作"><a href="#寄存器操作" class="headerlink" title="寄存器操作"></a>寄存器操作</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">“?nyy</td>
+<td>将当前行及其下 n 行的内容保存到寄存器？中，其中?为一个字母，n 为一个数字</td>
+</tr>
+<tr>
+<td align="center">“?nyw</td>
+<td>将当前行及其下 n 个字保存到寄存器？中，其中?为一个字母，n 为一个数字</td>
+</tr>
+<tr>
+<td align="center">“?nyl</td>
+<td>将当前行及其下 n 个字符保存到寄存器？中，其中?为一个字母，n 为一个数字</td>
+</tr>
+<tr>
+<td align="center">“?p</td>
+<td>取出寄存器？中的内容并将其放到光标位置处。这里？可以是一个字母，也可以是一个数字</td>
+</tr>
+<tr>
+<td align="center">ndd</td>
+<td>将当前行及其下共 n 行文本删除，并将所删内容放到 1 号删除寄存器中</td>
+</tr>
+</tbody></table>
+<h3 id="保存退出"><a href="#保存退出" class="headerlink" title="保存退出"></a>保存退出</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">zz</td>
+<td>保存并退出</td>
+</tr>
+<tr>
+<td align="center">:w filename</td>
+<td>写入文件</td>
+</tr>
+<tr>
+<td align="center">:W</td>
+<td>写入文件</td>
+</tr>
+<tr>
+<td align="center">:x</td>
+<td>保存(如果当前文件修改过)并退出</td>
+</tr>
+<tr>
+<td align="center">:q!</td>
+<td>不保存文件，直接退出</td>
+</tr>
+<tr>
+<td align="center">:q</td>
+<td>退出 vi</td>
+</tr>
+</tbody></table>
+
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        <a class="post-tag button" href="/tags/vi/" rel="tag"><i class="fas fa-tags"></i>vi</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  
+  <nav class="page-nav">
+    <div class="page-nav-next page-nav-item">
+      
+      <a href="/2020/01/01/java/interview/index/" rel="next" title="Java 精选面试题 (持续更新)"><i class="fas fa-angle-left"></i><span class="nav-title">Java 精选面试题 (持续更新)</span></a>
+      
+    </div>
+    <div class="page-nav-prev page-nav-item">
+      
+      <a href="/2021/09/30/ceph/Ceph%20%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/" rel="prev" title="Ceph 安装记录"><span class="nav-title">Ceph 安装记录</span><i class="fas fa-angle-right"></i></a>
+      
+    </div>
+  </nav>
+  
+  
+</div>
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/background.png);">
+  
+  <div class="search">
+    <div class="form-group">
+      <i class="fas fa-search"></i><input type="search" id="search-input" name="q" results="0" placeholder="Search" class="form-control"/>
+    </div>
+  </div>
+  <div class="search-result-box" id="search-result"></div>
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <img class="author-avatar" src="/img/avatar.jpg" alt="Jason Dong">
+  
+  <h1 class="author-name">Jason Dong</h1>
+  <h2 class="author-description"></h2>
+  <div class="site-count">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+    
+    
+    
+    <hr>
+    <div class="post-toc sidebar-item" id="toc-div">
+      <div><i class="fas fa-list-ol"></i>Table of Contents</div>
+      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#Vi-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">Vi 常用命令</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E8%BF%9B%E5%85%A5-vi-%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-text">进入 vi 的命令</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E7%A7%BB%E5%8A%A8%E5%85%89%E6%A0%87%E7%B1%BB%E5%91%BD%E4%BB%A4"><span class="toc-text">移动光标类命令</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E5%B1%8F%E5%B9%95%E7%BF%BB%E6%BB%9A%E7%B1%BB%E5%91%BD%E4%BB%A4"><span class="toc-text">屏幕翻滚类命令</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E6%8F%92%E5%85%A5%E6%96%87%E6%9C%AC%E7%B1%BB%E5%91%BD%E4%BB%A4"><span class="toc-text">插入文本类命令</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E5%88%A0%E9%99%A4%E5%91%BD%E4%BB%A4"><span class="toc-text">删除命令</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E6%90%9C%E7%B4%A2%E5%8F%8A%E6%9B%BF%E6%8D%A2%E5%91%BD%E4%BB%A4"><span class="toc-text">搜索及替换命令</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E9%80%89%E9%A1%B9%E8%AE%BE%E7%BD%AE"><span class="toc-text">选项设置</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E6%9C%80%E5%90%8E%E8%A1%8C%E6%96%B9%E5%BC%8F%E5%91%BD%E4%BB%A4"><span class="toc-text">最后行方式命令</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E6%93%8D%E4%BD%9C"><span class="toc-text">寄存器操作</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E4%BF%9D%E5%AD%98%E9%80%80%E5%87%BA"><span class="toc-text">保存退出</span></a></li></ol></li></ol></div>
+    </div>
+    
+    
+    
+    <hr>
+    <div class="social-link sidebar-item">
+      <div><i class="far fa-address-card"></i>Social Links</p></div>
+      <ul>
+        
+        <li><i class="fab fa-github"></i><a href="https://github.com/JasonDong97" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-envelope"></i><a href="mailto:534458392@qq.com" target="_blank">Email</a></li>
+        
+      </ul>
+    </div>
+    
+    
+    <hr>
+    <div class="blogroll sidebar-item">
+      <div><i class="fas fa-link"></i>Blogroll</div>
+      <ul>
+        
+        <li><i class="fas fa-link"></i><a href="https://hexo.io/" target="_blank">Hexo</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://developer.mozilla.org/" target="_blank">MDN</a></li>
+        
+      </ul>
+    </div>
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer" style="background: #33363b;">
+  <div class="container">
+    <div class="back-to-top">
+      <button id="back-to-top"><i class="fas fa-angle-double-up" aria-label="Back to Top"></i></button>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">Jason Dong</span><span class="year"><i class="far fa-copyright"></i>2020 - 2026</span><span class="creative-commons"><i class="fab fa-creative-commons"></i><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">BY-NC-SA 4.0</a></span>
+        </div>
+        
+        <div class="busuanzi">
+          <span id="busuanzi_container_site_pv"><i class="fas fa-eye" aria-label="Site Visit Count" aria-hidden="false"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user" aria-label="Site User Count" aria-hidden="false"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv" aria-label="Page Click Count" aria-hidden="false"></span></span>
+        </div>
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+          <i class="fas fa-heart"></i> Jason Dong | 托管于 <i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+          
+        </div>
+        <div class="powered-by">
+          Proudly Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme is <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>

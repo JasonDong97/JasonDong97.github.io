@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    
+    
+    
+    
+    <meta name="keywords" content="Jason Dong, 后端工程师, Java, Python, Hexo">
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    
+    <link rel="alternate" href="/atom.xml" title="Jason Dong" type="application/atom+xml" />
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicons/favicon.ico">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+<link rel="stylesheet" type="text/css" href="/css/page.css">
+<link rel="stylesheet" type="text/css" href="/css/post.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/clipboard.min.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
+    
+    
+    <script defer type="text/javascript" src="/js/search.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var searchPath = "search.xml";
+      if (searchPath.length === 0) {
+        searchPath = "search.xml";
+      }
+      var path = "/" + searchPath;
+      searchFunc(path, "search-input", "search-result");
+    });
+    </script>
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var cb = null;
+      var els = $(".post figure.highlight");
+      if (els.length) {
+        // Enabled Hexo highlight line number.
+        $(els).each(function (i, e) {
+          // $(e).before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling.firstChild.firstChild.firstChild.lastChild.firstChild.firstChild;
+          }
+        });
+      } else {
+        // Disabled Hexo highlight line number.
+        els = $(".post pre code");
+        $(els).each(function (i, e) {
+          // Add button before pre, not code.
+          // $(e).parent().before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling;
+          }
+        });
+      }
+      cb.on("success", function (e) {
+        e.clearSelection();
+        var trigger = e.trigger;
+        // Change button text as a user tip.
+        trigger.innerHTML = "<i class=\"far fa-check-square\"></i>";
+        $(trigger).addClass("copied");
+        // Change button text back;
+        setTimeout(function () {
+          trigger.innerHTML = "<i class=\"far fa-copy\"></i>";
+          $(trigger).removeClass("copied");
+        }, 1500);
+      });
+    });
+    </script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>Extra07 - 环境配置 | Jason Dong - 后端工程师</title>
+  <meta name="generator" content="Hexo 5.4.2"></head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN"  data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header" style="background: #33363b;">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">Jason Dong</a></h1>
+        <h2 class="subtitle">后端工程师</h2>
+      </div>
+      
+      <div class="logo">
+        <img src="/images/logo.png" alt="logo">
+      </div>
+      
+    </div>
+    <nav id="nav" class="nav">
+      <a id="nav-toggle" class="nav-toggle" aria-hidden="true"><i class="fas fa-bars" aria-label="Toggle Navbar"></i></a>
+      <ul id="menu" role="menubar" aria-hidden="false">
+        
+        <li role="menuitem"><a href="/"><i class="fas fa-home"></i><span class="menu-text">首页</span></a></li>
+        
+        <li role="menuitem"><a href="/archives/"><i class="fas fa-archive"></i><span class="menu-text">归档</span></a></li>
+        
+        <li role="menuitem"><a href="/categories/"><i class="fas fa-th-list"></i><span class="menu-text">分类</span></a></li>
+        
+        <li role="menuitem"><a href="/tags/"><i class="fas fa-tags"></i><span class="menu-text">标签</span></a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
+<div id="post" class="page">
+  
+  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://jasondong97.github.io/2026/03/03/ai-agent-learning/Extra07-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+       <meta itemprop="name" content="Jason Dong">
+       <meta itemprop="description" content="">
+       <meta itemprop="image" content="/img/avatar.jpg">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+       <meta itemprop="name" content="Jason Dong">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">Extra07 - 环境配置</h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2026-03-03T08:00:00+08:00">2026-03-03 08:00:00</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hello-Agents-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Hello Agents 学习</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-main" itemprop="articleBody">
+      <h1 id="Extra07-环境配置"><a href="#Extra07-环境配置" class="headerlink" title="Extra07 - 环境配置"></a>Extra07 - 环境配置</h1><blockquote>
+<p>本节将指导您配置运行 FirstAgentTest.py 所需的完整环境。该代码实现了一个智能旅行助手，展示了基于工具调用的 Agent 实现模式。</p>
+</blockquote>
+<h2 id="一、环境要求"><a href="#一、环境要求" class="headerlink" title="一、环境要求"></a>一、环境要求</h2><h3 id="1-1-Python-版本要求"><a href="#1-1-Python-版本要求" class="headerlink" title="1.1 Python 版本要求"></a>1.1 Python 版本要求</h3><ul>
+<li><strong>Python 3.10+</strong> （推荐使用 Python 3.10 或更高版本）</li>
+<li>支持的操作系统：Windows、macOS、Linux</li>
+</ul>
+<h3 id="1-2-目标代码说明"><a href="#1-2-目标代码说明" class="headerlink" title="1.2 目标代码说明"></a>1.2 目标代码说明</h3><p>我们的目标是成功运行项目<code>code\chapter1\FirstAgentTest.py</code>，该代码实现了：</p>
+<ul>
+<li>智能旅行助手功能</li>
+<li>天气查询工具（基于 wttr.in API）</li>
+<li>景点推荐工具（基于 Tavily Search API）</li>
+<li>OpenAI 兼容的 LLM 调用</li>
+<li>ReAct 模式的 Agent 执行流程</li>
+</ul>
+<h2 id="二、API-配置"><a href="#二、API-配置" class="headerlink" title="二、API 配置"></a>二、API 配置</h2><h3 id="2-1-大语言模型-API-配置"><a href="#2-1-大语言模型-API-配置" class="headerlink" title="2.1 大语言模型 API 配置"></a>2.1 大语言模型 API 配置</h3><h4 id="选项一：AIHubmix-API（推荐）"><a href="#选项一：AIHubmix-API（推荐）" class="headerlink" title="选项一：AIHubmix API（推荐）"></a>选项一：AIHubmix API（推荐）</h4><p>AIHubmix 是一个位于美国特拉华州的 AI 模型聚合平台，整合了市面上主流的大语言模型，新发布的模型通常在一周内即可使用。该平台直接对接各大云服务商的原生 API（如 OpenAI 通过 Azure、Anthropic 通过 AWS、Google 通过官方接口等），采用美国 Google Cloud 的集群架构部署，具备多节点负载均衡能力，在稳定性和响应速度方面表现优异。</p>
+<blockquote>
+<p>平台提供的免费额度能够满足我们的学习需求。</p>
+</blockquote>
+<ol>
+<li><p><strong>进入 AIHubmix 官网</strong></p>
+<p>使用浏览器访问 <a target="_blank" rel="noopener" href="https://aihubmix.com/?aff=Igcn/">AIHubmix 官方网站</a></p>
+<p><img src="/img/ai-agent-learning/image1" alt="image1"></p>
+</li>
+<li><p><strong>完成账户注册</strong></p>
+<p>首次使用需要注册账户。点击右上角的注册按钮，支持邮箱或手机号两种方式完成注册流程。</p>
+</li>
+<li><p><strong>浏览可用模型</strong></p>
+<p>注册成功后，访问<a target="_blank" rel="noopener" href="https://aihubmix.com/models">模型中心</a>查看所有可用模型。在筛选条件中选择<code>免费</code>标签，即可查看平台提供的免费模型列表。建议选择 <code>coding-glm-4.7-freecoding-glm-4.7-free</code> 或其他兼容 OpenAI 格式的免费模型。</p>
+<p><img src="/img/ai-agent-learning/image2" alt="image2"></p>
+</li>
+<li><p><strong>获取 API 凭证</strong></p>
+<p>前往<a target="_blank" rel="noopener" href="https://console.aihubmix.com/token">API 密钥管理</a>页面，系统默认会生成一个可用的密钥。您也可以通过点击 <code>创建 Key</code> 按钮自定义密钥名称并生成新的密钥。</p>
+<p><img src="/img/ai-agent-learning/image3" alt="image3"></p>
+<p>请妥善保存以下配置信息：</p>
+<ul>
+<li>API Key: <code>your_api_key</code></li>
+<li>Base URL: <code>https://aihubmix.com/v1</code></li>
+<li>推荐模型: <code>coding-glm-4.7-free</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="选项二：ModelScope"><a href="#选项二：ModelScope" class="headerlink" title="选项二：ModelScope"></a>选项二：ModelScope</h4><p>ModelScope 是国内领先的大模型服务商，提供高性价比的 API 服务。这里我们以Qwen为例，您可以从<a target="_blank" rel="noopener" href="https://modelscope.cn/docs/model-service/API-Inference/intro">ModelScope</a>获取，它提供Qwen系列的免费（OpenAI）兼容格式的API，每天免费2000次调用。</p>
+<p>请确保您拥有一个正常注册且可使用的ModelScope账户。要生成您的私有 API KEY可以参考我们的图示。</p>
+<p><img src="/img/ai-agent-learning/image4" alt="image4"></p>
+<p><img src="/img/ai-agent-learning/image5" alt="image5"></p>
+<p>图中的SDK令牌就是我们的API KEY。</p>
+<blockquote>
+<p>请注意，需要在<strong>模型服务</strong>先绑定<a target="_blank" rel="noopener" href="https://modelscope.cn/docs/accounts/aliyun-binding-and-authorization">阿里巴巴云账号</a>， 不然api会显示无法使用</p>
+</blockquote>
+<p><strong>可选模型范围</strong></p>
+<p>在ModelScope中的<a target="_blank" rel="noopener" href="https://modelscope.cn/models?filter=inference_type&page=1">模型库</a>中选择推理 API-Inference ，里面的模型都可以选择，我们可以体验到最新的使用DeepSeek-R1数据蒸馏出的Llama-70B模型。</p>
+<p><img src="/img/ai-agent-learning/image6" alt="image6"></p>
+<p>最终所需格式与AIHubmix的配置信息相同(Key，URL，模型名称)</p>
+<h3 id="2-2-Tavily-Search-API-配置"><a href="#2-2-Tavily-Search-API-配置" class="headerlink" title="2.2 Tavily Search API 配置"></a>2.2 Tavily Search API 配置</h3><p>Tavily 是一个专为 AI 应用设计的搜索 API，用于景点推荐功能。</p>
+<ol>
+<li><p><strong>访问 Tavily 平台</strong></p>
+<p>打开浏览器，访问 <a target="_blank" rel="noopener" href="https://tavily.com/">Tavily</a></p>
+<p><img src="/img/ai-agent-learning/image7" alt="image7"></p>
+</li>
+<li><p><strong>注册并获取 API 密钥</strong></p>
+<p><img src="/img/ai-agent-learning/image8" alt="image8"></p>
+<ol>
+<li>注册账号</li>
+<li>在控制台获取 API Key</li>
+<li>记录 API Key: <code>your_tavily_key</code></li>
+</ol>
+</li>
+</ol>
+<h2 id="三、Python-环境配置"><a href="#三、Python-环境配置" class="headerlink" title="三、Python 环境配置"></a>三、Python 环境配置</h2><h3 id="3-1-安装-Python（如果未安装）"><a href="#3-1-安装-Python（如果未安装）" class="headerlink" title="3.1 安装 Python（如果未安装）"></a>3.1 安装 Python（如果未安装）</h3><p><strong>Windows 用户：</strong></p>
+<ol>
+<li>访问 <a target="_blank" rel="noopener" href="https://www.python.org/downloads/">Python 官网</a></li>
+<li>下载 Python 3.10+ 版本</li>
+<li>安装时勾选 “Add Python to PATH”</li>
+</ol>
+<p><strong>macOS 用户：</strong></p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用 Homebrew 安装</span><br>brew install python@3.10<br></code></pre></td></tr></table></figure>
+
+<p><strong>Linux 用户：</strong></p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Ubuntu/Debian</span><br>sudo apt update<br>sudo apt install python3.10 python3.10-pip python3.10-venv<br><br><span class="hljs-comment"># CentOS/RHEL</span><br>sudo yum install python3.10 python3.10-pip<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-2-验证-Python-安装"><a href="#3-2-验证-Python-安装" class="headerlink" title="3.2 验证 Python 安装"></a>3.2 验证 Python 安装</h3><figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">python --version<br><span class="hljs-comment"># 或</span><br>python3 --version<br></code></pre></td></tr></table></figure>
+
+<p>确保显示 Python 3.10 或更高版本。</p>
+<h2 id="四、项目环境配置"><a href="#四、项目环境配置" class="headerlink" title="四、项目环境配置"></a>四、项目环境配置</h2><h3 id="4-1-创建虚拟环境（推荐）"><a href="#4-1-创建虚拟环境（推荐）" class="headerlink" title="4.1 创建虚拟环境（推荐）"></a>4.1 创建虚拟环境（推荐）</h3><figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 进入项目目录</span><br><span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;hello-agents&quot;</span><br><br><span class="hljs-comment"># 创建虚拟环境</span><br>python -m venv venv<br><br><span class="hljs-comment"># 激活虚拟环境</span><br><span class="hljs-comment"># Windows:</span><br>venv\Scripts\activate<br><span class="hljs-comment"># macOS/Linux:</span><br><span class="hljs-built_in">source</span> venv/bin/activate<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-2-安装依赖包"><a href="#4-2-安装依赖包" class="headerlink" title="4.2 安装依赖包"></a>4.2 安装依赖包</h3><figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装核心依赖</span><br>pip install requests&gt;=2.31.0<br>pip install tavily-python&gt;=0.3.0<br>pip install openai&gt;=1.0.0<br><br><span class="hljs-comment"># 可选：安装其他常用包</span><br>pip install python-dotenv&gt;=1.0.0<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-3-环境变量配置"><a href="#4-3-环境变量配置" class="headerlink" title="4.3 环境变量配置"></a>4.3 环境变量配置</h3><h4 id="方法一：使用-env-文件（推荐）"><a href="#方法一：使用-env-文件（推荐）" class="headerlink" title="方法一：使用 .env 文件（推荐）"></a>方法一：使用 .env 文件（推荐）</h4><p>在项目根目录创建 <code>.env</code> 文件：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 在项目根目录创建 .env 文件</span><br><span class="hljs-built_in">touch</span> .<span class="hljs-built_in">env</span>  <span class="hljs-comment"># Linux/macOS</span><br><span class="hljs-comment"># 或在 Windows 中手动创建</span><br></code></pre></td></tr></table></figure>
+
+<p>编辑 <code>.env</code> 文件，添加以下内容：</p>
+<figure class="hljs highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs env"># Tavily API 配置<br>TAVILY_API_KEY=your_tavily_api_key<br><br># 大语言模型 API 配置（选择其中一种）<br># 选项一：AIHubmix<br>OPENAI_API_KEY=your_aihubmix_api_key<br>OPENAI_BASE_URL=https://aihubmix.com/v1<br>MODEL_NAME=xxxx<br><br># 选项二：Modelscope<br># OPENAI_API_KEY=your_modelscope_api_key<br># OPENAI_BASE_URL=https://api-inference.modelscope.cn/v1/<br># MODEL_NAME=xxxx<br></code></pre></td></tr></table></figure>
+
+<h4 id="方法二：系统环境变量"><a href="#方法二：系统环境变量" class="headerlink" title="方法二：系统环境变量"></a>方法二：系统环境变量</h4><p>以下为长期环境变量方案，也可以在终端短期加载。</p>
+<p><strong>Windows：</strong></p>
+<ol>
+<li>右键”此电脑” → “属性” → “高级系统设置”</li>
+<li>点击”环境变量”</li>
+<li>在”用户变量”中添加：<ul>
+<li><code>TAVILY_API_KEY</code>: <code>your_tavily_api_key</code></li>
+</ul>
+</li>
+</ol>
+<p><strong>macOS&#x2F;Linux：</strong></p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 编辑 ~/.bashrc 或 ~/.zshrc</span><br><span class="hljs-built_in">export</span> TAVILY_API_KEY=<span class="hljs-string">&quot;your_tavily_api_key&quot;</span><br><br><span class="hljs-comment"># 使配置生效</span><br><span class="hljs-built_in">source</span> ~/.bashrc<br></code></pre></td></tr></table></figure>
+
+<h2 id="五、代码配置"><a href="#五、代码配置" class="headerlink" title="五、代码配置"></a>五、代码配置</h2><h3 id="5-1-修改-FirstAgentTest-py-配置"><a href="#5-1-修改-FirstAgentTest-py-配置" class="headerlink" title="5.1 修改 FirstAgentTest.py 配置"></a>5.1 修改 FirstAgentTest.py 配置</h3><p>打开 <code>code/chapter1/FirstAgentTest.py</code> 文件，找到第 143-148 行的配置部分：</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># --- 1. 配置LLM客户端 ---</span><br><span class="hljs-comment"># 请根据您使用的服务，将这里替换成对应的凭证和地址</span><br>API_KEY = <span class="hljs-string">&quot;YOUR_API_KEY&quot;</span><br>BASE_URL = <span class="hljs-string">&quot;YOUR_BASE_URL&quot;</span><br>MODEL_ID = <span class="hljs-string">&quot;YOUR_MODEL_ID&quot;</span><br>os.environ[<span class="hljs-string">&#x27;TAVILY_API_KEY&#x27;</span>] = <span class="hljs-string">&quot;YOUR_TAVILY_API_KEY&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>替换为您的实际配置：</strong></p>
+<h4 id="使用-AIHubmix-的配置示例："><a href="#使用-AIHubmix-的配置示例：" class="headerlink" title="使用 AIHubmix 的配置示例："></a>使用 AIHubmix 的配置示例：</h4><figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">API_KEY = <span class="hljs-string">&quot;your_aihubmix_api_key&quot;</span><br>BASE_URL = <span class="hljs-string">&quot;https://aihubmix.com/v1&quot;</span><br>MODEL_ID = <span class="hljs-string">&quot;coding-glm-4.7-free&quot;</span><br>os.environ[<span class="hljs-string">&#x27;TAVILY_API_KEY&#x27;</span>] = <span class="hljs-string">&quot;your_tavily_api_key&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="六、运行验证"><a href="#六、运行验证" class="headerlink" title="六、运行验证"></a>六、运行验证</h2><h3 id="6-1-测试网络连接"><a href="#6-1-测试网络连接" class="headerlink" title="6.1 测试网络连接"></a>6.1 测试网络连接</h3><p>首先测试各个 API 的连通性：</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 测试天气 API</span><br><span class="hljs-keyword">import</span> requests<br>response = requests.get(<span class="hljs-string">&quot;https://wttr.in/Beijing?format=j1&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;天气API状态:&quot;</span>, response.status_code)<br><br><span class="hljs-comment"># 测试 Tavily API</span><br><span class="hljs-keyword">from</span> tavily <span class="hljs-keyword">import</span> TavilyClient<br>tavily = TavilyClient(api_key=<span class="hljs-string">&quot;your_tavily_key&quot;</span>)<br><span class="hljs-keyword">try</span>:<br>    result = tavily.search(<span class="hljs-string">&quot;test&quot;</span>, search_depth=<span class="hljs-string">&quot;basic&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Tavily API 连接成功&quot;</span>)<br><span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Tavily API 错误:&quot;</span>, e)<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-2-运行完整程序"><a href="#6-2-运行完整程序" class="headerlink" title="6.2 运行完整程序"></a>6.2 运行完整程序</h3><figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 确保在正确目录</span><br><span class="hljs-built_in">cd</span> <span class="hljs-string">&quot;hello-agents\code\chapter1&quot;</span><br><br><span class="hljs-comment"># 运行程序</span><br>python FirstAgentTest.py<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-3-预期输出"><a href="#6-3-预期输出" class="headerlink" title="6.3 预期输出"></a>6.3 预期输出</h3><p>程序成功运行时，您应该看到类似以下的输出：</p>
+<figure class="hljs highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-section">用户输入: 你好，请帮我查询一下今天北京的天气，然后根据天气推荐一个合适的旅游景点。</span><br><span class="hljs-section">========================================</span><br><span class="hljs-bullet">--- </span>循环 1 ---<br><br>正在调用大语言模型...<br>大语言模型响应成功。<br>模型输出:<br>Thought: 用户想要查询北京的天气，然后根据天气情况推荐合适的旅游景点。我需要先调用get<span class="hljs-emphasis">_weather工具查询北京的天气情况。</span><br><span class="hljs-emphasis">Action: get_</span>weather(city=&quot;北京&quot;)<br><br><span class="hljs-section">Observation: 北京当前天气：Clear，气温15摄氏度</span><br><span class="hljs-section">========================================</span><br><span class="hljs-bullet">--- </span>循环 2 ---<br><br>正在调用大语言模型...<br>大语言模型响应成功。<br>模型输出:<br>Thought: 现在我知道了北京的天气是晴朗的，气温15摄氏度，这是一个很适合户外活动的天气。接下来我需要根据这个天气情况推荐合适的旅游景点。<br>Action: get_attraction(city=&quot;北京&quot;, weather=&quot;Clear，气温15摄氏度&quot;)<br><br><span class="hljs-section">Observation: 根据搜索，为您找到以下信息：...</span><br><span class="hljs-section">========================================</span><br>任务完成，最终答案: 根据查询，北京今天天气晴朗，气温15摄氏度，非常适合户外游览。推荐您去...<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="七、常见问题排查"><a href="#七、常见问题排查" class="headerlink" title="七、常见问题排查"></a>七、常见问题排查</h2><h3 id="7-1-依赖安装问题"><a href="#7-1-依赖安装问题" class="headerlink" title="7.1 依赖安装问题"></a>7.1 依赖安装问题</h3><p><strong>问题：pip 安装速度慢</strong></p>
+<p>解决方案：使用国内镜像源</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 临时使用清华镜像</span><br>pip install -i https://pypi.tuna.tsinghua.edu.cn/simple requests tavily-python openai<br><br><span class="hljs-comment"># 永久配置镜像源</span><br>pip config <span class="hljs-built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple<br></code></pre></td></tr></table></figure>
+
+<p><strong>问题：ModuleNotFoundError</strong></p>
+<p>解决方案：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 确认虚拟环境已激活</span><br><span class="hljs-comment"># 重新安装缺失的包</span><br>pip install requests tavily-python openai python-dotenv<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-2-API-调用问题"><a href="#7-2-API-调用问题" class="headerlink" title="7.2 API 调用问题"></a>7.2 API 调用问题</h3><p><strong>问题：Tavily API 返回错误</strong></p>
+<p>可能原因：</p>
+<ul>
+<li>API Key 未正确设置</li>
+<li>API 额度用尽</li>
+<li>网络连接问题</li>
+</ul>
+<p>解决方案：</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 检查环境变量</span><br><span class="hljs-keyword">import</span> os<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;TAVILY_API_KEY:&quot;</span>, os.environ.get(<span class="hljs-string">&#x27;TAVILY_API_KEY&#x27;</span>))<br><br><span class="hljs-comment"># 测试 API 连接</span><br><span class="hljs-keyword">from</span> tavily <span class="hljs-keyword">import</span> TavilyClient<br>client = TavilyClient(api_key=<span class="hljs-string">&quot;your_key&quot;</span>)<br>result = client.search(<span class="hljs-string">&quot;test&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="十、总结"><a href="#十、总结" class="headerlink" title="十、总结"></a>十、总结</h2><p>完成环境配置后，建议：</p>
+<ol>
+<li>理解 FirstAgentTest.py 的代码结构</li>
+<li>尝试修改 System Prompt 观察效果</li>
+<li>添加新的工具函数</li>
+<li>实现更复杂的 Agent 逻辑</li>
+</ol>
+<p>按照本文档的步骤操作，您应该能够成功运行智能旅行助手代码，并理解基于工具调用的 Agent 实现原理。</p>
+
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        <a class="post-tag button" href="/tags/Hello-Agents-%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fas fa-tags"></i>Hello Agents 学习</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  
+  <nav class="page-nav">
+    <div class="page-nav-next page-nav-item">
+      
+      <a href="/2026/03/03/ai-agent-learning/Extra06-GUIAgent%E7%A7%91%E6%99%AE%E4%B8%8E%E5%AE%9E%E6%88%98/" rel="next" title="GUI Agent 科普与实战——下一代人机交互的探索之旅"><i class="fas fa-angle-left"></i><span class="nav-title">GUI Agent 科普与实战——下一代人机交互的探索之旅</span></a>
+      
+    </div>
+    <div class="page-nav-prev page-nav-item">
+      
+      <a href="/2026/03/03/ai-agent-learning/Extra08-%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E5%A5%BD%E7%9A%84Skill/" rel="prev" title="05. 如何写出好的 Skill"><span class="nav-title">05. 如何写出好的 Skill</span><i class="fas fa-angle-right"></i></a>
+      
+    </div>
+  </nav>
+  
+  
+</div>
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/background.png);">
+  
+  <div class="search">
+    <div class="form-group">
+      <i class="fas fa-search"></i><input type="search" id="search-input" name="q" results="0" placeholder="Search" class="form-control"/>
+    </div>
+  </div>
+  <div class="search-result-box" id="search-result"></div>
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <img class="author-avatar" src="/img/avatar.jpg" alt="Jason Dong">
+  
+  <h1 class="author-name">Jason Dong</h1>
+  <h2 class="author-description"></h2>
+  <div class="site-count">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+    
+    
+    
+    <hr>
+    <div class="post-toc sidebar-item" id="toc-div">
+      <div><i class="fas fa-list-ol"></i>Table of Contents</div>
+      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-1"><a class="list-group-item toc-link" href="#Extra07-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-text">Extra07 - 环境配置</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E4%B8%80%E3%80%81%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82"><span class="toc-text">一、环境要求</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#1-1-Python-%E7%89%88%E6%9C%AC%E8%A6%81%E6%B1%82"><span class="toc-text">1.1 Python 版本要求</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#1-2-%E7%9B%AE%E6%A0%87%E4%BB%A3%E7%A0%81%E8%AF%B4%E6%98%8E"><span class="toc-text">1.2 目标代码说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E4%BA%8C%E3%80%81API-%E9%85%8D%E7%BD%AE"><span class="toc-text">二、API 配置</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#2-1-%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B-API-%E9%85%8D%E7%BD%AE"><span class="toc-text">2.1 大语言模型 API 配置</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E9%80%89%E9%A1%B9%E4%B8%80%EF%BC%9AAIHubmix-API%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-text">选项一：AIHubmix API（推荐）</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E9%80%89%E9%A1%B9%E4%BA%8C%EF%BC%9AModelScope"><span class="toc-text">选项二：ModelScope</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#2-2-Tavily-Search-API-%E9%85%8D%E7%BD%AE"><span class="toc-text">2.2 Tavily Search API 配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E4%B8%89%E3%80%81Python-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-text">三、Python 环境配置</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#3-1-%E5%AE%89%E8%A3%85-Python%EF%BC%88%E5%A6%82%E6%9E%9C%E6%9C%AA%E5%AE%89%E8%A3%85%EF%BC%89"><span class="toc-text">3.1 安装 Python（如果未安装）</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#3-2-%E9%AA%8C%E8%AF%81-Python-%E5%AE%89%E8%A3%85"><span class="toc-text">3.2 验证 Python 安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E5%9B%9B%E3%80%81%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-text">四、项目环境配置</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-1-%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-text">4.1 创建虚拟环境（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-2-%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E5%8C%85"><span class="toc-text">4.2 安装依赖包</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-3-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE"><span class="toc-text">4.3 环境变量配置</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8-env-%E6%96%87%E4%BB%B6%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-text">方法一：使用 .env 文件（推荐）</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">方法二：系统环境变量</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E4%BA%94%E3%80%81%E4%BB%A3%E7%A0%81%E9%85%8D%E7%BD%AE"><span class="toc-text">五、代码配置</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#5-1-%E4%BF%AE%E6%94%B9-FirstAgentTest-py-%E9%85%8D%E7%BD%AE"><span class="toc-text">5.1 修改 FirstAgentTest.py 配置</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E4%BD%BF%E7%94%A8-AIHubmix-%E7%9A%84%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B%EF%BC%9A"><span class="toc-text">使用 AIHubmix 的配置示例：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E5%85%AD%E3%80%81%E8%BF%90%E8%A1%8C%E9%AA%8C%E8%AF%81"><span class="toc-text">六、运行验证</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#6-1-%E6%B5%8B%E8%AF%95%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5"><span class="toc-text">6.1 测试网络连接</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#6-2-%E8%BF%90%E8%A1%8C%E5%AE%8C%E6%95%B4%E7%A8%8B%E5%BA%8F"><span class="toc-text">6.2 运行完整程序</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#6-3-%E9%A2%84%E6%9C%9F%E8%BE%93%E5%87%BA"><span class="toc-text">6.3 预期输出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E4%B8%83%E3%80%81%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5"><span class="toc-text">七、常见问题排查</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#7-1-%E4%BE%9D%E8%B5%96%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98"><span class="toc-text">7.1 依赖安装问题</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#7-2-API-%E8%B0%83%E7%94%A8%E9%97%AE%E9%A2%98"><span class="toc-text">7.2 API 调用问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E5%8D%81%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-text">十、总结</span></a></li></ol></li></ol></div>
+    </div>
+    
+    
+    
+    <hr>
+    <div class="social-link sidebar-item">
+      <div><i class="far fa-address-card"></i>Social Links</p></div>
+      <ul>
+        
+        <li><i class="fab fa-github"></i><a href="https://github.com/JasonDong97" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-envelope"></i><a href="mailto:534458392@qq.com" target="_blank">Email</a></li>
+        
+      </ul>
+    </div>
+    
+    
+    <hr>
+    <div class="blogroll sidebar-item">
+      <div><i class="fas fa-link"></i>Blogroll</div>
+      <ul>
+        
+        <li><i class="fas fa-link"></i><a href="https://hexo.io/" target="_blank">Hexo</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://developer.mozilla.org/" target="_blank">MDN</a></li>
+        
+      </ul>
+    </div>
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer" style="background: #33363b;">
+  <div class="container">
+    <div class="back-to-top">
+      <button id="back-to-top"><i class="fas fa-angle-double-up" aria-label="Back to Top"></i></button>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">Jason Dong</span><span class="year"><i class="far fa-copyright"></i>2020 - 2026</span><span class="creative-commons"><i class="fab fa-creative-commons"></i><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">BY-NC-SA 4.0</a></span>
+        </div>
+        
+        <div class="busuanzi">
+          <span id="busuanzi_container_site_pv"><i class="fas fa-eye" aria-label="Site Visit Count" aria-hidden="false"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user" aria-label="Site User Count" aria-hidden="false"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv" aria-label="Page Click Count" aria-hidden="false"></span></span>
+        </div>
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+          <i class="fas fa-heart"></i> Jason Dong | 托管于 <i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+          
+        </div>
+        <div class="powered-by">
+          Proudly Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme is <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>

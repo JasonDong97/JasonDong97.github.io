@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    
+    
+    
+    
+    <meta name="keywords" content="Jason Dong, 后端工程师, Java, Python, Hexo">
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    
+    <link rel="alternate" href="/atom.xml" title="Jason Dong" type="application/atom+xml" />
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicons/favicon.ico">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+<link rel="stylesheet" type="text/css" href="/css/page.css">
+<link rel="stylesheet" type="text/css" href="/css/post.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/clipboard.min.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
+    
+    
+    <script defer type="text/javascript" src="/js/search.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var searchPath = "search.xml";
+      if (searchPath.length === 0) {
+        searchPath = "search.xml";
+      }
+      var path = "/" + searchPath;
+      searchFunc(path, "search-input", "search-result");
+    });
+    </script>
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var cb = null;
+      var els = $(".post figure.highlight");
+      if (els.length) {
+        // Enabled Hexo highlight line number.
+        $(els).each(function (i, e) {
+          // $(e).before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling.firstChild.firstChild.firstChild.lastChild.firstChild.firstChild;
+          }
+        });
+      } else {
+        // Disabled Hexo highlight line number.
+        els = $(".post pre code");
+        $(els).each(function (i, e) {
+          // Add button before pre, not code.
+          // $(e).parent().before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling;
+          }
+        });
+      }
+      cb.on("success", function (e) {
+        e.clearSelection();
+        var trigger = e.trigger;
+        // Change button text as a user tip.
+        trigger.innerHTML = "<i class=\"far fa-check-square\"></i>";
+        $(trigger).addClass("copied");
+        // Change button text back;
+        setTimeout(function () {
+          trigger.innerHTML = "<i class=\"far fa-copy\"></i>";
+          $(trigger).removeClass("copied");
+        }, 1500);
+      });
+    });
+    </script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>技术文章梳理 | Jason Dong - 后端工程师</title>
+  <meta name="generator" content="Hexo 5.4.2"></head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN"  data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header" style="background: #33363b;">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">Jason Dong</a></h1>
+        <h2 class="subtitle">后端工程师</h2>
+      </div>
+      
+      <div class="logo">
+        <img src="/images/logo.png" alt="logo">
+      </div>
+      
+    </div>
+    <nav id="nav" class="nav">
+      <a id="nav-toggle" class="nav-toggle" aria-hidden="true"><i class="fas fa-bars" aria-label="Toggle Navbar"></i></a>
+      <ul id="menu" role="menubar" aria-hidden="false">
+        
+        <li role="menuitem"><a href="/"><i class="fas fa-home"></i><span class="menu-text">首页</span></a></li>
+        
+        <li role="menuitem"><a href="/archives/"><i class="fas fa-archive"></i><span class="menu-text">归档</span></a></li>
+        
+        <li role="menuitem"><a href="/categories/"><i class="fas fa-th-list"></i><span class="menu-text">分类</span></a></li>
+        
+        <li role="menuitem"><a href="/tags/"><i class="fas fa-tags"></i><span class="menu-text">标签</span></a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
+<div id="post" class="page">
+  
+  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://jasondong97.github.io/2023/12/28/java/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0%E6%A2%B3%E7%90%86/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+       <meta itemprop="name" content="Jason Dong">
+       <meta itemprop="description" content="">
+       <meta itemprop="image" content="/img/avatar.jpg">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+       <meta itemprop="name" content="Jason Dong">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">技术文章梳理</h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2023-12-28T00:00:00+08:00">2023-12-28 00:00:00</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E6%8A%80%E6%9C%AF%E6%A0%88/" itemprop="url" rel="index"><span itemprop="name">技术栈</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-main" itemprop="articleBody">
+      <h1 id="技术文章"><a href="#技术文章" class="headerlink" title="技术文章"></a>技术文章</h1><h2 id="计算机基础"><a href="#计算机基础" class="headerlink" title="计算机基础"></a>计算机基础</h2><ul>
+<li><a href="https://www.cnblogs.com/itdragon/p/13700939.html" target="_blank">Socket 核心原理分享</a></li>
+<li><a href="https://www.cnblogs.com/jingmoxukong/p/7755643.html" target="_blank">WebSocket 详解教程</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types" target="_blank">常见 MIME 类型列表</a></li>
+</ul>
+<h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><ul>
+<li><a href="https://blog.csdn.net/xingyegt/article/details/61548601" target="_blank">Vi 常用命令</a></li>
+<li><a href="https://blog.csdn.net/u010452388/article/details/86481868" target="_blank">Linux固定IP地址</a></li>
+<li><a href="https://www.cnblogs.com/liaojie970/p/6746230.html" target="_blank">linux如何复制文件夹和移动文件夹</a></li>
+<li><a href="https://www.cnblogs.com/jiftle/p/9707518.html" target="_blank">linux find 命令查找文件和文件夹</a></li>
+<li><a href="https://www.cnblogs.com/wmhuang/p/7516273.html" target="_blank">HTTPS静态服务搭建过程详解</a></li>
+<li><a href="https://www.linuxidc.com/Linux/2017-04/143031.htm" target="_blank">Linux中查询当前用户的命令总结</a></li>
+<li><a href="http://www.178linux.com/86931?utm_source=tuicool&amp;utm_medium=referral" target="_blank">OpenSSL 及创建私有CA</a></li>
+</ul>
+<h2 id="对象存储"><a href="#对象存储" class="headerlink" title="对象存储"></a>对象存储</h2><ul>
+<li><a href="https://www.cnblogs.com/chris-cp/p/4835507.html" target="_blank">Amazon S3 API</a></li>
+<li><a href="https://www.cnblogs.com/web424/p/6840207.html" target="_blank">Amazon S3 功能介绍</a></li>
+<li><a href="https://blog.csdn.net/r_12xq/article/details/88424894" target="_blank">OOS对象存储</a></li>
+</ul>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><ul>
+<li><a href="https://www.cnblogs.com/bjlhx/p/10477099.html" target="_blank">idea-常用插件-nginx</a></li>
+<li><a href="https://www.runoob.com/w3cnote/nginx-setup-intro.html" target="_blank">Nginx 配置详解</a></li>
+<li><a href="https://www.cnblogs.com/kevingrace/p/9512287.html" target="_blank">Nginx支持WebSocket反向代理-学习小结</a></li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ul>
+<li><a href="https://www.cnblogs.com/takumicx/p/9998844.html" target="_blank">数据库事务的概念及其实现原理</a></li>
+<li><a href="https://www.cnblogs.com/dong897812629/archive/2013/03/27/2981142.html" target="_blank">视图、索引、存储过程 、触发器、游标及事务</a></li>
+</ul>
+<h3 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h3><ul>
+<li><a href="https://www.cnblogs.com/TM0831/p/10606624.html" target="_blank">最详细的Windows平台安装MongoDB教程</a></li>
+</ul>
+<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><ul>
+<li><a href="https://www.cnblogs.com/mycapple-zgs-111411/p/7680529.html" target="_blank">mysql创建存储过程</a></li>
+<li><a href="https://blog.csdn.net/wuhuagu_wuhuaguo/article/details/90522435" target="_blank">MySQL 字符串截取函数</a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/7792341.html" target="_blank">MySQL的七种join</a></li>
+<li><a href="https://www.cnblogs.com/chenqionghe/p/4675844.html" target="_blank">MySQL CAST与CONVERT 函数的用法</a></li>
+<li><a href="https://www.cnblogs.com/ggjucheng/p/3352280.html" target="_blank"> MySQL 获得当前日期时间 函数</a></li>
+<li><a href="https://www.cnblogs.com/kaiwen1/p/6869025.html" target="_blank">MySQL外键设置中的的 Cascade、NO ACTION、Restrict、SET NULL&amp;nbsp;</a></li>
+<li><a href="https://blog.csdn.net/hry2015/article/details/76359281" target="_blank">mysql语法总结</a></li>
+<li><a href="https://www.cnblogs.com/yang82/p/7794712.html" target="_blank">MySQL如何修改密码</a></li>
+<li><a href="https://blog.csdn.net/mary19920410/article/details/76545053" target="_blank">浅析MySQL中concat以及group_concat的使用</a></li>
+</ul>
+<h4 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h4><ul>
+<li><a href="https://www.cnblogs.com/boothsun/p/8970952.html#autoid-7-1-0" target="_blank">MySQL索引底层实现原理 </a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/8480909.html" target="_blank">MySQL查询性能优化&amp;nbsp;</a></li>
+<li><a href="https://www.cnblogs.com/vicenteforever/articles/1613119.html" target="_blank">InnoDB与Myisam的六大区别</a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/7872669.html" target="_blank">MySQL 主从复制 </a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/7774019.html" target="_blank">MySQL建立高性能索引策略 </a></li>
+<li><a href="https://www.cnblogs.com/hustcat/archive/2009/10/28/1591648.html" target="_blank">理解MySQL——索引与优化</a></li>
+<li><a href="https://www.cnblogs.com/zongyl/p/6021097.html" target="_blank">通过乐观锁（版本号）降低并发时的锁竞争问题</a></li>
+</ul>
+<h5 id="MySQL-优化"><a href="#MySQL-优化" class="headerlink" title="MySQL 优化"></a>MySQL 优化</h5><ul>
+<li><a href="https://www.cnblogs.com/zhanjindong/p/3439042.html" target="_blank">MySQL优化—工欲善其事，必先利其器之EXPLAIN</a></li>
+<li><a href="https://www.cnblogs.com/zhanjindong/p/3472804.html" target="_blank">MySQL优化—工欲善其事，必先利其器（2）</a></li>
+</ul>
+<h3 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h3><ul>
+<li><a href="https://www.jb51.net/article/187271.htm" target="_blank">Windows10安装Oracle19c数据库详细记录</a></li>
+</ul>
+<h4 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h4><ul>
+<li><a href="http://blog.itpub.net/29500582/viewspace-1314555/" target="_blank">Oracle查看当前登陆用户的权限或者角色</a></li>
+<li><a href="https://www.cnblogs.com/roger112/p/7685307.html" target="_blank">Oracle创建用户、角色、授权、建表&amp;nbsp;</a></li>
+<li><a href="https://www.cnblogs.com/rosesmall/p/5767605.html" target="_blank">查看Oracle数据库的用户名和密码</a></li>
+</ul>
+<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><ul>
+<li><a href="https://www.runoob.com/redis/redis-install.html" target="_blank">Redis 安装</a></li>
+<li><a href="https://blog.csdn.net/yejingtao703/article/details/78484151" target="_blank">三张图秒懂Redis集群设计原理</a></li>
+<li>在windows上搭建redis集群（Redis-Cluster）</a></li>
+<li><a href="https://www.cnblogs.com/tommy-huang/p/6240083.html" target="_blank">Windows下搭建Redis集群</a></li>
+</ul>
+<h3 id="SQL-Server"><a href="#SQL-Server" class="headerlink" title="SQL Server"></a>SQL Server</h3><ul>
+<li><a href="https://www.cnblogs.com/wuyifu/p/3447870.html" target="_blank">SQL Server中的锁 详解 nolock,rowlock,tablock,xlock,paglock</a></li>
+<li><a href="https://www.cnblogs.com/Brambling/p/6754993.html" target="_blank">SQL Server 创建索引（index）</a></li>
+<li><a href="https://www.cnblogs.com/CreateMyself/p/6512692.html" target="_blank">SQL Server-聚焦NOLOCK、UPDLOCK、HOLDLOCK、READPAST你弄懂多少？</a></li>
+<li><a href="https://www.w3school.com.cn/sql/func_datediff.asp" target="_blank">SQL Server DATEDIFF() 函数</a></li>
+<li><a href="https://www.cnblogs.com/xwdreamer/archive/2012/06/23/2559344.html" target="_blank">查看sqlserver的端口号</a></li>
+<li><a href="https://www.cnblogs.com/JohnnyBao/p/3799054.html" target="_blank">sql server 判断是否存在数据库，表，列，视图</a></li>
+<li><a href="https://www.cnblogs.com/zhangpengnike/p/6122588.html" target="_blank">SQLServer 日期函数大全</a></li>
+</ul>
+<h2 id="NodeJS"><a href="#NodeJS" class="headerlink" title="NodeJS"></a>NodeJS</h2><ul>
+<li><a href="https://blog.csdn.net/uzizi/article/details/81046646" target="_blank">windows安装nvm的两种方式</a></li>
+</ul>
+<h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><ul>
+<li><a href="https://www.cnblogs.com/jasontec/p/9698774.html" target="_blank">分布式系统理论–CAP理论、BASE理论</a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/8976409.html" target="_blank">分布式事务解决办法 </a></li>
+</ul>
+<h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><ul>
+<li>Solr和ES对比</a></li>
+<li><a href="https://juejin.cn/post/6844903955722403848#heading-0" target="_blank">9月腾讯、百度、阿里高频的29道SSM框架面试题解析</a></li>
+<li><a href="https://blog.csdn.net/shmnh/article/details/42833291" target="_blank">28个MongoDB经典面试题</a></li>
+<li><a href="https://blog.csdn.net/cliper9768/article/details/82870163" target="_blank">Dubbo面试题</a></li>
+<li><a href="https://blog.csdn.net/qq_42629110/article/details/84963815" target="_blank">SpringCloud面试题</a></li>
+<li><a href="https://blog.csdn.net/suxiexingchen/article/details/82020430" target="_blank">springBoot应用启动器基本的一共有44种</a></li>
+<li><a href="https://blog.csdn.net/qq_34337272/article/details/81072874" target="_blank">面试必备之乐观锁与悲观锁</a></li>
+<li><a href="https://juejin.cn/post/6844903809613840398" target="_blank">比较全面的中级Java面试题</a></li>
+</ul>
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><ul>
+<li><a href="https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&amp;mid=2247484920&amp;amp;idx=1&amp;amp;sn=c7167df0b36522935896565973d02cc9&amp;source=41#wechat_redirect" target="_blank">后端必备——数据通信知识(RPC、消息队列)一站式总结</a></li>
+</ul>
+<h4 id="JSR330"><a href="#JSR330" class="headerlink" title="JSR330"></a>JSR330</h4><ul>
+<li><a href="https://blog.csdn.net/u010278882/article/details/50773687" target="_blank">Java 依赖注入标准 JSR-330 简介</a></li>
+<li><a href="https://www.chkui.com/article/java/java_jsr330" target="_blank">Java JSR330</a></li>
+<li><a href="https://www.cnblogs.com/hhhshct/p/8523697.html" target="_blank">java实现HTTP请求的三种方式</a></li>
+<li><a href="https://www.cnblogs.com/super-chao/p/6118739.html" target="_blank">java中cookie存取值</a></li>
+<li><a href="https://baijiahao.baidu.com/s?id=1647621616629561468&amp;wfr=spider&amp;for=pc" target="_blank">详解java并发原子类AtomicInteger（基于jdk1.8源码分析）</a></li>
+<li><a href="https://blog.csdn.net/weixin_38111667/article/details/81630290" target="_blank">JAVA &amp;&amp; java.lang.UnsatisfiedLinkError: The specified module could not be found.找不到指定模块</a></li>
+</ul>
+<h4 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h4><ul>
+<li><a href="https://blog.csdn.net/weixin_40792878/article/details/82154402" target="_blank">Java虚拟机内存参数设置</a></li>
+</ul>
+<h4 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h4><ul>
+<li><a href="https://www.cnblogs.com/XHJT/p/3897440.html" target="_blank">线程同步的7种方式</a></li>
+</ul>
+<h3 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h3><ul>
+<li><a href="https://www.cnblogs.com/redcool/p/6426173.html" target="_blank">Spring线程池ThreadPoolTaskExecutor配置及详情</a></li>
+<li><a href="https://www.cnblogs.com/pjfmeng/p/7551340.html" target="_blank">annotation之@Autowired、@Inject、@Resource三者区别</a></li>
+<li><a href="https://blog.csdn.net/m0_37626813/article/details/78558010" target="_blank">Spring中@Component的作用</a></li>
+</ul>
+<h3 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h3><ul>
+<li><a href="https://blog.csdn.net/littleskey/article/details/52841148" target="_blank">Spring Mvc @ResponseBody String返回中文字符串乱码</a></li>
+<li><a href="https://www.cnblogs.com/WJ-163/p/6269409.html" target="_blank">SpringMVC文件上传与下载</a></li>
+<li><a href="https://blog.csdn.net/liuxiao723846/article/details/46006275" target="_blank">jackson详解</a></li>
+</ul>
+<h3 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h3><ul>
+<li><a href="https://www.cnblogs.com/itdragon/p/8686554.html" target="_blank">Spring Boot配置文件详解</a></li>
+<li><a href="https://www.cnblogs.com/yuansc/p/9076604.html" target="_blank">SpringBoot配置Cors解决跨域请求问题</a></li>
+</ul>
+<h3 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h3><ul>
+<li><a href="https://blog.csdn.net/loushuiyifan/article/details/82702522" target="_blank">Hystrix原理与实战</a></li>
+</ul>
+<h3 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h3><ul>
+<li><a href="https://www.cnblogs.com/happyflyingpig/p/7739749.html" target="_blank">mybatis一级缓存二级缓存&amp;nbsp;&amp;nbsp;</a></li>
+</ul>
+<h3 id="ShardingSpare"><a href="#ShardingSpare" class="headerlink" title="ShardingSpare"></a>ShardingSpare</h3><ul>
+<li><a href="https://shardingsphere.apache.org/document/legacy/4.x/document/cn/overview/" target="_blank">shardingsphere 官方文档</a></li>
+</ul>
+<h3 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h3><ul>
+<li><a href="https://www.cnblogs.com/jasontec/p/9651820.html" target="_blank">Zookeeper 与 Eureka 对比</a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/8976502.html" target="_blank">ZooKeeper的典型应用场景 </a></li>
+<li><a href="https://www.cnblogs.com/boothsun/p/8976829.html" target="_blank">ZK分布式锁（未完 待续）&amp;nbsp;</a></li>
+</ul>
+<h3 id="Druid"><a href="#Druid" class="headerlink" title="Druid"></a>Druid</h3><ul>
+<li><a href="https://www.cnblogs.com/niejunlei/p/5977895.html" target="_blank">Druid 介绍及配置</a></li>
+</ul>
+<h3 id="Log4j"><a href="#Log4j" class="headerlink" title="Log4j"></a>Log4j</h3><ul>
+<li><a href="http://www.blogjava.net/zJun/archive/2006/06/28/55511.html" target="_blank">配置Log4j(很详细)</a></li>
+</ul>
+<h3 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h3><ul>
+<li>&amp;nbsp;</li>
+</ul>
+
+    </main>
+    <footer class="post-footer">
+      
+    </footer>
+  </article>
+  
+  
+  <nav class="page-nav">
+    <div class="page-nav-next page-nav-item">
+      
+      <a href="/2023/12/28/k8s/MetaLib%20%E5%AE%89%E8%A3%85/" rel="next" title="MetalLB 安装"><i class="fas fa-angle-left"></i><span class="nav-title">MetalLB 安装</span></a>
+      
+    </div>
+    <div class="page-nav-prev page-nav-item">
+      
+      <a href="/2023/12/29/mysql/mysql%20%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E8%B5%8B%E4%BA%88%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/" rel="prev" title="mysql 创建用户并赋予管理员权限"><span class="nav-title">mysql 创建用户并赋予管理员权限</span><i class="fas fa-angle-right"></i></a>
+      
+    </div>
+  </nav>
+  
+  
+</div>
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/background.png);">
+  
+  <div class="search">
+    <div class="form-group">
+      <i class="fas fa-search"></i><input type="search" id="search-input" name="q" results="0" placeholder="Search" class="form-control"/>
+    </div>
+  </div>
+  <div class="search-result-box" id="search-result"></div>
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <img class="author-avatar" src="/img/avatar.jpg" alt="Jason Dong">
+  
+  <h1 class="author-name">Jason Dong</h1>
+  <h2 class="author-description"></h2>
+  <div class="site-count">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+    
+    
+    
+    <hr>
+    <div class="post-toc sidebar-item" id="toc-div">
+      <div><i class="fas fa-list-ol"></i>Table of Contents</div>
+      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-1"><a class="list-group-item toc-link" href="#%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0"><span class="toc-text">技术文章</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80"><span class="toc-text">计算机基础</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#linux"><span class="toc-text">linux</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8"><span class="toc-text">对象存储</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#Nginx"><span class="toc-text">Nginx</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">数据库</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#MongoDB"><span class="toc-text">MongoDB</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#MySQL"><span class="toc-text">MySQL</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-text">基础</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E8%BF%9B%E9%98%B6"><span class="toc-text">进阶</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-5"><a class="list-group-item toc-link" href="#MySQL-%E4%BC%98%E5%8C%96"><span class="toc-text">MySQL 优化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#Oracle"><span class="toc-text">Oracle</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E6%8E%88%E6%9D%83"><span class="toc-text">授权</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#Redis"><span class="toc-text">Redis</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#SQL-Server"><span class="toc-text">SQL Server</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#NodeJS"><span class="toc-text">NodeJS</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F"><span class="toc-text">分布式</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="toc-text">面试题</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#Java"><span class="toc-text">Java</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">基础知识</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#JSR330"><span class="toc-text">JSR330</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#JVM"><span class="toc-text">JVM</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-text">多线程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#Spring"><span class="toc-text">Spring</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#SpringMVC"><span class="toc-text">SpringMVC</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#Spring-Boot"><span class="toc-text">Spring Boot</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#Spring-Cloud"><span class="toc-text">Spring Cloud</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#MyBatis"><span class="toc-text">MyBatis</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#ShardingSpare"><span class="toc-text">ShardingSpare</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#Zookeeper"><span class="toc-text">Zookeeper</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#Druid"><span class="toc-text">Druid</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#Log4j"><span class="toc-text">Log4j</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90"><span class="toc-text">日志分析</span></a></li></ol></li></ol></li></ol></div>
+    </div>
+    
+    
+    
+    <hr>
+    <div class="social-link sidebar-item">
+      <div><i class="far fa-address-card"></i>Social Links</p></div>
+      <ul>
+        
+        <li><i class="fab fa-github"></i><a href="https://github.com/JasonDong97" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-envelope"></i><a href="mailto:534458392@qq.com" target="_blank">Email</a></li>
+        
+      </ul>
+    </div>
+    
+    
+    <hr>
+    <div class="blogroll sidebar-item">
+      <div><i class="fas fa-link"></i>Blogroll</div>
+      <ul>
+        
+        <li><i class="fas fa-link"></i><a href="https://hexo.io/" target="_blank">Hexo</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://developer.mozilla.org/" target="_blank">MDN</a></li>
+        
+      </ul>
+    </div>
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer" style="background: #33363b;">
+  <div class="container">
+    <div class="back-to-top">
+      <button id="back-to-top"><i class="fas fa-angle-double-up" aria-label="Back to Top"></i></button>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">Jason Dong</span><span class="year"><i class="far fa-copyright"></i>2020 - 2026</span><span class="creative-commons"><i class="fab fa-creative-commons"></i><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">BY-NC-SA 4.0</a></span>
+        </div>
+        
+        <div class="busuanzi">
+          <span id="busuanzi_container_site_pv"><i class="fas fa-eye" aria-label="Site Visit Count" aria-hidden="false"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user" aria-label="Site User Count" aria-hidden="false"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv" aria-label="Page Click Count" aria-hidden="false"></span></span>
+        </div>
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+          <i class="fas fa-heart"></i> Jason Dong | 托管于 <i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+          
+        </div>
+        <div class="powered-by">
+          Proudly Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme is <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    
+    
+    
+    
+    <meta name="keywords" content="Jason Dong, 后端工程师, Java, Python, Hexo">
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    
+    <link rel="alternate" href="/atom.xml" title="Jason Dong" type="application/atom+xml" />
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicons/favicon.ico">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+<link rel="stylesheet" type="text/css" href="/css/page.css">
+<link rel="stylesheet" type="text/css" href="/css/post.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/clipboard.min.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
+    
+    
+    <script defer type="text/javascript" src="/js/search.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var searchPath = "search.xml";
+      if (searchPath.length === 0) {
+        searchPath = "search.xml";
+      }
+      var path = "/" + searchPath;
+      searchFunc(path, "search-input", "search-result");
+    });
+    </script>
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var cb = null;
+      var els = $(".post figure.highlight");
+      if (els.length) {
+        // Enabled Hexo highlight line number.
+        $(els).each(function (i, e) {
+          // $(e).before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling.firstChild.firstChild.firstChild.lastChild.firstChild.firstChild;
+          }
+        });
+      } else {
+        // Disabled Hexo highlight line number.
+        els = $(".post pre code");
+        $(els).each(function (i, e) {
+          // Add button before pre, not code.
+          // $(e).parent().before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling;
+          }
+        });
+      }
+      cb.on("success", function (e) {
+        e.clearSelection();
+        var trigger = e.trigger;
+        // Change button text as a user tip.
+        trigger.innerHTML = "<i class=\"far fa-check-square\"></i>";
+        $(trigger).addClass("copied");
+        // Change button text back;
+        setTimeout(function () {
+          trigger.innerHTML = "<i class=\"far fa-copy\"></i>";
+          $(trigger).removeClass("copied");
+        }, 1500);
+      });
+    });
+    </script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>第十六章 毕业设计：构建属于你的多智能体应用 | Jason Dong - 后端工程师</title>
+  <meta name="generator" content="Hexo 5.4.2"></head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN"  data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header" style="background: #33363b;">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">Jason Dong</a></h1>
+        <h2 class="subtitle">后端工程师</h2>
+      </div>
+      
+      <div class="logo">
+        <img src="/images/logo.png" alt="logo">
+      </div>
+      
+    </div>
+    <nav id="nav" class="nav">
+      <a id="nav-toggle" class="nav-toggle" aria-hidden="true"><i class="fas fa-bars" aria-label="Toggle Navbar"></i></a>
+      <ul id="menu" role="menubar" aria-hidden="false">
+        
+        <li role="menuitem"><a href="/"><i class="fas fa-home"></i><span class="menu-text">首页</span></a></li>
+        
+        <li role="menuitem"><a href="/archives/"><i class="fas fa-archive"></i><span class="menu-text">归档</span></a></li>
+        
+        <li role="menuitem"><a href="/categories/"><i class="fas fa-th-list"></i><span class="menu-text">分类</span></a></li>
+        
+        <li role="menuitem"><a href="/tags/"><i class="fas fa-tags"></i><span class="menu-text">标签</span></a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
+<div id="post" class="page">
+  
+  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://jasondong97.github.io/2026/03/02/ai-agent-learning/%E7%AC%AC16%E7%AB%A0-%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+       <meta itemprop="name" content="Jason Dong">
+       <meta itemprop="description" content="">
+       <meta itemprop="image" content="/img/avatar.jpg">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+       <meta itemprop="name" content="Jason Dong">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">第十六章 毕业设计：构建属于你的多智能体应用</h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2026-03-02T18:00:00+08:00">2026-03-02 18:00:00</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hello-Agents-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Hello Agents 学习</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-main" itemprop="articleBody">
+      <h1 id="第十六章-毕业设计：构建属于你的多智能体应用"><a href="#第十六章-毕业设计：构建属于你的多智能体应用" class="headerlink" title="第十六章 毕业设计：构建属于你的多智能体应用"></a>第十六章 毕业设计：构建属于你的多智能体应用</h1><p>恭喜你来到 Hello-Agents 教程的最后一章！在前面的 15 章中，我们从零开始构建了 HelloAgents 框架，学习了智能体的核心概念、多种范式、工具系统、记忆机制、通信协议、强化学习训练和性能评估等知识。在第 13-15 章中，我们还通过三个完整的实战项目（智能旅行助手、自动化深度研究智能体、赛博小镇）展示了如何将所学知识融会贯通。</p>
+<p>现在，是时候让你成为真正的智能体系统构建者了！本章将指导你<strong>构建属于你自己的多智能体应用</strong>，并通过开源协作的方式与社区分享你的成果。</p>
+<h2 id="16-1-毕业设计的意义"><a href="#16-1-毕业设计的意义" class="headerlink" title="16.1 毕业设计的意义"></a>16.1 毕业设计的意义</h2><h3 id="16-1-1-为什么要做毕业设计"><a href="#16-1-1-为什么要做毕业设计" class="headerlink" title="16.1.1 为什么要做毕业设计"></a>16.1.1 为什么要做毕业设计</h3><p>学习技术最好的方式不是看教程，而是<strong>动手实践</strong>。通过前面章节的学习，你已经掌握了构建智能体系统的理论知识和技术工具。但是，真正的挑战在于：<strong>如何将这些知识应用到实际问题中？如何设计一个完整的系统？如何处理各种边界情况和异常？</strong></p>
+<p>毕业设计的核心价值在于培养你的综合应用能力，将前面学到的所有知识（智能体范式、工具系统、记忆机制、通信协议等）选择性的整合到一个完整的项目中。</p>
+<p>通过本章的学习和实践，希望你能够独立设计并实现一个完整的智能体应用，熟练使用 HelloAgents 框架的各种功能，掌握 Git 和 GitHub 的基本操作，学会编写清晰的项目文档，参与开源社区的协作开发，最终获得一个可以展示的技术作品。</p>
+<h3 id="16-1-2-毕业设计的形式"><a href="#16-1-2-毕业设计的形式" class="headerlink" title="16.1.2 毕业设计的形式"></a>16.1.2 毕业设计的形式</h3><p>你的毕业设计将以<strong>开源项目</strong>的形式提交到 Hello-Agents 的共创项目仓库（<code>Co-creation-projects</code>目录）。具体要求如下：</p>
+<ol>
+<li><p><strong>项目命名</strong>：使用<code>&#123;你的GitHub用户名&#125;-&#123;项目名称&#125;</code>的格式，例如<code>jjyaoao-CodeReviewAgent</code></p>
+</li>
+<li><p><strong>项目内容</strong>：</p>
+<ul>
+<li>一个可运行的 Jupyter Notebook（<code>.ipynb</code>文件）或 Python 脚本</li>
+<li>完整的依赖列表（<code>requirements.txt</code>）</li>
+<li>清晰的 README 文档（<code>README.md</code>）</li>
+<li>可选：演示视频、截图、数据集等</li>
+</ul>
+</li>
+<li><p><strong>提交方式</strong>：通过 GitHub 的 Pull Request（PR）提交</p>
+</li>
+<li><p><strong>评审流程</strong>：社区成员会 review 你的代码，提出改进建议，通过后合并到主仓库</p>
+</li>
+</ol>
+<h2 id="16-2-项目选题指南"><a href="#16-2-项目选题指南" class="headerlink" title="16.2 项目选题指南"></a>16.2 项目选题指南</h2><h3 id="16-2-1-选题原则"><a href="#16-2-1-选题原则" class="headerlink" title="16.2.1 选题原则"></a>16.2.1 选题原则</h3><p>一个好的毕业设计项目应该具有实用性，解决真实的问题而不是为了技术而技术，我们需要追求在有限的时间和资源内可以完成，并且能够清晰地展示你的技术能力。</p>
+<h3 id="16-2-2-推荐选题方向"><a href="#16-2-2-推荐选题方向" class="headerlink" title="16.2.2 推荐选题方向"></a>16.2.2 推荐选题方向</h3><p>以下是一些推荐的项目方向，你可以选择其中一个，也可以自己提出新的想法：</p>
+<p><strong>（1）生产力工具类</strong></p>
+<ul>
+<li><strong>智能代码审查助手</strong>：自动分析代码质量、发现潜在 bug、提出优化建议</li>
+<li><strong>智能文档生成器</strong>：根据代码自动生成 API 文档、用户手册</li>
+<li><strong>智能会议助手</strong>：记录会议内容、生成会议纪要、提取行动项</li>
+<li><strong>智能邮件助手</strong>：自动分类邮件、生成回复草稿、提醒重要事项</li>
+</ul>
+<p><strong>（2）学习辅助类</strong></p>
+<ul>
+<li><strong>智能学习伙伴</strong>：根据学习进度推荐学习资源、生成练习题、答疑解惑</li>
+<li><strong>智能论文助手</strong>：帮助查找文献、总结论文、生成引用</li>
+<li><strong>智能编程导师</strong>：提供编程练习、代码 review、学习路径规划</li>
+<li><strong>智能语言学习助手</strong>：提供对话练习、语法纠错、词汇扩展</li>
+</ul>
+<p><strong>（3）创意娱乐类</strong></p>
+<ul>
+<li><strong>智能故事生成器</strong>：根据用户输入生成小说、剧本、诗歌</li>
+<li><strong>智能游戏 NPC</strong>：创建有个性的游戏角色，能够与玩家自然对话</li>
+<li><strong>智能音乐推荐</strong>：根据心情、场景推荐音乐，生成播放列表</li>
+<li><strong>智能菜谱助手</strong>：根据食材、口味推荐菜谱，生成购物清单</li>
+</ul>
+<p><strong>（4）数据分析类</strong></p>
+<ul>
+<li><strong>智能数据分析师</strong>：自动分析数据、生成可视化图表、撰写分析报告</li>
+<li><strong>智能股票分析</strong>：分析股票数据、新闻舆情，提供投资建议</li>
+<li><strong>智能舆情监控</strong>：监控社交媒体、新闻网站，分析舆情趋势</li>
+<li><strong>智能竞品分析</strong>：收集竞品信息、对比分析、生成报告</li>
+</ul>
+<p><strong>（5）生活服务类</strong></p>
+<ul>
+<li><strong>智能健康助手</strong>：记录健康数据、提供健康建议、制定运动计划</li>
+<li><strong>智能理财助手</strong>：记录收支、分析消费习惯、提供理财建议</li>
+<li><strong>智能购物助手</strong>：比价、推荐商品、生成购物清单</li>
+<li><strong>智能家居控制</strong>：通过自然语言控制智能家居设备</li>
+</ul>
+<h3 id="16-2-3-选题示例"><a href="#16-2-3-选题示例" class="headerlink" title="16.2.3 选题示例"></a>16.2.3 选题示例</h3><p>让我们通过一个具体的例子来说明如何选题和设计项目。</p>
+<p><strong>项目名称</strong>：智能代码审查助手（CodeReviewAgent）</p>
+<p><strong>问题分析</strong>：代码审查是软件开发中的重要环节，但人工审查耗时且容易遗漏问题。现有的静态分析工具只能发现语法错误，无法理解代码逻辑，因此需要一个能够理解代码语义、提供深度分析的智能助手。</p>
+<p><strong>核心功能</strong>：该项目将实现代码质量分析（检查代码风格、命名规范、注释完整性）、潜在 bug 检测（发现逻辑错误、边界条件问题、资源泄漏）、性能优化建议（识别性能瓶颈、提出优化方案）、安全漏洞扫描（检测 SQL 注入、XSS 等安全问题）以及最佳实践推荐（根据语言特性和设计模式提出改进建议）。</p>
+<p><strong>预期成果</strong>：最终将交付一个可运行的 Jupyter Notebook 展示完整的审查流程，支持 Python、JavaScript 等主流语言，能够生成结构化的 Markdown 格式审查报告，并提供具体的代码示例和改进建议。</p>
+<h2 id="16-3-开发环境准备"><a href="#16-3-开发环境准备" class="headerlink" title="16.3 开发环境准备"></a>16.3 开发环境准备</h2><h3 id="16-3-1-安装必要工具"><a href="#16-3-1-安装必要工具" class="headerlink" title="16.3.1 安装必要工具"></a>16.3.1 安装必要工具</h3><p>在开始开发之前，请确保你的开发环境已经安装了以下工具：</p>
+<p><strong>（1）Python 环境</strong></p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装HelloAgents</span><br>pip install <span class="hljs-string">&quot;hello-agents[all]&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>（2）Git 和 GitHub</strong></p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 检查Git版本</span><br>git --version<br><br><span class="hljs-comment"># 配置Git用户信息</span><br>git config --global user.name <span class="hljs-string">&quot;你的名字&quot;</span><br>git config --global user.email <span class="hljs-string">&quot;你的邮箱&quot;</span><br><br><span class="hljs-comment"># 配置GitHub SSH密钥（推荐）</span><br><span class="hljs-comment"># 1. 生成SSH密钥</span><br>ssh-keygen -t ed25519 -C <span class="hljs-string">&quot;你的邮箱&quot;</span><br><br><span class="hljs-comment"># 2. 将公钥添加到GitHub</span><br><span class="hljs-comment"># 复制 ~/.ssh/id_ed25519.pub 的内容</span><br><span class="hljs-comment"># 在GitHub Settings &gt; SSH and GPG keys 中添加</span><br><br><span class="hljs-comment"># 3. 测试连接</span><br>ssh -T git@github.com<br></code></pre></td></tr></table></figure>
+
+<p><strong>（3）Jupyter Notebook</strong></p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装Jupyter</span><br>pip install jupyter notebook<br><br><span class="hljs-comment"># 或者使用JupyterLab（推荐）</span><br>pip install jupyterlab<br><br><span class="hljs-comment"># 启动Jupyter</span><br>jupyter lab<br></code></pre></td></tr></table></figure>
+
+<h3 id="16-3-2-Fork-项目仓库"><a href="#16-3-2-Fork-项目仓库" class="headerlink" title="16.3.2 Fork 项目仓库"></a>16.3.2 Fork 项目仓库</h3><p><strong>步骤 1：Fork 仓库</strong></p>
+<ol>
+<li>访问 Hello-Agents 仓库：<a target="_blank" rel="noopener" href="https://github.com/datawhalechina/hello-agents">https://github.com/datawhalechina/hello-agents</a></li>
+<li>点击右上角的”Fork”按钮，如图 16.1 红色方框位置</li>
+<li>选择你的 GitHub 账号，创建 Fork</li>
+</ol>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/datawhalechina/hello-agents/main/docs/images/16-figures/16-1.png" alt="" width="85%"/>
+  <p>图 16.1 Fork 仓库步骤</p>
+</div>
+
+<p><strong>步骤 2：克隆到本地</strong></p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 如图16.2所示，克隆你Fork的仓库</span><br>git <span class="hljs-built_in">clone</span> git@github.com:你的用户名/hello-agents.git<br><br><span class="hljs-comment"># 进入项目目录</span><br><span class="hljs-built_in">cd</span> Hello-Agents<br><br><span class="hljs-comment"># 添加上游仓库（用于同步更新）</span><br>git remote add upstream https://github.com/datawhalechina/hello-agents.git<br><br><span class="hljs-comment"># 查看远程仓库</span><br>git remote -v<br></code></pre></td></tr></table></figure>
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/datawhalechina/hello-agents/main/docs/images/16-figures/16-2.png" alt="" width="85%"/>
+  <p>图 16.2 克隆仓库到本地</p>
+</div>
+
+<p><strong>步骤 3：创建开发分支</strong></p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建并切换到新分支</span><br>git checkout -b feature/你的项目名称<br><br><span class="hljs-comment"># 例如:</span><br>git checkout -b feature/code-review-agent<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="16-3-3-项目目录结构"><a href="#16-3-3-项目目录结构" class="headerlink" title="16.3.3 项目目录结构"></a>16.3.3 项目目录结构</h3><p>在<code>Co-creation-projects</code>目录下创建你的项目文件夹：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 进入共创项目目录</span><br><span class="hljs-built_in">cd</span> Co-creation-projects<br><br><span class="hljs-comment"># 创建项目文件夹（格式:GitHub用户名-项目名称）</span><br><span class="hljs-built_in">mkdir</span> 你的用户名-项目名称<br><br><span class="hljs-comment"># 例如:</span><br><span class="hljs-built_in">mkdir</span> jjyaoao-CodeReviewAgent<br><br><span class="hljs-comment"># 进入项目目录</span><br><span class="hljs-built_in">cd</span> jjyaoao-CodeReviewAgent<br></code></pre></td></tr></table></figure>
+
+<p>推荐的项目结构：</p>
+<figure class="hljs highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs powershell">jjyaoao<span class="hljs-literal">-CodeReviewAgent</span>/<br>├── README.md              <span class="hljs-comment"># 项目说明文档</span><br>├── requirements.txt       <span class="hljs-comment"># Python依赖列表</span><br>├── main.ipynb            <span class="hljs-comment"># 主要的Jupyter Notebook</span><br>├── <span class="hljs-keyword">data</span>/                 <span class="hljs-comment"># 数据文件（可选）</span><br>│   ├── sample_code.py<br>│   └── test_cases.json<br>├── outputs/              <span class="hljs-comment"># 输出结果（可选）</span><br>│   ├── review_report.md<br>│   └── screenshots/<br>├── src/                  <span class="hljs-comment"># 源代码（可选，如果代码较多）</span><br>│   ├── agents/<br>│   ├── tools/<br>│   └── utils/<br>└──<br></code></pre></td></tr></table></figure>
+
+<h2 id="16-4-项目开发指南"><a href="#16-4-项目开发指南" class="headerlink" title="16.4 项目开发指南"></a>16.4 项目开发指南</h2><h3 id="16-4-1-编写-README-文档"><a href="#16-4-1-编写-README-文档" class="headerlink" title="16.4.1 编写 README 文档"></a>16.4.1 编写 README 文档</h3><p>README 是项目的门面，一个好的 README 应该包含以下内容：</p>
+<figure class="hljs highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section"># 项目名称</span><br><br><span class="hljs-quote">&gt; 一句话描述你的项目</span><br><br><span class="hljs-section">## 📝 项目简介</span><br><br>详细介绍你的项目:<br><span class="hljs-bullet">-</span> 解决什么问题？<br><span class="hljs-bullet">-</span> 有什么特色功能？<br><span class="hljs-bullet">-</span> 适用于什么场景？<br><br><span class="hljs-section">## ✨ 核心功能</span><br><br><span class="hljs-bullet">-</span> [ ] 功能1:描述<br><span class="hljs-bullet">-</span> [ ] 功能2:描述<br><span class="hljs-bullet">-</span> [ ] 功能3:描述<br><br><span class="hljs-section">## 🛠️ 技术栈</span><br><br><span class="hljs-bullet">-</span> HelloAgents框架<br><span class="hljs-bullet">-</span> 使用的智能体范式（如ReAct、Plan-and-Solve等）<br><span class="hljs-bullet">-</span> 使用的工具和API<br><span class="hljs-bullet">-</span> 其他依赖库<br><br><span class="hljs-section">## 🚀 快速开始</span><br><br><span class="hljs-section">### 环境要求</span><br><br><span class="hljs-bullet">-</span> Python 3.10+<br><span class="hljs-bullet">-</span> 其他要求<br><br><span class="hljs-section">### 安装依赖</span><br><br><br>pip install -r requirements.txt<br><br><br><span class="hljs-section">### 配置API密钥</span><br><br><br><span class="hljs-section"># 创建.env文件</span><br>cp .env.example .env<br><br><span class="hljs-section"># 编辑.env文件，填入你的API密钥</span><br><br><br><span class="hljs-section">### 运行项目</span><br><br><br><span class="hljs-section"># 启动Jupyter Notebook</span><br>jupyter lab<br><br><span class="hljs-section"># 打开main.ipynb并运行</span><br><br><br><span class="hljs-section">## 📖 使用示例</span><br><br>展示如何使用你的项目，最好包含代码示例和运行结果。<br><br><span class="hljs-section">## 🎯 项目亮点</span><br><br><span class="hljs-bullet">-</span> 亮点1:说明<br><span class="hljs-bullet">-</span> 亮点2:说明<br><span class="hljs-bullet">-</span> 亮点3:说明<br><br><span class="hljs-section">## 📊 性能评估</span><br><br>如果有评估结果，展示在这里:<br><span class="hljs-bullet">-</span> 准确率:XX%<br><span class="hljs-bullet">-</span> 响应时间:XX秒<br><span class="hljs-bullet">-</span> 其他指标<br><br><span class="hljs-section">## 🔮 未来计划</span><br><br><span class="hljs-bullet">-</span> [ ] 待实现的功能1<br><span class="hljs-bullet">-</span> [ ] 待实现的功能2<br><span class="hljs-bullet">-</span> [ ] 待优化的部分<br><br><span class="hljs-section">## 🤝 贡献指南</span><br><br>欢迎提出Issue和Pull Request！<br><br><span class="hljs-section">## 📄 许可证</span><br><br>MIT License<br><br><span class="hljs-section">## 👤 作者</span><br><br><span class="hljs-bullet">-</span> GitHub: [<span class="hljs-string">@你的用户名</span>](<span class="hljs-link">https://github.com/你的用户名</span>)<br><span class="hljs-bullet">-</span> Email: 你的邮箱（可选）<br><br><span class="hljs-section">## 🙏 致谢</span><br><br>感谢Datawhale社区和Hello-Agents项目！<br></code></pre></td></tr></table></figure>
+
+<h3 id="16-4-2-编写-requirements-txt"><a href="#16-4-2-编写-requirements-txt" class="headerlink" title="16.4.2 编写 requirements.txt"></a>16.4.2 编写 requirements.txt</h3><p>列出项目所需的所有 Python 依赖：</p>
+<figure class="hljs highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs txt"># 核心依赖<br>hello-agents[all]&gt;=0.2.7<br><br># 可视化（如果需要）<br>matplotlib&gt;=3.7.0<br>plotly&gt;=5.14.0<br><br># Web框架（如果需要）<br>fastapi&gt;=0.109.0<br>uvicorn&gt;=0.27.0<br></code></pre></td></tr></table></figure>
+
+<h3 id="16-4-3-开发-Jupyter-Notebook"><a href="#16-4-3-开发-Jupyter-Notebook" class="headerlink" title="16.4.3 开发 Jupyter Notebook"></a>16.4.3 开发 Jupyter Notebook</h3><p><strong>（1）Notebook 结构建议</strong></p>
+<p>一个好的 Jupyter Notebook 应该包含以下部分：</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># ========================================</span><br><span class="hljs-comment"># 第1部分:项目介绍</span><br><span class="hljs-comment"># ========================================</span><br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string"># 项目名称</span><br><span class="hljs-string"></span><br><span class="hljs-string">## 项目简介</span><br><span class="hljs-string">简要介绍项目的目标和功能</span><br><span class="hljs-string"></span><br><span class="hljs-string">## 作者信息</span><br><span class="hljs-string">- 姓名:XXX</span><br><span class="hljs-string">- GitHub:@XXX</span><br><span class="hljs-string">- 日期:2025-XX-XX</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-comment"># ========================================</span><br><span class="hljs-comment"># 第2部分:环境配置</span><br><span class="hljs-comment"># ========================================</span><br><br><span class="hljs-comment"># 安装依赖</span><br>!pip install -q hello-agents[<span class="hljs-built_in">all</span>]<br><br><span class="hljs-comment"># 导入必要的库</span><br><span class="hljs-keyword">from</span> hello_agents <span class="hljs-keyword">import</span> SimpleAgent, HelloAgentsLLM<br><span class="hljs-keyword">from</span> hello_agents.tools <span class="hljs-keyword">import</span> BaseTool<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> dotenv <span class="hljs-keyword">import</span> load_dotenv<br><br><span class="hljs-comment"># 加载环境变量</span><br>load_dotenv()<br><br><span class="hljs-comment"># ========================================</span><br><span class="hljs-comment"># 第3部分:工具定义</span><br><span class="hljs-comment"># ========================================</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomTool</span>(<span class="hljs-title class_ inherited__">BaseTool</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;自定义工具类&quot;&quot;&quot;</span><br><br>    name = <span class="hljs-string">&quot;tool_name&quot;</span><br>    description = <span class="hljs-string">&quot;工具描述&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self, query: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;工具执行逻辑&quot;&quot;&quot;</span><br>        <span class="hljs-comment"># 实现你的工具逻辑</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;结果&quot;</span><br><br><span class="hljs-comment"># ========================================</span><br><span class="hljs-comment"># 第4部分:智能体构建</span><br><span class="hljs-comment"># ========================================</span><br><br><span class="hljs-comment"># 创建LLM</span><br>llm = HelloAgentsLLM()<br><br><span class="hljs-comment"># 创建智能体</span><br>agent = SimpleAgent(<br>    name=<span class="hljs-string">&quot;智能体名称&quot;</span>,<br>    llm=llm,<br>    system_prompt=<span class="hljs-string">&quot;系统提示词&quot;</span><br>)<br><br><span class="hljs-comment"># 添加工具</span><br>agent.add_tool(CustomTool())<br><br><span class="hljs-comment"># ========================================</span><br><span class="hljs-comment"># 第5部分:功能演示</span><br><span class="hljs-comment"># ========================================</span><br><br><span class="hljs-comment"># 示例1:基础功能</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;=== 示例1:基础功能 ===&quot;</span>)<br>result = agent.run(<span class="hljs-string">&quot;用户输入&quot;</span>)<br><span class="hljs-built_in">print</span>(result)<br><br><span class="hljs-comment"># 示例2:复杂场景</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n=== 示例2:复杂场景 ===&quot;</span>)<br>result = agent.run(<span class="hljs-string">&quot;复杂的用户输入&quot;</span>)<br><span class="hljs-built_in">print</span>(result)<br><br><span class="hljs-comment"># ========================================</span><br><span class="hljs-comment"># 第6部分:性能评估（可选）</span><br><span class="hljs-comment"># ========================================</span><br><br><span class="hljs-comment"># 评估代码</span><br><span class="hljs-comment"># ...</span><br><br><span class="hljs-comment"># ========================================</span><br><span class="hljs-comment"># 第7部分:总结与展望</span><br><span class="hljs-comment"># ========================================</span><br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">## 项目总结</span><br><span class="hljs-string"></span><br><span class="hljs-string">### 实现的功能</span><br><span class="hljs-string">- 功能1</span><br><span class="hljs-string">- 功能2</span><br><span class="hljs-string"></span><br><span class="hljs-string">### 遇到的挑战</span><br><span class="hljs-string">- 挑战1及解决方案</span><br><span class="hljs-string">- 挑战2及解决方案</span><br><span class="hljs-string"></span><br><span class="hljs-string">### 未来改进方向</span><br><span class="hljs-string">- 改进1</span><br><span class="hljs-string">- 改进2</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="16-4-4-测试你的项目"><a href="#16-4-4-测试你的项目" class="headerlink" title="16.4.4 测试你的项目"></a>16.4.4 测试你的项目</h3><p>在提交之前，可以使用测试清单来判断自己的项目是否满足提交要求：</p>
+<figure class="hljs highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">-</span> [ ] 代码能够正常运行，没有报错<br><span class="hljs-bullet">-</span> [ ] README文档完整，说明清晰<br><span class="hljs-bullet">-</span> [ ] requirements.txt包含所有依赖<br><span class="hljs-bullet">-</span> [ ] 有清晰的使用示例<br><span class="hljs-bullet">-</span> [ ] 代码有适当的注释<br><span class="hljs-bullet">-</span> [ ] 输出结果符合预期<br><span class="hljs-bullet">-</span> [ ] 处理了常见的异常情况<br><span class="hljs-bullet">-</span> [ ] 项目结构清晰，文件命名规范<br><span class="hljs-bullet">-</span> [ ] 大文件已妥善处理（见下节）<br></code></pre></td></tr></table></figure>
+
+<h3 id="16-4-5-大文件处理指南"><a href="#16-4-5-大文件处理指南" class="headerlink" title="16.4.5 大文件处理指南"></a>16.4.5 大文件处理指南</h3><p><strong>⚠️ 重要：避免主仓库过大</strong></p>
+<p>为了保持 Hello-Agents 主仓库的轻量化，请遵循以下大文件处理规范：</p>
+<p><strong>（1）文件大小限制</strong></p>
+<ul>
+<li><strong>项目总大小</strong>： 不超过 5MB</li>
+<li><strong>禁止直接提交</strong>： 视频文件、大型数据集、模型文件</li>
+</ul>
+<p><strong>（2）大文件处理方案</strong></p>
+<p>如果你的项目包含大文件（数据集、视频、模型等），请使用以下方案：</p>
+<p><strong>方案 1：使用外部链接（推荐）</strong></p>
+<p>将大文件上传到外部平台，在 README 中提供下载链接：</p>
+<figure class="hljs highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section">## 数据集</span><br><br>本项目使用的数据集较大，请从以下链接下载:<br><br><span class="hljs-bullet">-</span> 数据集1: [<span class="hljs-string">百度网盘</span>](<span class="hljs-link">链接</span>) 提取码: xxxx<br><span class="hljs-bullet">-</span> 数据集2: [<span class="hljs-string">Google Drive</span>](<span class="hljs-link">链接</span>)<br><span class="hljs-bullet">-</span> 演示视频: [<span class="hljs-string">B站</span>](<span class="hljs-link">链接</span>) / [<span class="hljs-string">YouTube</span>](<span class="hljs-link">链接</span>)<br></code></pre></td></tr></table></figure>
+
+<p>推荐的外部平台：</p>
+<ul>
+<li><strong>数据集</strong>： 百度网盘、Google Drive、Kaggle、HuggingFace Datasets</li>
+<li><strong>视频</strong>： B 站、YouTube、腾讯视频</li>
+<li><strong>模型</strong>： HuggingFace Models、ModelScope</li>
+<li><strong>图片</strong>： GitHub Issues、图床服务</li>
+</ul>
+<p><strong>方案 2：创建独立仓库</strong></p>
+<p>如果项目资源较多，建议创建独立的数据仓库：</p>
+<figure class="hljs highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section">## 项目资源</span><br><br>由于项目包含大量数据和演示资源，已单独创建资源仓库:<br><br><span class="hljs-bullet">-</span> 资源仓库: https://github.com/你的用户名/项目名称-resources<br><span class="hljs-bullet">-</span> 包含内容: 数据集、演示视频、模型文件、测试数据等<br><br><span class="hljs-section">### 使用方法</span><br><br>\<span class="hljs-code">`\`</span>\`bash<br><span class="hljs-section"># 克隆资源仓库</span><br>git clone https://github.com/你的用户名/项目名称-resources.git<br><br><span class="hljs-section"># 将数据放到项目目录</span><br>cp -r 项目名称-resources/data ./data<br>\<span class="hljs-code">`\`</span>\`<br></code></pre></td></tr></table></figure>
+
+<p><strong>方案 3：使用示例数据</strong></p>
+<p>在主仓库中只提供小规模的示例数据：</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 在README中说明</span><br><span class="hljs-comment">## 数据说明</span><br><br>- `data/sample.csv`: 示例数据（<span class="hljs-number">100</span>条记录）<br>- 完整数据集（<span class="hljs-number">10</span>万条记录）请从[这里](链接)下载<br></code></pre></td></tr></table></figure>
+
+<p><strong>（3）最佳实践示例</strong></p>
+<figure class="hljs highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs glsl">你的用户名-项目名称/<br>├── README.md              <span class="hljs-meta"># 包含外部资源链接</span><br>├── requirements.txt<br>├── main.ipynb<br>├── .gitignore            <span class="hljs-meta"># 忽略大文件</span><br>├── data/<br>│   └── <span class="hljs-keyword">sample</span>.csv        <span class="hljs-meta"># 仅示例数据（&lt;1MB）</span><br>└── outputs/<br>    └── demo_result.png   <span class="hljs-meta"># 仅演示结果（&lt;1MB）</span><br></code></pre></td></tr></table></figure>
+
+<p>README 中的说明：</p>
+<figure class="hljs highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section">## 数据和资源</span><br><br><span class="hljs-section">### 示例数据</span><br>项目包含小规模示例数据用于快速测试（位于<span class="hljs-code">`data/sample.csv`</span>）<br><br><span class="hljs-section">### 完整数据集</span><br>完整数据集（500MB）请从以下链接下载:<br><span class="hljs-bullet">-</span> 百度网盘: [链接] 提取码: xxxx<br><span class="hljs-bullet">-</span> 下载后解压到<span class="hljs-code">`data/`</span>目录<br><br><span class="hljs-section">### 演示视频</span><br><span class="hljs-bullet">-</span> B站: [<span class="hljs-string">项目演示视频</span>](<span class="hljs-link">链接</span>)<br><span class="hljs-bullet">-</span> YouTube: [<span class="hljs-string">Demo Video</span>](<span class="hljs-link">链接</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="16-5-提交-Pull-Request"><a href="#16-5-提交-Pull-Request" class="headerlink" title="16.5 提交 Pull Request"></a>16.5 提交 Pull Request</h2><h3 id="16-5-1-提交代码到-GitHub"><a href="#16-5-1-提交代码到-GitHub" class="headerlink" title="16.5.1 提交代码到 GitHub"></a>16.5.1 提交代码到 GitHub</h3><p><strong>步骤 1：检查修改</strong></p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看修改的文件</span><br>git status<br></code></pre></td></tr></table></figure>
+
+<p><strong>步骤 2：添加文件</strong></p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 添加所有修改的文件</span><br>git add .<br><br><span class="hljs-comment"># 或者添加特定文件</span><br>git add Co-creation-projects/你的用户名-项目名称/<br></code></pre></td></tr></table></figure>
+
+<p><strong>步骤 3：提交修改</strong></p>
+<p>提交信息应遵循以下格式：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 格式:类型: 简短描述</span><br>git commit -m <span class="hljs-string">&quot;feat: 添加XXX毕业设计项目&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>提交类型规范：</strong></p>
+<ul>
+<li><code>feat</code>： 新增功能或项目（毕业设计项目使用此类型）</li>
+<li><code>fix</code>： 修复 bug</li>
+<li><code>docs</code>： 文档更新</li>
+<li><code>style</code>： 代码格式调整（不影响功能）</li>
+<li><code>refactor</code>： 代码重构</li>
+<li><code>test</code>： 测试相关</li>
+<li><code>chore</code>： 其他修改（如依赖更新）</li>
+</ul>
+<p><strong>步骤 4：推送到 GitHub</strong></p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 推送到你的Fork仓库</span><br>git push origin feature/你的项目名称<br></code></pre></td></tr></table></figure>
+
+<h3 id="16-5-2-创建-Pull-Request"><a href="#16-5-2-创建-Pull-Request" class="headerlink" title="16.5.2 创建 Pull Request"></a>16.5.2 创建 Pull Request</h3><p><strong>步骤 1：访问 GitHub</strong></p>
+<ol>
+<li>访问你 Fork 的仓库：<code>https://github.com/你的用户名/hello-agents</code></li>
+<li>点击”Pull requests”标签，如图 16.3 所示</li>
+<li>点击”New pull request”按钮</li>
+</ol>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/datawhalechina/hello-agents/main/docs/images/16-figures/16-3.png" alt="" width="85%"/>
+  <p>图 16.3 创建 Pull Request</p>
+</div>
+
+
+<p><strong>步骤 2：选择分支</strong></p>
+<ul>
+<li>Base repository： <code>datawhalechina/hello-agents</code></li>
+<li>Base branch： <code>main</code></li>
+<li>Head repository： <code>你的用户名/hello-agents</code></li>
+<li>Compare branch： <code>feature/你的项目名称</code></li>
+</ul>
+<p><strong>步骤 3：填写 PR 信息</strong></p>
+<p><strong>⚠️ 重要：PR 标题统一格式</strong></p>
+<p>为了便于管理和检索，所有毕业设计项目的 PR 标题必须遵循以下格式：</p>
+<figure class="hljs highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-string">[毕业设计]</span> 项目名称 - 简短描述<br></code></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<ul>
+<li><code>[毕业设计] CodeReviewAgent - 智能代码审查助手</code></li>
+<li><code>[毕业设计] StudyBuddy - AI学习伙伴</code></li>
+<li><code>[毕业设计] DataAnalyst - 智能数据分析师</code></li>
+</ul>
+<p><strong>PR 描述模板：</strong></p>
+<figure class="hljs highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section">## 项目信息</span><br><br><span class="hljs-bullet">-</span> <span class="hljs-strong">**项目名称**</span>:XXX<br><span class="hljs-bullet">-</span> <span class="hljs-strong">**作者**</span>:@你的用户名<br><span class="hljs-bullet">-</span> <span class="hljs-strong">**项目类型**</span>:生产力工具/学习辅助/创意娱乐/数据分析/生活服务<br><br><span class="hljs-section">## 项目简介</span><br><br>简要描述你的项目（2-3句话）<br><br><span class="hljs-section">## 核心功能</span><br><br><span class="hljs-bullet">-</span> [ ] 功能1<br><span class="hljs-bullet">-</span> [ ] 功能2<br><span class="hljs-bullet">-</span> [ ] 功能3<br><br><span class="hljs-section">## 技术亮点</span><br><br><span class="hljs-bullet">-</span> 使用了XXX范式<br><span class="hljs-bullet">-</span> 实现了XXX功能<br><span class="hljs-bullet">-</span> 优化了XXX性能<br><br><span class="hljs-section">## 演示效果</span><br><br>（可选）添加截图或GIF展示项目效果<br><br><span class="hljs-section">## 自检清单</span><br><br><span class="hljs-bullet">-</span> [ ] 代码能够正常运行<br><span class="hljs-bullet">-</span> [ ] README文档完整<br><span class="hljs-bullet">-</span> [ ] requirements.txt完整<br><span class="hljs-bullet">-</span> [ ] 有清晰的使用示例<br><span class="hljs-bullet">-</span> [ ] 代码有适当的注释<br><br><span class="hljs-section">## 其他说明</span><br><br>（可选）其他需要说明的内容<br></code></pre></td></tr></table></figure>
+
+<p><strong>步骤 4：提交 PR</strong></p>
+<p>如图 16.4 所示，点击”Create pull request”按钮提交。</p>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/datawhalechina/hello-agents/main/docs/images/16-figures/16-4.png" alt="" width="85%"/>
+  <p>图 16.4 提交 Pull Request</p>
+</div>
+
+
+
+<h3 id="16-5-3-响应-Review-意见"><a href="#16-5-3-响应-Review-意见" class="headerlink" title="16.5.3 响应 Review 意见"></a>16.5.3 响应 Review 意见</h3><p>提交 PR 后，社区成员会 review 你的代码并提出建议。请及时响应：</p>
+<ol>
+<li><strong>查看评论</strong>：在 PR 页面查看 reviewer 的评论</li>
+<li><strong>修改代码</strong>：根据建议修改代码</li>
+<li><strong>提交更新</strong>：<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add .<br>git commit -m <span class="hljs-string">&quot;fix: 根据review意见修改XXX&quot;</span><br>git push origin feature/你的项目名称<br></code></pre></td></tr></table></figure></li>
+<li><strong>回复评论</strong>：在 GitHub 上回复 reviewer，说明你的修改</li>
+</ol>
+<h2 id="16-6-示例项目展示"><a href="#16-6-示例项目展示" class="headerlink" title="16.6 示例项目展示"></a>16.6 示例项目展示</h2><p>为了帮助你更好地理解毕业设计的要求，这里展示一个完整的示例项目，请别担心，小的创意同样可以被收录，只要是自己动手的作品都是值得珍惜的。</p>
+<p><strong>项目信息</strong></p>
+<ul>
+<li><strong>项目名称</strong>：CodeReviewAgent</li>
+<li><strong>作者</strong>：@jjyaoao</li>
+<li><strong>项目路径</strong>：<code>Co-creation-projects/jjyaoao-CodeReviewAgent/</code></li>
+</ul>
+<p><strong>项目结构</strong></p>
+<figure class="hljs highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">jjyaoao-CodeReviewAgent/<br>├── README.md              <span class="hljs-comment"># 项目文档</span><br>├── requirements.txt       <span class="hljs-comment"># 依赖列表</span><br>├── main.ipynb            <span class="hljs-comment"># 主程序(含快速演示和完整功能)</span><br>├── <span class="hljs-string">.env.example</span>          <span class="hljs-comment"># 环境变量示例</span><br>├── <span class="hljs-string">.gitignore</span>            <span class="hljs-comment"># Git忽略规则</span><br>├── data/<br>│   └── sample_code.py    <span class="hljs-comment"># 示例代码</span><br>└── outputs/<br>    └── review_report.md  <span class="hljs-comment"># 示例报告</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>核心代码片段（main.ipynb）</strong></p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># ========================================</span><br><span class="hljs-comment"># 智能代码审查助手</span><br><span class="hljs-comment"># ========================================</span><br><br><span class="hljs-keyword">from</span> hello_agents <span class="hljs-keyword">import</span> SimpleAgent, HelloAgentsLLM, ToolRegistry<br><span class="hljs-keyword">from</span> hello_agents.tools <span class="hljs-keyword">import</span> Tool, ToolParameter<br><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Dict</span>, <span class="hljs-type">Any</span>, <span class="hljs-type">List</span><br><span class="hljs-keyword">import</span> ast<br><span class="hljs-keyword">import</span> os<br><br><span class="hljs-comment"># ========================================</span><br><span class="hljs-comment"># 0. 配置LLM参数</span><br><span class="hljs-comment"># ========================================</span><br><br>os.environ[<span class="hljs-string">&quot;LLM_MODEL_ID&quot;</span>] = <span class="hljs-string">&quot;Qwen/Qwen2.5-72B-Instruct&quot;</span><br>os.environ[<span class="hljs-string">&quot;LLM_API_KEY&quot;</span>] = <span class="hljs-string">&quot;your_api_key_here&quot;</span><br>os.environ[<span class="hljs-string">&quot;LLM_BASE_URL&quot;</span>] = <span class="hljs-string">&quot;https://api-inference.modelscope.cn/v1/&quot;</span><br>os.environ[<span class="hljs-string">&quot;LLM_TIMEOUT&quot;</span>] = <span class="hljs-string">&quot;60&quot;</span><br><br><span class="hljs-comment"># ========================================</span><br><span class="hljs-comment"># 1. 定义代码分析工具</span><br><span class="hljs-comment"># ========================================</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CodeAnalysisTool</span>(<span class="hljs-title class_ inherited__">Tool</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;代码静态分析工具&quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__(<br>            name=<span class="hljs-string">&quot;code_analysis&quot;</span>,<br>            description=<span class="hljs-string">&quot;分析Python代码的结构、复杂度和潜在问题&quot;</span><br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self, parameters: <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">Any</span>]</span>) -&gt; <span class="hljs-built_in">str</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;分析代码并返回结果&quot;&quot;&quot;</span><br>        code = parameters.get(<span class="hljs-string">&quot;code&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> code:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;错误:代码不能为空&quot;</span><br><br>        <span class="hljs-keyword">try</span>:<br>            tree = ast.parse(code)<br>            functions = [node <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> ast.walk(tree)<br>                        <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(node, ast.FunctionDef)]<br>            classes = [node <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> ast.walk(tree)<br>                      <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(node, ast.ClassDef)]<br><br>            result = &#123;<br>                <span class="hljs-string">&quot;函数数量&quot;</span>: <span class="hljs-built_in">len</span>(functions),<br>                <span class="hljs-string">&quot;类数量&quot;</span>: <span class="hljs-built_in">len</span>(classes),<br>                <span class="hljs-string">&quot;代码行数&quot;</span>: <span class="hljs-built_in">len</span>(code.split(<span class="hljs-string">&#x27;\n&#x27;</span>)),<br>                <span class="hljs-string">&quot;函数列表&quot;</span>: [f.name <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> functions],<br>                <span class="hljs-string">&quot;类列表&quot;</span>: [c.name <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> classes]<br>            &#125;<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">str</span>(result)<br>        <span class="hljs-keyword">except</span> SyntaxError <span class="hljs-keyword">as</span> e:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;语法错误:<span class="hljs-subst">&#123;<span class="hljs-built_in">str</span>(e)&#125;</span>&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_parameters</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-type">List</span>[ToolParameter]:<br>        <span class="hljs-keyword">return</span> [<br>            ToolParameter(<br>                name=<span class="hljs-string">&quot;code&quot;</span>,<br>                <span class="hljs-built_in">type</span>=<span class="hljs-string">&quot;string&quot;</span>,<br>                description=<span class="hljs-string">&quot;要分析的Python代码&quot;</span>,<br>                required=<span class="hljs-literal">True</span><br>            )<br>        ]<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">StyleCheckTool</span>(<span class="hljs-title class_ inherited__">Tool</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;代码风格检查工具&quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__(<br>            name=<span class="hljs-string">&quot;style_check&quot;</span>,<br>            description=<span class="hljs-string">&quot;检查代码是否符合PEP 8规范&quot;</span><br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self, parameters: <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">Any</span>]</span>) -&gt; <span class="hljs-built_in">str</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;检查代码风格&quot;&quot;&quot;</span><br>        code = parameters.get(<span class="hljs-string">&quot;code&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> code:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;错误:代码不能为空&quot;</span><br><br>        issues = []<br>        lines = code.split(<span class="hljs-string">&#x27;\n&#x27;</span>)<br>        <span class="hljs-keyword">for</span> i, line <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(lines, <span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(line) &gt; <span class="hljs-number">79</span>:<br>                issues.append(<span class="hljs-string">f&quot;第<span class="hljs-subst">&#123;i&#125;</span>行:超过79个字符&quot;</span>)<br>            <span class="hljs-keyword">if</span> line.startswith(<span class="hljs-string">&#x27; &#x27;</span>) <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> line.startswith(<span class="hljs-string">&#x27;    &#x27;</span>):<br>                <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(line) - <span class="hljs-built_in">len</span>(line.lstrip()) <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> [<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>, <span class="hljs-number">12</span>]:<br>                    issues.append(<span class="hljs-string">f&quot;第<span class="hljs-subst">&#123;i&#125;</span>行:缩进不规范&quot;</span>)<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> issues:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;代码风格良好，符合PEP 8规范&quot;</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;发现以下问题:\n&quot;</span> + <span class="hljs-string">&quot;\n&quot;</span>.join(issues)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_parameters</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-type">List</span>[ToolParameter]:<br>        <span class="hljs-keyword">return</span> [<br>            ToolParameter(<br>                name=<span class="hljs-string">&quot;code&quot;</span>,<br>                <span class="hljs-built_in">type</span>=<span class="hljs-string">&quot;string&quot;</span>,<br>                description=<span class="hljs-string">&quot;要检查的Python代码&quot;</span>,<br>                required=<span class="hljs-literal">True</span><br>            )<br>        ]<br><br><span class="hljs-comment"># ========================================</span><br><span class="hljs-comment"># 2. 创建工具注册表和智能体</span><br><span class="hljs-comment"># ========================================</span><br><br><span class="hljs-comment"># 创建工具注册表</span><br>tool_registry = ToolRegistry()<br>tool_registry.register_tool(CodeAnalysisTool())<br>tool_registry.register_tool(StyleCheckTool())<br><br><span class="hljs-comment"># 初始化LLM</span><br>llm = HelloAgentsLLM()<br><br><span class="hljs-comment"># 定义系统提示词</span><br>system_prompt = <span class="hljs-string">&quot;&quot;&quot;你是一位经验丰富的代码审查专家。你的任务是:</span><br><span class="hljs-string"></span><br><span class="hljs-string">1. 使用code_analysis工具分析代码结构</span><br><span class="hljs-string">2. 使用style_check工具检查代码风格</span><br><span class="hljs-string">3. 基于分析结果，提供详细的审查报告</span><br><span class="hljs-string"></span><br><span class="hljs-string">审查报告应包括:</span><br><span class="hljs-string">- 代码结构分析</span><br><span class="hljs-string">- 风格问题</span><br><span class="hljs-string">- 潜在bug</span><br><span class="hljs-string">- 性能优化建议</span><br><span class="hljs-string">- 最佳实践建议</span><br><span class="hljs-string"></span><br><span class="hljs-string">请以Markdown格式输出报告。&quot;&quot;&quot;</span><br><br><span class="hljs-comment"># 创建智能体</span><br>agent = SimpleAgent(<br>    name=<span class="hljs-string">&quot;代码审查助手&quot;</span>,<br>    llm=llm,<br>    system_prompt=system_prompt,<br>    tool_registry=tool_registry<br>)<br><br><span class="hljs-comment"># ========================================</span><br><span class="hljs-comment"># 3. 运行示例</span><br><span class="hljs-comment"># ========================================</span><br><br><span class="hljs-comment"># 读取示例代码</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;data/sample_code.py&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> f:<br>    sample_code = f.read()<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;=== 待审查的代码 ===&quot;</span>)<br><span class="hljs-built_in">print</span>(sample_code)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n&quot;</span> + <span class="hljs-string">&quot;=&quot;</span>*<span class="hljs-number">50</span> + <span class="hljs-string">&quot;\n&quot;</span>)<br><br><span class="hljs-comment"># 执行代码审查</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;=== 开始代码审查 ===&quot;</span>)<br>review_result = agent.run(<span class="hljs-string">f&quot;请审查以下Python代码:\n\n```python\n<span class="hljs-subst">&#123;sample_code&#125;</span>\n```&quot;</span>)<br><br><span class="hljs-built_in">print</span>(review_result)<br><br><span class="hljs-comment"># 保存审查报告</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;outputs/review_report.md&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> f:<br>    f.write(review_result)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n审查报告已保存到 outputs/review_report.md&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>README.md 示例</strong></p>
+<figure class="hljs highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section"># CodeReviewAgent - 智能代码审查助手</span><br><br><span class="hljs-quote">&gt; 基于HelloAgents框架的智能代码审查工具</span><br><br><span class="hljs-section">## 📝 项目简介</span><br><br>CodeReviewAgent是一个智能代码审查助手，能够自动分析Python代码的质量、发现潜在问题并提供优化建议。<br><br><span class="hljs-section">### 核心功能</span><br><br><span class="hljs-bullet">-</span> ✅ 代码结构分析:统计函数、类、代码行数等<br><span class="hljs-bullet">-</span> ✅ 风格检查:检查是否符合PEP 8规范<br><span class="hljs-bullet">-</span> ✅ 智能建议:基于LLM提供深度分析和优化建议<br><span class="hljs-bullet">-</span> ✅ 报告生成:生成Markdown格式的审查报告<br><br><span class="hljs-section">## 🛠️ 技术栈</span><br><br><span class="hljs-bullet">-</span> HelloAgents框架（SimpleAgent + ToolRegistry）<br><span class="hljs-bullet">-</span> Python AST模块（代码解析）<br><span class="hljs-bullet">-</span> ModelScope API（Qwen2.5-72B模型）<br><br><span class="hljs-section">## 🚀 快速开始</span><br><br><span class="hljs-section">### 安装依赖</span><br><br>\<span class="hljs-code">`\`</span>\`bash<br>pip install -r requirements.txt<br>\<span class="hljs-code">`\`</span>\`<br><br><span class="hljs-section">### 配置LLM参数</span><br><br><span class="hljs-strong">**方式1: 使用.env文件**</span><br><br>\<span class="hljs-code">`\`</span>\`bash<br>cp .env.example .env<br><span class="hljs-section"># 编辑.env文件,填入你的API密钥</span><br>\<span class="hljs-code">`\`</span>\`<br><br><span class="hljs-strong">**方式2: 直接在Notebook中设置**</span><br><br>项目已预配置ModelScope API,可直接运行。如需修改,编辑main.ipynb第1部分的配置代码。<br><br><span class="hljs-section">### 运行项目</span><br><br>\<span class="hljs-code">`\`</span>\`bash<br>jupyter lab<br><span class="hljs-section"># 打开main.ipynb并运行所有单元格</span><br>\<span class="hljs-code">`\`</span>\`<br><br><span class="hljs-section">## 📖 使用示例</span><br><br><span class="hljs-bullet">1.</span> 将待审查的代码放入<span class="hljs-code">`data/sample_code.py`</span><br><span class="hljs-bullet">2.</span> 运行<span class="hljs-code">`main.ipynb`</span><br><span class="hljs-bullet">3.</span> 查看生成的审查报告<span class="hljs-code">`outputs/review_report.md`</span><br><br><span class="hljs-section">## 🎯 项目亮点</span><br><br><span class="hljs-bullet">-</span> <span class="hljs-strong">**自动化**</span>:无需人工逐行检查，自动发现问题<br><span class="hljs-bullet">-</span> <span class="hljs-strong">**智能化**</span>:利用LLM理解代码语义，提供深度建议<br><span class="hljs-bullet">-</span> <span class="hljs-strong">**可扩展**</span>:易于添加新的检查规则和工具<br><br><span class="hljs-section">## 👤 作者</span><br><br><span class="hljs-bullet">-</span> GitHub: [<span class="hljs-string">@jjyaoao</span>](<span class="hljs-link">https://github.com/jjyaoao</span>)<br><span class="hljs-bullet">-</span> 项目链接:[<span class="hljs-string">CodeReviewAgent</span>](<span class="hljs-link">https://github.com/datawhalechina/hello-agents/tree/main/Co-creation-projects/jjyaoao-CodeReviewAgent</span>)<br><br><span class="hljs-section">## 🙏 致谢</span><br><br>感谢Datawhale社区和Hello-Agents项目！<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="16-7-总结与展望"><a href="#16-7-总结与展望" class="headerlink" title="16.7 总结与展望"></a>16.7 总结与展望</h2><p>通过完成毕业设计，你应该已经掌握了智能体系统设计的完整流程。从需求出发设计系统架构，熟练使用 HelloAgents 框架的各种功能和组件，开发自定义工具扩展智能体能力，完成从需求分析到代码实现的完整项目开发，学会使用 Git 和 GitHub 进行开源协作，以及编写清晰的技术文档。</p>
+<p>在本项目中，我们从零开始构建了 HelloAgents 框架，并用它实现了多个实用的应用。完成毕业设计只是开始，你可以继续深入学习更多智能体范式和算法、提示工程和上下文工程、多智能体协作机制等理论知识；也可以扩展技术栈，学习 Web 开发构建完整的应用、学习数据库实现数据持久化、学习部署将应用上线；还可以持续优化你的项目，添加更多功能、优化性能和用户体验、完善测试和文档；更重要的是，积极参与社区贡献，帮助其他学习者、参与 Hello-Agents 框架开发、分享你的经验和心得。</p>
+<p>从第一章的简单智能体，到现在能够独立构建完整的多智能体应用，你已经走过了一段精彩的学习旅程。但这不是终点，而是新的起点。</p>
+<p>AI 技术日新月异，智能体领域更是充满无限可能。希望你能够保持好奇心持续学习新技术，勇于用 AI 技术解决实际问题创造价值，乐于将你的经验和成果分享给社区，不断打磨你的作品追求卓越。</p>
+<p>最后，感谢你完整阅读了本项目。希望你在学习的过程中有所收获，也希望你能够将所学应用到实际项目中，创造出令人惊叹的智能体应用。AI 的未来充满无限可能，让我们一起探索和创造!</p>
+<p><strong>记住：最好的学习方式就是动手实践！</strong></p>
+<p>现在，开始构建属于你的智能体应用吧！我们期待在 Co-creation-projects 目录中看到你的精彩作品！</p>
+<p>如果你觉得 Hello-Agents 项目对你有帮助，请给我们一个⭐Star！</p>
+<hr>
+<div align="center">
+  <strong>🎓 恭喜你完成了 Hello-Agents 教程的学习！🎉</strong>
+
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        <a class="post-tag button" href="/tags/Hello-Agents-%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fas fa-tags"></i>Hello Agents 学习</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  
+  <nav class="page-nav">
+    <div class="page-nav-next page-nav-item">
+      
+      <a href="/2026/03/02/ai-agent-learning/%E7%AC%AC15%E7%AB%A0-%E6%9E%84%E5%BB%BA%E8%B5%9B%E5%8D%9A%E5%B0%8F%E9%95%87/" rel="next" title="第十五章 构建赛博小镇"><i class="fas fa-angle-left"></i><span class="nav-title">第十五章 构建赛博小镇</span></a>
+      
+    </div>
+    <div class="page-nav-prev page-nav-item">
+      
+      <a href="/2026/03/02/ai-agent-learning/Extra01-%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88/" rel="prev" title="LLM & VLM & Agent 面试回答参考"><span class="nav-title">LLM & VLM & Agent 面试回答参考</span><i class="fas fa-angle-right"></i></a>
+      
+    </div>
+  </nav>
+  
+  
+</div>
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/background.png);">
+  
+  <div class="search">
+    <div class="form-group">
+      <i class="fas fa-search"></i><input type="search" id="search-input" name="q" results="0" placeholder="Search" class="form-control"/>
+    </div>
+  </div>
+  <div class="search-result-box" id="search-result"></div>
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <img class="author-avatar" src="/img/avatar.jpg" alt="Jason Dong">
+  
+  <h1 class="author-name">Jason Dong</h1>
+  <h2 class="author-description"></h2>
+  <div class="site-count">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+    
+    
+    
+    <hr>
+    <div class="post-toc sidebar-item" id="toc-div">
+      <div><i class="fas fa-list-ol"></i>Table of Contents</div>
+      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-1"><a class="list-group-item toc-link" href="#%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%9E%84%E5%BB%BA%E5%B1%9E%E4%BA%8E%E4%BD%A0%E7%9A%84%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93%E5%BA%94%E7%94%A8"><span class="toc-text">第十六章 毕业设计：构建属于你的多智能体应用</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#16-1-%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-text">16.1 毕业设计的意义</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-1-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%81%9A%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1"><span class="toc-text">16.1.1 为什么要做毕业设计</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-1-2-%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%BD%A2%E5%BC%8F"><span class="toc-text">16.1.2 毕业设计的形式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#16-2-%E9%A1%B9%E7%9B%AE%E9%80%89%E9%A2%98%E6%8C%87%E5%8D%97"><span class="toc-text">16.2 项目选题指南</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-2-1-%E9%80%89%E9%A2%98%E5%8E%9F%E5%88%99"><span class="toc-text">16.2.1 选题原则</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-2-2-%E6%8E%A8%E8%8D%90%E9%80%89%E9%A2%98%E6%96%B9%E5%90%91"><span class="toc-text">16.2.2 推荐选题方向</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-2-3-%E9%80%89%E9%A2%98%E7%A4%BA%E4%BE%8B"><span class="toc-text">16.2.3 选题示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#16-3-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">16.3 开发环境准备</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-3-1-%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7"><span class="toc-text">16.3.1 安装必要工具</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-3-2-Fork-%E9%A1%B9%E7%9B%AE%E4%BB%93%E5%BA%93"><span class="toc-text">16.3.2 Fork 项目仓库</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-3-3-%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">16.3.3 项目目录结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#16-4-%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97"><span class="toc-text">16.4 项目开发指南</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-4-1-%E7%BC%96%E5%86%99-README-%E6%96%87%E6%A1%A3"><span class="toc-text">16.4.1 编写 README 文档</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-4-2-%E7%BC%96%E5%86%99-requirements-txt"><span class="toc-text">16.4.2 编写 requirements.txt</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-4-3-%E5%BC%80%E5%8F%91-Jupyter-Notebook"><span class="toc-text">16.4.3 开发 Jupyter Notebook</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-4-4-%E6%B5%8B%E8%AF%95%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE"><span class="toc-text">16.4.4 测试你的项目</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-4-5-%E5%A4%A7%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E6%8C%87%E5%8D%97"><span class="toc-text">16.4.5 大文件处理指南</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#16-5-%E6%8F%90%E4%BA%A4-Pull-Request"><span class="toc-text">16.5 提交 Pull Request</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-5-1-%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E5%88%B0-GitHub"><span class="toc-text">16.5.1 提交代码到 GitHub</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-5-2-%E5%88%9B%E5%BB%BA-Pull-Request"><span class="toc-text">16.5.2 创建 Pull Request</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#16-5-3-%E5%93%8D%E5%BA%94-Review-%E6%84%8F%E8%A7%81"><span class="toc-text">16.5.3 响应 Review 意见</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#16-6-%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA"><span class="toc-text">16.6 示例项目展示</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#16-7-%E6%80%BB%E7%BB%93%E4%B8%8E%E5%B1%95%E6%9C%9B"><span class="toc-text">16.7 总结与展望</span></a></li></ol></li></ol></div>
+    </div>
+    
+    
+    
+    <hr>
+    <div class="social-link sidebar-item">
+      <div><i class="far fa-address-card"></i>Social Links</p></div>
+      <ul>
+        
+        <li><i class="fab fa-github"></i><a href="https://github.com/JasonDong97" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-envelope"></i><a href="mailto:534458392@qq.com" target="_blank">Email</a></li>
+        
+      </ul>
+    </div>
+    
+    
+    <hr>
+    <div class="blogroll sidebar-item">
+      <div><i class="fas fa-link"></i>Blogroll</div>
+      <ul>
+        
+        <li><i class="fas fa-link"></i><a href="https://hexo.io/" target="_blank">Hexo</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://developer.mozilla.org/" target="_blank">MDN</a></li>
+        
+      </ul>
+    </div>
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer" style="background: #33363b;">
+  <div class="container">
+    <div class="back-to-top">
+      <button id="back-to-top"><i class="fas fa-angle-double-up" aria-label="Back to Top"></i></button>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">Jason Dong</span><span class="year"><i class="far fa-copyright"></i>2020 - 2026</span><span class="creative-commons"><i class="fab fa-creative-commons"></i><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">BY-NC-SA 4.0</a></span>
+        </div>
+        
+        <div class="busuanzi">
+          <span id="busuanzi_container_site_pv"><i class="fas fa-eye" aria-label="Site Visit Count" aria-hidden="false"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user" aria-label="Site User Count" aria-hidden="false"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv" aria-label="Page Click Count" aria-hidden="false"></span></span>
+        </div>
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+          <i class="fas fa-heart"></i> Jason Dong | 托管于 <i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+          
+        </div>
+        <div class="powered-by">
+          Proudly Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme is <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>

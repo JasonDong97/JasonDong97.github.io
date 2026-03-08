@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    
+    
+    
+    
+    <meta name="keywords" content="Jason Dong, 后端工程师, Java, Python, Hexo">
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    
+    <link rel="alternate" href="/atom.xml" title="Jason Dong" type="application/atom+xml" />
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicons/favicon.ico">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+<link rel="stylesheet" type="text/css" href="/css/page.css">
+<link rel="stylesheet" type="text/css" href="/css/post.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/clipboard.min.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
+    
+    
+    <script defer type="text/javascript" src="/js/search.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var searchPath = "search.xml";
+      if (searchPath.length === 0) {
+        searchPath = "search.xml";
+      }
+      var path = "/" + searchPath;
+      searchFunc(path, "search-input", "search-result");
+    });
+    </script>
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var cb = null;
+      var els = $(".post figure.highlight");
+      if (els.length) {
+        // Enabled Hexo highlight line number.
+        $(els).each(function (i, e) {
+          // $(e).before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling.firstChild.firstChild.firstChild.lastChild.firstChild.firstChild;
+          }
+        });
+      } else {
+        // Disabled Hexo highlight line number.
+        els = $(".post pre code");
+        $(els).each(function (i, e) {
+          // Add button before pre, not code.
+          // $(e).parent().before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling;
+          }
+        });
+      }
+      cb.on("success", function (e) {
+        e.clearSelection();
+        var trigger = e.trigger;
+        // Change button text as a user tip.
+        trigger.innerHTML = "<i class=\"far fa-check-square\"></i>";
+        $(trigger).addClass("copied");
+        // Change button text back;
+        setTimeout(function () {
+          trigger.innerHTML = "<i class=\"far fa-copy\"></i>";
+          $(trigger).removeClass("copied");
+        }, 1500);
+      });
+    });
+    </script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>Agent Skills 与 MCP：智能体能力扩展的两种范式 | Jason Dong - 后端工程师</title>
+  <meta name="generator" content="Hexo 5.4.2"></head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN"  data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header" style="background: #33363b;">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">Jason Dong</a></h1>
+        <h2 class="subtitle">后端工程师</h2>
+      </div>
+      
+      <div class="logo">
+        <img src="/images/logo.png" alt="logo">
+      </div>
+      
+    </div>
+    <nav id="nav" class="nav">
+      <a id="nav-toggle" class="nav-toggle" aria-hidden="true"><i class="fas fa-bars" aria-label="Toggle Navbar"></i></a>
+      <ul id="menu" role="menubar" aria-hidden="false">
+        
+        <li role="menuitem"><a href="/"><i class="fas fa-home"></i><span class="menu-text">首页</span></a></li>
+        
+        <li role="menuitem"><a href="/archives/"><i class="fas fa-archive"></i><span class="menu-text">归档</span></a></li>
+        
+        <li role="menuitem"><a href="/categories/"><i class="fas fa-th-list"></i><span class="menu-text">分类</span></a></li>
+        
+        <li role="menuitem"><a href="/tags/"><i class="fas fa-tags"></i><span class="menu-text">标签</span></a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
+<div id="post" class="page">
+  
+  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://jasondong97.github.io/2026/03/03/ai-agent-learning/Extra05-AgentSkills%E8%A7%A3%E8%AF%BB/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+       <meta itemprop="name" content="Jason Dong">
+       <meta itemprop="description" content="">
+       <meta itemprop="image" content="/img/avatar.jpg">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+       <meta itemprop="name" content="Jason Dong">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">Agent Skills 与 MCP：智能体能力扩展的两种范式</h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2026-03-03T04:00:00+08:00">2026-03-03 04:00:00</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hello-Agents-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Hello Agents 学习</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-main" itemprop="articleBody">
+      <h1 id="Agent-Skills-与-MCP：智能体能力扩展的两种范式"><a href="#Agent-Skills-与-MCP：智能体能力扩展的两种范式" class="headerlink" title="Agent Skills 与 MCP：智能体能力扩展的两种范式"></a>Agent Skills 与 MCP：智能体能力扩展的两种范式</h1><h2 id="引言：MCP-之后，我们还需要什么？"><a href="#引言：MCP-之后，我们还需要什么？" class="headerlink" title="引言：MCP 之后，我们还需要什么？"></a>引言：MCP 之后，我们还需要什么？</h2><p>在第十章中，我们深入探讨了 MCP（Model Context Protocol）如何通过标准化协议解决智能体与外部工具的连接问题。你已经学会了如何让智能体通过 MCP 访问数据库、文件系统、API 服务等各种资源。让我们回顾一个典型的 MCP 使用场景：</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> hello_agents <span class="hljs-keyword">import</span> ReActAgent, HelloAgentsLLM<br><span class="hljs-keyword">from</span> hello_agents.tools <span class="hljs-keyword">import</span> MCPTool<br><br>llm = HelloAgentsLLM()<br>agent = ReActAgent(name=<span class="hljs-string">&quot;数据分析助手&quot;</span>, llm=llm)<br><br><span class="hljs-comment"># 连接到数据库 MCP 服务器</span><br>db_mcp = MCPTool(server_command=[<span class="hljs-string">&quot;python&quot;</span>, <span class="hljs-string">&quot;database_mcp_server.py&quot;</span>])<br>agent.add_tool(db_mcp)<br><br><span class="hljs-comment"># 智能体现在可以访问数据库了</span><br>response = agent.run(<span class="hljs-string">&quot;查询员工表中薪资最高的前10名员工&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这段代码工作得很好，智能体成功连接到了数据库。但当你尝试处理更复杂的任务时，会发现一些微妙的问题：</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 一个更复杂的需求</span><br>response = agent.run(<span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">分析公司内部谁的话语权最高？</span><br><span class="hljs-string">需要综合考虑：</span><br><span class="hljs-string">1. 管理层级和下属数量</span><br><span class="hljs-string">2. 薪资水平和涨薪幅度</span><br><span class="hljs-string">3. 任职时长和稳定性</span><br><span class="hljs-string">4. 跨部门影响力</span><br><span class="hljs-string">&quot;&quot;&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这个任务需要执行多次数据库查询，每次查询的结果会影响下一次查询的策略。更关键的是，它需要智能体具备<strong>领域知识</strong>：知道如何衡量”话语权”，知道应该从哪些维度分析数据，知道如何组合多个查询结果得出结论。</p>
+<p>此时，你会遇到两个根本性的问题：</p>
+<p><strong>第一个问题是上下文爆炸</strong>。为了让智能体能够灵活查询数据库，MCP 服务器通常会暴露数十甚至上百个工具（不同的表、不同的查询方法）。这些工具的完整 JSON Schema 在连接建立时就会被加载到系统提示词中，可能占用数万个 token。据社区开发者反馈，仅加载一个 Playwright MCP 服务器就会占用 200k 上下文窗口的 8%，这在多轮对话中会迅速累积，导致成本飙升和推理能力下降。</p>
+<p><strong>第二个问题是能力鸿沟</strong>。MCP 解决了”能够连接”的问题，但没有解决”知道如何使用”的问题。拥有数据库连接能力，不等于智能体知道如何编写高效且安全的 SQL；能够访问文件系统，不意味着它理解特定项目的代码结构和开发规范。这就像给一个新手程序员开通了所有系统的访问权限，但没有提供操作手册和最佳实践。</p>
+<p>这正是 <strong>Agent Skills</strong> 要解决的核心问题。2025年初，Anthropic 在推出 MCP 之后，进一步提出了 Agent Skills 的概念，引发了业界的广泛关注。有开发者评论说：”Skills 和 MCP 是两种东西，Skills 是领域知识，告诉模型该如何做，本质上是高级 Prompt；而 MCP 对接外部工具和数据。” 也有人认为：”从 Function Call 到 Tool Call 到 MCP 到 Skills，核心大差不差，就是工程实践和表现形式的优化演进。”</p>
+<p>那么，Agent Skills 到底是什么？它与 MCP 有何本质区别？两者是竞争关系还是互补关系？本章将深入探讨这些问题。</p>
+<h2 id="什么是-Agent-Skills？"><a href="#什么是-Agent-Skills？" class="headerlink" title="什么是 Agent Skills？"></a>什么是 Agent Skills？</h2><h3 id="核心设计理念"><a href="#核心设计理念" class="headerlink" title="核心设计理念"></a>核心设计理念</h3><p><strong>Agent Skills 是一种标准化的程序性知识封装格式</strong>。如果说 MCP 为智能体提供了”手”来操作工具，那么 Skills 就提供了”操作手册”或”SOP（标准作业程序）”，教导智能体如何正确使用这些工具。</p>
+<p>这种设计理念源于一个简单但深刻的洞察：<strong>连接性（Connectivity）与能力（Capability）应该分离</strong>。MCP 专注于前者，Skills 专注于后者。这种职责分离带来了清晰的架构优势：</p>
+<ul>
+<li><strong>MCP 的职责</strong>：提供标准化的访问接口，让智能体能够”够得着”外部世界的数据和工具</li>
+<li><strong>Skills 的职责</strong>：提供领域专业知识，告诉智能体在特定场景下”如何组合使用这些工具”</li>
+</ul>
+<p>用一个类比来理解：MCP 像是 USB 接口或驱动程序，它定义了设备如何连接；而 Skills 像是软件应用程序，它定义了如何使用这些连接的设备来完成具体任务。你可以拥有一个功能完善的打印机驱动（MCP），但如果没有告诉你如何在 Word 里设置页边距和双面打印（Skill），你仍然无法高效地完成打印任务。</p>
+<h3 id="渐进式披露：破解上下文困境"><a href="#渐进式披露：破解上下文困境" class="headerlink" title="渐进式披露：破解上下文困境"></a>渐进式披露：破解上下文困境</h3><p>Agent Skills 最核心的创新是<strong>渐进式披露（Progressive Disclosure）机制</strong>。这种机制将技能信息分为三个层次，智能体按需逐步加载，既确保必要时不遗漏细节，又避免一次性将过多内容塞入上下文窗口。</p>
+<div align="center">
+  <img src="./images/Extra05-figures/image1.png" alt="渐进式披露三层架构" width="90%"/>
+  <p>图 1 Agent Skills 渐进式披露三层架构</p>
+</div>
+
+
+<h4 id="第一层：元数据（Metadata）"><a href="#第一层：元数据（Metadata）" class="headerlink" title="第一层：元数据（Metadata）"></a>第一层：元数据（Metadata）</h4><p>在 Skills 的设计中，每个技能都存放在一个独立的文件夹中，核心是一个名为 <code>SKILL.md</code> 的 Markdown 文件。这个文件必须以 YAML 格式的 Frontmatter 开头，定义技能的基本信息。</p>
+<p>当智能体启动时，它会扫描所有已安装的技能文件夹，<strong>仅读取每个 <code>SKILL.md</code> 的 Frontmatter 部分</strong>，将这些元数据加载到系统提示词中。根据实测数据，每个技能的元数据仅消耗约 <strong>100 个 token</strong>。即使你安装了 50 个技能，初始的上下文消耗也只有约 5,000 个 token。</p>
+<p>这与 MCP 的工作方式形成了鲜明对比。在典型的 MCP 实现中，当客户端连接到一个服务器时，通常会通过 <code>tools/list</code> 请求获取所有可用工具的完整 JSON Schema，可能立即消耗数万个 token。</p>
+<h4 id="第二层：技能主体（Instructions）"><a href="#第二层：技能主体（Instructions）" class="headerlink" title="第二层：技能主体（Instructions）"></a>第二层：技能主体（Instructions）</h4><p>当智能体通过分析用户请求，判断某个技能与当前任务高度相关时，它会进入第二层加载。此时，智能体会读取该技能的完整 <code>SKILL.md</code> 文件内容，将详细的指令、注意事项、示例等加载到上下文中。</p>
+<p>此时，智能体获得了完成任务所需的全部上下文：数据库结构、查询模式、注意事项等。这部分内容的 token 消耗取决于指令的复杂度，通常在 1,000 到 5,000 个 token 之间。</p>
+<h4 id="第三层：附加资源（Scripts-amp-References）"><a href="#第三层：附加资源（Scripts-amp-References）" class="headerlink" title="第三层：附加资源（Scripts &amp; References）"></a>第三层：附加资源（Scripts &amp; References）</h4><p>对于更复杂的技能，<code>SKILL.md</code> 可以引用同一文件夹下的其他文件：脚本、配置文件、参考文档等。智能体<strong>仅在需要时才加载这些资源</strong>。</p>
+<p>例如，一个 PDF 处理技能的文件结构可能是：</p>
+<figure class="hljs highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">skills<span class="hljs-regexp">/pdf-processing/</span><br>├── SKILL.md              <span class="hljs-comment"># 主技能文件</span><br>├── parse_pdf.py          <span class="hljs-comment"># PDF 解析脚本</span><br>├── forms.md              <span class="hljs-comment"># 表单填写指南（仅在填表任务时加载）</span><br>└── templates/            <span class="hljs-comment"># PDF 模板文件</span><br>    ├── invoice.pdf<br>    └── report.pdf<br></code></pre></td></tr></table></figure>
+
+<p>在 <code>SKILL.md</code> 中，可以这样引用附加资源：</p>
+<ul>
+<li>当需要执行 PDF 解析时，智能体会运行 <code>parse_pdf.py</code> 脚本</li>
+<li>当遇到表单填写任务时，才会加载 <code>forms.md</code> 了解详细步骤</li>
+<li>模板文件只在需要生成特定格式文档时访问</li>
+</ul>
+<p>这种设计有两个关键优势：</p>
+<ol>
+<li><p><strong>无限的知识容量</strong>：通过脚本和外部文件，技能可以”携带”远超上下文限制的知识。例如，一个数据分析技能可以附带一个 1GB 的数据文件和一个查询脚本，智能体通过执行脚本来访问数据，而无需将整个数据集加载到上下文中。</p>
+</li>
+<li><p><strong>确定性执行</strong>：复杂的计算、数据转换、格式解析等任务交给代码执行，避免了 LLM 生成过程中的不确定性和幻觉问题。</p>
+</li>
+</ol>
+<h3 id="渐进式披露的效果：从-16k-到-500-Token"><a href="#渐进式披露的效果：从-16k-到-500-Token" class="headerlink" title="渐进式披露的效果：从 16k 到 500 Token"></a>渐进式披露的效果：从 16k 到 500 Token</h3><p>社区开发者分享的实践案例充分证明了渐进式披露的威力。在一个真实场景中：</p>
+<ul>
+<li><strong>传统 MCP 方式</strong>：直接连接一个包含大量工具定义的 MCP 服务器，初始加载消耗 <strong>16,000 个 token</strong></li>
+<li><strong>Skills 包装后</strong>：创建一个简单的 Skill 作为”网关”，仅在 Frontmatter 中描述功能，初始消耗仅 <strong>500 个 token</strong></li>
+</ul>
+<p>当智能体确定需要使用该技能时，才会加载详细指令并按需调用底层的 MCP 工具。这种架构不仅大幅降低了初始成本，还使得对话过程中的上下文管理更加精准和高效。</p>
+<h2 id="Agent-Skills-vs-MCP：本质区别与协作关系"><a href="#Agent-Skills-vs-MCP：本质区别与协作关系" class="headerlink" title="Agent Skills vs MCP：本质区别与协作关系"></a>Agent Skills vs MCP：本质区别与协作关系</h2><p>现在，我们可以系统地比较这两种技术的本质区别了。</p>
+<div align="center">
+  <img src="./images/Extra05-figures/image2.png" alt="MCP与Agent Skills设计哲学对比" width="90%"/>
+  <p>图 2 MCP 与 Agent Skills 设计哲学对比</p>
+</div>
+
+<h3 id="从工程视角理解差异"><a href="#从工程视角理解差异" class="headerlink" title="从工程视角理解差异"></a>从工程视角理解差异</h3><p>让我们通过一个具体的例子来理解这种差异。假设你要构建一个智能体来帮助团队进行代码审查：</p>
+<p><strong>MCP 的职责</strong>：</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># MCP 提供对 GitHub 的标准化访问</span><br>github_mcp = MCPTool(server_command=[<span class="hljs-string">&quot;npx&quot;</span>, <span class="hljs-string">&quot;-y&quot;</span>, <span class="hljs-string">&quot;@modelcontextprotocol/server-github&quot;</span>])<br><br><span class="hljs-comment"># MCP 暴露的工具（简化示例）：</span><br><span class="hljs-comment"># - list_pull_requests(repo, state)</span><br><span class="hljs-comment"># - get_pull_request_details(pr_number)</span><br><span class="hljs-comment"># - list_pr_comments(pr_number)</span><br><span class="hljs-comment"># - create_pr_comment(pr_number, body)</span><br><span class="hljs-comment"># - get_file_content(repo, path, ref)</span><br><span class="hljs-comment"># - list_pr_files(pr_number)</span><br></code></pre></td></tr></table></figure>
+
+<p>MCP 让智能体”能够”访问 GitHub，能够调用这些 API。但它不知道”应该”做什么。</p>
+<p><strong>Skills 的职责</strong>：</p>
+<figure class="hljs highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs markdown">---<br>name: code-review-workflow<br><span class="hljs-section">description: 执行标准的代码审查流程，包括检查代码风格、安全问题、测试覆盖率等</span><br><span class="hljs-section">---</span><br><br><span class="hljs-section"># 代码审查工作流</span><br><br><span class="hljs-section">## 审查清单</span><br><br>当执行代码审查时，按以下步骤进行：<br><br><span class="hljs-bullet">1.</span> <span class="hljs-strong">**获取 PR 信息**</span>：调用 <span class="hljs-code">`get_pull_request_details`</span> 了解变更背景<br><span class="hljs-bullet">2.</span> <span class="hljs-strong">**分析变更文件**</span>：调用 <span class="hljs-code">`list_pr_files`</span> 获取文件列表<br><span class="hljs-bullet">3.</span> <span class="hljs-strong">**逐文件审查**</span>：<br><span class="hljs-bullet">   -</span> 对于 <span class="hljs-code">`.py`</span> 文件：检查是否符合 PEP 8，是否有明显的性能问题<br><span class="hljs-bullet">   -</span> 对于 <span class="hljs-code">`.js/.ts`</span> 文件：检查是否有未处理的 Promise，是否使用了废弃的 API<br><span class="hljs-bullet">   -</span> 对于测试文件：验证是否覆盖了新增的代码路径<br><span class="hljs-bullet">4.</span> <span class="hljs-strong">**安全检查**</span>：<br><span class="hljs-bullet">   -</span> 是否硬编码了敏感信息（密钥、密码）<br><span class="hljs-bullet">   -</span> 是否有 SQL 注入或 XSS 风险<br><span class="hljs-bullet">5.</span> <span class="hljs-strong">**提供反馈**</span>：<br><span class="hljs-bullet">   -</span> 严重问题：使用 <span class="hljs-code">`create_pr_comment`</span> 直接评论<br><span class="hljs-bullet">   -</span> 建议改进：在总结中提出<br><br><span class="hljs-section">## 公司特定规范</span><br><br><span class="hljs-bullet">-</span> 所有数据库查询必须使用参数化查询<br><span class="hljs-bullet">-</span> API 端点必须有权限验证装饰器<br><span class="hljs-bullet">-</span> 新功能必须附带单元测试（覆盖率 &gt; 80%）<br><br><span class="hljs-section">## 示例评论模板</span><br><br><span class="hljs-strong">**严重问题**</span>：<br><br>⚠️ 安全风险：第 45 行直接拼接 SQL 字符串，存在注入风险。<br>建议改用参数化查询：<span class="hljs-code">`cursor.execute(&quot;SELECT * FROM users WHERE id = ?&quot;, (user_id,))`</span><br><br></code></pre></td></tr></table></figure>
+
+<p>Skills 告诉智能体”应该”做什么、如何组织审查流程、需要关注哪些公司特定的规范。它是领域知识和最佳实践的容器。</p>
+<h3 id="上下文管理策略的本质差异"><a href="#上下文管理策略的本质差异" class="headerlink" title="上下文管理策略的本质差异"></a>上下文管理策略的本质差异</h3><div align="center">
+  <img src="./images/Extra05-figures/image3.png" alt="MCP急切加载 vs Skills惰性加载" width="90%"/>
+  <p>图 3 MCP 急切加载 vs Skills 惰性加载对比</p>
+</div>
+
+
+<h3 id="互补而非竞争：Skills-MCP-的混合架构"><a href="#互补而非竞争：Skills-MCP-的混合架构" class="headerlink" title="互补而非竞争：Skills + MCP 的混合架构"></a>互补而非竞争：Skills + MCP 的混合架构</h3><p>理解了两者的差异后，我们会发现：<strong>Skills 和 MCP 不是竞争关系，而是互补关系</strong>。最佳实践是将两者结合，形成分层架构：</p>
+<div align="center">
+  <img src="./images/Extra05-figures/image4.png" alt="Skills + MCP 混合架构" width="90%"/>
+  <p>图 4 Skills + MCP 混合架构设计</p>
+</div>
+<strong>典型工作流</strong>：
+
+<ol>
+<li>用户问：”分析公司内部谁的话语权最高”</li>
+<li><strong>Skills 层</strong>识别这是一个数据分析任务，加载 <code>mysql-employees-analysis</code> 技能</li>
+<li><strong>Skills 层</strong>根据技能指令，将任务分解为子步骤：查询管理关系、薪资对比、任职时长等</li>
+<li><strong>MCP 层</strong>执行具体的 SQL 查询，返回结果</li>
+<li><strong>Skills 层</strong>根据技能中的领域知识，解读数据并生成综合分析</li>
+<li>返回结构化的答案给用户</li>
+</ol>
+<p>这种架构的优势是：</p>
+<ul>
+<li><strong>关注点分离</strong>：MCP 专注于”能力”，Skills 专注于”智慧”</li>
+<li><strong>成本优化</strong>：渐进式加载大幅降低 token 消耗</li>
+<li><strong>可维护性</strong>：业务逻辑（Skills）与基础设施（MCP）解耦</li>
+<li><strong>复用性</strong>：同一个 MCP 服务器可以被多个 Skills 使用</li>
+</ul>
+<h2 id="技术实现：如何创建和使用-Skills"><a href="#技术实现：如何创建和使用-Skills" class="headerlink" title="技术实现：如何创建和使用 Skills"></a>技术实现：如何创建和使用 Skills</h2><h3 id="SKILL-md-规范详解"><a href="#SKILL-md-规范详解" class="headerlink" title="SKILL.md 规范详解"></a>SKILL.md 规范详解</h3><p>让我们深入了解 <code>SKILL.md</code> 文件的标准结构：</p>
+<figure class="hljs highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs markdown">---<br><span class="hljs-section"># === 必需字段 ===</span><br>name: skill-name<br>  # 技能的唯一标识符，使用 kebab-case 命名<br><br>description: &gt;<br>  简洁但精确的描述，说明：<br><span class="hljs-bullet">  1.</span> 这个技能做什么<br><span class="hljs-bullet">  2.</span> 什么时候应该使用它<br><span class="hljs-bullet">  3.</span> 它的核心价值是什么<br>  # 注意：description 是智能体选择技能的唯一依据，必须写清楚！<br><br><span class="hljs-section"># === 可选字段 ===</span><br>version: 1.0.0<br>  # 语义化版本号<br><br>allowed<span class="hljs-emphasis">_tools: [tool1, tool2]</span><br><span class="hljs-emphasis">  # 此技能可以调用的工具列表（白名单）</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">required_</span>context: [context<span class="hljs-emphasis">_item1]</span><br><span class="hljs-emphasis">  # 此技能需要的上下文信息</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">license: MIT</span><br><span class="hljs-emphasis">  # 许可协议</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">author: Your Name <span class="language-xml">&lt;email@example.com&gt;</span></span><br><span class="hljs-emphasis">  # 作者信息</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">tags: [database, analysis, sql]</span><br><span class="hljs-emphasis">  # 便于分类和搜索的标签</span><br><span class="hljs-emphasis">---</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis"># 技能标题</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">## 概述</span><br><span class="hljs-emphasis">（对技能的详细介绍，包括使用场景、技术背景等）</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">## 前置条件</span><br><span class="hljs-emphasis">（使用此技能需要的环境配置、依赖项等）</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">## 工作流程</span><br><span class="hljs-emphasis">（详细的步骤说明，告诉智能体如何执行任务）</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">## 最佳实践</span><br><span class="hljs-emphasis">（经验总结、注意事项、常见陷阱等）</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">## 示例</span><br><span class="hljs-emphasis">（具体的使用案例，帮助智能体理解）</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">## 故障排查</span><br><span class="hljs-emphasis">（常见问题和解决方案）</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="编写高质量-Skills-的原则"><a href="#编写高质量-Skills-的原则" class="headerlink" title="编写高质量 Skills 的原则"></a>编写高质量 Skills 的原则</h3><p>根据 Anthropic 官方文档和社区最佳实践，编写有效的 Skills 需要遵循以下原则：</p>
+<h4 id="1-精准的-Description"><a href="#1-精准的-Description" class="headerlink" title="1. 精准的 Description"></a>1. 精准的 Description</h4><p><code>description</code> 是智能体决策的关键。它应该：</p>
+<ul>
+<li><strong>精确定义适用范围</strong>：避免模糊的描述如”帮助处理数据”</li>
+<li><strong>包含触发关键词</strong>：让智能体能够匹配用户意图</li>
+<li><strong>说明独特价值</strong>：与其他技能区分开来</li>
+</ul>
+<p>❌ <strong>不好的 description</strong>：</p>
+<figure class="hljs highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">处理数据库查询</span><br></code></pre></td></tr></table></figure>
+
+<p>✅ <strong>好的 description</strong>：</p>
+<figure class="hljs highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">description:</span> <span class="hljs-string">&gt;</span><br><span class="hljs-string">  将中文业务问题转换为 SQL 查询并分析 MySQL employees 示例数据库。</span><br><span class="hljs-string">  适用于员工信息查询、薪资统计、部门分析、职位变动历史等场景。</span><br><span class="hljs-string">  当用户询问关于员工、薪资、部门的数据时使用此技能。</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="2-模块化与单一职责"><a href="#2-模块化与单一职责" class="headerlink" title="2. 模块化与单一职责"></a>2. 模块化与单一职责</h4><p>一个 Skill 应该专注于一个明确的领域或任务类型。如果一个 Skill 试图做太多事情，会导致：</p>
+<ul>
+<li>Description 过于宽泛，匹配精度下降</li>
+<li>指令内容过长，浪费上下文</li>
+<li>难以维护和更新</li>
+</ul>
+<p><strong>建议</strong>：与其创建一个”通用数据分析”技能，不如创建多个专门的技能：</p>
+<ul>
+<li><code>mysql-employees-analysis</code>：专门分析 employees 数据库</li>
+<li><code>sales-data-analysis</code>：专门分析销售数据</li>
+<li><code>user-behavior-analysis</code>：专门分析用户行为数据</li>
+</ul>
+<h4 id="3-确定性优先原则"><a href="#3-确定性优先原则" class="headerlink" title="3. 确定性优先原则"></a>3. 确定性优先原则</h4><p>对于复杂的、需要精确执行的任务，优先使用脚本而不是依赖 LLM 生成。例如，在数据导出场景中，与其让 LLM 生成 Excel 二进制内容（容易出错），不如编写一个专门的脚本来处理这个任务，SKILL.md 中只需要指导智能体何时调用这个脚本即可。</p>
+<h4 id="4-渐进式披露策略"><a href="#4-渐进式披露策略" class="headerlink" title="4. 渐进式披露策略"></a>4. 渐进式披露策略</h4><p>合理利用三层结构，将信息按重要性和使用频率分层：</p>
+<ul>
+<li><strong>SKILL.md 主体</strong>：放置核心工作流、常用模式</li>
+<li><strong>附加文档</strong>（如 <code>advanced.md</code>）：放置高级用法、边缘情况</li>
+<li><strong>数据文件</strong>：放置大型参考数据，通过脚本按需查询</li>
+</ul>
+<h3 id="实践案例：MySQL-员工分析-Skill-详解"><a href="#实践案例：MySQL-员工分析-Skill-详解" class="headerlink" title="实践案例：MySQL 员工分析 Skill 详解"></a>实践案例：MySQL 员工分析 Skill 详解</h3><p>让我们通过 Anthropic 社区的一个真实案例，了解 Agent Skills 的具体应用。这个技能用于分析 MySQL 官方的 <code>employees</code> 示例数据库。</p>
+<h4 id="技能文件结构"><a href="#技能文件结构" class="headerlink" title="技能文件结构"></a>技能文件结构</h4><figure class="hljs highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">skills<span class="hljs-regexp">/mysql-employees-analysis/</span><br>├── SKILL.md          <span class="hljs-comment"># 主技能文件（包含元数据和详细指令）</span><br>└── db_schema.sql     <span class="hljs-comment"># 数据库结构参考（可选，按需加载）</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="SKILL-md-核心内容示例"><a href="#SKILL-md-核心内容示例" class="headerlink" title="SKILL.md 核心内容示例"></a>SKILL.md 核心内容示例</h4><p>这个技能的 Frontmatter（元数据层）：</p>
+<figure class="hljs highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br></pre></td><td class="code"><pre><code class="hljs markdown">---<br>name: mysql-employees-analysis<br>description: &gt;<br>  将中文业务问题转换为 SQL 查询并分析 MySQL employees 示例数据库。<br>  适用于员工信息查询（如&quot;工号12345的员工信息&quot;）、<br>  薪资统计（如&quot;平均薪资最高的部门&quot;）、<br>  部门分析（如&quot;各部门人数分布&quot;）、<br>  职位变动历史（如&quot;某员工的晋升路径&quot;）等场景。<br>version: 1.0.0<br>allowed<span class="hljs-emphasis">_tools: [execute_</span>sql]<br><span class="hljs-section">tags: [database, mysql, sql, employees, analysis]</span><br><span class="hljs-section">---</span><br><br><span class="hljs-section"># MySQL 员工数据库分析技能</span><br><br><span class="hljs-section">## 概述</span><br><br>这个技能专门用于分析 MySQL 官方提供的 <span class="hljs-code">`employees`</span> 示例数据库。<br>该数据库包含约 300,000 名虚拟员工的记录，涵盖 1985-2000 年的数据。<br><br><span class="hljs-strong">**核心能力**</span>：<br><span class="hljs-bullet">-</span> 理解中文自然语言的业务问题<br><span class="hljs-bullet">-</span> 转换为高效的 SQL 查询<br><span class="hljs-bullet">-</span> 执行查询并解读结果<br><span class="hljs-bullet">-</span> 提供业务洞察和数据解读<br><br><span class="hljs-section">## 数据库结构</span><br><br><span class="hljs-section">### 核心表结构</span><br><br>| 表名           | 说明         | 关键字段                                                     |<br>| -------------- | ------------ | ------------------------------------------------------------ |<br>| <span class="hljs-code">`employees`</span>    | 员工基本信息 | emp<span class="hljs-emphasis">_no, birth_</span>date, first<span class="hljs-emphasis">_name, last_</span>name, gender, hire<span class="hljs-emphasis">_date |</span><br><span class="hljs-emphasis">| `salaries`     | 薪资历史     | emp_</span>no, salary, from<span class="hljs-emphasis">_date, to_</span>date                           |<br>| <span class="hljs-code">`titles`</span>       | 职位历史     | emp<span class="hljs-emphasis">_no, title, from_</span>date, to<span class="hljs-emphasis">_date                            |</span><br><span class="hljs-emphasis">| `dept_</span>emp`     | 员工部门关系 | emp<span class="hljs-emphasis">_no, dept_</span>no, from<span class="hljs-emphasis">_date, to_</span>date                          |<br>| <span class="hljs-code">`dept_manager`</span> | 部门经理     | emp<span class="hljs-emphasis">_no, dept_</span>no, from<span class="hljs-emphasis">_date, to_</span>date                          |<br>| <span class="hljs-code">`departments`</span>  | 部门信息     | dept<span class="hljs-emphasis">_no, dept_</span>name                                           |<br><br><span class="hljs-section">### 关键约定</span><br><br>⚠️ <span class="hljs-strong">**重要**</span>：<span class="hljs-code">`to_date = &#x27;9999-01-01&#x27;`</span> 表示&quot;当前有效&quot;的记录。<br>查询&quot;当前&quot;状态时（如现任员工、当前薪资），必须加此过滤条件。<br><br>完整的表结构参见：<span class="hljs-code">`db_schema.sql`</span><br><br><span class="hljs-section">## 工作流程</span><br><br><span class="hljs-section">### 第一步：理解需求</span><br><br>仔细分析用户的中文描述，识别：<br><span class="hljs-bullet">-</span> <span class="hljs-strong">**查询目标**</span>：要查什么数据？（员工、薪资、部门...）<br><span class="hljs-bullet">-</span> <span class="hljs-strong">**筛选条件**</span>：有什么限制？（特定部门、时间范围、薪资区间...）<br><span class="hljs-bullet">-</span> <span class="hljs-strong">**聚合维度**</span>：需要统计吗？（平均值、总数、排名...）<br><span class="hljs-bullet">-</span> <span class="hljs-strong">**时间范围**</span>：是历史数据还是当前状态？<br><br><span class="hljs-section">### 第二步：构建 SQL</span><br><br>根据需求选择合适的查询模式（见下方&quot;常见查询模式&quot;）。<br><br><span class="hljs-strong">**编写原则**</span>：<br><span class="hljs-bullet">1.</span> 使用明确的表别名（如 <span class="hljs-code">`e`</span> for employees）<br><span class="hljs-bullet">2.</span> JOIN 时优先使用主键/外键<br><span class="hljs-bullet">3.</span> 注意日期过滤（特别是 <span class="hljs-code">`to_date`</span>）<br><span class="hljs-bullet">4.</span> 合理使用索引字段<br><span class="hljs-bullet">5.</span> 大结果集要加 LIMIT<br><br><span class="hljs-section">### 第三步：执行查询</span><br><br>调用 <span class="hljs-code">`execute_sql`</span> 工具执行构建好的 SQL。<br><br><span class="hljs-code">```python</span><br><span class="hljs-code"># 示例调用（智能体会自动转换为工具调用）</span><br><span class="hljs-code">result = execute_sql(query=&quot;SELECT ...&quot;)</span><br><span class="hljs-code"></span><br><span class="hljs-code"></span><br><span class="hljs-code">### 第四步：解读结果</span><br><span class="hljs-code"></span><br><span class="hljs-code">将查询结果转化为自然语言回答：</span><br><span class="hljs-code">- 用表格呈现结构化数据</span><br><span class="hljs-code">- 突出关键数据点</span><br><span class="hljs-code">- 提供业务洞察（如趋势、异常）</span><br><span class="hljs-code">- 如果结果为空，说明可能的原因</span><br><span class="hljs-code"></span><br><span class="hljs-code">## 常见查询模式</span><br><span class="hljs-code"></span><br><span class="hljs-code">### 模式 1：基础信息查询</span><br><span class="hljs-code"></span><br><span class="hljs-code"></span><br><span class="hljs-code">-- 查询特定员工的基本信息</span><br><span class="hljs-code">SELECT emp_no, CONCAT(first_name, &#x27; &#x27;, last_name) AS full_name,</span><br><span class="hljs-code">       gender, birth_date, hire_date</span><br><span class="hljs-code">FROM employees</span><br><span class="hljs-code">WHERE emp_no = &lt;员工号&gt;;</span><br><span class="hljs-code"></span><br><span class="hljs-code"></span><br><span class="hljs-code">### 模式 2：当前状态查询</span><br><span class="hljs-code"></span><br><span class="hljs-code"></span><br><span class="hljs-code">-- 查询当前薪资最高的员工（TOP 10）</span><br><span class="hljs-code">SELECT e.emp_no,</span><br><span class="hljs-code">       CONCAT(e.first_name, &#x27; &#x27;, e.last_name) AS name,</span><br><span class="hljs-code">       s.salary</span><br><span class="hljs-code">FROM employees e</span><br><span class="hljs-code">JOIN salaries s ON e.emp_no = s.emp_no</span><br><span class="hljs-code">WHERE s.to_date = &#x27;9999-01-01&#x27;  -- 当前薪资</span><br><span class="hljs-code">ORDER BY s.salary DESC</span><br><span class="hljs-code">LIMIT 10;</span><br><span class="hljs-code"></span><br><span class="hljs-code"></span><br><span class="hljs-code">### 模式 3：历史趋势分析</span><br><span class="hljs-code"></span><br><span class="hljs-code"></span><br><span class="hljs-code">-- 查询某员工的薪资变化历史</span><br><span class="hljs-code">SELECT emp_no, salary, from_date, to_date,</span><br><span class="hljs-code">       salary - LAG(salary) OVER (ORDER BY from_date) AS increase</span><br><span class="hljs-code">FROM salaries</span><br><span class="hljs-code">WHERE emp_no = &lt;员工号&gt;</span><br><span class="hljs-code">ORDER BY from_date;</span><br><span class="hljs-code"></span><br><span class="hljs-code"></span><br><span class="hljs-code">### 模式 4：跨表关联查询</span><br><span class="hljs-code"></span><br><span class="hljs-code"></span><br><span class="hljs-code">-- 查询各部门的平均薪资（当前）</span><br><span class="hljs-code">SELECT d.dept_name,</span><br><span class="hljs-code">       COUNT(DISTINCT de.emp_no) AS emp_count,</span><br><span class="hljs-code">       ROUND(AVG(s.salary), 2) AS avg_salary</span><br><span class="hljs-code">FROM departments d</span><br><span class="hljs-code">JOIN dept_emp de ON d.dept_no = de.dept_no</span><br><span class="hljs-code">JOIN salaries s ON de.emp_no = s.emp_no</span><br><span class="hljs-code">WHERE de.to_date = &#x27;9999-01-01&#x27;  -- 当前在职</span><br><span class="hljs-code">  AND s.to_date = &#x27;9999-01-01&#x27;   -- 当前薪资</span><br><span class="hljs-code">GROUP BY d.dept_name</span><br><span class="hljs-code">ORDER BY avg_salary DESC;</span><br><span class="hljs-code"></span><br><span class="hljs-code"></span><br><span class="hljs-code">### 模式 5：复杂业务分析</span><br><span class="hljs-code"></span><br><span class="hljs-code"></span><br><span class="hljs-code">-- 分析&quot;话语权&quot;：综合管理层级、薪资、任职时长</span><br><span class="hljs-code">WITH manager_hierarchy AS (</span><br><span class="hljs-code">    -- 统计每个经理管理的下属数</span><br><span class="hljs-code">    SELECT dm.emp_no, COUNT(de.emp_no) AS subordinate_count</span><br><span class="hljs-code">    FROM dept_manager dm</span><br><span class="hljs-code">    JOIN dept_emp de ON dm.dept_no = de.dept_no</span><br><span class="hljs-code">    WHERE dm.to_date = &#x27;9999-01-01&#x27;</span><br><span class="hljs-code">      AND de.to_date = &#x27;9999-01-01&#x27;</span><br><span class="hljs-code">      AND de.emp_no != dm.emp_no</span><br><span class="hljs-code">    GROUP BY dm.emp_no</span><br><span class="hljs-code">),</span><br><span class="hljs-code">current_salary AS (</span><br><span class="hljs-code">    -- 当前薪资</span><br><span class="hljs-code">    SELECT emp_no, salary</span><br><span class="hljs-code">    FROM salaries</span><br><span class="hljs-code">    WHERE to_date = &#x27;9999-01-01&#x27;</span><br><span class="hljs-code">),</span><br><span class="hljs-code">tenure AS (</span><br><span class="hljs-code">    -- 任职时长（年）</span><br><span class="hljs-code">    SELECT emp_no,</span><br><span class="hljs-code">           TIMESTAMPDIFF(YEAR, hire_date, CURDATE()) AS years_employed</span><br><span class="hljs-code">    FROM employees</span><br><span class="hljs-code">)</span><br><span class="hljs-code">SELECT e.emp_no,</span><br><span class="hljs-code">       CONCAT(e.first_name, &#x27; &#x27;, e.last_name) AS name,</span><br><span class="hljs-code">       COALESCE(mh.subordinate_count, 0) AS team_size,</span><br><span class="hljs-code">       cs.salary,</span><br><span class="hljs-code">       t.years_employed,</span><br><span class="hljs-code">       -- 简单的话语权评分（可根据业务调整权重）</span><br><span class="hljs-code">       (COALESCE(mh.subordinate_count, 0) * 10 +</span><br><span class="hljs-code">        cs.salary / 1000 +</span><br><span class="hljs-code">        t.years_employed * 5) AS influence_score</span><br><span class="hljs-code">FROM employees e</span><br><span class="hljs-code">JOIN current_salary cs ON e.emp_no = cs.emp_no</span><br><span class="hljs-code">JOIN tenure t ON e.emp_no = t.emp_no</span><br><span class="hljs-code">LEFT JOIN manager_hierarchy mh ON e.emp_no = mh.emp_no</span><br><span class="hljs-code">WHERE cs.salary &gt; 60000  -- 过滤低薪员工</span><br><span class="hljs-code">ORDER BY influence_score DESC</span><br><span class="hljs-code">LIMIT 20;</span><br><span class="hljs-code"></span><br><span class="hljs-code"></span><br><span class="hljs-code">## 注意事项</span><br><span class="hljs-code"></span><br><span class="hljs-code">### ⚠️ 时间字段的正确处理</span><br><span class="hljs-code"></span><br><span class="hljs-code">- &lt;strong&gt;当前状态&lt;/strong&gt;：必须使用 `to_date = &#x27;9999-01-01&#x27;` 过滤</span><br><span class="hljs-code">- &lt;strong&gt;历史查询&lt;/strong&gt;：注意 `from_date` 和 `to_date` 的范围</span><br><span class="hljs-code">- &lt;strong&gt;时间计算&lt;/strong&gt;：使用 `TIMESTAMPDIFF`、`DATEDIFF` 等函数</span><br><span class="hljs-code"></span><br><span class="hljs-code">### ⚠️ 性能优化</span><br><span class="hljs-code"></span><br><span class="hljs-code">- &lt;strong&gt;大表 JOIN&lt;/strong&gt;：优先使用索引字段（emp_no, dept_no）</span><br><span class="hljs-code">- &lt;strong&gt;聚合查询&lt;/strong&gt;：合理使用 GROUP BY 和 HAVING</span><br><span class="hljs-code">- &lt;strong&gt;结果限制&lt;/strong&gt;：对于展示类查询，添加 LIMIT 限制</span><br><span class="hljs-code">- &lt;strong&gt;子查询优化&lt;/strong&gt;：复杂查询使用 WITH (CTE) 提高可读性和性能</span><br><span class="hljs-code"></span><br><span class="hljs-code">### ⚠️ 数据质量</span><br><span class="hljs-code"></span><br><span class="hljs-code">- &lt;strong&gt;NULL 值处理&lt;/strong&gt;：使用 COALESCE 或 IFNULL 处理空值</span><br><span class="hljs-code">- &lt;strong&gt;重复记录&lt;/strong&gt;：注意员工可能多次调岗，查询时考虑去重</span><br><span class="hljs-code">- &lt;strong&gt;数据范围&lt;/strong&gt;：数据库只包含 1985-2000 年的数据，查询时注意时间边界</span><br><span class="hljs-code"></span><br><span class="hljs-code">## 故障排查</span><br><span class="hljs-code"></span><br><span class="hljs-code">&lt;strong&gt;问题 1：查询结果为空&lt;/strong&gt;</span><br><span class="hljs-code">- 检查是否正确使用了 `to_date = &#x27;9999-01-01&#x27;`</span><br><span class="hljs-code">- 验证员工号或部门号是否存在</span><br><span class="hljs-code">- 检查日期范围是否合理</span><br><span class="hljs-code"></span><br><span class="hljs-code">&lt;strong&gt;问题 2：查询速度慢&lt;/strong&gt;</span><br><span class="hljs-code">- 检查是否缺少索引字段的 WHERE 条件</span><br><span class="hljs-code">- 考虑将复杂查询拆分为多步</span><br><span class="hljs-code">- 使用 EXPLAIN 分析查询计划</span><br><span class="hljs-code"></span><br><span class="hljs-code">&lt;strong&gt;问题 3：统计数据不准确&lt;/strong&gt;</span><br><span class="hljs-code">- 注意区分&quot;历史&quot;和&quot;当前&quot;状态</span><br><span class="hljs-code">- 检查 JOIN 条件是否遗漏</span><br><span class="hljs-code">- 验证聚合函数的使用是否正确</span><br></code></pre></td></tr></table></figure>
+
+<p>这个 SKILL.md 文件展示了一个完整技能的结构：</p>
+<ul>
+<li>清晰的元数据（智能体用于发现和匹配）</li>
+<li>完整的数据库结构说明</li>
+<li>详细的工作流程指导</li>
+<li>丰富的查询模式示例（可直接复用的 SQL 模板）</li>
+<li>实用的注意事项和故障排查</li>
+</ul>
+<h4 id="技能的使用效果"><a href="#技能的使用效果" class="headerlink" title="技能的使用效果"></a>技能的使用效果</h4><p>当用户向支持 Agent Skills 的智能体（如 Claude Desktop、Claude Code）提问时：</p>
+<p><strong>用户问题</strong>：</p>
+<blockquote>
+<p>“分析公司内部谁的话语权最高？需要综合考虑管理层级、薪资水平和任职时长。”</p>
+</blockquote>
+<div align="center">
+  <img src="./images/Extra05-figures/image5.png" alt="Agent Skills工作流程" width="90%"/>
+  <p>图 5 Agent Skills 完整工作流程示意</p>
+</div>
+
+
+<p><strong>输出示例</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>排名</th>
+<th>员工号</th>
+<th>姓名</th>
+<th>团队规模</th>
+<th>薪资</th>
+<th>任职年限</th>
+<th>影响力评分</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>110022</td>
+<td>Margareta Markovitch</td>
+<td>45</td>
+<td>152,710</td>
+<td>18</td>
+<td>692.71</td>
+</tr>
+<tr>
+<td>2</td>
+<td>110039</td>
+<td>Vishwani Minakawa</td>
+<td>38</td>
+<td>138,273</td>
+<td>16</td>
+<td>598.27</td>
+</tr>
+<tr>
+<td>3</td>
+<td>110085</td>
+<td>Ebru Alpin</td>
+<td>32</td>
+<td>124,054</td>
+<td>15</td>
+<td>519.05</td>
+</tr>
+</tbody></table>
+<p><strong>关键洞察</strong>：</p>
+<ol>
+<li>话语权最高的员工通常管理大团队（30+人）、薪资前1%（&gt;12万）、任职超15年</li>
+<li>部门经理的影响力远超普通员工，管理规模是关键因素</li>
+<li>长期任职的高薪员工即使不担任管理职务，也具有较强的话语权</li>
+</ol>
+<p>整个过程中，技能提供了：</p>
+<ul>
+<li><strong>领域知识</strong>：如何衡量”话语权”（管理规模+薪资+任职时长）</li>
+<li><strong>技术指导</strong>：如何编写高效的 SQL（使用 CTE、窗口函数、多表 JOIN）</li>
+<li><strong>业务理解</strong>：如何解读数据并生成洞察</li>
+</ul>
+<h3 id="Skills-的分享与复用"><a href="#Skills-的分享与复用" class="headerlink" title="Skills 的分享与复用"></a>Skills 的分享与复用</h3><p>Agent Skills 的另一个重要特性是<strong>社区化</strong>。Anthropic 建立了官方的 Skills 仓库：</p>
+<p><strong>官方技能库</strong>：<a target="_blank" rel="noopener" href="https://github.com/anthropics/skills">https://github.com/anthropics/skills</a></p>
+<p>截至 2025 年，已有数百个社区贡献的技能，覆盖：</p>
+<ul>
+<li><strong>开发工具</strong>：前端设计、API 测试、代码审查、Git 工作流</li>
+<li><strong>数据分析</strong>：SQL 查询、数据可视化、统计分析</li>
+<li><strong>文档处理</strong>：PDF 解析、Markdown 生成、技术文档撰写</li>
+<li><strong>业务流程</strong>：项目管理、客户支持、合规审查</li>
+</ul>
+<p>使用社区技能非常简单：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 克隆官方技能库</span><br>git <span class="hljs-built_in">clone</span> https://github.com/anthropics/skills.git<br><br><span class="hljs-comment"># 复制需要的技能到你的项目</span><br><span class="hljs-built_in">cp</span> -r skills/frontend-design ./my-project/skills/<br><br><span class="hljs-comment"># 智能体会自动发现并加载</span><br></code></pre></td></tr></table></figure>
+
+<p>你也可以分享自己的技能：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 发布到 GitHub</span><br><span class="hljs-built_in">cd</span> my-custom-skill<br>git init<br>git add SKILL.md<br>git commit -m <span class="hljs-string">&quot;Add custom SQL analysis skill&quot;</span><br>git remote add origin https://github.com/yourname/my-skill.git<br>git push -u origin main<br><br><span class="hljs-comment"># 其他开发者可以直接使用</span><br><span class="hljs-comment"># git clone https://github.com/yourname/my-skill.git</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="行业动态与生态演进"><a href="#行业动态与生态演进" class="headerlink" title="行业动态与生态演进"></a>行业动态与生态演进</h2><h3 id="标准化进程与厂商支持"><a href="#标准化进程与厂商支持" class="headerlink" title="标准化进程与厂商支持"></a>标准化进程与厂商支持</h3><p>Agent Skills 虽然由 Anthropic 提出，但其设计理念正在影响整个行业。</p>
+<p><strong>Anthropic Claude</strong>：</p>
+<ul>
+<li>Claude Desktop 和 Claude Code 原生支持 Skills</li>
+<li>提供官方 SDK 和开发工具</li>
+<li>维护官方技能库</li>
+</ul>
+<p><strong>OpenAI 的响应</strong>：<br>虽然 OpenAI 尚未官方采用 “Skills” 这个术语，但在 2025 年 3 月的更新中，ChatGPT 引入了类似的概念：</p>
+<ul>
+<li><strong>Custom Instructions 增强</strong>：支持更复杂的多步骤指令</li>
+<li><strong>Memory 与 Context Profiles</strong>：允许用户保存和复用特定领域的知识</li>
+<li><strong>GPTs 的”知识库”功能</strong>：可以附加文档和脚本，按需加载</li>
+</ul>
+<p>这些功能本质上是 Skills 理念的不同实现形式。</p>
+<p><strong>Google Vertex AI</strong>：<br>Google 在 Gemini 模型中引入了 **”Grounding with Functions”**，允许开发者定义”函数包”（Function Packages），每个包包含：</p>
+<ul>
+<li>函数定义（类似 MCP 的 tools）</li>
+<li>使用指南（类似 Skills 的 instructions）</li>
+<li>示例（examples）</li>
+</ul>
+<p>这种设计与 Skills + MCP 的混合架构高度相似。</p>
+<h3 id="分层架构的必然性"><a href="#分层架构的必然性" class="headerlink" title="分层架构的必然性"></a>分层架构的必然性</h3><p>综合各方观点，我们认为：<strong>Skills 和 MCP 代表了智能体架构中两个必然分离的层级</strong>。随着智能体系统的复杂度增加，这种分层是不可避免的：</p>
+<figure class="hljs highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs isbl">应用层（<span class="hljs-variable"><span class="hljs-class">Application</span></span> <span class="hljs-variable">Layer</span>）<br>  ↓ <span class="hljs-variable">Agent</span> <span class="hljs-variable">Skills</span><br>  ↓ 领域知识、工作流、最佳实践<br><br>传输层（<span class="hljs-variable">Transport</span> <span class="hljs-variable">Layer</span>）<br>  ↓ <span class="hljs-variable">MCP</span><br>  ↓ 标准化接口、工具调用、资源访问<br><br>基础设施层（<span class="hljs-variable">Infrastructure</span> <span class="hljs-variable">Layer</span>）<br>  ↓ 数据库、<span class="hljs-variable">API</span>、文件系统、外部服务<br></code></pre></td></tr></table></figure>
+
+<p>这与传统软件架构的演进路径完全一致（从单体到分层到微服务），只是在 AI 领域重新演绎了一遍。</p>
+<h3 id="标准化的趋势"><a href="#标准化的趋势" class="headerlink" title="标准化的趋势"></a>标准化的趋势</h3><p>随着行业对智能体技术的重视，我们预见以下趋势：</p>
+<p><strong>1. 协议融合</strong></p>
+<p>未来可能出现统一的智能体能力描述协议，融合 MCP 的连接性和 Skills 的知识表达：</p>
+<figure class="hljs highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># 未来的统一协议示例（假想）</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">agent.io/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Capability</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">enterprise-data-analysis</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">transport:</span><br>    <span class="hljs-attr">protocol:</span> <span class="hljs-string">mcp</span><br>    <span class="hljs-attr">server:</span> <span class="hljs-string">database-mcp-server</span><br>    <span class="hljs-attr">tools:</span> [<span class="hljs-string">query</span>, <span class="hljs-string">schema</span>]<br>  <span class="hljs-attr">knowledge:</span><br>    <span class="hljs-attr">type:</span> <span class="hljs-string">skill</span><br>    <span class="hljs-attr">workflow:</span> <span class="hljs-string">data-analysis-workflow.md</span><br>    <span class="hljs-attr">examples:</span> <span class="hljs-string">examples/</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>2. 市场化与生态系统</strong></p>
+<p>类似于 NPM、PyPI，未来可能出现智能体能力的包管理系统：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 假想的未来命令</span><br>agent-cli install @anthropic/frontend-design-skill<br>agent-cli install @google/data-analysis-suite<br>agent-cli install @openai/code-review-assistant<br></code></pre></td></tr></table></figure>
+
+<p>开发者可以发布、分享、售卖自己的 Skills 和 MCP 服务器，形成繁荣的生态系统。</p>
+<p><strong>3. 自动化能力发现</strong></p>
+<p>智能体可能发展出自动发现和学习新能力的机制：</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 未来的智能体可能具备自主学习能力</span><br>agent = SelfEvolvingAgent()<br><br><span class="hljs-comment"># 智能体在执行任务时发现缺少某种能力</span><br>response = agent.run(<span class="hljs-string">&quot;生成 3D 建模文件&quot;</span>)<br><br><span class="hljs-comment"># 智能体自动搜索并安装相关 Skill</span><br><span class="hljs-comment"># [内部日志] 检测到未知任务类型：3D建模</span><br><span class="hljs-comment"># [内部日志] 搜索技能库...发现 &quot;blender-3d-modeling&quot; skill</span><br><span class="hljs-comment"># [内部日志] 请求用户授权安装...已授权</span><br><span class="hljs-comment"># [内部日志] 技能安装完成，重新执行任务</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="挑战与风险"><a href="#挑战与风险" class="headerlink" title="挑战与风险"></a>挑战与风险</h3><p>与此同时，我们也需要警惕潜在的风险：</p>
+<p><strong>安全性挑战</strong>：</p>
+<ul>
+<li>Skills 包含可执行脚本，存在代码注入风险</li>
+<li>MCP 服务器可能暴露敏感数据接口</li>
+<li>第三方技能的可信度难以验证</li>
+</ul>
+<p><strong>上下文污染</strong>：</p>
+<ul>
+<li>随着 Skills 数量增加，即使是元数据也可能占用大量上下文</li>
+<li>需要更智能的技能索引和检索机制</li>
+</ul>
+<p><strong>碎片化风险</strong>：</p>
+<ul>
+<li>虽然 MCP 正在标准化，但 Skills 格式尚未统一</li>
+<li>不同厂商可能推出不兼容的 Skills 规范</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Agent Skills 和 MCP 代表了智能体技术栈中两个关键的抽象层：</p>
+<ul>
+<li><strong>MCP（Model Context Protocol）</strong>：解决”连接性”问题，是智能体与外部世界交互的标准化接口，相当于”神经系统”或”双手”</li>
+<li><strong>Agent Skills</strong>：解决”能力”问题，是领域知识和工作流的封装，相当于”大脑皮层”或”操作手册”</li>
+</ul>
+<p>两者不是竞争关系，而是互补关系：</p>
+<div align="center">
+  <img src="./images/Extra05-figures/image6.png" alt="MCP与Agent Skills总结对比" width="90%"/>
+  <p>图 6 MCP 与 Agent Skills 全面对比总结</p>
+</div>
+
+
+<p><strong>关键洞察</strong>：</p>
+<ol>
+<li><p><strong>分层架构是必然趋势</strong>：随着智能体系统复杂度增加，”连接层”和”知识层”的分离是不可避免的</p>
+</li>
+<li><p><strong>上下文效率是核心矛盾</strong>：Skills 的渐进式披露机制将 token 消耗降低 90% 以上，这是其最大的技术优势</p>
+</li>
+<li><p><strong>领域知识的民主化</strong>：Skills 让非开发者也能贡献智能体能力，这将极大拓展 AI 应用的边界</p>
+</li>
+<li><p><strong>混合架构是最佳实践</strong>：在企业级应用中，MCP 提供基础设施连接，Skills 提供业务逻辑，两者结合才能构建高效、可维护的智能体系统</p>
+</li>
+</ol>
+<p><strong>实践建议</strong>：</p>
+<ul>
+<li>对于<strong>外部服务连接</strong>（数据库、API、云服务），优先使用 MCP</li>
+<li>对于<strong>复杂工作流</strong>（多步骤任务、领域专业知识），优先使用 Skills</li>
+<li>在<strong>上下文受限</strong>的场景（长对话、大量工具），使用 Skills 进行渐进式管理</li>
+<li>构建<strong>企业级智能体</strong>时，采用 MCP + Skills 的分层架构</li>
+</ul>
+<p>通过本章的学习，你应该能够：</p>
+<ul>
+<li>理解 Agent Skills 和 MCP 的本质区别与协作关系</li>
+<li>掌握 Skills 的渐进式披露机制及其优势</li>
+<li>编写高质量的 SKILL.md 文件</li>
+<li>在实际项目中合理选择和组合两种技术</li>
+<li>构建分层清晰、高效可维护的智能体系统</li>
+</ul>
+<p>智能体技术仍在快速演进中。MCP 已成为连接层的事实标准，Skills 的理念也在影响整个行业。掌握这两种技术，将帮助你在 AI 浪潮中构建更强大、更实用的智能体应用。</p>
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li>Anthropic Agent Skills 官方文档：<a target="_blank" rel="noopener" href="https://docs.anthropic.com/en/docs/agent-skills">https://docs.anthropic.com/en/docs/agent-skills</a></li>
+<li>Anthropic Skills GitHub 仓库：<a target="_blank" rel="noopener" href="https://github.com/anthropics/skills">https://github.com/anthropics/skills</a></li>
+<li>Model Context Protocol 规范：<a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/">https://modelcontextprotocol.io/</a></li>
+<li>Anthropic 博客：Improving Frontend Design Through Skills：<a target="_blank" rel="noopener" href="https://www.claude.com/blog/improving-frontend-design-through-skills">https://www.claude.com/blog/improving-frontend-design-through-skills</a></li>
+<li>第十章：智能体通信协议（hello-agents）</li>
+</ol>
+
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        <a class="post-tag button" href="/tags/Hello-Agents-%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fas fa-tags"></i>Hello Agents 学习</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  
+  <nav class="page-nav">
+    <div class="page-nav-next page-nav-item">
+      
+      <a href="/2026/03/03/ai-agent-learning/Extra03-Dify%E6%99%BA%E8%83%BD%E4%BD%93%E5%88%9B%E5%BB%BA%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/" rel="next" title="Dify智能体搭建实战指南：<br>从零构建全能个人助手(保姆级教程)"><i class="fas fa-angle-left"></i><span class="nav-title">Dify智能体搭建实战指南：<br>从零构建全能个人助手(保姆级教程)</span></a>
+      
+    </div>
+    <div class="page-nav-prev page-nav-item">
+      
+      <a href="/2026/03/03/ai-agent-learning/Extra06-GUIAgent%E7%A7%91%E6%99%AE%E4%B8%8E%E5%AE%9E%E6%88%98/" rel="prev" title="GUI Agent 科普与实战——下一代人机交互的探索之旅"><span class="nav-title">GUI Agent 科普与实战——下一代人机交互的探索之旅</span><i class="fas fa-angle-right"></i></a>
+      
+    </div>
+  </nav>
+  
+  
+</div>
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/background.png);">
+  
+  <div class="search">
+    <div class="form-group">
+      <i class="fas fa-search"></i><input type="search" id="search-input" name="q" results="0" placeholder="Search" class="form-control"/>
+    </div>
+  </div>
+  <div class="search-result-box" id="search-result"></div>
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <img class="author-avatar" src="/img/avatar.jpg" alt="Jason Dong">
+  
+  <h1 class="author-name">Jason Dong</h1>
+  <h2 class="author-description"></h2>
+  <div class="site-count">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+    
+    
+    
+    <hr>
+    <div class="post-toc sidebar-item" id="toc-div">
+      <div><i class="fas fa-list-ol"></i>Table of Contents</div>
+      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-1"><a class="list-group-item toc-link" href="#Agent-Skills-%E4%B8%8E-MCP%EF%BC%9A%E6%99%BA%E8%83%BD%E4%BD%93%E8%83%BD%E5%8A%9B%E6%89%A9%E5%B1%95%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%8C%83%E5%BC%8F"><span class="toc-text">Agent Skills 与 MCP：智能体能力扩展的两种范式</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E5%BC%95%E8%A8%80%EF%BC%9AMCP-%E4%B9%8B%E5%90%8E%EF%BC%8C%E6%88%91%E4%BB%AC%E8%BF%98%E9%9C%80%E8%A6%81%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">引言：MCP 之后，我们还需要什么？</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Agent-Skills%EF%BC%9F"><span class="toc-text">什么是 Agent Skills？</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5"><span class="toc-text">核心设计理念</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E6%B8%90%E8%BF%9B%E5%BC%8F%E6%8A%AB%E9%9C%B2%EF%BC%9A%E7%A0%B4%E8%A7%A3%E4%B8%8A%E4%B8%8B%E6%96%87%E5%9B%B0%E5%A2%83"><span class="toc-text">渐进式披露：破解上下文困境</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E7%AC%AC%E4%B8%80%E5%B1%82%EF%BC%9A%E5%85%83%E6%95%B0%E6%8D%AE%EF%BC%88Metadata%EF%BC%89"><span class="toc-text">第一层：元数据（Metadata）</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E7%AC%AC%E4%BA%8C%E5%B1%82%EF%BC%9A%E6%8A%80%E8%83%BD%E4%B8%BB%E4%BD%93%EF%BC%88Instructions%EF%BC%89"><span class="toc-text">第二层：技能主体（Instructions）</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E7%AC%AC%E4%B8%89%E5%B1%82%EF%BC%9A%E9%99%84%E5%8A%A0%E8%B5%84%E6%BA%90%EF%BC%88Scripts-amp-References%EF%BC%89"><span class="toc-text">第三层：附加资源（Scripts &amp; References）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E6%B8%90%E8%BF%9B%E5%BC%8F%E6%8A%AB%E9%9C%B2%E7%9A%84%E6%95%88%E6%9E%9C%EF%BC%9A%E4%BB%8E-16k-%E5%88%B0-500-Token"><span class="toc-text">渐进式披露的效果：从 16k 到 500 Token</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#Agent-Skills-vs-MCP%EF%BC%9A%E6%9C%AC%E8%B4%A8%E5%8C%BA%E5%88%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C%E5%85%B3%E7%B3%BB"><span class="toc-text">Agent Skills vs MCP：本质区别与协作关系</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E4%BB%8E%E5%B7%A5%E7%A8%8B%E8%A7%86%E8%A7%92%E7%90%86%E8%A7%A3%E5%B7%AE%E5%BC%82"><span class="toc-text">从工程视角理解差异</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E7%AD%96%E7%95%A5%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%B7%AE%E5%BC%82"><span class="toc-text">上下文管理策略的本质差异</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E4%BA%92%E8%A1%A5%E8%80%8C%E9%9D%9E%E7%AB%9E%E4%BA%89%EF%BC%9ASkills-MCP-%E7%9A%84%E6%B7%B7%E5%90%88%E6%9E%B6%E6%9E%84"><span class="toc-text">互补而非竞争：Skills + MCP 的混合架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8-Skills"><span class="toc-text">技术实现：如何创建和使用 Skills</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#SKILL-md-%E8%A7%84%E8%8C%83%E8%AF%A6%E8%A7%A3"><span class="toc-text">SKILL.md 规范详解</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E7%BC%96%E5%86%99%E9%AB%98%E8%B4%A8%E9%87%8F-Skills-%E7%9A%84%E5%8E%9F%E5%88%99"><span class="toc-text">编写高质量 Skills 的原则</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#1-%E7%B2%BE%E5%87%86%E7%9A%84-Description"><span class="toc-text">1. 精准的 Description</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#2-%E6%A8%A1%E5%9D%97%E5%8C%96%E4%B8%8E%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3"><span class="toc-text">2. 模块化与单一职责</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#3-%E7%A1%AE%E5%AE%9A%E6%80%A7%E4%BC%98%E5%85%88%E5%8E%9F%E5%88%99"><span class="toc-text">3. 确定性优先原则</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#4-%E6%B8%90%E8%BF%9B%E5%BC%8F%E6%8A%AB%E9%9C%B2%E7%AD%96%E7%95%A5"><span class="toc-text">4. 渐进式披露策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E5%AE%9E%E8%B7%B5%E6%A1%88%E4%BE%8B%EF%BC%9AMySQL-%E5%91%98%E5%B7%A5%E5%88%86%E6%9E%90-Skill-%E8%AF%A6%E8%A7%A3"><span class="toc-text">实践案例：MySQL 员工分析 Skill 详解</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E6%8A%80%E8%83%BD%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-text">技能文件结构</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#SKILL-md-%E6%A0%B8%E5%BF%83%E5%86%85%E5%AE%B9%E7%A4%BA%E4%BE%8B"><span class="toc-text">SKILL.md 核心内容示例</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#%E6%8A%80%E8%83%BD%E7%9A%84%E4%BD%BF%E7%94%A8%E6%95%88%E6%9E%9C"><span class="toc-text">技能的使用效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#Skills-%E7%9A%84%E5%88%86%E4%BA%AB%E4%B8%8E%E5%A4%8D%E7%94%A8"><span class="toc-text">Skills 的分享与复用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E8%A1%8C%E4%B8%9A%E5%8A%A8%E6%80%81%E4%B8%8E%E7%94%9F%E6%80%81%E6%BC%94%E8%BF%9B"><span class="toc-text">行业动态与生态演进</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E6%A0%87%E5%87%86%E5%8C%96%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%8E%82%E5%95%86%E6%94%AF%E6%8C%81"><span class="toc-text">标准化进程与厂商支持</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84%E7%9A%84%E5%BF%85%E7%84%B6%E6%80%A7"><span class="toc-text">分层架构的必然性</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E6%A0%87%E5%87%86%E5%8C%96%E7%9A%84%E8%B6%8B%E5%8A%BF"><span class="toc-text">标准化的趋势</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E6%8C%91%E6%88%98%E4%B8%8E%E9%A3%8E%E9%99%A9"><span class="toc-text">挑战与风险</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></li></ol></div>
+    </div>
+    
+    
+    
+    <hr>
+    <div class="social-link sidebar-item">
+      <div><i class="far fa-address-card"></i>Social Links</p></div>
+      <ul>
+        
+        <li><i class="fab fa-github"></i><a href="https://github.com/JasonDong97" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-envelope"></i><a href="mailto:534458392@qq.com" target="_blank">Email</a></li>
+        
+      </ul>
+    </div>
+    
+    
+    <hr>
+    <div class="blogroll sidebar-item">
+      <div><i class="fas fa-link"></i>Blogroll</div>
+      <ul>
+        
+        <li><i class="fas fa-link"></i><a href="https://hexo.io/" target="_blank">Hexo</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://developer.mozilla.org/" target="_blank">MDN</a></li>
+        
+      </ul>
+    </div>
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer" style="background: #33363b;">
+  <div class="container">
+    <div class="back-to-top">
+      <button id="back-to-top"><i class="fas fa-angle-double-up" aria-label="Back to Top"></i></button>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">Jason Dong</span><span class="year"><i class="far fa-copyright"></i>2020 - 2026</span><span class="creative-commons"><i class="fab fa-creative-commons"></i><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">BY-NC-SA 4.0</a></span>
+        </div>
+        
+        <div class="busuanzi">
+          <span id="busuanzi_container_site_pv"><i class="fas fa-eye" aria-label="Site Visit Count" aria-hidden="false"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user" aria-label="Site User Count" aria-hidden="false"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv" aria-label="Page Click Count" aria-hidden="false"></span></span>
+        </div>
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+          <i class="fas fa-heart"></i> Jason Dong | 托管于 <i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+          
+        </div>
+        <div class="powered-by">
+          Proudly Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme is <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>

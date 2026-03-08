@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    
+    
+    
+    
+    <meta name="keywords" content="Jason Dong, 后端工程师, Java, Python, Hexo">
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    
+    <link rel="alternate" href="/atom.xml" title="Jason Dong" type="application/atom+xml" />
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicons/favicon.ico">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+<link rel="stylesheet" type="text/css" href="/css/page.css">
+<link rel="stylesheet" type="text/css" href="/css/post.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/clipboard.min.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
+    
+    
+    <script defer type="text/javascript" src="/js/search.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var searchPath = "search.xml";
+      if (searchPath.length === 0) {
+        searchPath = "search.xml";
+      }
+      var path = "/" + searchPath;
+      searchFunc(path, "search-input", "search-result");
+    });
+    </script>
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var cb = null;
+      var els = $(".post figure.highlight");
+      if (els.length) {
+        // Enabled Hexo highlight line number.
+        $(els).each(function (i, e) {
+          // $(e).before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling.firstChild.firstChild.firstChild.lastChild.firstChild.firstChild;
+          }
+        });
+      } else {
+        // Disabled Hexo highlight line number.
+        els = $(".post pre code");
+        $(els).each(function (i, e) {
+          // Add button before pre, not code.
+          // $(e).parent().before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling;
+          }
+        });
+      }
+      cb.on("success", function (e) {
+        e.clearSelection();
+        var trigger = e.trigger;
+        // Change button text as a user tip.
+        trigger.innerHTML = "<i class=\"far fa-check-square\"></i>";
+        $(trigger).addClass("copied");
+        // Change button text back;
+        setTimeout(function () {
+          trigger.innerHTML = "<i class=\"far fa-copy\"></i>";
+          $(trigger).removeClass("copied");
+        }, 1500);
+      });
+    });
+    </script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>第四章 智能体经典范式构建 | Jason Dong - 后端工程师</title>
+  <meta name="generator" content="Hexo 5.4.2"></head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN"  data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header" style="background: #33363b;">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">Jason Dong</a></h1>
+        <h2 class="subtitle">后端工程师</h2>
+      </div>
+      
+      <div class="logo">
+        <img src="/images/logo.png" alt="logo">
+      </div>
+      
+    </div>
+    <nav id="nav" class="nav">
+      <a id="nav-toggle" class="nav-toggle" aria-hidden="true"><i class="fas fa-bars" aria-label="Toggle Navbar"></i></a>
+      <ul id="menu" role="menubar" aria-hidden="false">
+        
+        <li role="menuitem"><a href="/"><i class="fas fa-home"></i><span class="menu-text">首页</span></a></li>
+        
+        <li role="menuitem"><a href="/archives/"><i class="fas fa-archive"></i><span class="menu-text">归档</span></a></li>
+        
+        <li role="menuitem"><a href="/categories/"><i class="fas fa-th-list"></i><span class="menu-text">分类</span></a></li>
+        
+        <li role="menuitem"><a href="/tags/"><i class="fas fa-tags"></i><span class="menu-text">标签</span></a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
+<div id="post" class="page">
+  
+  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://jasondong97.github.io/2026/03/01/ai-agent-learning/%E7%AC%AC4%E7%AB%A0-%E6%99%BA%E8%83%BD%E4%BD%93%E7%BB%8F%E5%85%B8%E8%8C%83%E5%BC%8F%E6%9E%84%E5%BB%BA/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+       <meta itemprop="name" content="Jason Dong">
+       <meta itemprop="description" content="">
+       <meta itemprop="image" content="/img/avatar.jpg">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+       <meta itemprop="name" content="Jason Dong">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">第四章 智能体经典范式构建</h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2026-03-01T18:00:00+08:00">2026-03-01 18:00:00</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hello-Agents-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Hello Agents 学习</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-main" itemprop="articleBody">
+      <h1 id="第四章-智能体经典范式构建"><a href="#第四章-智能体经典范式构建" class="headerlink" title="第四章 智能体经典范式构建"></a>第四章 智能体经典范式构建</h1><p>在上一章中，我们深入探讨了作为现代智能体“大脑”的大语言模型。我们了解了其内部的Transformer架构、与之交互的方法，以及它的能力边界。现在，是时候将这些理论知识转化为实践，亲手构建智能体了。</p>
+<p>一个现代的智能体，其核心能力在于能将大语言模型的推理能力与外部世界联通。它能够自主地理解用户意图、拆解复杂任务，并通过调用代码解释器、搜索引擎、API等一系列“工具”，来获取信息、执行操作，最终达成目标。 然而，智能体并非万能，它同样面临着来自大模型本身的“幻觉”问题、在复杂任务中可能陷入推理循环、以及对工具的错误使用等挑战，这些也构成了智能体的能力边界。</p>
+<p>为了更好地组织智能体的“思考”与“行动”过程，业界涌现出了多种经典的架构范式。在本章中，我们将聚焦于其中最具代表性的三种，并一步步从零实现它们：</p>
+<ul>
+<li><strong>ReAct (Reasoning and Acting)：</strong> 一种将“思考”和“行动”紧密结合的范式，让智能体边想边做，动态调整。</li>
+<li><strong>Plan-and-Solve：</strong> 一种“三思而后行”的范式，智能体首先生成一个完整的行动计划，然后严格执行。</li>
+<li><strong>Reflection：</strong> 一种赋予智能体“反思”能力的范式，通过自我批判和修正来优化结果。</li>
+</ul>
+<p>了解了这些之后，你可能会问，市面上已有LangChain、LlamaIndex等众多优秀框架，为何还要“重复造轮子”？答案在于，尽管成熟的框架在工程效率上优势显著，但直接使用高度抽象的工具，并不利于我们了解背后的设计机制是怎么运行的，或者是有何好处。其次，这个过程会暴露出项目的工程挑战。框架为我们处理了许多问题，例如模型输出格式的解析、工具调用失败的重试、防止智能体陷入死循环等。亲手处理这些问题，是培养系统设计能力的最直接方式。最后，也是最重要的一点，掌握了设计原理，你才能真正地从一个框架的“使用者”转变为一个智能体应用的“创造者”。当标准组件无法满足你的复杂需求时，你将拥有深度定制乃至从零构建一个全新智能体的能力。</p>
+<h2 id="4-1-环境准备与基础工具定义"><a href="#4-1-环境准备与基础工具定义" class="headerlink" title="4.1 环境准备与基础工具定义"></a>4.1 环境准备与基础工具定义</h2><p>在开始构建之前，我们需要先搭建好开发环境并定义一些基础组件。这能帮助我们在后续实现不同范式时，避免重复劳动，更专注于核心逻辑。</p>
+<h3 id="4-1-1-安装依赖库"><a href="#4-1-1-安装依赖库" class="headerlink" title="4.1.1 安装依赖库"></a>4.1.1 安装依赖库</h3><p>本书的实战部分将主要使用 Python 语言，建议使用 Python 3.10 或更高版本。首先，请确保你已经安装了 <code>openai</code> 库用于与大语言模型交互，以及 <code>python-dotenv</code> 库用于安全地管理我们的 API 密钥。</p>
+<p>在你的终端中运行以下命令：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install openai python-dotenv<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-1-2-配置-API-密钥"><a href="#4-1-2-配置-API-密钥" class="headerlink" title="4.1.2 配置 API 密钥"></a>4.1.2 配置 API 密钥</h3><p>为了让我们的代码更通用，我们将模型服务的相关信息（模型ID、API密钥、服务地址）统一配置在环境变量中。</p>
+<ol>
+<li>在你的项目根目录下，创建一个名为 <code>.env</code> 的文件。</li>
+<li>在该文件中，添加以下内容。你可以根据自己的需要，将其指向 OpenAI 官方服务，或任何兼容 OpenAI 接口的本地&#x2F;第三方服务。</li>
+<li>如果实在不知道如何获取，可以参考 <a target="_blank" rel="noopener" href="https://github.com/datawhalechina/hello-agents/blob/main/Extra-Chapter/Extra07-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.md">环境配置</a></li>
+</ol>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># .env file</span><br>LLM_API_KEY=<span class="hljs-string">&quot;YOUR-API-KEY&quot;</span><br>LLM_MODEL_ID=<span class="hljs-string">&quot;YOUR-MODEL&quot;</span><br>LLM_BASE_URL=<span class="hljs-string">&quot;YOUR-URL&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>我们的代码将从此文件自动加载这些配置。</p>
+<h3 id="4-1-3-封装基础-LLM-调用函数"><a href="#4-1-3-封装基础-LLM-调用函数" class="headerlink" title="4.1.3 封装基础 LLM 调用函数"></a>4.1.3 封装基础 LLM 调用函数</h3><p>为了让代码结构更清晰、更易于复用，我们来定义一个专属的LLM客户端类。这个类将封装所有与模型服务交互的细节，让我们的主逻辑可以更专注于智能体的构建。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> openai <span class="hljs-keyword">import</span> OpenAI<br><span class="hljs-keyword">from</span> dotenv <span class="hljs-keyword">import</span> load_dotenv<br><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">List</span>, <span class="hljs-type">Dict</span><br><br><span class="hljs-comment"># 加载 .env 文件中的环境变量</span><br>load_dotenv()<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloAgentsLLM</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    为本书 &quot;Hello Agents&quot; 定制的LLM客户端。</span><br><span class="hljs-string">    它用于调用任何兼容OpenAI接口的服务，并默认使用流式响应。</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model: <span class="hljs-built_in">str</span> = <span class="hljs-literal">None</span>, apiKey: <span class="hljs-built_in">str</span> = <span class="hljs-literal">None</span>, baseUrl: <span class="hljs-built_in">str</span> = <span class="hljs-literal">None</span>, timeout: <span class="hljs-built_in">int</span> = <span class="hljs-literal">None</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        初始化客户端。优先使用传入参数，如果未提供，则从环境变量加载。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        self.model = model <span class="hljs-keyword">or</span> os.getenv(<span class="hljs-string">&quot;LLM_MODEL_ID&quot;</span>)<br>        apiKey = apiKey <span class="hljs-keyword">or</span> os.getenv(<span class="hljs-string">&quot;LLM_API_KEY&quot;</span>)<br>        baseUrl = baseUrl <span class="hljs-keyword">or</span> os.getenv(<span class="hljs-string">&quot;LLM_BASE_URL&quot;</span>)<br>        timeout = timeout <span class="hljs-keyword">or</span> <span class="hljs-built_in">int</span>(os.getenv(<span class="hljs-string">&quot;LLM_TIMEOUT&quot;</span>, <span class="hljs-number">60</span>))<br>        <br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">all</span>([self.model, apiKey, baseUrl]):<br>            <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&quot;模型ID、API密钥和服务地址必须被提供或在.env文件中定义。&quot;</span>)<br><br>        self.client = OpenAI(api_key=apiKey, base_url=baseUrl, timeout=timeout)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">think</span>(<span class="hljs-params">self, messages: <span class="hljs-type">List</span>[<span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-built_in">str</span>]], temperature: <span class="hljs-built_in">float</span> = <span class="hljs-number">0</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        调用大语言模型进行思考，并返回其响应。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;🧠 正在调用 <span class="hljs-subst">&#123;self.model&#125;</span> 模型...&quot;</span>)<br>        <span class="hljs-keyword">try</span>:<br>            response = self.client.chat.completions.create(<br>                model=self.model,<br>                messages=messages,<br>                temperature=temperature,<br>                stream=<span class="hljs-literal">True</span>,<br>            )<br>            <br>            <span class="hljs-comment"># 处理流式响应</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;✅ 大语言模型响应成功:&quot;</span>)<br>            collected_content = []<br>            <span class="hljs-keyword">for</span> chunk <span class="hljs-keyword">in</span> response:<br>                content = chunk.choices[<span class="hljs-number">0</span>].delta.content <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;&quot;</span><br>                <span class="hljs-built_in">print</span>(content, end=<span class="hljs-string">&quot;&quot;</span>, flush=<span class="hljs-literal">True</span>)<br>                collected_content.append(content)<br>            <span class="hljs-built_in">print</span>()  <span class="hljs-comment"># 在流式输出结束后换行</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>.join(collected_content)<br><br>        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;❌ 调用LLM API时发生错误: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br><br><span class="hljs-comment"># --- 客户端使用示例 ---</span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-keyword">try</span>:<br>        llmClient = HelloAgentsLLM()<br>        <br>        exampleMessages = [<br>            &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;You are a helpful assistant that writes Python code.&quot;</span>&#125;,<br>            &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;写一个快速排序算法&quot;</span>&#125;<br>        ]<br>        <br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;--- 调用LLM ---&quot;</span>)<br>        responseText = llmClient.think(exampleMessages)<br>        <span class="hljs-keyword">if</span> responseText:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n\n--- 完整模型响应 ---&quot;</span>)<br>            <span class="hljs-built_in">print</span>(responseText)<br><br>    <span class="hljs-keyword">except</span> ValueError <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(e)<br><br><br>&gt;&gt;&gt;<br>--- 调用LLM ---<br>🧠 正在调用 xxxxxx 模型...<br>✅ 大语言模型响应成功:<br>快速排序是一种非常高效的排序算法...<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-2-ReAct"><a href="#4-2-ReAct" class="headerlink" title="4.2 ReAct"></a>4.2 ReAct</h2><p>在准备好LLM客户端后，我们将构建第一个，也是最经典的一个智能体范式<strong>ReAct (Reason + Act)</strong>。ReAct由Shunyu Yao于2022年提出<sup>[1]</sup>，其核心思想是模仿人类解决问题的方式，将<strong>推理 (Reasoning)</strong> 与<strong>行动 (Acting)</strong> 显式地结合起来，形成一个“思考-行动-观察”的循环。</p>
+<h3 id="4-2-1-ReAct-的工作流程"><a href="#4-2-1-ReAct-的工作流程" class="headerlink" title="4.2.1 ReAct 的工作流程"></a>4.2.1 ReAct 的工作流程</h3><p>在ReAct诞生之前，主流的方法可以分为两类：一类是“纯思考”型，如<strong>思维链 (Chain-of-Thought)</strong>，它能引导模型进行复杂的逻辑推理，但无法与外部世界交互，容易产生事实幻觉；另一类是“纯行动”型，模型直接输出要执行的动作，但缺乏规划和纠错能力。</p>
+<p>ReAct的巧妙之处在于，它认识到<strong>思考与行动是相辅相成的</strong>。思考指导行动，而行动的结果又反过来修正思考。为此，ReAct范式通过一种特殊的提示工程来引导模型，使其每一步的输出都遵循一个固定的轨迹：</p>
+<ul>
+<li><strong>Thought (思考)：</strong> 这是智能体的“内心独白”。它会分析当前情况、分解任务、制定下一步计划，或者反思上一步的结果。</li>
+<li><strong>Action (行动)：</strong> 这是智能体决定采取的具体动作，通常是调用一个外部工具，例如 <code>Search[&#39;华为最新款手机&#39;]</code>。</li>
+<li><strong>Observation (观察)：</strong> 这是执行<code>Action</code>后从外部工具返回的结果，例如搜索结果的摘要或API的返回值。</li>
+</ul>
+<p>智能体将不断重复这个 <strong>Thought -&gt; Action -&gt; Observation</strong> 的循环，将新的观察结果追加到历史记录中，形成一个不断增长的上下文，直到它在<code>Thought</code>中认为已经找到了最终答案，然后输出结果。这个过程形成了一个强大的协同效应：<strong>推理使得行动更具目的性，而行动则为推理提供了事实依据。</strong></p>
+<p>我们可以将这个过程形式化地表达出来，如图4.1所示。具体来说，在每个时间步 $t$，智能体的策略（即大语言模型 $\pi$）会根据初始问题 $q$ 和之前所有步骤的“行动-观察”历史轨迹 $((a_1,o_1),\dots,(a_{t-1},o_{t-1}))$，来生成当前的思考 $th_t$ 和行动 $a_t$：</p>
+<p>$$\left(th_t,a_t\right)&#x3D;\pi\left(q,(a_1,o_1),\ldots,(a_{t-1},o_{t-1})\right)$$</p>
+<p>随后，环境中的工具 $T$ 会执行行动 $a_t$，并返回一个新的观察结果 $o_t$：</p>
+<p>$$o_t &#x3D; T(a_t)$$</p>
+<p>这个循环不断进行，将新的 $(a_t,o_t)$ 对追加到历史中，直到模型在思考 $th_t$ 中判断任务已完成。</p>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/datawhalechina/Hello-Agents/main/docs/images/4-figures/4-1.png" alt="ReAct范式中的“思考-行动-观察”协同循环" width="90%"/>
+  <p>图 4.1 ReAct 范式中的“思考-行动-观察”协同循环</p>
+</div>
+
+<p>这种机制特别适用于以下场景：</p>
+<ul>
+<li><strong>需要外部知识的任务</strong>：如查询实时信息（天气、新闻、股价）、搜索专业领域的知识等。</li>
+<li><strong>需要精确计算的任务</strong>：将数学问题交给计算器工具，避免LLM的计算错误。</li>
+<li><strong>需要与API交互的任务</strong>：如操作数据库、调用某个服务的API来完成特定功能。</li>
+</ul>
+<p>因此我们将构建一个具备<strong>使用外部工具</strong>能力的ReAct智能体，来回答一个大语言模型仅凭自身知识库无法直接回答的问题。例如：“华为最新的手机是哪一款？它的主要卖点是什么？” 这个问题需要智能体理解自己需要上网搜索，调用工具搜索结果并总结答案。</p>
+<h3 id="4-2-2-工具的定义与实现"><a href="#4-2-2-工具的定义与实现" class="headerlink" title="4.2.2 工具的定义与实现"></a>4.2.2 工具的定义与实现</h3><p>如果说大语言模型是智能体的大脑，那么<strong>工具 (Tools)</strong> 就是其与外部世界交互的“手和脚”。为了让ReAct范式能够真正解决我们设定的问题，智能体需要具备调用外部工具的能力。</p>
+<p>针对本节设定的目标——回答关于“华为最新手机”的问题，我们需要为智能体提供一个网页搜索工具。在这里我们选用 <strong>SerpApi</strong>，它通过API提供结构化的Google搜索结果，能直接返回“答案摘要框”或精确的知识图谱信息。</p>
+<p>首先，需要安装该库：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install google-search-results<br></code></pre></td></tr></table></figure>
+
+<p>同时，你需要前往 <a target="_blank" rel="noopener" href="https://serpapi.com/">SerpApi官网</a> 注册一个免费账户，获取你的API密钥，并将其添加到我们项目根目录下的 <code>.env</code> 文件中：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># .env file</span><br><span class="hljs-comment"># ... (保留之前的LLM配置)</span><br>SERPAPI_API_KEY=<span class="hljs-string">&quot;YOUR_SERPAPI_API_KEY&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>接下来，我们通过代码来定义和管理这个工具。我们将分步进行：首先实现工具的核心功能，然后构建一个通用的工具管理器。</p>
+<p>（1）实现搜索工具的核心逻辑</p>
+<p>一个良好定义的工具应包含以下三个核心要素：</p>
+<ol>
+<li><strong>名称 (Name)</strong>： 一个简洁、唯一的标识符，供智能体在 <code>Action</code> 中调用，例如 <code>Search</code>。</li>
+<li><strong>描述 (Description)</strong>： 一段清晰的自然语言描述，说明这个工具的用途。<strong>这是整个机制中最关键的部分</strong>，因为大语言模型会依赖这段描述来判断何时使用哪个工具。</li>
+<li><strong>执行逻辑 (Execution Logic)</strong>： 真正执行任务的函数或方法。</li>
+</ol>
+<p>我们的第一个工具是 <code>search</code> 函数，它的作用是接收一个查询字符串，然后返回搜索结果。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> serpapi <span class="hljs-keyword">import</span> SerpApiClient<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">search</span>(<span class="hljs-params">query: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    一个基于SerpApi的实战网页搜索引擎工具。</span><br><span class="hljs-string">    它会智能地解析搜索结果，优先返回直接答案或知识图谱信息。</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;🔍 正在执行 [SerpApi] 网页搜索: <span class="hljs-subst">&#123;query&#125;</span>&quot;</span>)<br>    <span class="hljs-keyword">try</span>:<br>        api_key = os.getenv(<span class="hljs-string">&quot;SERPAPI_API_KEY&quot;</span>)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> api_key:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;错误:SERPAPI_API_KEY 未在 .env 文件中配置。&quot;</span><br><br>        params = &#123;<br>            <span class="hljs-string">&quot;engine&quot;</span>: <span class="hljs-string">&quot;google&quot;</span>,<br>            <span class="hljs-string">&quot;q&quot;</span>: query,<br>            <span class="hljs-string">&quot;api_key&quot;</span>: api_key,<br>            <span class="hljs-string">&quot;gl&quot;</span>: <span class="hljs-string">&quot;cn&quot;</span>,  <span class="hljs-comment"># 国家代码</span><br>            <span class="hljs-string">&quot;hl&quot;</span>: <span class="hljs-string">&quot;zh-cn&quot;</span>, <span class="hljs-comment"># 语言代码</span><br>        &#125;<br>        <br>        client = SerpApiClient(params)<br>        results = client.get_dict()<br>        <br>        <span class="hljs-comment"># 智能解析:优先寻找最直接的答案</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;answer_box_list&quot;</span> <span class="hljs-keyword">in</span> results:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;\n&quot;</span>.join(results[<span class="hljs-string">&quot;answer_box_list&quot;</span>])<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;answer_box&quot;</span> <span class="hljs-keyword">in</span> results <span class="hljs-keyword">and</span> <span class="hljs-string">&quot;answer&quot;</span> <span class="hljs-keyword">in</span> results[<span class="hljs-string">&quot;answer_box&quot;</span>]:<br>            <span class="hljs-keyword">return</span> results[<span class="hljs-string">&quot;answer_box&quot;</span>][<span class="hljs-string">&quot;answer&quot;</span>]<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;knowledge_graph&quot;</span> <span class="hljs-keyword">in</span> results <span class="hljs-keyword">and</span> <span class="hljs-string">&quot;description&quot;</span> <span class="hljs-keyword">in</span> results[<span class="hljs-string">&quot;knowledge_graph&quot;</span>]:<br>            <span class="hljs-keyword">return</span> results[<span class="hljs-string">&quot;knowledge_graph&quot;</span>][<span class="hljs-string">&quot;description&quot;</span>]<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;organic_results&quot;</span> <span class="hljs-keyword">in</span> results <span class="hljs-keyword">and</span> results[<span class="hljs-string">&quot;organic_results&quot;</span>]:<br>            <span class="hljs-comment"># 如果没有直接答案，则返回前三个有机结果的摘要</span><br>            snippets = [<br>                <span class="hljs-string">f&quot;[<span class="hljs-subst">&#123;i+<span class="hljs-number">1</span>&#125;</span>] <span class="hljs-subst">&#123;res.get(<span class="hljs-string">&#x27;title&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)&#125;</span>\n<span class="hljs-subst">&#123;res.get(<span class="hljs-string">&#x27;snippet&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)&#125;</span>&quot;</span><br>                <span class="hljs-keyword">for</span> i, res <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(results[<span class="hljs-string">&quot;organic_results&quot;</span>][:<span class="hljs-number">3</span>])<br>            ]<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;\n\n&quot;</span>.join(snippets)<br>        <br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;对不起，没有找到关于 &#x27;<span class="hljs-subst">&#123;query&#125;</span>&#x27; 的信息。&quot;</span><br><br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;搜索时发生错误: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>在上述代码中，首先会检查是否存在 <code>answer_box</code>（Google的答案摘要框）或 <code>knowledge_graph</code>（知识图谱）等信息，如果存在，就直接返回这些最精确的答案。如果不存在，它才会退而求其次，返回前三个常规搜索结果的摘要。这种“智能解析”能为LLM提供质量更高的信息输入。</p>
+<p>（2）构建通用的工具执行器</p>
+<p>当智能体需要使用多种工具时（例如，除了搜索，还可能需要计算、查询数据库等），我们需要一个统一的管理器来注册和调度这些工具。为此，我们创建一个 <code>ToolExecutor</code> 类。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Dict</span>, <span class="hljs-type">Any</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ToolExecutor</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    一个工具执行器，负责管理和执行工具。</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.tools: <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">Any</span>]] = &#123;&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">registerTool</span>(<span class="hljs-params">self, name: <span class="hljs-built_in">str</span>, description: <span class="hljs-built_in">str</span>, func: <span class="hljs-built_in">callable</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        向工具箱中注册一个新工具。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> name <span class="hljs-keyword">in</span> self.tools:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;警告:工具 &#x27;<span class="hljs-subst">&#123;name&#125;</span>&#x27; 已存在，将被覆盖。&quot;</span>)<br>        self.tools[name] = &#123;<span class="hljs-string">&quot;description&quot;</span>: description, <span class="hljs-string">&quot;func&quot;</span>: func&#125;<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;工具 &#x27;<span class="hljs-subst">&#123;name&#125;</span>&#x27; 已注册。&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">getTool</span>(<span class="hljs-params">self, name: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">callable</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        根据名称获取一个工具的执行函数。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> self.tools.get(name, &#123;&#125;).get(<span class="hljs-string">&quot;func&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">getAvailableTools</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">str</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        获取所有可用工具的格式化描述字符串。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;\n&quot;</span>.join([<br>            <span class="hljs-string">f&quot;- <span class="hljs-subst">&#123;name&#125;</span>: <span class="hljs-subst">&#123;info[<span class="hljs-string">&#x27;description&#x27;</span>]&#125;</span>&quot;</span> <br>            <span class="hljs-keyword">for</span> name, info <span class="hljs-keyword">in</span> self.tools.items()<br>        ])<br><br></code></pre></td></tr></table></figure>
+
+<p>(3)测试</p>
+<p>现在，我们将 <code>search</code> 工具注册到 <code>ToolExecutor</code> 中，并模拟一次调用，以验证整个流程是否正常工作。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># --- 工具初始化与使用示例 ---</span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># 1. 初始化工具执行器</span><br>    toolExecutor = ToolExecutor()<br><br>    <span class="hljs-comment"># 2. 注册我们的实战搜索工具</span><br>    search_description = <span class="hljs-string">&quot;一个网页搜索引擎。当你需要回答关于时事、事实以及在你的知识库中找不到的信息时，应使用此工具。&quot;</span><br>    toolExecutor.registerTool(<span class="hljs-string">&quot;Search&quot;</span>, search_description, search)<br>    <br>    <span class="hljs-comment"># 3. 打印可用的工具</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n--- 可用的工具 ---&quot;</span>)<br>    <span class="hljs-built_in">print</span>(toolExecutor.getAvailableTools())<br><br>    <span class="hljs-comment"># 4. 智能体的Action调用，这次我们问一个实时性的问题</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n--- 执行 Action: Search[&#x27;英伟达最新的GPU型号是什么&#x27;] ---&quot;</span>)<br>    tool_name = <span class="hljs-string">&quot;Search&quot;</span><br>    tool_input = <span class="hljs-string">&quot;英伟达最新的GPU型号是什么&quot;</span><br><br>    tool_function = toolExecutor.getTool(tool_name)<br>    <span class="hljs-keyword">if</span> tool_function:<br>        observation = tool_function(tool_input)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;--- 观察 (Observation) ---&quot;</span>)<br>        <span class="hljs-built_in">print</span>(observation)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;错误:未找到名为 &#x27;<span class="hljs-subst">&#123;tool_name&#125;</span>&#x27; 的工具。&quot;</span>)<br>        <br>&gt;&gt;&gt;<br>工具 <span class="hljs-string">&#x27;Search&#x27;</span> 已注册。<br><br>--- 可用的工具 ---<br>- Search: 一个网页搜索引擎。当你需要回答关于时事、事实以及在你的知识库中找不到的信息时，应使用此工具。<br><br>--- 执行 Action: Search[<span class="hljs-string">&#x27;英伟达最新的GPU型号是什么&#x27;</span>] ---<br>🔍 正在执行 [SerpApi] 网页搜索: 英伟达最新的GPU型号是什么<br>--- 观察 (Observation) ---<br>[<span class="hljs-number">1</span>] GeForce RTX <span class="hljs-number">50</span> 系列显卡<br>GeForce RTX™ <span class="hljs-number">50</span> 系列GPU 搭载NVIDIA Blackwell 架构，为游戏玩家和创作者带来全新玩法。RTX <span class="hljs-number">50</span> 系列具备强大的AI 算力，带来升级体验和更逼真的画面。<br><br>[<span class="hljs-number">2</span>] 比较GeForce 系列最新一代显卡和前代显卡<br>比较最新一代RTX <span class="hljs-number">30</span> 系列显卡和前代的RTX <span class="hljs-number">20</span> 系列、GTX <span class="hljs-number">10</span> 和<span class="hljs-number">900</span> 系列显卡。查看规格、功能、技术支持等内容。<br><br>[<span class="hljs-number">3</span>] GeForce 显卡| NVIDIA<br>DRIVE AGX. 强大的车载计算能力，适用于AI 驱动的智能汽车系统 · Clara AGX. 适用于创新型医疗设备和成像的AI 计算. 游戏和创作. GeForce. 探索显卡、游戏解决方案、AI ...<br></code></pre></td></tr></table></figure>
+
+<p>至此，我们已经为智能体配备了连接真实世界互联网的<code>Search</code>工具，为后续的ReAct循环提供了坚实的基础。</p>
+<h3 id="4-2-3-ReAct-智能体的编码实现"><a href="#4-2-3-ReAct-智能体的编码实现" class="headerlink" title="4.2.3 ReAct 智能体的编码实现"></a>4.2.3 ReAct 智能体的编码实现</h3><p>现在，我们将所有独立的组件，LLM客户端和工具执行器组装起来，构建一个完整的 ReAct 智能体。我们将通过一个 <code>ReActAgent</code> 类来封装其核心逻辑。为了便于理解，我们将这个类的实现过程拆分为以下几个关键部分进行讲解。</p>
+<p>（1）系统提示词设计</p>
+<p>提示词是整个 ReAct 机制的基石，它为大语言模型提供了行动的操作指令。我们需要精心设计一个模板，它将动态地插入可用工具、用户问题以及中间步骤的交互历史。</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># ReAct 提示词模板</span><br>REACT_PROMPT_TEMPLATE = <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span><br><span class="hljs-string">请注意，你是一个有能力调用外部工具的智能助手。</span><br><span class="hljs-string"></span><br><span class="hljs-string">可用工具如下:</span><br><span class="hljs-string">&#123;tools&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">请严格按照以下格式进行回应:</span><br><span class="hljs-string"></span><br><span class="hljs-string">Thought: 你的思考过程，用于分析问题、拆解任务和规划下一步行动。</span><br><span class="hljs-string">Action: 你决定采取的行动，必须是以下格式之一:</span><br><span class="hljs-string">- `&#123;&#123;tool_name&#125;&#125;[&#123;&#123;tool_input&#125;&#125;]`:调用一个可用工具。</span><br><span class="hljs-string">- `Finish[最终答案]`:当你认为已经获得最终答案时。</span><br><span class="hljs-string">- 当你收集到足够的信息，能够回答用户的最终问题时，你必须在Action:字段后使用 Finish[最终答案] 来输出最终答案。</span><br><span class="hljs-string"></span><br><span class="hljs-string">现在，请开始解决以下问题:</span><br><span class="hljs-string">Question: &#123;question&#125;</span><br><span class="hljs-string">History: &#123;history&#125;</span><br><span class="hljs-string">&quot;</span><span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>这个模板定义了智能体与LLM之间交互的规范：</p>
+<ul>
+<li><strong>角色定义</strong>： “你是一个有能力调用外部工具的智能助手”，设定了LLM的角色。</li>
+<li><strong>工具清单 (<code>&#123;tools&#125;</code>)</strong>： 告知LLM它有哪些可用的“手脚”。</li>
+<li><strong>格式规约 (<code>Thought</code>&#x2F;<code>Action</code>)</strong>： 这是最重要的部分，它强制LLM的输出具有结构性，使我们能通过代码精确解析其意图。</li>
+<li><strong>动态上下文 (<code>&#123;question&#125;</code>&#x2F;<code>&#123;history&#125;</code>)</strong>： 将用户的原始问题和不断累积的交互历史注入，让LLM基于完整的上下文进行决策。</li>
+</ul>
+<p>（2）核心循环的实现</p>
+<p><code>ReActAgent</code> 的核心是一个循环，它不断地“格式化提示词 -&gt; 调用LLM -&gt; 执行动作 -&gt; 整合结果”，直到任务完成或达到最大步数限制。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">ReActAgent</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, llm_client: HelloAgentsLLM, tool_executor: ToolExecutor, max_steps: <span class="hljs-built_in">int</span> = <span class="hljs-number">5</span></span>):<br>        self.llm_client = llm_client<br>        self.tool_executor = tool_executor<br>        self.max_steps = max_steps<br>        self.history = []<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self, question: <span class="hljs-built_in">str</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        运行ReAct智能体来回答一个问题。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        self.history = [] <span class="hljs-comment"># 每次运行时重置历史记录</span><br>        current_step = <span class="hljs-number">0</span><br><br>        <span class="hljs-keyword">while</span> current_step &lt; self.max_steps:<br>            current_step += <span class="hljs-number">1</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;--- 第 <span class="hljs-subst">&#123;current_step&#125;</span> 步 ---&quot;</span>)<br><br>            <span class="hljs-comment"># 1. 格式化提示词</span><br>            tools_desc = self.tool_executor.getAvailableTools()<br>            history_str = <span class="hljs-string">&quot;\n&quot;</span>.join(self.history)<br>            prompt = REACT_PROMPT_TEMPLATE.<span class="hljs-built_in">format</span>(<br>                tools=tools_desc,<br>                question=question,<br>                history=history_str<br>            )<br><br>            <span class="hljs-comment"># 2. 调用LLM进行思考</span><br>            messages = [&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: prompt&#125;]<br>            response_text = self.llm_client.think(messages=messages)<br>            <br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> response_text:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;错误:LLM未能返回有效响应。&quot;</span>)<br>                <span class="hljs-keyword">break</span><br><br>            <span class="hljs-comment"># ... (后续的解析、执行、整合步骤)</span><br><br></code></pre></td></tr></table></figure>
+
+<p><code>run</code> 方法是智能体的入口。它的 <code>while</code> 循环构成了 ReAct 范式的主体，<code>max_steps</code> 参数则是一个重要的安全阀，防止智能体陷入无限循环而耗尽资源。</p>
+<p>（3）输出解析器的实现</p>
+<p>LLM 返回的是纯文本，我们需要从中精确地提取出<code>Thought</code>和<code>Action</code>。这是通过几个辅助解析函数完成的，它们通常使用正则表达式来实现。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># (这些方法是 ReActAgent 类的一部分)</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_parse_output</span>(<span class="hljs-params">self, text: <span class="hljs-built_in">str</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;解析LLM的输出，提取Thought和Action。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># Thought: 匹配到 Action: 或文本末尾</span><br>        thought_match = re.search(<span class="hljs-string">r&quot;Thought:\s*(.*?)(?=\nAction:|$)&quot;</span>, text, re.DOTALL)<br>        <span class="hljs-comment"># Action: 匹配到文本末尾</span><br>        action_match = re.search(<span class="hljs-string">r&quot;Action:\s*(.*?)$&quot;</span>, text, re.DOTALL)<br>        thought = thought_match.group(<span class="hljs-number">1</span>).strip() <span class="hljs-keyword">if</span> thought_match <span class="hljs-keyword">else</span> <span class="hljs-literal">None</span><br>        action = action_match.group(<span class="hljs-number">1</span>).strip() <span class="hljs-keyword">if</span> action_match <span class="hljs-keyword">else</span> <span class="hljs-literal">None</span><br>        <span class="hljs-keyword">return</span> thought, action<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_parse_action</span>(<span class="hljs-params">self, action_text: <span class="hljs-built_in">str</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;解析Action字符串，提取工具名称和输入。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">match</span> = re.<span class="hljs-keyword">match</span>(<span class="hljs-string">r&quot;(\w+)\[(.*)\]&quot;</span>, action_text, re.DOTALL)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">match</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">match</span>.group(<span class="hljs-number">1</span>), <span class="hljs-keyword">match</span>.group(<span class="hljs-number">2</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>, <span class="hljs-literal">None</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>_parse_output</code>： 负责从LLM的完整响应中分离出<code>Thought</code>和<code>Action</code>两个主要部分。</li>
+<li><code>_parse_action</code>： 负责进一步解析<code>Action</code>字符串，例如从 <code>Search[华为最新手机]</code> 中提取出工具名 <code>Search</code> 和工具输入 <code>华为最新手机</code>。</li>
+</ul>
+<p>(4) 工具调用与执行</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># (这段逻辑在 run 方法的 while 循环内)</span><br>            <span class="hljs-comment"># 3. 解析LLM的输出</span><br>            thought, action = self._parse_output(response_text)<br>            <br>            <span class="hljs-keyword">if</span> thought:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;思考: <span class="hljs-subst">&#123;thought&#125;</span>&quot;</span>)<br><br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> action:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;警告:未能解析出有效的Action，流程终止。&quot;</span>)<br>                <span class="hljs-keyword">break</span><br><br>            <span class="hljs-comment"># 4. 执行Action</span><br>            <span class="hljs-keyword">if</span> action.startswith(<span class="hljs-string">&quot;Finish&quot;</span>):<br>                <span class="hljs-comment"># 如果是Finish指令，提取最终答案并结束</span><br>                final_answer = re.<span class="hljs-keyword">match</span>(<span class="hljs-string">r&quot;Finish\[(.*)\]&quot;</span>, action).group(<span class="hljs-number">1</span>)<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;🎉 最终答案: <span class="hljs-subst">&#123;final_answer&#125;</span>&quot;</span>)<br>                <span class="hljs-keyword">return</span> final_answer<br>            <br>            tool_name, tool_input = self._parse_action(action)<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> tool_name <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> tool_input:<br>                <span class="hljs-comment"># ... 处理无效Action格式 ...</span><br>                <span class="hljs-keyword">continue</span><br><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;🎬 行动: <span class="hljs-subst">&#123;tool_name&#125;</span>[<span class="hljs-subst">&#123;tool_input&#125;</span>]&quot;</span>)<br>            <br>            tool_function = self.tool_executor.getTool(tool_name)<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> tool_function:<br>                observation = <span class="hljs-string">f&quot;错误:未找到名为 &#x27;<span class="hljs-subst">&#123;tool_name&#125;</span>&#x27; 的工具。&quot;</span><br>            <span class="hljs-keyword">else</span>:<br>                observation = tool_function(tool_input) <span class="hljs-comment"># 调用真实工具</span><br><br></code></pre></td></tr></table></figure>
+
+<p>这段代码是<code>Action</code>的执行中心。它首先检查是否为<code>Finish</code>指令，如果是，则流程结束。否则，它会通过<code>tool_executor</code>获取对应的工具函数并执行，得到<code>observation</code>。</p>
+<p>(5）观测结果的整合</p>
+<p>最后一步，也是形成闭环的关键，是将<code>Action</code>本身和工具执行后的<code>Observation</code>添加回历史记录中，为下一轮循环提供新的上下文。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># (这段逻辑紧随工具调用之后，在 while 循环的末尾)</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;👀 观察: <span class="hljs-subst">&#123;observation&#125;</span>&quot;</span>)<br>            <br>            <span class="hljs-comment"># 将本轮的Action和Observation添加到历史记录中</span><br>            self.history.append(<span class="hljs-string">f&quot;Action: <span class="hljs-subst">&#123;action&#125;</span>&quot;</span>)<br>            self.history.append(<span class="hljs-string">f&quot;Observation: <span class="hljs-subst">&#123;observation&#125;</span>&quot;</span>)<br><br>        <span class="hljs-comment"># 循环结束</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;已达到最大步数，流程终止。&quot;</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br></code></pre></td></tr></table></figure>
+
+<p>通过将<code>Observation</code>追加到<code>self.history</code>，智能体在下一轮生成提示词时，就能“看到”上一步行动的结果，并据此进行新一轮的思考和规划。</p>
+<p>（6）运行实例与分析</p>
+<p>将以上所有部分组合起来，我们就得到了完整的 <code>ReActAgent</code> 类。完整的代码运行实例可以在本书配套的代码仓库 <code>code</code> 文件夹中找到。</p>
+<p>下面是一次真实的运行记录：</p>
+<figure class="hljs highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs prolog">工具 <span class="hljs-string">&#x27;Search&#x27;</span> 已注册。<br><br>--- 第 <span class="hljs-number">1</span> 步 ---<br>🧠 正在调用 xxxxxx 模型...<br>✅ 大语言模型响应成功:<br><span class="hljs-symbol">Thought</span>: 要回答这个问题，我需要查找华为最新发布的手机型号及其主要特点。这些信息可能在我的现有知识库之外，因此需要使用搜索引擎来获取最新数据。<br><span class="hljs-symbol">Action</span>: <span class="hljs-symbol">Search</span>[华为最新手机型号及主要卖点]<br>🤔 思考: 要回答这个问题，我需要查找华为最新发布的手机型号及其主要特点。这些信息可能在我的现有知识库之外，因此需要使用搜索引擎来获取最新数据。<br>🎬 行动: <span class="hljs-symbol">Search</span>[华为最新手机型号及主要卖点]<br>🔍 正在执行 [<span class="hljs-symbol">SerpApi</span>] 网页搜索: 华为最新手机型号及主要卖点<br>👀 观察: [<span class="hljs-number">1</span>] 华为手机- 华为官网<br>智能手机 ; <span class="hljs-symbol">Mate</span> 系列. 非凡旗舰 · <span class="hljs-symbol">HUAWEI</span> <span class="hljs-symbol">Mate</span> <span class="hljs-symbol">XTs</span>. 非凡大师 ; <span class="hljs-symbol">Pura</span> 系列. 先锋影像 · <span class="hljs-symbol">HUAWEI</span> <span class="hljs-symbol">Pura</span> <span class="hljs-number">80</span> <span class="hljs-symbol">Pro</span>+ ; <span class="hljs-symbol">Pocket</span> 系列. 美学新篇. <span class="hljs-symbol">HUAWEI</span> <span class="hljs-symbol">Pocket</span> <span class="hljs-number">2</span> ; nova 系列. 专业人像.<br><br>[<span class="hljs-number">2</span>] <span class="hljs-number">2025</span>年华为手机哪一款性价比高？华为手机推荐与市场分析 ...<br>现在华为手机最大的卖点只剩下鸿蒙<span class="hljs-symbol">HarmonyOS</span>系统，以及饱受争议的品牌信仰。 这里推荐目前值得入手的几款华为系列手机，根据不同预算自行选择:. 华为目前最受欢迎，也是搭载 ...<br><br>[<span class="hljs-number">3</span>] <span class="hljs-number">2025</span>年华为新款手机哪个性价比高？<span class="hljs-number">10</span>款华为新款手机推荐<br>选华为主要还是要推荐高端手机，<span class="hljs-symbol">Mate</span> <span class="hljs-number">70</span>和<span class="hljs-symbol">Pura</span> <span class="hljs-number">70</span>系列是最新发布的旗舰机型。 <span class="hljs-symbol">HUAWEI</span> <span class="hljs-symbol">Mate</span> <span class="hljs-number">70.</span> 优点是，拍照配置依旧顶级，全焦段覆盖，适合专业摄影，做工出色，户外抗摔 ...<br><br>--- 第 <span class="hljs-number">2</span> 步 ---<br>🧠 正在调用 xxxxxx 模型...<br>✅ 大语言模型响应成功:<br><span class="hljs-symbol">Thought</span>: 根据搜索结果，华为最新发布的旗舰机型包括<span class="hljs-symbol">Mate</span> <span class="hljs-number">70</span>和<span class="hljs-symbol">Pura</span> <span class="hljs-number">80</span> <span class="hljs-symbol">Pro</span>+。为了确定最新型号及其主要卖点，我将重点放在这些信息上。从提供的链接来看，<span class="hljs-symbol">Mate</span> <span class="hljs-number">70</span>系列和<span class="hljs-symbol">Pura</span> <span class="hljs-number">80</span> <span class="hljs-symbol">Pro</span>+都是近期发布的产品，但具体哪一个是“最新”还需要进一步确认。同时，我可以从这些信息中提取出它们的主要<br>卖点。<br><span class="hljs-symbol">Action</span>: <span class="hljs-symbol">Finish</span>[根据最新信息，华为的最新手机可能是<span class="hljs-symbol">HUAWEI</span> <span class="hljs-symbol">Pura</span> <span class="hljs-number">80</span> <span class="hljs-symbol">Pro</span>+或<span class="hljs-symbol">HUAWEI</span> <span class="hljs-symbol">Mate</span> <span class="hljs-number">70</span>。其中，<span class="hljs-symbol">HUAWEI</span> <span class="hljs-symbol">Mate</span> <span class="hljs-number">70</span>的主要卖点包括顶级的拍照配置，全焦段覆盖，适合专业摄影，做工出色，并且具有良好的户外抗摔性能。而<span class="hljs-symbol">HUAWEI</span> <span class="hljs-symbol">Pura</span> <span class="hljs-number">80</span> <span class="hljs-symbol">Pro</span>+则强调了先锋影像技术。]<br>🤔 思考: 根据搜索结果，华为最新发布的旗舰机型包括<span class="hljs-symbol">Mate</span> <span class="hljs-number">70</span>和<span class="hljs-symbol">Pura</span> <span class="hljs-number">80</span> <span class="hljs-symbol">Pro</span>+。为了确定最新型号及其主要卖点，我将重点放在这些信息上。从提供的链接来看，<span class="hljs-symbol">Mate</span> <span class="hljs-number">70</span>系列和<span class="hljs-symbol">Pura</span> <span class="hljs-number">80</span> <span class="hljs-symbol">Pro</span>+都是近期发布的产品，但具体哪一个是“最新”还需要进一步确认。同时，我可以从这些信息中提取出它们的主要 <br>卖点。<br>🎉 最终答案: 根据最新信息，华为的最新手机可能是<span class="hljs-symbol">HUAWEI</span> <span class="hljs-symbol">Pura</span> <span class="hljs-number">80</span> <span class="hljs-symbol">Pro</span>+或<span class="hljs-symbol">HUAWEI</span> <span class="hljs-symbol">Mate</span> <span class="hljs-number">70</span>。其中，<span class="hljs-symbol">HUAWEI</span> <span class="hljs-symbol">Mate</span> <span class="hljs-number">70</span>的主要卖点包括顶级的拍照配置，全焦段覆盖，适合专业摄影，做工出色，并且具有良好的户外抗摔性能。而<span class="hljs-symbol">HUAWEI</span> <span class="hljs-symbol">Pura</span> <span class="hljs-number">80</span> <span class="hljs-symbol">Pro</span>+则强调了先锋影像技术。<br></code></pre></td></tr></table></figure>
+
+<p>从上面的输出可以看到，智能体清晰地展示了它的思考链条：它首先意识到自己的知识不足，需要使用搜索工具；然后，它根据搜索结果进行推理和总结，并在两步之内得出了最终答案。</p>
+<p>值得注意的是，由于模型的知识和互联网的信息是不断更新的，你运行的结果可能与此不完全相同。截止本节内容编写的2025年9月8日，搜索结果中提到的HUAWEI Mate 70与HUAWEI Pura 80 Pro+确实是华为当时最新的旗舰系列手机。这充分展示了ReAct范式在处理时效性问题上的强大能力。</p>
+<h3 id="4-2-4-ReAct-的特点、局限性与调试技巧"><a href="#4-2-4-ReAct-的特点、局限性与调试技巧" class="headerlink" title="4.2.4 ReAct 的特点、局限性与调试技巧"></a>4.2.4 ReAct 的特点、局限性与调试技巧</h3><p>通过亲手实现一个 ReAct 智能体，我们不仅掌握了其工作流程，也应该对其内在机制有了更深刻的认识。任何技术范式都有其闪光点和待改进之处，本节将对 ReAct 进行总结。</p>
+<p>（1）ReAct 的主要特点</p>
+<ol>
+<li><strong>高可解释性</strong>：ReAct 最大的优点之一就是透明。通过 <code>Thought</code> 链，我们可以清晰地看到智能体每一步的“心路历程”——它为什么会选择这个工具，下一步又打算做什么。这对于理解、信任和调试智能体的行为至关重要。</li>
+<li><strong>动态规划与纠错能力</strong>：与一次性生成完整计划的范式不同，ReAct 是“走一步，看一步”。它根据每一步从外部世界获得的 <code>Observation</code> 来动态调整后续的 <code>Thought</code> 和 <code>Action</code>。如果上一步的搜索结果不理想，它可以在下一步中修正搜索词，重新尝试。</li>
+<li><strong>工具协同能力</strong>：ReAct 范式天然地将大语言模型的推理能力与外部工具的执行能力结合起来。LLM 负责运筹帷幄（规划和推理），工具负责解决具体问题（搜索、计算），二者协同工作，突破了单一 LLM 在知识时效性、计算准确性等方面的固有局限。</li>
+</ol>
+<p>（2）ReAct 的固有局限性</p>
+<ol>
+<li><strong>对LLM自身能力的强依赖</strong>：ReAct 流程的成功与否，高度依赖于底层 LLM 的综合能力。如果 LLM 的逻辑推理能力、指令遵循能力或格式化输出能力不足，就很容易在 <code>Thought</code> 环节产生错误的规划，或者在 <code>Action</code> 环节生成不符合格式的指令，导致整个流程中断。</li>
+<li><strong>执行效率问题</strong>：由于其循序渐进的特性，完成一个任务通常需要多次调用 LLM。每一次调用都伴随着网络延迟和计算成本。对于需要很多步骤的复杂任务，这种串行的“思考-行动”循环可能会导致较高的总耗时和费用。</li>
+<li><strong>提示词的脆弱性</strong>：整个机制的稳定运行建立在一个精心设计的提示词模板之上。模板中的任何微小变动，甚至是用词的差异，都可能影响 LLM 的行为。此外，并非所有模型都能持续稳定地遵循预设的格式，这增加了在实际应用中的不确定性。</li>
+<li><strong>可能陷入局部最优</strong>：步进式的决策模式意味着智能体缺乏一个全局的、长远的规划。它可能会因为眼前的 <code>Observation</code> 而选择一个看似正确但长远来看并非最优的路径，甚至在某些情况下陷入“原地打转”的循环中。</li>
+</ol>
+<p>（3）调试技巧</p>
+<p>当你构建的 ReAct 智能体行为不符合预期时，可以从以下几个方面入手进行调试：</p>
+<ul>
+<li><strong>检查完整的提示词</strong>：在每次调用 LLM 之前，将最终格式化好的、包含所有历史记录的完整提示词打印出来。这是追溯 LLM 决策源头的最直接方式。</li>
+<li><strong>分析原始输出</strong>：当输出解析失败时（例如，正则表达式没有匹配到 <code>Action</code>），务必将 LLM 返回的原始、未经处理的文本打印出来。这能帮助你判断是 LLM 没有遵循格式，还是你的解析逻辑有误。</li>
+<li><strong>验证工具的输入与输出</strong>：检查智能体生成的 <code>tool_input</code> 是否是工具函数所期望的格式，同时也要确保工具返回的 <code>observation</code> 格式是智能体可以理解和处理的。</li>
+<li><strong>调整提示词中的示例 (Few-shot Prompting)</strong>：如果模型频繁出错，可以在提示词中加入一两个完整的“Thought-Action-Observation”成功案例，通过示例来引导模型更好地遵循你的指令。</li>
+<li><strong>尝试不同的模型或参数</strong>：更换一个能力更强的模型，或者调整 <code>temperature</code> 参数（通常设为0以保证输出的确定性），有时能直接解决问题。</li>
+</ul>
+<h2 id="4-3-Plan-and-Solve"><a href="#4-3-Plan-and-Solve" class="headerlink" title="4.3 Plan-and-Solve"></a>4.3 Plan-and-Solve</h2><p>在我们掌握了 ReAct 这种反应式的、步进决策的智能体范式后，接下来将探讨一种风格迥异但同样强大的方法，<strong>Plan-and-Solve</strong>。顾名思义，这种范式将任务处理明确地分为两个阶段：<strong>先规划 (Plan)，后执行 (Solve)</strong>。</p>
+<p>如果说 ReAct 像一个经验丰富的侦探，根据现场的蛛丝马迹（Observation）一步步推理，随时调整自己的调查方向；那么 Plan-and-Solve 则更像一位建筑师，在动工之前必须先绘制出完整的蓝图（Plan），然后严格按照蓝图来施工（Solve）。事实上我们现在用的很多大模型工具的Agent模式都融入了这种设计模式。</p>
+<h3 id="4-3-1-Plan-and-Solve-的工作原理"><a href="#4-3-1-Plan-and-Solve-的工作原理" class="headerlink" title="4.3.1 Plan-and-Solve 的工作原理"></a>4.3.1 Plan-and-Solve 的工作原理</h3><p>Plan-and-Solve Prompting 由 Lei Wang 在2023年提出<sup>[2]</sup>。其核心动机是为了解决思维链在处理多步骤、复杂问题时容易“偏离轨道”的问题。</p>
+<p>与 ReAct 将思考和行动融合在每一步不同，Plan-and-Solve 将整个流程解耦为两个核心阶段，如图4.2所示：</p>
+<ol>
+<li><strong>规划阶段 (Planning Phase)</strong>： 首先，智能体会接收用户的完整问题。它的第一个任务不是直接去解决问题或调用工具，而是<strong>将问题分解，并制定出一个清晰、分步骤的行动计划</strong>。这个计划本身就是一次大语言模型的调用产物。</li>
+<li><strong>执行阶段 (Solving Phase)</strong>： 在获得完整的计划后，智能体进入执行阶段。它会<strong>严格按照计划中的步骤，逐一执行</strong>。每一步的执行都可能是一次独立的 LLM 调用，或者是对上一步结果的加工处理，直到计划中的所有步骤都完成，最终得出答案。</li>
+</ol>
+<p>这种“先谋后动”的策略，使得智能体在处理需要长远规划的复杂任务时，能够保持更高的目标一致性，避免在中间步骤中迷失方向。</p>
+<p>我们可以将这个两阶段过程进行形式化表达。首先，规划模型 $\pi_{\text{plan}}$ 根据原始问题 $q$ 生成一个包含 $n$ 个步骤的计划 $P &#x3D; (p_1, p_2, \dots, p_n)$：</p>
+<p>$$<br>P &#x3D; \pi_{\text{plan}}(q)<br>$$</p>
+<p>随后，在执行阶段，执行模型 $\pi_{\text{solve}}$ 会逐一完成计划中的步骤。对于第 $i$ 个步骤，其解决方案 $s_i$ 的生成会同时依赖于原始问题 $q$、完整计划 $P$ 以及之前所有步骤的执行结果 $(s_1, \dots, s_{i-1})$：</p>
+<p>$$<br>s_i &#x3D; \pi_{\text{solve}}(q, P, (s_1, \dots, s_{i-1}))<br>$$</p>
+<p>最终的答案就是最后一个步骤的执行结果 $s_n$。</p>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/datawhalechina/Hello-Agents/main/docs/images/4-figures/4-2.png" alt="Plan-and-Solve范式的两阶段工作流" width="90%"/>
+  <p>图 4.2 Plan-and-Solve 范式的两阶段工作流</p>
+</div>
+
+<p>Plan-and-Solve 尤其适用于那些结构性强、可以被清晰分解的复杂任务，例如：</p>
+<ul>
+<li><strong>多步数学应用题</strong>：需要先列出计算步骤，再逐一求解。</li>
+<li><strong>需要整合多个信息源的报告撰写</strong>：需要先规划好报告结构（引言、数据来源A、数据来源B、总结），再逐一填充内容。</li>
+<li><strong>代码生成任务</strong>：需要先构思好函数、类和模块的结构，再逐一实现。</li>
+</ul>
+<h3 id="4-3-2-规划阶段"><a href="#4-3-2-规划阶段" class="headerlink" title="4.3.2 规划阶段"></a>4.3.2 规划阶段</h3><p>为了凸显 Plan-and-Solve 范式在结构化推理任务上的优势，我们将不使用工具的方式，而是通过提示词的设计，完成一个推理任务。</p>
+<p>这类任务的特点是，答案无法通过单次查询或计算得出，必须先将问题分解为一系列逻辑连贯的子步骤，然后按顺序求解。这恰好能发挥 Plan-and-Solve “先规划，后执行”的核心能力。</p>
+<p><strong>我们的目标问题是：</strong>“一个水果店周一卖出了15个苹果。周二卖出的苹果数量是周一的两倍。周三卖出的数量比周二少了5个。请问这三天总共卖出了多少个苹果？”</p>
+<p>这个问题对于大语言模型来说并不算特别困难，但它包含了一个清晰的逻辑链条可供参考。在某些实际的逻辑难题上，如果大模型不能高质量的推理出准确的答案，可以参考这个设计模式来设计自己的Agent完成任务。智能体需要：</p>
+<ol>
+<li><strong>规划阶段</strong>：首先，将问题分解为三个独立的计算步骤（计算周二销量、计算周三销量、计算总销量）。</li>
+<li><strong>执行阶段</strong>：然后，严格按照计划，一步步执行计算，并将每一步的结果作为下一步的输入，最终得出总和。</li>
+</ol>
+<p>规划阶段的目标是让大语言模型接收原始问题，并输出一个清晰、分步骤的行动计划。这个计划必须是结构化的，以便我们的代码可以轻松解析并逐一执行。因此，我们设计的提示词需要明确地告诉模型它的角色和任务，并给出一个输出格式的范例。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python">PLANNER_PROMPT_TEMPLATE = <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">你是一个顶级的AI规划专家。你的任务是将用户提出的复杂问题分解成一个由多个简单步骤组成的行动计划。</span><br><span class="hljs-string">请确保计划中的每个步骤都是一个独立的、可执行的子任务，并且严格按照逻辑顺序排列。</span><br><span class="hljs-string">你的输出必须是一个Python列表，其中每个元素都是一个描述子任务的字符串。</span><br><span class="hljs-string"></span><br><span class="hljs-string">问题: &#123;question&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">请严格按照以下格式输出你的计划,```python与```作为前后缀是必要的:</span><br><span class="hljs-string">```python</span><br><span class="hljs-string">[&quot;步骤1&quot;, &quot;步骤2&quot;, &quot;步骤3&quot;, ...]</span><br><span class="hljs-string">```</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>这个提示词通过以下几点确保了输出的质量和稳定性：</p>
+<ul>
+<li><strong>角色设定</strong>： “顶级的AI规划专家”，激发模型的专业能力。</li>
+<li><strong>任务描述</strong>： 清晰地定义了“分解问题”的目标。</li>
+<li><strong>格式约束</strong>： 强制要求输出为一个 Python 列表格式的字符串，这极大地简化了后续代码的解析工作，使其比解析自然语言更稳定、更可靠。</li>
+</ul>
+<p>接下来，我们将这个提示词逻辑封装成一个 <code>Planner</code> 类，这个类也是我们的规划器。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 假定 llm_client.py 中的 HelloAgentsLLM 类已经定义好</span><br><span class="hljs-comment"># from llm_client import HelloAgentsLLM</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Planner</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, llm_client</span>):<br>        self.llm_client = llm_client<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">plan</span>(<span class="hljs-params">self, question: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">list</span>[<span class="hljs-built_in">str</span>]:<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        根据用户问题生成一个行动计划。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        prompt = PLANNER_PROMPT_TEMPLATE.<span class="hljs-built_in">format</span>(question=question)<br>        <br>        <span class="hljs-comment"># 为了生成计划，我们构建一个简单的消息列表</span><br>        messages = [&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: prompt&#125;]<br>        <br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;--- 正在生成计划 ---&quot;</span>)<br>        <span class="hljs-comment"># 使用流式输出来获取完整的计划</span><br>        response_text = self.llm_client.think(messages=messages) <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;&quot;</span><br>        <br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;✅ 计划已生成:\n<span class="hljs-subst">&#123;response_text&#125;</span>&quot;</span>)<br>        <br>        <span class="hljs-comment"># 解析LLM输出的列表字符串</span><br>        <span class="hljs-keyword">try</span>:<br>            <span class="hljs-comment"># 找到```python和```之间的内容</span><br>            plan_str = response_text.split(<span class="hljs-string">&quot;```python&quot;</span>)[<span class="hljs-number">1</span>].split(<span class="hljs-string">&quot;```&quot;</span>)[<span class="hljs-number">0</span>].strip()<br>            <span class="hljs-comment"># 使用ast.literal_eval来安全地执行字符串，将其转换为Python列表</span><br>            plan = ast.literal_eval(plan_str)<br>            <span class="hljs-keyword">return</span> plan <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(plan, <span class="hljs-built_in">list</span>) <span class="hljs-keyword">else</span> []<br>        <span class="hljs-keyword">except</span> (ValueError, SyntaxError, IndexError) <span class="hljs-keyword">as</span> e:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;❌ 解析计划时出错: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;原始响应: <span class="hljs-subst">&#123;response_text&#125;</span>&quot;</span>)<br>            <span class="hljs-keyword">return</span> []<br>        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;❌ 解析计划时发生未知错误: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>            <span class="hljs-keyword">return</span> []<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-3-3-执行器与状态管理"><a href="#4-3-3-执行器与状态管理" class="headerlink" title="4.3.3 执行器与状态管理"></a>4.3.3 执行器与状态管理</h3><p>在规划器 (<code>Planner</code>) 生成了清晰的行动蓝图后，我们就需要一个执行器 (<code>Executor</code>) 来逐一完成计划中的任务。执行器不仅负责调用大语言模型来解决每个子问题，还承担着一个至关重要的角色：<strong>状态管理</strong>。它必须记录每一步的执行结果，并将其作为上下文提供给后续步骤，确保信息在整个任务链条中顺畅流动</p>
+<p>执行器的提示词与规划器不同。它的目标不是分解问题，而是<strong>在已有上下文的基础上，专注解决当前这一个步骤</strong>。因此，提示词需要包含以下关键信息：</p>
+<ul>
+<li><strong>原始问题</strong>： 确保模型始终了解最终目标。</li>
+<li><strong>完整计划</strong>： 让模型了解当前步骤在整个任务中的位置。</li>
+<li><strong>历史步骤与结果</strong>： 提供至今为止已经完成的工作，作为当前步骤的直接输入。</li>
+<li><strong>当前步骤</strong>： 明确指示模型现在需要解决哪一个具体任务。</li>
+</ul>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python">EXECUTOR_PROMPT_TEMPLATE = <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">你是一位顶级的AI执行专家。你的任务是严格按照给定的计划，一步步地解决问题。</span><br><span class="hljs-string">你将收到原始问题、完整的计划、以及到目前为止已经完成的步骤和结果。</span><br><span class="hljs-string">请你专注于解决“当前步骤”，并仅输出该步骤的最终答案，不要输出任何额外的解释或对话。</span><br><span class="hljs-string"></span><br><span class="hljs-string"># 原始问题:</span><br><span class="hljs-string">&#123;question&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string"># 完整计划:</span><br><span class="hljs-string">&#123;plan&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string"># 历史步骤与结果:</span><br><span class="hljs-string">&#123;history&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string"># 当前步骤:</span><br><span class="hljs-string">&#123;current_step&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">请仅输出针对“当前步骤”的回答:</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>我们将执行逻辑封装到 <code>Executor</code> 类中。这个类将循环遍历计划，调用 LLM，并维护一个历史记录（状态）。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Executor</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, llm_client</span>):<br>        self.llm_client = llm_client<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">execute</span>(<span class="hljs-params">self, question: <span class="hljs-built_in">str</span>, plan: <span class="hljs-built_in">list</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-built_in">str</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        根据计划，逐步执行并解决问题。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        history = <span class="hljs-string">&quot;&quot;</span> <span class="hljs-comment"># 用于存储历史步骤和结果的字符串</span><br>        <br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n--- 正在执行计划 ---&quot;</span>)<br>        <br>        <span class="hljs-keyword">for</span> i, step <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(plan):<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n-&gt; 正在执行步骤 <span class="hljs-subst">&#123;i+<span class="hljs-number">1</span>&#125;</span>/<span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(plan)&#125;</span>: <span class="hljs-subst">&#123;step&#125;</span>&quot;</span>)<br>            <br>            prompt = EXECUTOR_PROMPT_TEMPLATE.<span class="hljs-built_in">format</span>(<br>                question=question,<br>                plan=plan,<br>                history=history <span class="hljs-keyword">if</span> history <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;无&quot;</span>, <span class="hljs-comment"># 如果是第一步，则历史为空</span><br>                current_step=step<br>            )<br>            <br>            messages = [&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: prompt&#125;]<br>            <br>            response_text = self.llm_client.think(messages=messages) <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;&quot;</span><br>            <br>            <span class="hljs-comment"># 更新历史记录，为下一步做准备</span><br>            history += <span class="hljs-string">f&quot;步骤 <span class="hljs-subst">&#123;i+<span class="hljs-number">1</span>&#125;</span>: <span class="hljs-subst">&#123;step&#125;</span>\n结果: <span class="hljs-subst">&#123;response_text&#125;</span>\n\n&quot;</span><br>            <br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;✅ 步骤 <span class="hljs-subst">&#123;i+<span class="hljs-number">1</span>&#125;</span> 已完成，结果: <span class="hljs-subst">&#123;response_text&#125;</span>&quot;</span>)<br><br>        <span class="hljs-comment"># 循环结束后，最后一步的响应就是最终答案</span><br>        final_answer = response_text<br>        <span class="hljs-keyword">return</span> final_answer<br></code></pre></td></tr></table></figure>
+
+<p>现在已经分别构建了负责“规划”的 <code>Planner</code> 和负责“执行”的 <code>Executor</code>。最后一步是将这两个组件整合到一个统一的智能体 <code>PlanAndSolveAgent</code> 中，并赋予它解决问题的完整能力。我们将创建一个主类 <code>PlanAndSolveAgent</code>，它的职责非常清晰：接收一个 LLM 客户端，初始化内部的规划器和执行器，并提供一个简单的 <code>run</code> 方法来启动整个流程。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">PlanAndSolveAgent</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, llm_client</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        初始化智能体，同时创建规划器和执行器实例。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        self.llm_client = llm_client<br>        self.planner = Planner(self.llm_client)<br>        self.executor = Executor(self.llm_client)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self, question: <span class="hljs-built_in">str</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        运行智能体的完整流程:先规划，后执行。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n--- 开始处理问题 ---\n问题: <span class="hljs-subst">&#123;question&#125;</span>&quot;</span>)<br>        <br>        <span class="hljs-comment"># 1. 调用规划器生成计划</span><br>        plan = self.planner.plan(question)<br>        <br>        <span class="hljs-comment"># 检查计划是否成功生成</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> plan:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n--- 任务终止 --- \n无法生成有效的行动计划。&quot;</span>)<br>            <span class="hljs-keyword">return</span><br><br>        <span class="hljs-comment"># 2. 调用执行器执行计划</span><br>        final_answer = self.executor.execute(question, plan)<br>        <br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n--- 任务完成 ---\n最终答案: <span class="hljs-subst">&#123;final_answer&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这个 <code>PlanAndSolveAgent</code> 类的设计体现了“组合优于继承”的原则。它本身不包含复杂的逻辑，而是作为一个协调者 (Orchestrator)，清晰地调用其内部组件来完成任务。</p>
+<h3 id="4-3-4-运行实例与分析"><a href="#4-3-4-运行实例与分析" class="headerlink" title="4.3.4 运行实例与分析"></a>4.3.4 运行实例与分析</h3><p>完整的代码同样参考本书配套的代码仓库 <code>code</code> 文件夹，这里只演示最终结果。</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs bash">--- 开始处理问题 ---<br>问题: 一个水果店周一卖出了15个苹果。周二卖出的苹果数量是周一的两倍。周三卖出的数量比周二少了5个。请问这三天总共卖出了多少个苹果？<br>--- 正在生成计划 ---<br>🧠 正在调用 xxxx 模型...<br>✅ 大语言模型响应成功:<br>```python<br>[<span class="hljs-string">&quot;计算周一卖出的苹果数量： 15个&quot;</span>, <span class="hljs-string">&quot;计算周二卖出的苹果数量： 周一数量 × 2 = 15 × 2 = 30个&quot;</span>, <span class="hljs-string">&quot;计算周三卖出的苹果数量： 周二数量 - 5 = 30 - 5 = 25个&quot;</span>, <span class="hljs-string">&quot;计算三天总销量： 周一 + 周二 + 周三 = 15 + 30 + 25 = 70个&quot;</span>]<br>```<br>✅ 计划已生成:<br>```python<br>[<span class="hljs-string">&quot;计算周一卖出的苹果数量： 15个&quot;</span>, <span class="hljs-string">&quot;计算周二卖出的苹果数量： 周一数量 × 2 = 15 × 2 = 30个&quot;</span>, <span class="hljs-string">&quot;计算周三卖出的苹果数量： 周二数量 - 5 = 30 - 5 = 25个&quot;</span>, <span class="hljs-string">&quot;计算三天总销量： 周一 + 周二 + 周三 = 15 + 30 + 25 = 70个&quot;</span>]<br>```<br><br>--- 正在执行计划 ---<br><br>-&gt; 正在执行步骤 1/4: 计算周一卖出的苹果数量: 15个<br>🧠 正在调用 xxxx 模型...<br>✅ 大语言模型响应成功:<br>15<br>✅ 步骤 1 已完成，结果: 15<br><br>-&gt; 正在执行步骤 2/4: 计算周二卖出的苹果数量: 周一数量 × 2 = 15 × 2 = 30个<br>🧠 正在调用 xxxx 模型...<br>✅ 大语言模型响应成功:<br>30<br>✅ 步骤 2 已完成，结果: 30<br><br>-&gt; 正在执行步骤 3/4: 计算周三卖出的苹果数量: 周二数量 - 5 = 30 - 5 = 25个<br>🧠 正在调用 xxxx 模型...<br>✅ 大语言模型响应成功:<br>25<br>✅ 步骤 3 已完成，结果: 25<br><br>-&gt; 正在执行步骤 4/4: 计算三天总销量: 周一 + 周二 + 周三 = 15 + 30 + 25 = 70个<br>🧠 正在调用 xxxx 模型...<br>✅ 大语言模型响应成功:<br>70<br>✅ 步骤 4 已完成，结果: 70<br><br>--- 任务完成 ---<br>最终答案: 70<br></code></pre></td></tr></table></figure>
+
+<p>从上面的输出日志中，我们可以清晰地看到 Plan-and-Solve 范式的工作流程：</p>
+<ol>
+<li><strong>规划阶段</strong>： 智能体首先调用 <code>Planner</code>，成功地将复杂的应用题分解成了一个包含四个逻辑步骤的 Python 列表。这个结构化的计划为后续的执行奠定了基础。</li>
+<li><strong>执行阶段</strong>： <code>Executor</code> 严格按照生成的计划，一步一步地向下执行。在每一步中，它都将历史结果作为上下文，确保了信息的正确传递（例如，步骤2正确地使用了步骤1的结果“15个”，步骤3也正确使用了步骤2的结果“30个”）。</li>
+<li><strong>结果</strong>：整个过程逻辑清晰，步骤明确，最终智能体准确地得出了正确答案“70个”。</li>
+</ol>
+<h2 id="4-4-Reflection"><a href="#4-4-Reflection" class="headerlink" title="4.4 Reflection"></a>4.4 Reflection</h2><p>在我们已经实现的 ReAct 和 Plan-and-Solve 范式中，智能体一旦完成了任务，其工作流程便告结束。然而，它们生成的初始答案，无论是行动轨迹还是最终结果，都可能存在谬误或有待改进之处。Reflection 机制的核心思想，正是为智能体引入一种<strong>事后（post-hoc）的自我校正循环</strong>，使其能够像人类一样，审视自己的工作，发现不足，并进行迭代优化。</p>
+<h3 id="4-4-1-Reflection-机制的核心思想"><a href="#4-4-1-Reflection-机制的核心思想" class="headerlink" title="4.4.1 Reflection 机制的核心思想"></a>4.4.1 Reflection 机制的核心思想</h3><p>Reflection 机制的灵感来源于人类的学习过程：我们完成初稿后会进行校对，解出数学题后会进行验算。这一思想在多个研究中得到了体现，例如 Shinn, Noah 在2023年提出的 Reflexion 框架<sup>[3]</sup>。其核心工作流程可以概括为一个简洁的三步循环：<strong>执行 -&gt; 反思 -&gt; 优化</strong>。</p>
+<ol>
+<li><strong>执行 (Execution)</strong>：首先，智能体使用我们熟悉的方法（如 ReAct 或 Plan-and-Solve）尝试完成任务，生成一个初步的解决方案或行动轨迹。这可以看作是“初稿”。</li>
+<li><strong>反思 (Reflection)</strong>：接着，智能体进入反思阶段。它会调用一个独立的、或者带有特殊提示词的大语言模型实例，来扮演一个“评审员”的角色。这个“评审员”会审视第一步生成的“初稿”，并从多个维度进行评估，例如：<ul>
+<li><strong>事实性错误</strong>：是否存在与常识或已知事实相悖的内容？</li>
+<li><strong>逻辑漏洞</strong>：推理过程是否存在不连贯或矛盾之处？</li>
+<li><strong>效率问题</strong>：是否有更直接、更简洁的路径来完成任务？</li>
+<li><strong>遗漏信息</strong>：是否忽略了问题的某些关键约束或方面？ 根据评估，它会生成一段结构化的<strong>反馈 (Feedback)</strong>，指出具体的问题所在和改进建议。</li>
+</ul>
+</li>
+<li><strong>优化 (Refinement)</strong>：最后，智能体将“初稿”和“反馈”作为新的上下文，再次调用大语言模型，要求它根据反馈内容对初稿进行修正，生成一个更完善的“修订稿”。</li>
+</ol>
+<p>如图4.3所示，这个循环可以重复进行多次，直到反思阶段不再发现新的问题，或者达到预设的迭代次数上限。我们可以将这个迭代优化的过程形式化地表达出来。假设 $O_i$ 是第 $i$ 次迭代产生的输出（$O_0$ 为初始输出），反思模型 $\pi_{\text{reflect}}$ 会生成针对 $O_i$ 的反馈 $F_i$：<br>$$<br>F_i &#x3D; \pi_{\text{reflect}}(\text{Task}, O_i)<br>$$<br>随后，优化模型 $\pi_{\text{refine}}$ 会结合原始任务、上一版输出以及反馈，生成新一版的输出 $O_{i+1}$：<br>$$<br>O_{i+1} &#x3D; \pi_{\text{refine}}(\text{Task}, O_i, F_i)<br>$$</p>
+<div align="center">
+<img src="https://raw.githubusercontent.com/datawhalechina/Hello-Agents/main/docs/images/4-figures/4-3.png" alt="Reflection机制中的“执行-反思-优化”迭代循环" width="70%"/>
+<p>图 4.3 Reflection 机制中的“执行-反思-优化”迭代循环</p>
+</div>
+
+
+
+<p>与前两种范式相比，Reflection 的价值在于：</p>
+<ul>
+<li>它为智能体提供了一个内部纠错回路，使其不再完全依赖于外部工具的反馈（ReAct 的 Observation），从而能够修正更高层次的逻辑和策略错误。</li>
+<li>它将一次性的任务执行，转变为一个持续优化的过程，显著提升了复杂任务的最终成功率和答案质量。</li>
+<li>它为智能体构建了一个临时的<strong>“短期记忆”</strong>。整个“执行-反思-优化”的轨迹形成了一个宝贵的经验记录，智能体不仅知道最终答案，还记得自己是如何从有缺陷的初稿迭代到最终版本的。更进一步，这个记忆系统还可以是<strong>多模态的</strong>，允许智能体反思和修正文本以外的输出（如代码、图像等），为构建更强大的多模态智能体奠定了基础。</li>
+</ul>
+<h3 id="4-4-2-案例设定与记忆模块设计"><a href="#4-4-2-案例设定与记忆模块设计" class="headerlink" title="4.4.2 案例设定与记忆模块设计"></a>4.4.2 案例设定与记忆模块设计</h3><p>为了在实战中体现 Reflection 机制，我们将引入记忆管理机制，因为reflection通常对应着信息的存储和提取，如果上下文足够长的情况，想让“评审员”直接获取所有的信息然后进行反思往往会传入很多冗余信息。这一步实践我们主要完成<strong>代码生成与迭代优化</strong>。</p>
+<p>这一步的目标任务是：“编写一个Python函数，找出1到n之间所有的素数 (prime numbers)。”</p>
+<p>这个任务是检验 Reflection 机制的绝佳场景：</p>
+<ol>
+<li><strong>存在明确的优化路径</strong>：大语言模型初次生成的代码很可能是一个简单但效率低下的递归实现。</li>
+<li><strong>反思点清晰</strong>：可以通过反思发现其“时间复杂度过高”或“存在重复计算”的问题。</li>
+<li><strong>优化方向明确</strong>：可以根据反馈，将其优化为更高效的迭代版本或使用备忘录模式的版本。</li>
+</ol>
+<p>Reflection 的核心在于迭代，而迭代的前提是能够记住之前的尝试和获得的反馈。因此，一个“短期记忆”模块是实现该范式的必需品。这个记忆模块将负责存储每一次“执行-反思”循环的完整轨迹。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">List</span>, <span class="hljs-type">Dict</span>, <span class="hljs-type">Any</span>, <span class="hljs-type">Optional</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Memory</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    一个简单的短期记忆模块，用于存储智能体的行动与反思轨迹。</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        初始化一个空列表来存储所有记录。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        self.records: <span class="hljs-type">List</span>[<span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">Any</span>]] = []<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">add_record</span>(<span class="hljs-params">self, record_type: <span class="hljs-built_in">str</span>, content: <span class="hljs-built_in">str</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        向记忆中添加一条新记录。</span><br><span class="hljs-string"></span><br><span class="hljs-string">        参数:</span><br><span class="hljs-string">        - record_type (str): 记录的类型 (&#x27;execution&#x27; 或 &#x27;reflection&#x27;)。</span><br><span class="hljs-string">        - content (str): 记录的具体内容 (例如，生成的代码或反思的反馈)。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        record = &#123;<span class="hljs-string">&quot;type&quot;</span>: record_type, <span class="hljs-string">&quot;content&quot;</span>: content&#125;<br>        self.records.append(record)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;📝 记忆已更新，新增一条 &#x27;<span class="hljs-subst">&#123;record_type&#125;</span>&#x27; 记录。&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_trajectory</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">str</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        将所有记忆记录格式化为一个连贯的字符串文本，用于构建提示词。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        trajectory_parts = []<br>        <span class="hljs-keyword">for</span> record <span class="hljs-keyword">in</span> self.records:<br>            <span class="hljs-keyword">if</span> record[<span class="hljs-string">&#x27;type&#x27;</span>] == <span class="hljs-string">&#x27;execution&#x27;</span>:<br>                trajectory_parts.append(<span class="hljs-string">f&quot;--- 上一轮尝试 (代码) ---\n<span class="hljs-subst">&#123;record[<span class="hljs-string">&#x27;content&#x27;</span>]&#125;</span>&quot;</span>)<br>            <span class="hljs-keyword">elif</span> record[<span class="hljs-string">&#x27;type&#x27;</span>] == <span class="hljs-string">&#x27;reflection&#x27;</span>:<br>                trajectory_parts.append(<span class="hljs-string">f&quot;--- 评审员反馈 ---\n<span class="hljs-subst">&#123;record[<span class="hljs-string">&#x27;content&#x27;</span>]&#125;</span>&quot;</span>)<br>        <br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;\n\n&quot;</span>.join(trajectory_parts)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_last_execution</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>]:<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        获取最近一次的执行结果 (例如，最新生成的代码)。</span><br><span class="hljs-string">        如果不存在，则返回 None。</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">for</span> record <span class="hljs-keyword">in</span> <span class="hljs-built_in">reversed</span>(self.records):<br>            <span class="hljs-keyword">if</span> record[<span class="hljs-string">&#x27;type&#x27;</span>] == <span class="hljs-string">&#x27;execution&#x27;</span>:<br>                <span class="hljs-keyword">return</span> record[<span class="hljs-string">&#x27;content&#x27;</span>]<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br></code></pre></td></tr></table></figure>
+
+<p>这个 <code>Memory</code> 类的设计比较简洁，主体是这样的：</p>
+<ul>
+<li>使用一个列表 <code>records</code> 来按顺序存储每一次的行动和反思。</li>
+<li><code>add_record</code> 方法负责向记忆中添加新的条目。</li>
+<li><code>get_trajectory</code> 方法是核心，它将记忆轨迹“序列化”成一段文本，可以直接插入到后续的提示词中，为模型的反思和优化提供完整的上下文。</li>
+<li><code>get_last_execution</code> 方便我们获取最新的“初稿”以供反思。</li>
+</ul>
+<h3 id="4-4-3-Reflection-智能体的编码实现"><a href="#4-4-3-Reflection-智能体的编码实现" class="headerlink" title="4.4.3 Reflection 智能体的编码实现"></a>4.4.3 Reflection 智能体的编码实现</h3><p>有了 <code>Memory</code> 模块作为基础，我们现在可以着手构建 <code>ReflectionAgent</code> 的核心逻辑。整个智能体的工作流程将围绕我们之前讨论的“执行-反思-优化”循环展开，并通过精心设计的提示词来引导大语言模型扮演不同的角色。</p>
+<p>（1）提示词设计</p>
+<p>与之前的范式不同，Reflection 机制需要多个不同角色的提示词来协同工作。</p>
+<ol>
+<li><strong>初始执行提示词 (Execution Prompt)</strong> ：这是智能体首次尝试解决问题的提示词，内容相对直接，只要求模型完成指定任务。</li>
+</ol>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">INITIAL_PROMPT_TEMPLATE = <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span><br><span class="hljs-string">你是一位资深的Python程序员。请根据以下要求，编写一个Python函数。</span><br><span class="hljs-string">你的代码必须包含完整的函数签名、文档字符串，并遵循PEP 8编码规范。</span><br><span class="hljs-string"></span><br><span class="hljs-string">要求: &#123;task&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">请直接输出代码，不要包含任何额外的解释。</span><br><span class="hljs-string">&quot;</span><span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>反思提示词 (Reflection Prompt)</strong> ：这个提示词是 Reflection 机制的灵魂。它指示模型扮演“代码评审员”的角色，对上一轮生成的代码进行批判性分析，并提供具体的、可操作的反馈。</li>
+</ol>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">REFLECT_PROMPT_TEMPLATE = <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span><br><span class="hljs-string">你是一位极其严格的代码评审专家和资深算法工程师，对代码的性能有极致的要求。</span><br><span class="hljs-string">你的任务是审查以下Python代码，并专注于找出其在&lt;strong&gt;算法效率&lt;/strong&gt;上的主要瓶颈。</span><br><span class="hljs-string"></span><br><span class="hljs-string"># 原始任务:</span><br><span class="hljs-string">&#123;task&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string"># 待审查的代码:</span><br><span class="hljs-string">```python</span><br><span class="hljs-string">&#123;code&#125;</span><br><span class="hljs-string">```</span><br><span class="hljs-string"></span><br><span class="hljs-string">请分析该代码的时间复杂度，并思考是否存在一种&lt;strong&gt;算法上更优&lt;/strong&gt;的解决方案来显著提升性能。</span><br><span class="hljs-string">如果存在，请清晰地指出当前算法的不足，并提出具体的、可行的改进算法建议（例如，使用筛法替代试除法）。</span><br><span class="hljs-string">如果代码在算法层面已经达到最优，才能回答“无需改进”。</span><br><span class="hljs-string"></span><br><span class="hljs-string">请直接输出你的反馈，不要包含任何额外的解释。</span><br><span class="hljs-string">&quot;</span><span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>优化提示词 (Refinement Prompt)</strong> ：当收到反馈后，这个提示词将引导模型根据反馈内容，对原有代码进行修正和优化。</li>
+</ol>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br>REFINE_PROMPT_TEMPLATE = <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span><br><span class="hljs-string">你是一位资深的Python程序员。你正在根据一位代码评审专家的反馈来优化你的代码。</span><br><span class="hljs-string"></span><br><span class="hljs-string"># 原始任务:</span><br><span class="hljs-string">&#123;task&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string"># 你上一轮尝试的代码:</span><br><span class="hljs-string">&#123;last_code_attempt&#125;</span><br><span class="hljs-string">评审员的反馈：</span><br><span class="hljs-string">&#123;feedback&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">请根据评审员的反馈，生成一个优化后的新版本代码。</span><br><span class="hljs-string">你的代码必须包含完整的函数签名、文档字符串，并遵循PEP 8编码规范。</span><br><span class="hljs-string">请直接输出优化后的代码，不要包含任何额外的解释。</span><br><span class="hljs-string">&quot;</span><span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>（2）智能体封装与实现</p>
+<p>现在，我们将这套提示词逻辑和 <code>Memory</code> 模块整合到 <code>ReflectionAgent</code> 类中。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 假设 llm_client.py 和 memory.py 已定义</span><br><span class="hljs-comment"># from llm_client import HelloAgentsLLM</span><br><span class="hljs-comment"># from memory import Memory</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ReflectionAgent</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, llm_client, max_iterations=<span class="hljs-number">3</span></span>):<br>        self.llm_client = llm_client<br>        self.memory = Memory()<br>        self.max_iterations = max_iterations<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self, task: <span class="hljs-built_in">str</span></span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n--- 开始处理任务 ---\n任务: <span class="hljs-subst">&#123;task&#125;</span>&quot;</span>)<br><br>        <span class="hljs-comment"># --- 1. 初始执行 ---</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n--- 正在进行初始尝试 ---&quot;</span>)<br>        initial_prompt = INITIAL_PROMPT_TEMPLATE.<span class="hljs-built_in">format</span>(task=task)<br>        initial_code = self._get_llm_response(initial_prompt)<br>        self.memory.add_record(<span class="hljs-string">&quot;execution&quot;</span>, initial_code)<br><br>        <span class="hljs-comment"># --- 2. 迭代循环:反思与优化 ---</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(self.max_iterations):<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n--- 第 <span class="hljs-subst">&#123;i+<span class="hljs-number">1</span>&#125;</span>/<span class="hljs-subst">&#123;self.max_iterations&#125;</span> 轮迭代 ---&quot;</span>)<br><br>            <span class="hljs-comment"># a. 反思</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n-&gt; 正在进行反思...&quot;</span>)<br>            last_code = self.memory.get_last_execution()<br>            reflect_prompt = REFLECT_PROMPT_TEMPLATE.<span class="hljs-built_in">format</span>(task=task, code=last_code)<br>            feedback = self._get_llm_response(reflect_prompt)<br>            self.memory.add_record(<span class="hljs-string">&quot;reflection&quot;</span>, feedback)<br><br>            <span class="hljs-comment"># b. 检查是否需要停止</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;无需改进&quot;</span> <span class="hljs-keyword">in</span> feedback:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n✅ 反思认为代码已无需改进，任务完成。&quot;</span>)<br>                <span class="hljs-keyword">break</span><br><br>            <span class="hljs-comment"># c. 优化</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n-&gt; 正在进行优化...&quot;</span>)<br>            refine_prompt = REFINE_PROMPT_TEMPLATE.<span class="hljs-built_in">format</span>(<br>                task=task,<br>                last_code_attempt=last_code,<br>                feedback=feedback<br>            )<br>            refined_code = self._get_llm_response(refine_prompt)<br>            self.memory.add_record(<span class="hljs-string">&quot;execution&quot;</span>, refined_code)<br>        <br>        final_code = self.memory.get_last_execution()<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n--- 任务完成 ---\n最终生成的代码:\n```python\n<span class="hljs-subst">&#123;final_code&#125;</span>\n```&quot;</span>)<br>        <span class="hljs-keyword">return</span> final_code<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_get_llm_response</span>(<span class="hljs-params">self, prompt: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;一个辅助方法，用于调用LLM并获取完整的流式响应。&quot;&quot;&quot;</span><br>        messages = [&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: prompt&#125;]<br>        response_text = self.llm_client.think(messages=messages) <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> response_text<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-4-4-运行实例与分析"><a href="#4-4-4-运行实例与分析" class="headerlink" title="4.4.4 运行实例与分析"></a>4.4.4 运行实例与分析</h3><p>完整的代码同样参考本书配套的代码仓库 <code>code</code> 文件夹，这里提供一个输出实例。</p>
+<figure class="hljs highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs python">--- 开始处理任务 ---<br>任务： 编写一个Python函数，找出<span class="hljs-number">1</span>到n之间所有的素数 (prime numbers)。<br><br>--- 正在进行初始尝试 ---<br>🧠 正在调用 xxxxxx 模型...<br>✅ 大语言模型响应成功：<br>```python<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">find_primes</span>(<span class="hljs-params">n</span>):<br>    ...<br>    <span class="hljs-keyword">return</span> primes<br>```<br>📝 记忆已更新，新增一条 <span class="hljs-string">&#x27;execution&#x27;</span> 记录。   <br><br>--- 第 <span class="hljs-number">1</span>/<span class="hljs-number">2</span> 轮迭代 ---<br><br>-&gt; 正在进行反思...<br>🧠 正在调用 xxxxxx 模型...<br>✅ 大语言模型响应成功：<br>当前代码的时间复杂度为O(n * sqrt(n))。虽然对于较小的n值，这种实现是可以接受的，但当n非常大时，性能会显著下降。主要瓶颈在于每个数都需要进行试除法检查，这导致了较高的时间开销。<br><br>建议使用埃拉托斯特尼筛法（Sieve of Eratosthenes），该算法的时间复杂度为O(n log(log n))，能够显著提高查找素数的效率。<br><br>改进后的代码如下：<br>```python<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">find_primes</span>(<span class="hljs-params">n</span>):<br>    ...<br>    <span class="hljs-keyword">return</span> primes<br>```<br>📝 记忆已更新，新增一条 <span class="hljs-string">&#x27;reflection&#x27;</span> 记录。<br><br>-&gt; 正在进行优化...<br>🧠 正在调用 xxxxxx 模型...<br>✅ 大语言模型响应成功：<br>```python<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">find_primes</span>(<span class="hljs-params">n</span>):<br>    ...<br>    <span class="hljs-keyword">return</span> primes<br>```<br>📝 记忆已更新，新增一条 <span class="hljs-string">&#x27;execution&#x27;</span> 记录。<br><br>--- 第 <span class="hljs-number">2</span>/<span class="hljs-number">2</span> 轮迭代 ---<br><br>-&gt; 正在进行反思...<br>🧠 正在调用 xxxxxx 模型...<br>✅ 大语言模型响应成功：<br>当前代码使用了Eratosthenes筛法，时间复杂度为O(n log log n)，空间复杂度为O(n)。此算法在寻找<span class="hljs-number">1</span>到n之间的所有素数时已经非常高效，通常情况下无需进一步优化。但在某些特定场景下，可以考虑以下改进：<br><br><span class="hljs-number">1.</span> &lt;strong&gt;分段筛法（Segmented Sieve）&lt;/strong&gt;：适用于n非常大但内存有限的情况。将区间分成多个小段，每段分别用筛法处理，减少内存使用。<br><span class="hljs-number">2.</span> &lt;strong&gt;奇数筛法（Odd Number Sieve）&lt;/strong&gt;：除了<span class="hljs-number">2</span>以外，所有素数都是奇数。可以在初始化`is_prime`数组时只标记奇数，这样可以将空间复杂度降低一半，同时减少一些不必要的计算。<br><br>然而，这些改进对于大多数应用场景来说并不是必需的，因为标准的Eratosthenes筛法已经足够高效。因此，在一般情况下，&lt;strong&gt;无需改进&lt;/strong&gt;。<br>📝 记忆已更新，新增一条 <span class="hljs-string">&#x27;reflection&#x27;</span> 记录。<br><br>✅ 反思认为代码已无需改进，任务完成。<br><br>--- 任务完成 ---<br>最终生成的代码：<br>```python<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">find_primes</span>(<span class="hljs-params">n</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Finds all prime numbers between 1 and n using the Sieve of Eratosthenes algorithm.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    :param n: The upper limit of the range to find prime numbers.</span><br><span class="hljs-string">    :return: A list of all prime numbers between 1 and n.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> n &lt; <span class="hljs-number">2</span>:<br>        <span class="hljs-keyword">return</span> []<br><br>    is_prime = [<span class="hljs-literal">True</span>] * (n + <span class="hljs-number">1</span>)<br>    is_prime[<span class="hljs-number">0</span>] = is_prime[<span class="hljs-number">1</span>] = <span class="hljs-literal">False</span><br><br>    p = <span class="hljs-number">2</span><br>    <span class="hljs-keyword">while</span> p * p &lt;= n:<br>        <span class="hljs-keyword">if</span> is_prime[p]:<br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(p * p, n + <span class="hljs-number">1</span>, p):<br>                is_prime[i] = <span class="hljs-literal">False</span><br>        p += <span class="hljs-number">1</span><br><br>    primes = [num <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>, n + <span class="hljs-number">1</span>) <span class="hljs-keyword">if</span> is_prime[num]]<br>    <span class="hljs-keyword">return</span> primes<br>```<br></code></pre></td></tr></table></figure>
+
+<p>这个运行实例展示了 Reflection 机制是如何驱动智能体进行深度优化的:</p>
+<ol>
+<li><strong>有效的“批判”是优化的前提</strong>:在第一轮反思中，由于我们使用了“极其严格”且“专注于算法效率”的提示词，智能体没有满足于功能正确的初版代码，而是精准地指出了其 <code>O(n * sqrt(n))</code> 的时间复杂度瓶颈，并提出了算法层面的改进建议——埃拉托斯特尼筛法。</li>
+<li><strong>迭代式改进</strong>: 智能体在接收到明确的反馈后，于优化阶段成功地实现了更高效的筛法，将算法复杂度降至 <code>O(n log log n)</code>，完成了第一次有意义的自我迭代。</li>
+<li><strong>收敛与终止</strong>: 在第二轮反思中，智能体面对已经高效的筛法，展现出了更深层次的知识。它不仅肯定了当前算法的效率，甚至还提及了分段筛法等更高级的优化方向，但最终做出了“在一般情况下无需改进”的正确判断。这个判断触发了我们的终止条件，使优化过程得以收敛。</li>
+</ol>
+<p>这个案例充分证明，一个设计良好的 Reflection 机制，其价值不仅在于修复错误，更在于<strong>驱动解决方案在质量和效率上实现阶梯式的提升</strong>，这使其成为构建复杂、高质量智能体的关键技术之一。</p>
+<h3 id="4-4-5-Reflection-机制的成本收益分析"><a href="#4-4-5-Reflection-机制的成本收益分析" class="headerlink" title="4.4.5 Reflection 机制的成本收益分析"></a>4.4.5 Reflection 机制的成本收益分析</h3><p>尽管 Reflection 机制在提升任务解决质量上表现出色，但这种能力的获得并非没有代价。在实际应用中，我们需要权衡其带来的收益与相应的成本。</p>
+<p>（1）主要成本</p>
+<ol>
+<li><p><strong>模型调用开销增加</strong>:这是最直接的成本。每进行一轮迭代，至少需要额外调用两次大语言模型（一次用于反思，一次用于优化）。如果迭代多轮，API 调用成本和计算资源消耗将成倍增加。</p>
+</li>
+<li><p><strong>任务延迟显著提高</strong>:Reflection 是一个串行过程，每一轮的优化都必须等待上一轮的反思完成。这使得任务的总耗时显著延长，不适合对实时性要求高的场景。</p>
+</li>
+<li><p><strong>提示工程复杂度上升</strong>:如我们的案例所示，Reflection 的成功在很大程度上依赖于高质量、有针对性的提示词。为“执行”、“反思”、“优化”等不同阶段设计和调试有效的提示词，需要投入更多的开发精力。</p>
+</li>
+</ol>
+<p>（2）核心收益</p>
+<ol>
+<li><p><strong>解决方案质量的跃迁</strong>:最大的收益在于，它能将一个“合格”的初始方案，迭代优化成一个“优秀”的最终方案。这种从功能正确到性能高效、从逻辑粗糙到逻辑严谨的提升，在很多关键任务中是至关重要的。</p>
+</li>
+<li><p><strong>鲁棒性与可靠性增强</strong>:通过内部的自我纠错循环，智能体能够发现并修复初始方案中可能存在的逻辑漏洞、事实性错误或边界情况处理不当等问题，从而大大提高了最终结果的可靠性。</p>
+</li>
+</ol>
+<p>综上所述，Reflection 机制是一种典型的“以成本换质量”的策略。它非常适合那些<strong>对最终结果的质量、准确性和可靠性有极高要求，且对任务完成的实时性要求相对宽松</strong>的场景。例如:</p>
+<ul>
+<li>生成关键的业务代码或技术报告。</li>
+<li>在科学研究中进行复杂的逻辑推演。</li>
+<li>需要深度分析和规划的决策支持系统。</li>
+</ul>
+<p>反之，如果应用场景需要快速响应，或者一个“大致正确”的答案就已经足够，那么使用更轻量的 ReAct 或 Plan-and-Solve 范式可能会是更具性价比的选择。</p>
+<h2 id="4-5-本章小结"><a href="#4-5-本章小结" class="headerlink" title="4.5 本章小结"></a>4.5 本章小结</h2><p>在本章中，以第三章掌握的大语言模型知识为基础，我们通过“亲手造轮子”的方式，从零开始编码实现了三种业界经典的智能体构建范式:ReAct、Plan-and-Solve 与 Reflection。我们不仅探索了它们的核心工作原理，还通过具体的实战案例，深入了解了各自的优势、局限与适用场景。</p>
+<p><strong>核心知识点回顾:</strong></p>
+<ol>
+<li>ReAct:我们构建了一个能与外部世界交互的 ReAct 智能体。通过“思考-行动-观察”的动态循环，它成功地利用搜索引擎回答了自身知识库无法覆盖的实时性问题。其核心优势在于<strong>环境适应性</strong>和<strong>动态纠错能力</strong>，使其成为处理探索性、需要外部工具输入的任务的首选。</li>
+<li>Plan-and-Solve:我们实现了一个先规划后执行的 Plan-and-Solve 智能体，并利用它解决了需要多步推理的数学应用题。它将复杂的任务分解为清晰的步骤，然后逐一执行。其核心优势在于<strong>结构性</strong>和<strong>稳定性</strong>，特别适合处理逻辑路径确定、内部推理密集的任务。</li>
+<li>Reflection (自我反思与迭代):我们构建了一个具备自我优化能力的 Reflection 智能体。通过引入“执行-反思-优化”的迭代循环，它成功地将一个效率较低的初始代码方案，优化为了一个算法上更优的高性能版本。其核心价值在于能<strong>显著提升解决方案的质量</strong>，适用于对结果的准确性和可靠性有极高要求的场景。</li>
+</ol>
+<p>本章探讨的三种范式，代表了智能体解决问题的三种不同策略，如表4.1所示。在实际应用中，选择哪一种，取决于任务的核心需求:</p>
+<div align="center">
+<p>表 4.1 不同 Agent Loop 的选择策略</p>
+<img src="https://raw.githubusercontent.com/datawhalechina/Hello-Agents/main/docs/images/4-figures/4-4.png" alt="" width="70%"/>
+</div>
+
+<p>至此，我们已经掌握了构建单个智能体的核心技术。为了过渡知识，以及对实际应用更加深入。下一节我们将会探索不同低代码平台的使用方式以及轻代码构建agent的方案。</p>
+<h2 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h2><blockquote>
+<p><strong>提示</strong>:部分习题没有标准答案，重点在于培养学习者对智能体范式设计的综合理解和实践能力。</p>
+</blockquote>
+<ol>
+<li><p>本章介绍了三种经典的智能体范式:<code>ReAct</code>、<code>Plan-and-Solve</code> 和 <code>Reflection</code>。请分析:</p>
+<ul>
+<li>这三种范式在”思考”与”行动”的组织方式上有什么本质区别？</li>
+<li>如果要设计一个”智能家居控制助手”（需要控制灯光、空调、窗帘等多个设备，并根据用户习惯自动调节），你会选择哪种范式作为基础架构？为什么？</li>
+<li>是否可以将这三种范式进行组合使用？若可以，请尝试设计一个混合范式的智能体架构，并说明其适用场景。</li>
+</ul>
+</li>
+<li><p>在4.2节的 <code>ReAct</code> 实现中，我们使用了正则表达式来解析大语言模型的输出（如 <code>Thought</code> 和 <code>Action</code>）。请思考:</p>
+<ul>
+<li>当前的解析方法存在哪些潜在的脆弱性？在什么情况下可能会失败？</li>
+<li>除了正则表达式，还有哪些更鲁棒的输出解析方案？</li>
+<li>尝试修改本章的代码，使用一种更可靠的输出格式，并对比两种方案的优缺点</li>
+</ul>
+</li>
+<li><p>工具调用是现代智能体的核心能力之一。基于4.2.2节的 <code>ToolExecutor</code> 设计，请完成以下扩展实践:</p>
+<blockquote>
+<p><strong>提示</strong>:这是一道动手实践题，建议实际编写代码</p>
+</blockquote>
+<ul>
+<li>为 <code>ReAct</code> 智能体添加一个”计算器”工具，使其能够处理复杂的数学计算问题（如”计算 <code>(123 + 456) × 789/ 12 = ?</code> 的结果”）</li>
+<li>设计并实现一个”工具选择失败”的处理机制:当智能体多次调用错误的工具或提供错误的参数时，系统应该如何引导它纠正？</li>
+<li>思考:如果可调用工具的数量增加到$50$个甚至$100$个，当前的工具描述方式是否还能有效工作？在可调用工具数量随业务需求显著增加时，从工程角度如何优化工具的组织和检索机制？</li>
+</ul>
+</li>
+<li><p><code>Plan-and-Solve</code> 范式将任务分解为”规划”和”执行”两个阶段。请深入分析:</p>
+<ul>
+<li>在4.3节的实现中，规划阶段生成的计划是”静态”的（一次性生成，不可修改）。如果在执行过程中发现某个步骤无法完成或结果不符合预期，应该如何设计一个”动态重规划”机制？</li>
+<li>对比 <code>Plan-and-Solve</code> 与 <code>ReAct</code>:在处理”预订一次从北京到上海的商务旅行（包括机票、酒店、租车）”这样的任务时，哪种范式更合适？为什么？</li>
+<li>尝试设计一个”分层规划”系统:先生成高层次的抽象计划，然后针对每个高层步骤再生成详细的子计划。这种设计有什么优势？</li>
+</ul>
+</li>
+<li><p><code>Reflection</code> 机制通过”执行-反思-优化”循环来提升输出质量。请思考:</p>
+<ul>
+<li>在4.4节的代码生成案例中，不同阶段使用的是同一个模型。如果使用两个不同的模型（例如，用一个更强大的模型来做反思，用一个更快的模型来做执行），会带来什么影响？</li>
+<li><code>Reflection</code> 机制的终止条件是”反馈中包含<strong>无需改进</strong>“或”达到最大迭代次数”。这种设计是否合理？能否设计一个更智能的终止条件？</li>
+<li>假设你要搭建一个”学术论文写作助手”，它能够生成初稿并不断优化论文内容。请设计一个多维度的Reflection机制，从段落逻辑性、方法创新性、语言表达、引用规范等多个角度进行反思和改进。</li>
+</ul>
+</li>
+<li><p>提示词工程是影响智能体最终效果的关键技术。本章展示了多个精心设计的提示词模板。请分析:</p>
+<ul>
+<li>对比4.2.3节的 <code>ReAct</code> 提示词和4.3.2节的 <code>Plan-and-Solve</code> 提示词，它们显然存在结构设计上的明显不同，这些差异是如何服务于各自范式的核心逻辑的？</li>
+<li>在4.4.3节的 <code>Reflection</code> 提示词中，我们使用了”你是一位极其严格的代码评审专家”这样的角色设定。尝试修改这个角色设定（如改为”你是一位注重代码可读性的开源项目维护者”），观察输出结果的变化，并总结角色设定对智能体行为的影响。</li>
+<li>在提示词中加入 <code>few-shot</code> 示例往往能显著提升模型对特定格式的遵循能力。请为本章的某个智能体尝试添加 <code>few-shot</code> 示例，并对比其效果。</li>
+</ul>
+</li>
+<li><p>某电商初创公司现在希望使用”客服智能体”来代替真人客服实现降本增效，它需要具备以下功能:</p>
+<p>a. 理解用户的退款申请理由</p>
+<p>b. 查询用户的订单信息和物流状态</p>
+<p>c. 根据公司政策智能地判断是否应该批准退款</p>
+<p>d. 生成一封得体的回复邮件并发送至用户邮箱</p>
+<p>e. 如果判断决策存在一定争议（自我置信度低于阈值），能够进行自我反思并给出更审慎的建议</p>
+<p>此时作为该产品的负责人:</p>
+<ul>
+<li>你会选择本章的哪种范式（或哪些范式的组合）作为系统的核心架构？</li>
+<li>这个系统需要哪些工具？请列出至少3个工具及其功能描述。</li>
+<li>如何设计提示词来确保智能体的决策既符合公司利益，又能保持对用户的友好态度？</li>
+<li>这个产品上线后可能面临哪些风险和挑战？如何通过技术手段来降低这些风险？</li>
+</ul>
+</li>
+</ol>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] Yao S, Zhao J, Yu D, et al. React: Synergizing reasoning and acting in language models[C]&#x2F;&#x2F;International Conference on Learning Representations (ICLR). 2023.</p>
+<p>[2] Wang L, Xu W, Lan Y, et al. Plan-and-solve prompting: Improving zero-shot chain-of-thought reasoning by large language models[J]. arXiv preprint arXiv:2305.04091, 2023.</p>
+<p>[3] Shinn N, Cassano F, Gopinath A, et al. Reflexion: Language agents with verbal reinforcement learning[J]. Advances in Neural Information Processing Systems, 2023, 36: 8634-8652.</p>
+
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        <a class="post-tag button" href="/tags/Hello-Agents-%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fas fa-tags"></i>Hello Agents 学习</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  
+  <nav class="page-nav">
+    <div class="page-nav-next page-nav-item">
+      
+      <a href="/2026/03/01/ai-agent-learning/%E7%AC%AC3%E7%AB%A0-%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80/" rel="next" title="第三章 大语言模型基础"><i class="fas fa-angle-left"></i><span class="nav-title">第三章 大语言模型基础</span></a>
+      
+    </div>
+    <div class="page-nav-prev page-nav-item">
+      
+      <a href="/2026/03/01/ai-agent-learning/%E7%AC%AC5%E7%AB%A0-%E5%9F%BA%E4%BA%8E%E4%BD%8E%E4%BB%A3%E7%A0%81%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%99%BA%E8%83%BD%E4%BD%93%E6%90%AD%E5%BB%BA/" rel="prev" title="第五章 基于低代码平台的智能体搭建"><span class="nav-title">第五章 基于低代码平台的智能体搭建</span><i class="fas fa-angle-right"></i></a>
+      
+    </div>
+  </nav>
+  
+  
+</div>
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/background.png);">
+  
+  <div class="search">
+    <div class="form-group">
+      <i class="fas fa-search"></i><input type="search" id="search-input" name="q" results="0" placeholder="Search" class="form-control"/>
+    </div>
+  </div>
+  <div class="search-result-box" id="search-result"></div>
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <img class="author-avatar" src="/img/avatar.jpg" alt="Jason Dong">
+  
+  <h1 class="author-name">Jason Dong</h1>
+  <h2 class="author-description"></h2>
+  <div class="site-count">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+    
+    
+    
+    <hr>
+    <div class="post-toc sidebar-item" id="toc-div">
+      <div><i class="fas fa-list-ol"></i>Table of Contents</div>
+      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-1"><a class="list-group-item toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E6%99%BA%E8%83%BD%E4%BD%93%E7%BB%8F%E5%85%B8%E8%8C%83%E5%BC%8F%E6%9E%84%E5%BB%BA"><span class="toc-text">第四章 智能体经典范式构建</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#4-1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%E4%B8%8E%E5%9F%BA%E7%A1%80%E5%B7%A5%E5%85%B7%E5%AE%9A%E4%B9%89"><span class="toc-text">4.1 环境准备与基础工具定义</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-1-1-%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E5%BA%93"><span class="toc-text">4.1.1 安装依赖库</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-1-2-%E9%85%8D%E7%BD%AE-API-%E5%AF%86%E9%92%A5"><span class="toc-text">4.1.2 配置 API 密钥</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-1-3-%E5%B0%81%E8%A3%85%E5%9F%BA%E7%A1%80-LLM-%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-text">4.1.3 封装基础 LLM 调用函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#4-2-ReAct"><span class="toc-text">4.2 ReAct</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-2-1-ReAct-%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">4.2.1 ReAct 的工作流程</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-2-2-%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="toc-text">4.2.2 工具的定义与实现</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-2-3-ReAct-%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%BC%96%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">4.2.3 ReAct 智能体的编码实现</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-2-4-ReAct-%E7%9A%84%E7%89%B9%E7%82%B9%E3%80%81%E5%B1%80%E9%99%90%E6%80%A7%E4%B8%8E%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="toc-text">4.2.4 ReAct 的特点、局限性与调试技巧</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#4-3-Plan-and-Solve"><span class="toc-text">4.3 Plan-and-Solve</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-3-1-Plan-and-Solve-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">4.3.1 Plan-and-Solve 的工作原理</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-3-2-%E8%A7%84%E5%88%92%E9%98%B6%E6%AE%B5"><span class="toc-text">4.3.2 规划阶段</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-3-3-%E6%89%A7%E8%A1%8C%E5%99%A8%E4%B8%8E%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86"><span class="toc-text">4.3.3 执行器与状态管理</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-3-4-%E8%BF%90%E8%A1%8C%E5%AE%9E%E4%BE%8B%E4%B8%8E%E5%88%86%E6%9E%90"><span class="toc-text">4.3.4 运行实例与分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#4-4-Reflection"><span class="toc-text">4.4 Reflection</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-4-1-Reflection-%E6%9C%BA%E5%88%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-text">4.4.1 Reflection 机制的核心思想</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-4-2-%E6%A1%88%E4%BE%8B%E8%AE%BE%E5%AE%9A%E4%B8%8E%E8%AE%B0%E5%BF%86%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1"><span class="toc-text">4.4.2 案例设定与记忆模块设计</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-4-3-Reflection-%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%BC%96%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">4.4.3 Reflection 智能体的编码实现</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-4-4-%E8%BF%90%E8%A1%8C%E5%AE%9E%E4%BE%8B%E4%B8%8E%E5%88%86%E6%9E%90"><span class="toc-text">4.4.4 运行实例与分析</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#4-4-5-Reflection-%E6%9C%BA%E5%88%B6%E7%9A%84%E6%88%90%E6%9C%AC%E6%94%B6%E7%9B%8A%E5%88%86%E6%9E%90"><span class="toc-text">4.4.5 Reflection 机制的成本收益分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#4-5-%E6%9C%AC%E7%AB%A0%E5%B0%8F%E7%BB%93"><span class="toc-text">4.5 本章小结</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E4%B9%A0%E9%A2%98"><span class="toc-text">习题</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">参考文献</span></a></li></ol></li></ol></div>
+    </div>
+    
+    
+    
+    <hr>
+    <div class="social-link sidebar-item">
+      <div><i class="far fa-address-card"></i>Social Links</p></div>
+      <ul>
+        
+        <li><i class="fab fa-github"></i><a href="https://github.com/JasonDong97" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-envelope"></i><a href="mailto:534458392@qq.com" target="_blank">Email</a></li>
+        
+      </ul>
+    </div>
+    
+    
+    <hr>
+    <div class="blogroll sidebar-item">
+      <div><i class="fas fa-link"></i>Blogroll</div>
+      <ul>
+        
+        <li><i class="fas fa-link"></i><a href="https://hexo.io/" target="_blank">Hexo</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://developer.mozilla.org/" target="_blank">MDN</a></li>
+        
+      </ul>
+    </div>
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer" style="background: #33363b;">
+  <div class="container">
+    <div class="back-to-top">
+      <button id="back-to-top"><i class="fas fa-angle-double-up" aria-label="Back to Top"></i></button>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">Jason Dong</span><span class="year"><i class="far fa-copyright"></i>2020 - 2026</span><span class="creative-commons"><i class="fab fa-creative-commons"></i><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">BY-NC-SA 4.0</a></span>
+        </div>
+        
+        <div class="busuanzi">
+          <span id="busuanzi_container_site_pv"><i class="fas fa-eye" aria-label="Site Visit Count" aria-hidden="false"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user" aria-label="Site User Count" aria-hidden="false"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv" aria-label="Page Click Count" aria-hidden="false"></span></span>
+        </div>
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+          <i class="fas fa-heart"></i> Jason Dong | 托管于 <i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+          
+        </div>
+        <div class="powered-by">
+          Proudly Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme is <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>

@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    
+    
+    
+    
+    <meta name="keywords" content="Jason Dong, 后端工程师, Java, Python, Hexo">
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    
+    <link rel="alternate" href="/atom.xml" title="Jason Dong" type="application/atom+xml" />
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicons/favicon.ico">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+<link rel="stylesheet" type="text/css" href="/css/page.css">
+<link rel="stylesheet" type="text/css" href="/css/post.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/clipboard.min.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
+    
+    
+    <script defer type="text/javascript" src="/js/search.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var searchPath = "search.xml";
+      if (searchPath.length === 0) {
+        searchPath = "search.xml";
+      }
+      var path = "/" + searchPath;
+      searchFunc(path, "search-input", "search-result");
+    });
+    </script>
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var cb = null;
+      var els = $(".post figure.highlight");
+      if (els.length) {
+        // Enabled Hexo highlight line number.
+        $(els).each(function (i, e) {
+          // $(e).before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling.firstChild.firstChild.firstChild.lastChild.firstChild.firstChild;
+          }
+        });
+      } else {
+        // Disabled Hexo highlight line number.
+        els = $(".post pre code");
+        $(els).each(function (i, e) {
+          // Add button before pre, not code.
+          // $(e).parent().before("<button class=\"copy button\">Copy</button>");
+          $(e).before([
+            "<div class=\"code-titlebar\">",
+              "<div class=\"titlebar-left\">",
+                "<button class=\"copy\" aria-label=\"Copy\"><i class=\"far fa-copy\"></i></button>",
+              "</div>",
+              "<div class=\"titlebar-center\">",
+                "code",
+              "</div>",
+              "<div class=\"titlebar-right\">",
+                "<button class=\"button-dot dot-minimize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-maximize\" aria-label=\"Decoration\"></button>",
+                "<button class=\"button-dot dot-close\" aria-label=\"Decoration\"></button>",
+              "</div>",
+            "</div>"
+          ].join(""));
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              return trigger.parentNode.parentNode.nextElementSibling;
+          }
+        });
+      }
+      cb.on("success", function (e) {
+        e.clearSelection();
+        var trigger = e.trigger;
+        // Change button text as a user tip.
+        trigger.innerHTML = "<i class=\"far fa-check-square\"></i>";
+        $(trigger).addClass("copied");
+        // Change button text back;
+        setTimeout(function () {
+          trigger.innerHTML = "<i class=\"far fa-copy\"></i>";
+          $(trigger).removeClass("copied");
+        }, 1500);
+      });
+    });
+    </script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>GUI Agent 科普与实战——下一代人机交互的探索之旅 | Jason Dong - 后端工程师</title>
+  <meta name="generator" content="Hexo 5.4.2"></head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN"  data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header" style="background: #33363b;">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">Jason Dong</a></h1>
+        <h2 class="subtitle">后端工程师</h2>
+      </div>
+      
+      <div class="logo">
+        <img src="/images/logo.png" alt="logo">
+      </div>
+      
+    </div>
+    <nav id="nav" class="nav">
+      <a id="nav-toggle" class="nav-toggle" aria-hidden="true"><i class="fas fa-bars" aria-label="Toggle Navbar"></i></a>
+      <ul id="menu" role="menubar" aria-hidden="false">
+        
+        <li role="menuitem"><a href="/"><i class="fas fa-home"></i><span class="menu-text">首页</span></a></li>
+        
+        <li role="menuitem"><a href="/archives/"><i class="fas fa-archive"></i><span class="menu-text">归档</span></a></li>
+        
+        <li role="menuitem"><a href="/categories/"><i class="fas fa-th-list"></i><span class="menu-text">分类</span></a></li>
+        
+        <li role="menuitem"><a href="/tags/"><i class="fas fa-tags"></i><span class="menu-text">标签</span></a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
+<div id="post" class="page">
+  
+  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://jasondong97.github.io/2026/03/03/ai-agent-learning/Extra06-GUIAgent%E7%A7%91%E6%99%AE%E4%B8%8E%E5%AE%9E%E6%88%98/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+       <meta itemprop="name" content="Jason Dong">
+       <meta itemprop="description" content="">
+       <meta itemprop="image" content="/img/avatar.jpg">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+       <meta itemprop="name" content="Jason Dong">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">GUI Agent 科普与实战——下一代人机交互的探索之旅</h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2026-03-03T06:00:00+08:00">2026-03-03 06:00:00</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hello-Agents-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Hello Agents 学习</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-main" itemprop="articleBody">
+      <h1 id="GUI-Agent-科普与实战——下一代人机交互的探索之旅"><a href="#GUI-Agent-科普与实战——下一代人机交互的探索之旅" class="headerlink" title="GUI Agent 科普与实战——下一代人机交互的探索之旅"></a>GUI Agent 科普与实战——下一代人机交互的探索之旅</h1><h2 id="引言：当-AI-学会”看”屏幕"><a href="#引言：当-AI-学会”看”屏幕" class="headerlink" title="引言：当 AI 学会”看”屏幕"></a>引言：当 AI 学会”看”屏幕</h2><p>想象一下这样的场景：你对着手机说”帮我订一张明天去上海的高铁票，二等座，上午 10 点左右出发”，然后 AI 自动打开铁路 12306 APP，填写出发地、目的地和日期，筛选符合条件的车次，完成预订并付款——整个过程无需你手动操作，AI 就像一个真实的助手一样，”看”着屏幕，”理解”界面，”点击”按钮。</p>
+<p>这不是科幻，而是 <strong>GUI Agent（图形用户界面智能体）</strong> 正在实现的现实。</p>
+<p>在过去的二十年中，企业自动化的主流方案是 <strong>RPA（机器人流程自动化）</strong>。然而，RPA 有一个致命弱点：它依赖于固定的 UI 元素选择器（Selectors），一旦界面稍有变化，脚本就会失效。这种脆弱性导致了巨大的维护成本。</p>
+<p>而 GUI Agent 的出现，彻底改变了这个局面。它不是简单地”回放”预设的脚本，而是像人类一样，通过<strong>视觉感知</strong>理解屏幕内容，通过<strong>大语言模型的推理能力</strong>规划操作路径，在动态、未知的软件环境中自主完成任务。</p>
+<p>本章将带你深入了解 GUI Agent 的技术原理，并通过三个实战案例，让你真正掌握如何使用和部署这些前沿的智能体系统。</p>
+<h2 id="第一部分：GUI-Agent-技术科普"><a href="#第一部分：GUI-Agent-技术科普" class="headerlink" title="第一部分：GUI Agent 技术科普"></a>第一部分：GUI Agent 技术科普</h2><h3 id="1-1-GUI-Agent-是什么？"><a href="#1-1-GUI-Agent-是什么？" class="headerlink" title="1.1 GUI Agent 是什么？"></a>1.1 GUI Agent 是什么？</h3><p><strong>GUI Agent（图形用户界面智能体）</strong> 是一类能够自主理解和操作图形界面的 AI 系统。与传统的 API 调用或命令行工具不同，GUI Agent 直接与人类使用的图形界面交互——无论是手机 APP、桌面软件还是网页应用。</p>
+<h4 id="1-1-1-从-RPA-到-AI-Agent-的范式转变"><a href="#1-1-1-从-RPA-到-AI-Agent-的范式转变" class="headerlink" title="1.1.1 从 RPA 到 AI Agent 的范式转变"></a>1.1.1 从 RPA 到 AI Agent 的范式转变</h4><p>让我们通过一个对比来理解这种转变：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>传统 RPA</th>
+<th>GUI Agent（AI Agent）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>工作原理</strong></td>
+<td>基于固定选择器（如 XPath、ID）的脚本回放</td>
+<td>基于视觉理解和语言模型推理的自主操作</td>
+</tr>
+<tr>
+<td><strong>适应性</strong></td>
+<td>界面变化即失效</td>
+<td>能适应界面变化，具备语义弹性</td>
+</tr>
+<tr>
+<td><strong>任务规划</strong></td>
+<td>需要人工预设每一步操作</td>
+<td>根据自然语言指令自主分解任务</td>
+</tr>
+<tr>
+<td><strong>跨平台能力</strong></td>
+<td>需要为每个平台编写专门脚本</td>
+<td>通用视觉方案，天然跨平台</td>
+</tr>
+<tr>
+<td><strong>维护成本</strong></td>
+<td>极高（UI 变化需重写脚本）</td>
+<td>低（模型自动适应）</td>
+</tr>
+</tbody></table>
+<p><strong>核心区别</strong>：RPA 是”脆弱的自动化”，而 GUI Agent 是”智能的自主化”。</p>
+<h4 id="1-1-2-为什么-GUI-Agent-突然火了？"><a href="#1-1-2-为什么-GUI-Agent-突然火了？" class="headerlink" title="1.1.2 为什么 GUI Agent 突然火了？"></a>1.1.2 为什么 GUI Agent 突然火了？</h4><p>GUI Agent 的爆发并非偶然，而是多个技术领域同步成熟的结果。首先是多模态大模型的突破性进展。从GPT-4o、Claude 3.5 Sonnet、Qwen-VL 这些模型开始，大模型不仅能理解文字，还能”看懂”图像，这为 GUI Agent 提供了强大的”眼睛”。当你把一张屏幕截图喂给这些模型时，它们能准确识别出”这是一个登录按钮”、”这里有一个搜索框”，甚至能理解复杂的界面布局。</p>
+<p>更关键的是定位能力的突破。早期的视觉模型就像一个近视眼——它知道屏幕上有个按钮，但说不清楚按钮在哪里。而最新的模型（如 GUI-Owl、Qwen-VL）经过专门训练，能够精确输出 UI 元素的屏幕坐标 $(x, y)$，这让 Agent 不仅能”看见”，还能”点准”。</p>
+<p>最后是推理能力的质变。大语言模型的链式思考（Chain of Thought）能力让 Agent 拥有了”大脑”。它能将”订一张明天的高铁票”这样的模糊指令，分解成”打开APP → 选择日期 → 输入地点 → 筛选车次 → 确认支付”这样的具体步骤，并在执行过程中不断反思和纠错。</p>
+<h3 id="1-2-GUI-Agent-的核心技术架构"><a href="#1-2-GUI-Agent-的核心技术架构" class="headerlink" title="1.2 GUI Agent 的核心技术架构"></a>1.2 GUI Agent 的核心技术架构</h3><p>一个完整的 GUI Agent 系统可以被分解为三个核心模块：<strong>感知（Perception）</strong> → <strong>推理（Reasoning）</strong> → <strong>执行（Action）</strong>。这是一个闭环的自主决策系统。</p>
+<div align="center">
+  <img src="./images/Extra06-figures/image1.png" alt="GUI Agent 三层架构" width="90%"/>
+  <p>图 1 GUI Agent 的感知-推理-执行闭环</p>
+</div>
+
+
+<h4 id="1-2-1-感知层：机器如何”看见”屏幕"><a href="#1-2-1-感知层：机器如何”看见”屏幕" class="headerlink" title="1.2.1 感知层：机器如何”看见”屏幕"></a>1.2.1 感知层：机器如何”看见”屏幕</h4><p>感知层负责将屏幕信息转化为机器可理解的数据。目前主要有两种技术路线，它们代表了两种截然不同的设计哲学。</p>
+<p>第一种路线是基于 DOM 或可访问性树的结构化感知。这种方法通过系统 API 获取应用的内部结构——比如网页的 HTML DOM 树，或者 Android 应用的 View Hierarchy。就像是给 Agent 提供了一份”建筑图纸”，它能精确知道每个按钮、文本框的类型和位置。这种方法的优势是精确高效，但问题也很明显：许多现代应用根本不暴露这些结构化信息。Canvas 绘制的界面、游戏、远程桌面软件，对于基于 DOM 的方案来说都是”黑盒”。而且这种方法丢失了视觉布局信息，很难理解元素之间的空间关系，跨平台兼容性也很差。</p>
+<p>第二种路线是基于纯视觉的感知，这也是目前最前沿的方向。Agent 直接截取屏幕图像，用视觉大模型（VLM）像人类一样”看”屏幕。这种方法的通用性极强——不管你的界面是用什么技术实现的，只要能显示在屏幕上，Agent 就能理解。更重要的是，它具备”语义弹性”。即使某个按钮从蓝色变成了绿色，或者位置稍微移动了，基于视觉的 Agent 仍然能通过语义识别出”这是登录按钮”。传统 RPA 遇到这种情况就会失效，但 GUI Agent 能轻松应对。当然，纯视觉方案也有挑战，最大的难点是定位精度——模型不仅要识别出按钮是什么，还要输出它的精确屏幕坐标。</p>
+<h4 id="1-2-2-推理层：大脑的决策过程"><a href="#1-2-2-推理层：大脑的决策过程" class="headerlink" title="1.2.2 推理层：大脑的决策过程"></a>1.2.2 推理层：大脑的决策过程</h4><p>推理层是 GUI Agent 的”大脑”，负责将用户的抽象指令转化为具体的操作序列。这里涉及几个关键能力。</p>
+<p>首先是任务分解能力。当你对 Agent 说”帮我订一张明天去上海的高铁票，二等座，上午10点左右出发”，它需要理解这句话背后的复杂逻辑。Agent 会自动将这个模糊的需求拆解成一系列具体步骤：打开 12306 APP → 点击”车票预订” → 输入出发地”北京” → 输入目的地”上海” → 选择日期”明天” → 点击查询 → 筛选车次（二等座+上午10点前后）→ 选择符合条件的车次 → 点击预订 → 填写乘客信息 → 确认支付。这个分解过程依赖于大语言模型对常识和业务流程的理解。</p>
+<p>更精妙的是思维链机制。为了提高复杂任务的成功率，现代 GUI Agent 会在每一步操作前生成”内心独白”。比如当前屏幕是 12306 首页，用户目标是预订高铁票，Agent 会先分析：”我看到屏幕上有’车票预订’、’订单查询’等选项，需要点击’车票预订’才能进入购票流程。”然后决策：”点击坐标 (540, 320) 处的’车票预订’按钮。”这种显式的思考过程不仅让 Agent 的行为更可解释，还能显著降低多步操作中的误差累积。</p>
+<p>最后是反思与纠错能力。如果 Agent 点击”查询”按钮后，发现没有出现预期的车次列表，而是弹出”请选择出发日期”的提示，它会立即意识到：”我漏掉了选择日期的步骤。”然后调整策略：”先点击日期选择器，选择明天的日期，再重新查询。”这种自我修正能力让 Agent 能够应对真实世界中的各种意外情况。</p>
+<h4 id="1-2-3-执行层：从决策到行动"><a href="#1-2-3-执行层：从决策到行动" class="headerlink" title="1.2.3 执行层：从决策到行动"></a>1.2.3 执行层：从决策到行动</h4><p>执行层是 GUI Agent 的”双手”，负责将模型的决策转化为实际的系统操作。</p>
+<p>与文本生成的开放空间不同，GUI 操作的动作空间是有限且明确的。点击、双击、长按、滑动、输入、滚动、拖拽——这些基本动作构成了所有复杂操作的基础。每种动作都有其特定的参数，比如点击需要坐标 (x, y)，滑动需要起点和终点 (x1, y1, x2, y2)，输入需要文本内容。</p>
+<p>这里有一个关键的技术细节：坐标系统的转换。视觉模型（如 Qwen-VL）通常输出归一化坐标（0-1000），而实际手机或电脑的屏幕分辨率可能是 1920x1080。执行层必须进行精确的坐标映射，将模型的输出转换成物理坐标。而且不同设备还有不同的 DPI 和系统缩放比例，这些都需要考虑进去。一个简单的映射函数可能是这样的：先将归一化坐标除以 1000，再乘以屏幕的实际宽高，最后取整得到物理坐标。</p>
+<p>更复杂的是多平台适配。在 Android 上，所有操作都通过 ADB（Android Debug Bridge）发送指令实现，比如 <code>adb shell input tap 500 1000</code> 执行点击，<code>adb shell input swipe 500 1000 500 500</code> 执行滑动。在 iOS 上，需要通过 libimobiledevice 或 WDA（WebDriverAgent）来实现类似功能。而在 Windows、Mac、Linux 桌面环境，通常使用 pyautogui、pynput 这样的 Python 库直接控制鼠标和键盘。同一个”点击”动作，在不同平台上的实现方式完全不同，执行层需要为每个平台提供统一的抽象接口。</p>
+<h3 id="1-3-主流开源框架全景对比"><a href="#1-3-主流开源框架全景对比" class="headerlink" title="1.3 主流开源框架全景对比"></a>1.3 主流开源框架全景对比</h3><p>2024-2025年是 GUI Agent 的爆发期，各大科技公司和研究机构纷纷开源了自己的框架。让我们系统地对比几个最具代表性的项目：</p>
+<div align="center">
+  <img src="./images/Extra06-figures/image2.png" alt="主流GUI Agent框架对比" width="90%"/>
+  <p>图 2 主流 GUI Agent 框架全景对比雷达图</p>
+</div>
+
+
+<h3 id="1-4-应用场景与技术局限"><a href="#1-4-应用场景与技术局限" class="headerlink" title="1.4 应用场景与技术局限"></a>1.4 应用场景与技术局限</h3><h4 id="1-4-1-五大典型应用场景"><a href="#1-4-1-五大典型应用场景" class="headerlink" title="1.4.1 五大典型应用场景"></a>1.4.1 五大典型应用场景</h4><p>GUI Agent 的应用潜力远超我们的想象。在智能座舱领域，驾驶过程中的语音交互需求正在爆发。想象你在开车时说”导航到最近的咖啡店，并在到达前 10 分钟帮我点一杯拿铁”，GUI Agent 能够跨应用协调导航 APP 和外卖 APP，理解复杂的时间逻辑，还能适应不同品牌车机的UI差异。这正是传统车机系统难以做到的。</p>
+<p>在软件测试领域，GUI Agent 带来了革命性的变化。传统的自动化测试依赖 Selenium 等工具，每次 UI 改版都需要更新测试脚本，维护成本极高。而 GUI Agent 能够自适应 UI 变化——即使按钮的位置调整了、颜色改变了，Agent 仍能通过语义识别找到正确的元素。它还能进行视觉回归测试，自动检测 UI 异常，甚至主动进行探索性测试，发现那些人类测试工程师可能忽略的边界情况。</p>
+<p>企业级的 RPA 场景是另一个巨大的市场。传统 RPA 无法处理那些没有 API 的老旧系统，但 GUI Agent 可以。从 Excel 提取数据，填入 ERP 系统，发送邮件通知——整个跨系统工作流可以完全自动化。对于那些运行了二三十年、没有任何现代接口的遗留系统，GUI Agent 终于提供了自动化的可能性。</p>
+<p>在个人生活中，GUI Agent 可以成为真正的智能助理。定时发布内容到多个社交平台，每天早上自动汇总新闻、天气、日程，记录运动数据和饮食习惯——这些重复性的数字劳动都可以交给 Agent 完成。而对于视障、肢体障碍的用户，GUI Agent 更是打开了新世界的大门。完全通过语音控制手机、智能阅读屏幕内容、将复杂操作转化为简单指令，这些功能正在让技术真正惠及每一个人。</p>
+<h4 id="1-4-2-当前技术的三大局限"><a href="#1-4-2-当前技术的三大局限" class="headerlink" title="1.4.2 当前技术的三大局限"></a>1.4.2 当前技术的三大局限</h4><p>但我们也必须清醒地认识到，GUI Agent 技术仍处于发展的早期阶段，面临着一些实质性的挑战。</p>
+<p>最令人担忧的是安全性与幻觉风险。大语言模型的幻觉问题在 GUI Agent 上可能导致严重后果。用户要求”清理桌面”，Agent 可能误解为删除所有文件；转账操作中的一个数字错误，可能造成经济损失。目前的缓解方案包括：对高风险操作强制要求人工确认，详细记录操作日志并支持回滚，以及在沙箱环境中充分测试。但这些都是权宜之计，从根本上解决模型幻觉问题仍需要时间。</p>
+<p>成本与效率问题同样不容忽视。每一步操作都需要调用大模型进行推理，如果使用云端 API，成本会随着调用次数线性增长。一个复杂任务可能需要数十次迭代，整体耗时较长。本地部署小模型能降低成本，但准确率会有所下降。操作缓存、模式识别、混合架构（简单任务用 RPA，复杂任务用 AI）是目前探索的方向，但还没有形成成熟的最佳实践。</p>
+<p>最后是准确率瓶颈。即使是最好的系统，在真实场景中的成功率也只有 40-50%。复杂界面的元素定位、动态内容的处理（广告、弹窗）、长链条任务的错误累积，这些都是实实在在的技术难题。突破方向包括更强的视觉大模型、通过强化学习优化操作策略、以及”人在回路”（Human-in-the-loop）的协作设计。但从 50% 提升到 90% 的商业化可用水平，可能还需要一段时间。</p>
+<hr>
+<h2 id="第二部分：GUI-Agent-实战教程"><a href="#第二部分：GUI-Agent-实战教程" class="headerlink" title="第二部分：GUI Agent 实战教程"></a>第二部分：GUI Agent 实战教程</h2><p>理论学习之后，让我们通过两个难度递增的实战案例，真正掌握 GUI Agent 的使用和部署。</p>
+<h3 id="实战一：Mobile-Agent-在线体验（零门槛）"><a href="#实战一：Mobile-Agent-在线体验（零门槛）" class="headerlink" title="实战一：Mobile-Agent 在线体验（零门槛）"></a>实战一：Mobile-Agent 在线体验（零门槛）</h3><h4 id="2-1-1-访问在线-Demo"><a href="#2-1-1-访问在线-Demo" class="headerlink" title="2.1.1 访问在线 Demo"></a>2.1.1 访问在线 Demo</h4><p>Mobile-Agent-v3 不仅支持手机，还能操作电脑。如图 3 所示，我们在 ModelScope 的 Demo 页面中，将左上角的设备选择切换为 “电脑”，即可进入 PC Agent 的体验环境。</p>
+<p><strong>选项一：ModelScope Demo</strong>（推荐）<br>链接：<a target="_blank" rel="noopener" href="https://modelscope.cn/studios/wangjunyang/Mobile-Agent-v3">https://modelscope.cn/studios/wangjunyang/Mobile-Agent-v3</a></p>
+<p><strong>选项二：阿里云百炼</strong><br>链接：<a target="_blank" rel="noopener" href="https://bailian.console.aliyun.com/next?tab=demohouse#/experience/adk-computer-use/pc">https://bailian.console.aliyun.com/next?tab=demohouse#/experience/adk-computer-use/pc</a></p>
+<p>这两个平台都提供了<strong>云手机&#x2F;云电脑环境</strong>，无需本地部署即可体验完整功能。</p>
+<h3 id="2-1-2-界面功能导览"><a href="#2-1-2-界面功能导览" class="headerlink" title="2.1.2 界面功能导览"></a>2.1.2 界面功能导览</h3><p>进入页面后，你将看到如图 3 所示的操作界面。为了确保体验一致，请务必进行以下<strong>关键设置</strong>：</p>
+<ol>
+<li><strong>设备选择</strong>：在左上角的下拉菜单中，确认选择 <strong>“电脑”</strong>（而非手机）。</li>
+<li><strong>桌面预览</strong>：右侧窗口展示的是云端分配给你的 Windows 10 桌面，预装了 Office、浏览器等基础软件。</li>
+<li><strong>交互区</strong>：左下角为指令输入区，Agent 的思考过程（Thinking Process）和操作步骤将显示在上方对话框中。</li>
+</ol>
+<div align="center">
+  <img src="./images/Extra06-figures/image3.png" alt="ModelScope Demo界面" width="90%"/>
+  <p>图 3 Mobile-Agent-v3 在线 Demo 界面说明</p>
+</div>
+
+<p>在这个界面中，你可以直接指挥 Agent 进行办公操作，不过目前使用时间有限时。</p>
+<h3 id="2-1-3-典型任务演练"><a href="#2-1-3-典型任务演练" class="headerlink" title="2.1.3 典型任务演练"></a>2.1.3 典型任务演练</h3><p>根据界面提供的预设能力，建议新手从以下两类任务开始尝试：</p>
+<ul>
+<li><strong>系统级控制</strong>：尝试让 Agent 修改系统设置。<ul>
+<li><em>指令示例</em>：“将系统颜色设置为<strong>浅色模式</strong>。”</li>
+<li><em>观察点</em>：Agent 能否像人一样打开“开始菜单 -&gt; 设置 -&gt; 个性化”。</li>
+</ul>
+</li>
+<li><strong>跨应用办公</strong>：尝试让 Agent 联动浏览器和办公软件。<ul>
+<li><em>指令示例</em>：“在 Edge 浏览器中搜索阿里巴巴的股价，然后在 WPS 中新建一个表格，填入公司名和当前股价。”</li>
+<li><em>观察点</em>：Agent 能否准确处理“搜索信息”到“录入信息”的跨软件上下文切换。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-1-4-提示词工程：如何指挥-PC-Agent"><a href="#2-1-4-提示词工程：如何指挥-PC-Agent" class="headerlink" title="2.1.4 提示词工程：如何指挥 PC Agent"></a>2.1.4 提示词工程：如何指挥 PC Agent</h3><p>在 GUI 场景下，高质量的 Prompt 是成功的关键。结合上述办公场景，我们总结了三个核心技巧：</p>
+<ol>
+<li><strong>明确应用边界 (Explicit Context)</strong><ul>
+<li>避免笼统指令，如“写个简介”。</li>
+<li><strong>推荐写法</strong>：“在 <strong>WPS Office 文档</strong>中写一段简介……”</li>
+<li><em>解析</em>：明确指定软件名称（App Name），能减少 Agent 寻找工具的时间。</li>
+</ul>
+</li>
+<li><strong>步骤链式拆解 (Chain of Steps)</strong><ul>
+<li>不要试图用一句话包含所有复杂逻辑。</li>
+<li><strong>推荐写法</strong>：“第一步，打开 Edge 搜索……；第二步，确认网页加载完成后，截取数据……；第三步，打开 Excel 粘贴。”</li>
+<li><em>解析</em>：GUI 操作具有严格的时序性，分步指令能显著降低执行错误率。</li>
+</ul>
+</li>
+<li><strong>视觉属性描述 (Visual Attributes)</strong><ul>
+<li>Agent 是通过“看”屏幕来操作的，利用视觉特征描述更有效。</li>
+<li><strong>推荐写法</strong>：“点击右上角的<strong>蓝色保存按钮</strong>” 或 “将字体颜色改为<strong>红色</strong>”。</li>
+</ul>
+</li>
+</ol>
+<h4 id="2-1-5-在线体验的价值与局限"><a href="#2-1-5-在线体验的价值与局限" class="headerlink" title="2.1.5 在线体验的价值与局限"></a>2.1.5 在线体验的价值与局限</h4><p>ModelScope 提供的在线 Demo 最大的价值在于<strong>零门槛体验</strong>。你不需要配置任何环境，不需要准备手机，甚至不需要下载任何软件，就能直接感受到 GUI Agent 的魔力。这对于快速验证想法、了解技术边界非常有帮助。</p>
+<p>但在线环境也有其局限性。首先是<strong>隐私问题</strong>，所有操作都在云端虚拟机上进行，你无法访问真实的个人数据。其次是<strong>功能限制</strong>，虚拟环境中只预装了部分常用 APP，无法测试特定的应用场景。最后是<strong>性能差异</strong>，云端推理的延迟会比本地部署稍高。</p>
+<p>因此，在线体验适合作为学习和探索的起点，但如果要在真实场景中应用 GUI Agent，你需要尝试本地部署。Mobile-Agent-v3官方提供了一个<a target="_blank" rel="noopener" href="https://github.com/X-PLUG/MobileAgent/blob/main/Mobile-Agent-v3/README_zh.md">教程</a>，可以自行尝试</p>
+<p>接下来的实战二，就将带你使用最近<strong>智谱</strong>开源的AutoGLM走进这个更深入的世界。</p>
+<hr>
+<h3 id="实战二：AutoGLM-本地部署与手机实战"><a href="#实战二：AutoGLM-本地部署与手机实战" class="headerlink" title="实战二：AutoGLM 本地部署与手机实战"></a>实战二：AutoGLM 本地部署与手机实战</h3><p>在线体验让我们感受到了 GUI Agent 的能力，但真正的力量在于部署在自己的设备上，控制真实的应用。AutoGLM 是一个非常适合个人开发者入门的框架，它的架构清晰，文档完善，部署过程相对简单。</p>
+<p>这个实战的目标是在你的电脑上部署 AutoGLM，连接你的 Android 手机，然后让 AI 帮你完成一些真实的任务——比如自动回复微信消息，或者定时刷新某个 APP 获取最新数据。</p>
+<h4 id="2-2-1-环境准备：你需要什么"><a href="#2-2-1-环境准备：你需要什么" class="headerlink" title="2.2.1 环境准备：你需要什么"></a>2.2.1 环境准备：你需要什么</h4><p>Open-AutoGLM 的部署需要两样核心设备：一台能运行 Python 的电脑，以及一部 Android 手机。电脑的配置并不需要太高，因为 AutoGLM 支持调用云端 API，不一定要在本地运行大模型。如果你打算使用云端 API（如智谱的 GLM-4V），一台普通的笔记本就足够了。但如果你想体验完全本地化的方案，那么一块至少 8GB 显存的 GPU 会让体验好很多。</p>
+<p>手机方面，Android 7.0 或更高版本都可以，不需要 Root 权限。iPhone 用户暂时无法使用，因为 iOS 的封闭性导致 ADB 调试方案无法直接应用。</p>
+<p>软件环境方面，你需要安装 Python 3.10 或更高版本，以及 ADB（Android Debug Bridge）工具。ADB 是连接电脑和手机的桥梁，所有的屏幕截图、点击、滑动操作都要通过它来实现。</p>
+<p><strong>安装 ADB 工具 (macOS &#x2F; Linux):</strong> 根据你的系统，在终端执行以下命令：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># macOS 使用 Homebrew</span><br>brew install android-platform-tools<br><br><span class="hljs-comment"># Linux (Ubuntu/Debian)</span><br>sudo apt install android-tools-adb<br></code></pre></td></tr></table></figure>
+
+<p>Windows 用户通常可以直接下载 Platform Tools 压缩包并配置环境变量。<a target="_blank" rel="noopener" href="https://blog.csdn.net/x2584179909/article/details/108319973">参考</a></p>
+<h4 id="2-2-2-第一步：安装-Open-AutoGLM"><a href="#2-2-2-第一步：安装-Open-AutoGLM" class="headerlink" title="2.2.2 第一步：安装 Open-AutoGLM"></a>2.2.2 第一步：安装 Open-AutoGLM</h4><p>如果你拥有 <strong>Claude Code</strong>，你可以配置 <a target="_blank" rel="noopener" href="https://bigmodel.cn/glm-coding">GLM Coding Plan</a> 后，输入以下提示词快速部署：</p>
+<figure class="hljs highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">访问文档，为我安装 AutoGLM<br>https:<span class="hljs-regexp">//</span>raw.githubusercontent.com<span class="hljs-regexp">/zai-org/</span>Open-AutoGLM<span class="hljs-regexp">/refs/</span>heads<span class="hljs-regexp">/main/</span>README.md<br></code></pre></td></tr></table></figure>
+
+<p>如果没有类似的CLI，请按照以下手动步骤操作：</p>
+<p>打开命令行终端，先克隆 Open-AutoGLM 的代码仓库：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/zai-org/Open-AutoGLM.git<br><span class="hljs-built_in">cd</span> Open-AutoGLM<br></code></pre></td></tr></table></figure>
+
+<p>接下来安装依赖。除了基础的依赖包，<strong>一定要执行项目的安装命令</strong>，以确保所有模块能被正确调用：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 安装基础依赖</span><br>pip install -r requirements.txt<br><br><span class="hljs-comment"># 2. 以编辑模式安装项目本身 (关键步骤)</span><br>pip install -e .<br><br><span class="hljs-comment"># 3. (可选) 如果你是开发者，需要额外安装开发依赖</span><br>pip install -e <span class="hljs-string">&quot;.[dev]&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>这个过程通常需要几分钟，取决于你的网络速度。安装完成后，你需要配置 API 密钥。如果使用智谱的 GLM-4V API，先去智谱开放平台注册账号并获取 API Key，然后在项目根目录创建一个 <code>.env</code> 文件：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># .env 文件内容</span><br>GLM_API_KEY=your_api_key_here<br></code></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://modelscope.cn/models/ZhipuAI/AutoGLM-Phone-9B">AutoGLM-Phone-9B · 模型库</a></p>
+<h4 id="2-2-3-第二步：连接你的-Android-手机"><a href="#2-2-3-第二步：连接你的-Android-手机" class="headerlink" title="2.2.3 第二步：连接你的 Android 手机"></a>2.2.3 第二步：连接你的 Android 手机</h4><p>现在到了关键的一步：让电脑能够”看见”并”控制”你的手机。这需要三个小步骤：开启开发者模式、开启 USB 调试、以及<strong>安装 ADB Keyboard</strong>。</p>
+<p><strong>1. 启用开发者模式 &amp; USB 调试</strong> 在 Android 手机上，进入”设置” → “关于手机”，找到”版本号”，<strong>连续点击 7 次</strong>（或直到出现提示），你会看到”您已处于开发者模式”的提示。 返回设置主界面，进入”开发者选项”，找到”USB 调试”并<strong>开启</strong>。</p>
+<p><strong>2. 安装 ADB Keyboard (必须)</strong> 为了让 AI 能在手机上输入文字，我们需要安装专用的 ADB 键盘。</p>
+<ul>
+<li>下载地址：<a target="_blank" rel="noopener" href="https://github.com/senzhk/ADBKeyBoard/raw/master/ADBKeyboard.apk">https://github.com/senzhk/ADBKeyBoard/raw/master/ADBKeyboard.apk</a></li>
+</ul>
+<p>安装后，记得在手机设置的“输入法”中，启用并切换到 <strong>ADB Keyboard</strong>。</p>
+<p><strong>3. 验证连接</strong> 用 USB 数据线将手机连接到电脑（手机上弹出授权框时点击”允许”）。在电脑终端输入：</p>
+<p>Bash</p>
+<figure class="hljs highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">adb devices</span><br></code></pre></td></tr></table></figure>
+
+<p>如果一切正常，你会看到设备序列号：</p>
+<figure class="hljs highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arduino">List of devices attached<br>ABC12345    device<br></code></pre></td></tr></table></figure>
+
+<p>如果显示 <code>device</code>，恭喜你，硬件连接打通了！如果显示 <code>unauthorized</code>，请检查手机屏幕是否弹出了授权确认框。</p>
+<p>对于 Windows 用户，可能还需要安装手机的驱动程序。大部分品牌的手机（如小米、华为、OPPO）都会在连接电脑时自动安装驱动，但如果遇到问题，可以去官网下载对应的 USB 驱动。</p>
+<div align="center">
+  <img src="./images/Extra06-figures/image4.png" alt="手机ADB连接配置步骤" width="90%"/>
+  <p>图 4 Android 手机 ADB 连接完整配置流程</p>
+</div>
+
+
+<h4 id="2-2-4-第三步：运行你的第一个任务"><a href="#2-2-4-第三步：运行你的第一个任务" class="headerlink" title="2.2.4 第三步：运行你的第一个任务"></a>2.2.4 第三步：运行你的第一个任务</h4><p>连接成功后，让我们来执行一个简单但实用的任务。</p>
+<p>有两种直接调用API的连接方式：</p>
+<p><strong>1. 智谱 BigModel</strong></p>
+<ul>
+<li>文档: <a target="_blank" rel="noopener" href="https://docs.bigmodel.cn/cn/api/introduction">https://docs.bigmodel.cn/cn/api/introduction</a></li>
+<li><code>--base-url</code>: <code>https://open.bigmodel.cn/api/paas/v4</code></li>
+<li><code>--model</code>: <code>autoglm-phone</code></li>
+<li><code>--apikey</code>: 在智谱平台申请你的 API Key</li>
+</ul>
+<p><strong>2. ModelScope(魔搭社区)</strong></p>
+<ul>
+<li>文档: <a target="_blank" rel="noopener" href="https://modelscope.cn/models/ZhipuAI/AutoGLM-Phone-9B">https://modelscope.cn/models/ZhipuAI/AutoGLM-Phone-9B</a></li>
+<li><code>--base-url</code>: <code>https://api-inference.modelscope.cn/v1</code></li>
+<li><code>--model</code>: <code>ZhipuAI/AutoGLM-Phone-9B</code></li>
+<li><code>--apikey</code>: 在 ModelScope 平台申请你的 API Key</li>
+</ul>
+<p>官方的readme里提供了一个命令行接口，你可以直接输入：</p>
+<figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用智谱 BigModel</span><br>python main.py --base-url https://open.bigmodel.cn/api/paas/v4 --model <span class="hljs-string">&quot;autoglm-phone&quot;</span> --apikey <span class="hljs-string">&quot;your-bigmodel-api-key&quot;</span> <span class="hljs-string">&quot;打开美团搜索附近的火锅店&quot;</span><br><br><span class="hljs-comment"># 使用 ModelScope</span><br>python main.py --base-url https://api-inference.modelscope.cn/v1 --model <span class="hljs-string">&quot;ZhipuAI/AutoGLM-Phone-9B&quot;</span> --apikey <span class="hljs-string">&quot;your-modelscope-api-key&quot;</span> <span class="hljs-string">&quot;打开美团搜索附近的火锅店&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>执行这个命令后，AutoGLM 会启动推理流程。你会在终端看到实时的日志输出，同时手机屏幕上会开始自动操作。整个过程大概是这样的：</p>
+<p>首先，AutoGLM 会通过 ADB 截取当前屏幕的截图，将图像发送给模型分析。模型会识别出屏幕上的所有 APP 图标，并在像素级别定位到”美团”的位置。然后 AutoGLM 发送点击指令，通过 <code>adb shell input tap x y</code> 唤醒应用。</p>
+<p>等待美团启动后，AutoGLM 再次截屏。这次它的目标是找到首页上方的”搜索栏”。识别并点击搜索框后，<strong>它会调用我们在环境准备阶段安装的 ADB Keyboard</strong>，将”附近的火锅”这串字符输入进去，最后自动点击搜索按钮。</p>
+<p>整个过程通常需要 15-20 秒（搜索任务步骤稍多），具体时间取决于模型的推理速度和网络延迟。如果你使用的是云端 API，每一步的”思考”时间大约是 2-3 秒。如果是本地部署的模型，配置较好的 GPU 可以将单步时间压缩到 1 秒左右。</p>
+<hr>
+<h2 id="总结与展望"><a href="#总结与展望" class="headerlink" title="总结与展望"></a>总结与展望</h2><p>通过这两个层次递进的实战，我们完整地体验了 GUI Agent 从在线演示到本地部署的全过程。Mobile-Agent 的在线 Demo 让我们快速理解了技术的可能性，AutoGLM 的手机实战让我们掌握了实际部署的技能，而 GLM-ZERO 的端侧方案则展示了隐私保护和离线应用的未来。</p>
+<p>GUI Agent 技术仍在快速演进中。当前的系统虽然已经能够处理大部分日常任务，但在准确率、推理速度和成本控制上还有很大的提升空间。随着视觉大模型的持续进步，以及端侧推理芯片的发展，我们有理由相信，GUI Agent 将成为未来人机交互的重要范式。</p>
+<p>或许不久的将来，每个人都将拥有一个真正智能的数字助手，它不仅能理解你的意图，还能跨越不同的应用和平台，帮你完成各种重复性的工作。那时候，我们今天费力编写的自动化脚本，都将变成一句简单的自然语言指令。</p>
+<p>这个未来，其实已经在路上了。</p>
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li>Mobile-Agent-v3 论文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2508.15144">https://arxiv.org/abs/2508.15144</a></li>
+<li>Open-AutoGLM GitHub：<a target="_blank" rel="noopener" href="https://github.com/zai-org/Open-AutoGLM">https://github.com/zai-org/Open-AutoGLM</a></li>
+<li>UI-TARS 项目：<a target="_blank" rel="noopener" href="https://github.com/bytedance/UI-TARS">https://github.com/bytedance/UI-TARS</a></li>
+</ol>
+
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        <a class="post-tag button" href="/tags/Hello-Agents-%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fas fa-tags"></i>Hello Agents 学习</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  
+  <nav class="page-nav">
+    <div class="page-nav-next page-nav-item">
+      
+      <a href="/2026/03/03/ai-agent-learning/Extra05-AgentSkills%E8%A7%A3%E8%AF%BB/" rel="next" title="Agent Skills 与 MCP：智能体能力扩展的两种范式"><i class="fas fa-angle-left"></i><span class="nav-title">Agent Skills 与 MCP：智能体能力扩展的两种范式</span></a>
+      
+    </div>
+    <div class="page-nav-prev page-nav-item">
+      
+      <a href="/2026/03/03/ai-agent-learning/Extra07-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="prev" title="Extra07 - 环境配置"><span class="nav-title">Extra07 - 环境配置</span><i class="fas fa-angle-right"></i></a>
+      
+    </div>
+  </nav>
+  
+  
+</div>
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/background.png);">
+  
+  <div class="search">
+    <div class="form-group">
+      <i class="fas fa-search"></i><input type="search" id="search-input" name="q" results="0" placeholder="Search" class="form-control"/>
+    </div>
+  </div>
+  <div class="search-result-box" id="search-result"></div>
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <img class="author-avatar" src="/img/avatar.jpg" alt="Jason Dong">
+  
+  <h1 class="author-name">Jason Dong</h1>
+  <h2 class="author-description"></h2>
+  <div class="site-count">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+    
+    
+    
+    <hr>
+    <div class="post-toc sidebar-item" id="toc-div">
+      <div><i class="fas fa-list-ol"></i>Table of Contents</div>
+      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-1"><a class="list-group-item toc-link" href="#GUI-Agent-%E7%A7%91%E6%99%AE%E4%B8%8E%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E4%B8%8B%E4%B8%80%E4%BB%A3%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92%E7%9A%84%E6%8E%A2%E7%B4%A2%E4%B9%8B%E6%97%85"><span class="toc-text">GUI Agent 科普与实战——下一代人机交互的探索之旅</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E5%BC%95%E8%A8%80%EF%BC%9A%E5%BD%93-AI-%E5%AD%A6%E4%BC%9A%E2%80%9D%E7%9C%8B%E2%80%9D%E5%B1%8F%E5%B9%95"><span class="toc-text">引言：当 AI 学会”看”屏幕</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9AGUI-Agent-%E6%8A%80%E6%9C%AF%E7%A7%91%E6%99%AE"><span class="toc-text">第一部分：GUI Agent 技术科普</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#1-1-GUI-Agent-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">1.1 GUI Agent 是什么？</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#1-1-1-%E4%BB%8E-RPA-%E5%88%B0-AI-Agent-%E7%9A%84%E8%8C%83%E5%BC%8F%E8%BD%AC%E5%8F%98"><span class="toc-text">1.1.1 从 RPA 到 AI Agent 的范式转变</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#1-1-2-%E4%B8%BA%E4%BB%80%E4%B9%88-GUI-Agent-%E7%AA%81%E7%84%B6%E7%81%AB%E4%BA%86%EF%BC%9F"><span class="toc-text">1.1.2 为什么 GUI Agent 突然火了？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#1-2-GUI-Agent-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84"><span class="toc-text">1.2 GUI Agent 的核心技术架构</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#1-2-1-%E6%84%9F%E7%9F%A5%E5%B1%82%EF%BC%9A%E6%9C%BA%E5%99%A8%E5%A6%82%E4%BD%95%E2%80%9D%E7%9C%8B%E8%A7%81%E2%80%9D%E5%B1%8F%E5%B9%95"><span class="toc-text">1.2.1 感知层：机器如何”看见”屏幕</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#1-2-2-%E6%8E%A8%E7%90%86%E5%B1%82%EF%BC%9A%E5%A4%A7%E8%84%91%E7%9A%84%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B"><span class="toc-text">1.2.2 推理层：大脑的决策过程</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#1-2-3-%E6%89%A7%E8%A1%8C%E5%B1%82%EF%BC%9A%E4%BB%8E%E5%86%B3%E7%AD%96%E5%88%B0%E8%A1%8C%E5%8A%A8"><span class="toc-text">1.2.3 执行层：从决策到行动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#1-3-%E4%B8%BB%E6%B5%81%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E5%85%A8%E6%99%AF%E5%AF%B9%E6%AF%94"><span class="toc-text">1.3 主流开源框架全景对比</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#1-4-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8E%E6%8A%80%E6%9C%AF%E5%B1%80%E9%99%90"><span class="toc-text">1.4 应用场景与技术局限</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#1-4-1-%E4%BA%94%E5%A4%A7%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">1.4.1 五大典型应用场景</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#1-4-2-%E5%BD%93%E5%89%8D%E6%8A%80%E6%9C%AF%E7%9A%84%E4%B8%89%E5%A4%A7%E5%B1%80%E9%99%90"><span class="toc-text">1.4.2 当前技术的三大局限</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9AGUI-Agent-%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B"><span class="toc-text">第二部分：GUI Agent 实战教程</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E5%AE%9E%E6%88%98%E4%B8%80%EF%BC%9AMobile-Agent-%E5%9C%A8%E7%BA%BF%E4%BD%93%E9%AA%8C%EF%BC%88%E9%9B%B6%E9%97%A8%E6%A7%9B%EF%BC%89"><span class="toc-text">实战一：Mobile-Agent 在线体验（零门槛）</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#2-1-1-%E8%AE%BF%E9%97%AE%E5%9C%A8%E7%BA%BF-Demo"><span class="toc-text">2.1.1 访问在线 Demo</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#2-1-2-%E7%95%8C%E9%9D%A2%E5%8A%9F%E8%83%BD%E5%AF%BC%E8%A7%88"><span class="toc-text">2.1.2 界面功能导览</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#2-1-3-%E5%85%B8%E5%9E%8B%E4%BB%BB%E5%8A%A1%E6%BC%94%E7%BB%83"><span class="toc-text">2.1.3 典型任务演练</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#2-1-4-%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B%EF%BC%9A%E5%A6%82%E4%BD%95%E6%8C%87%E6%8C%A5-PC-Agent"><span class="toc-text">2.1.4 提示词工程：如何指挥 PC Agent</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#2-1-5-%E5%9C%A8%E7%BA%BF%E4%BD%93%E9%AA%8C%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B1%80%E9%99%90"><span class="toc-text">2.1.5 在线体验的价值与局限</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#%E5%AE%9E%E6%88%98%E4%BA%8C%EF%BC%9AAutoGLM-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E4%B8%8E%E6%89%8B%E6%9C%BA%E5%AE%9E%E6%88%98"><span class="toc-text">实战二：AutoGLM 本地部署与手机实战</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#2-2-1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%EF%BC%9A%E4%BD%A0%E9%9C%80%E8%A6%81%E4%BB%80%E4%B9%88"><span class="toc-text">2.2.1 环境准备：你需要什么</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#2-2-2-%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%AE%89%E8%A3%85-Open-AutoGLM"><span class="toc-text">2.2.2 第一步：安装 Open-AutoGLM</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#2-2-3-%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E8%BF%9E%E6%8E%A5%E4%BD%A0%E7%9A%84-Android-%E6%89%8B%E6%9C%BA"><span class="toc-text">2.2.3 第二步：连接你的 Android 手机</span></a></li><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#2-2-4-%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E8%BF%90%E8%A1%8C%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BB%BB%E5%8A%A1"><span class="toc-text">2.2.4 第三步：运行你的第一个任务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E6%80%BB%E7%BB%93%E4%B8%8E%E5%B1%95%E6%9C%9B"><span class="toc-text">总结与展望</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></li></ol></div>
+    </div>
+    
+    
+    
+    <hr>
+    <div class="social-link sidebar-item">
+      <div><i class="far fa-address-card"></i>Social Links</p></div>
+      <ul>
+        
+        <li><i class="fab fa-github"></i><a href="https://github.com/JasonDong97" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-envelope"></i><a href="mailto:534458392@qq.com" target="_blank">Email</a></li>
+        
+      </ul>
+    </div>
+    
+    
+    <hr>
+    <div class="blogroll sidebar-item">
+      <div><i class="fas fa-link"></i>Blogroll</div>
+      <ul>
+        
+        <li><i class="fas fa-link"></i><a href="https://hexo.io/" target="_blank">Hexo</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://developer.mozilla.org/" target="_blank">MDN</a></li>
+        
+      </ul>
+    </div>
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer" style="background: #33363b;">
+  <div class="container">
+    <div class="back-to-top">
+      <button id="back-to-top"><i class="fas fa-angle-double-up" aria-label="Back to Top"></i></button>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">Jason Dong</span><span class="year"><i class="far fa-copyright"></i>2020 - 2026</span><span class="creative-commons"><i class="fab fa-creative-commons"></i><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">BY-NC-SA 4.0</a></span>
+        </div>
+        
+        <div class="busuanzi">
+          <span id="busuanzi_container_site_pv"><i class="fas fa-eye" aria-label="Site Visit Count" aria-hidden="false"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user" aria-label="Site User Count" aria-hidden="false"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv" aria-label="Page Click Count" aria-hidden="false"></span></span>
+        </div>
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+          <i class="fas fa-heart"></i> Jason Dong | 托管于 <i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+          
+        </div>
+        <div class="powered-by">
+          Proudly Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme is <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>
