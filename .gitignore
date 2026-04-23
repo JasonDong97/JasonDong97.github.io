@@ -4,3 +4,5 @@ node_modules
 .github
 public/
 .deploy_git/
+
+db.json
