@@ -1,8 +1,5 @@
 .history
-node_modules
-.vscode
-.github
-public/
 .deploy_git/
-
+public/
+node_modules
 db.json
