@@ -64,3 +64,11 @@ deploy:
   repo: https://github.com/JasonDong97/JasonDong97.github.io.git
   branch: gh-pages
   message: "hexo-deploy"
+
+# 自动归档
+archive_generator:
+  enable: true
+  per_page: 10
+  yearly: true
+  monthly: true
+  daily: false
