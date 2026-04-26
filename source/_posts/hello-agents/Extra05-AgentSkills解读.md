@@ -1,13 +1,13 @@
 ---
-title: Agent Skills 与 MCP：智能体能力扩展的两种范式
-date: 2026-03-03 04:00:00
+title: Extra04 - Agent Skills 与 MCP：智能体能力扩展的两种范式
+date: 2026-03-06 
 tags:
   - Hello Agents 学习
 categories:
   - Hello Agents 学习
 ---
 
-# Agent Skills 与 MCP：智能体能力扩展的两种范式
+# Extra04 - Agent Skills 与 MCP：智能体能力扩展的两种范式
 
 ## 引言：MCP 之后，我们还需要什么？
 

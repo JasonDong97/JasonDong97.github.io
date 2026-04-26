@@ -1,13 +1,13 @@
 ---
-title: 05. 如何写出好的 Skill
-date: 2026-03-03 10:00:00
+title: Extra06 - 如何写出好的 Skill
+date: 2026-03-09
 tags:
   - Hello Agents 学习
 categories:
   - Hello Agents 学习
 ---
 
-# 05. 如何写出好的 Skill
+# Extra06 - 如何写出好的 Skill
 
 > 什么是 Skill？怎么写好skill？
 > 我们沿着 skill-creator 的设计思路，找到答案。

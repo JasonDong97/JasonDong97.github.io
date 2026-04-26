@@ -1,13 +1,13 @@
 ---
-title: GUI Agent 科普与实战——下一代人机交互的探索之旅
-date: 2026-03-03 06:00:00
+title: Extra06 - GUI Agent 科普与实战——下一代人机交互的探索之旅
+date: 2026-03-07
 tags:
   - Hello Agents 学习
 categories:
   - Hello Agents 学习
 ---
 
-# GUI Agent 科普与实战——下一代人机交互的探索之旅
+# Extra06 - GUI Agent 科普与实战——下一代人机交互的探索之旅
 
 ## 引言：当 AI 学会"看"屏幕
 

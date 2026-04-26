@@ -31,7 +31,7 @@
     "hexo-renderer-pug": "^3.0.0",
     "hexo-renderer-stylus": "^2.1.0",
     "hexo-server": "^2.0.0",
-    "hexo-theme-butterfly": "^4.9.0",
+    "hexo-theme-butterfly": "^4.13.0",
     "inferno": "^7.3.3",
     "inferno-create-element": "^7.3.3"
   }

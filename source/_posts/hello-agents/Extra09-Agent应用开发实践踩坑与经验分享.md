@@ -1,13 +1,13 @@
 ---
-title: Agent应用开发实践踩坑与经验分享
-date: 2026-03-03 12:00:00
+title: Extra06 - Agent应用开发实践踩坑与经验分享
+date: 2026-03-10
 tags:
   - Hello Agents 学习
 categories:
   - Hello Agents 学习
 ---
 
-# Agent应用开发实践踩坑与经验分享
+# Extra06 - Agent应用开发实践踩坑与经验分享
 
 学完 Hello-Agents 教程之后，最后一个任务是毕业设计。用所学的知识自己手搓一个Agent应用，刚好那段时间 Code Agent 特别火，Cursor、Claude Code、Codex... 各家都在推自己的产品。心想既然要练手，不如复刻一个 Code Agent，自己手搓一遍，才能真正理解这些产品为什么好用，以及它们到底在工程上做对了什么。
 

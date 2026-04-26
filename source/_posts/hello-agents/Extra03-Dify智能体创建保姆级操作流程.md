@@ -1,13 +1,13 @@
 ---
-title: Dify智能体搭建实战指南：<br>从零构建全能个人助手(保姆级教程)
-date: 2026-03-03 02:00:00
+title: Extra03 - Dify智能体搭建实战指南：<br>从零构建全能个人助手(保姆级教程)
+date: 2026-03-05
 tags:
   - Hello Agents 学习
 categories:
   - Hello Agents 学习
 ---
 
-# Dify智能体搭建实战指南：<br>从零构建全能个人助手(保姆级教程)
+# Extra03 - Dify智能体搭建实战指南：<br>从零构建全能个人助手(保姆级教程)
 
 <div align="center">
   <img src="https://github.com/Tasselszcx.png" width="80" height="80" style="border-radius: 50%;" />
